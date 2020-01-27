@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\3rd\libuv\src\fs-poll.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\inet.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\threadpool.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\uv-common.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\version.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\async.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\core.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\dl.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\error.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\fs-event.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\fs.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\getaddrinfo.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\getnameinfo.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\handle.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\loop-watcher.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\pipe.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\poll.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\process-stdio.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\process.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\req.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\signal.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\snprintf.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\stream.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\tcp.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\thread.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\timer.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\tty.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\udp.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\util.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\winapi.c" />
+    <ClCompile Include="..\..\3rd\libuv\src\win\winsock.c" />
+    <ClCompile Include="..\..\apps\test\TestCpp.cpp" />
+    <ClCompile Include="..\..\utils\cache_alloc.c" />
+    <ClCompile Include="AbstractSession.cpp" />
+    <ClCompile Include="Netbus.cpp" />
+    <ClCompile Include="UvSession.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\pthread-barrier.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\stdint-msvc2008.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\tree.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-aix.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-bsd.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-darwin.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-errno.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-linux.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-sunos.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-threadpool.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-unix.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-version.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv-win.h" />
+    <ClInclude Include="..\..\3rd\libuv\include\uv.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\heap-inl.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\queue.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\uv-common.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\win\atomicops-inl.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\win\handle-inl.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\win\internal.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\win\req-inl.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\win\stream-inl.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\win\winapi.h" />
+    <ClInclude Include="..\..\3rd\libuv\src\win\winsock.h" />
+    <ClInclude Include="..\..\utils\cache_alloc.h" />
+    <ClInclude Include="AbstractSession.h" />
+    <ClInclude Include="Netbus.h" />
+    <ClInclude Include="UvSession.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{9F1E693F-D772-4D61-9070-08867444F8B1}</ProjectGuid>
+    <RootNamespace>MobaServer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>F:\Projects\unity\Moba\Server\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalOptions>ws2_32.lib Iphlpapi.lib Psapi.lib Userenv.lib %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
