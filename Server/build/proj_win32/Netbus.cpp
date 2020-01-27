@@ -1,6 +1,7 @@
 #include "Netbus.h"
 #include <uv.h>
 #include "UvSession.h"
+#include "WebSocketProtocol.h"
 
 
 #pragma region 回调函数
@@ -44,14 +45,40 @@ extern "C"
 			return;
 		}
 
+		session->recved += nread;
+
+
+		switch (session->socketType)
+		{
+		case SocketType::TcpSocket:
+			break;
+		case SocketType::WebSocket: 
+
+			if (session->isWebSocketShakeHand == 0)
+			{	//	shakeHand
+				if (WebSocketProtocol::ShakeHand(session, session->recvBuf, session->recved))
+				{	//握手成功
+					session->isWebSocketShakeHand = 1;
+				}
+			}
+			else//	recv/send Data
+			{
+
+			}
+			break;
+		default:
+			break;
+		}
+
+
 		//字符串结尾
-		buf->base[nread] = 0;
-		printf("recv %d\t%s\n", nread, buf->base);
+		//buf->base[nread] = 0;
+		//printf("recv %d\t%s\n", nread, buf->base);
 
-		//发送信息
-		session->SendData((unsigned char*)buf->base, buf->len);
+		////发送信息
+		//session->SendData((unsigned char*)buf->base, buf->len);
 
-		session->Close();
+		//session->Close();
 	}
 
 	//TCP有用户链接进来
@@ -128,6 +155,27 @@ void Netbus::StartTcpServer(int port)const
 
 void Netbus::StartWebsocketServer(int port)const
 {
+	auto listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
+
+	memset(listen, 0, sizeof(uv_tcp_t));
+
+	sockaddr_in addr;
+	uv_ip4_addr("0.0.0.0", port, &addr);
+	uv_tcp_init(uv_default_loop(), listen);
+	auto ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
+	if (0 != ret)
+	{
+		printf("bind error\n");
+		free(listen);
+		listen = nullptr;
+		return;
+	}
+
+	//强转记录socket类型
+	listen->data = (void*)SocketType::WebSocket;
+
+	uv_listen((uv_stream_t*)listen, SOMAXCONN, OnConnect);
+	printf("Tcp 服务器已开机\n");
 }
 
 void Netbus::Run()const

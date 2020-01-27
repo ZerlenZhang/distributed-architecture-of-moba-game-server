@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\3rd\http_parser\http_parser.c" />
     <ClCompile Include="..\..\3rd\libuv\src\fs-poll.c" />
     <ClCompile Include="..\..\3rd\libuv\src\inet.c" />
     <ClCompile Include="..\..\3rd\libuv\src\threadpool.c" />
@@ -55,8 +56,10 @@
     <ClCompile Include="AbstractSession.cpp" />
     <ClCompile Include="Netbus.cpp" />
     <ClCompile Include="UvSession.cpp" />
+    <ClCompile Include="WebSocketProtocol.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\3rd\http_parser\http_parser.h" />
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h" />
     <ClInclude Include="..\..\3rd\libuv\include\pthread-barrier.h" />
     <ClInclude Include="..\..\3rd\libuv\include\stdint-msvc2008.h" />
@@ -86,6 +89,7 @@
     <ClInclude Include="AbstractSession.h" />
     <ClInclude Include="Netbus.h" />
     <ClInclude Include="UvSession.h" />
+    <ClInclude Include="WebSocketProtocol.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

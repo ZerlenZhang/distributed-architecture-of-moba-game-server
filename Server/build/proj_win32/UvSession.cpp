@@ -108,6 +108,7 @@ const char* UvSession::GetAddress(int & clientPort) const
 #pragma endregion
 
 
+
 #pragma region Override
 
 void UvSession::Enable()
@@ -119,6 +120,7 @@ void UvSession::Enable()
 	memset(this->clientAddress, 0, sizeof(this->clientAddress));
 	this->clientPort = 0;
 	this->recved = 0;
+	this->isWebSocketShakeHand = 0;
 }
 
 void UvSession::Disable()

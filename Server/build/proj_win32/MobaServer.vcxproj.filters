@@ -28,6 +28,9 @@
     <Filter Include="3rd\libuv\src\win">
       <UniqueIdentifier>{bcbe48da-9d37-4098-a3f6-70a43e102442}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rd\http_parser">
+      <UniqueIdentifier>{9e48b74e-61e8-4c9d-a88b-7e9879b6d462}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\apps\test\TestCpp.cpp">
@@ -138,6 +141,12 @@
     <ClCompile Include="..\..\utils\cache_alloc.c">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\3rd\http_parser\http_parser.c">
+      <Filter>3rd\http_parser</Filter>
+    </ClCompile>
+    <ClCompile Include="WebSocketProtocol.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h">
@@ -226,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="..\..\utils\cache_alloc.h">
       <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\http_parser\http_parser.h">
+      <Filter>3rd\http_parser</Filter>
+    </ClInclude>
+    <ClInclude Include="WebSocketProtocol.h">
+      <Filter>netbus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
