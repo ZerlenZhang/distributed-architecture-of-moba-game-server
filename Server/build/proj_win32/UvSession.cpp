@@ -1,5 +1,6 @@
 #include "UvSession.h"
 #include "../../utils/cache_alloc.h"
+#include "WebSocketProtocol.h"
 
 #pragma region 内存管理
 
@@ -7,15 +8,15 @@
 #define	WRITEREQ_CACHE 2048
 
 //初始化内存分配器
-static cache_allocer* sessionAllocer = nullptr;
-static cache_allocer* wrAllocer = nullptr;
+static cache_allocer* sessionAllocer = NULL;
+static cache_allocer* wrAllocer = NULL;
 void InitSessionAllocer()
 {
-	if (nullptr == sessionAllocer)
+	if (NULL == sessionAllocer)
 	{
 		sessionAllocer = create_cache_allocer(SESSION_CACHE, sizeof(UvSession));
-	}	
-	if (nullptr == wrAllocer)
+	}
+	if (NULL == wrAllocer)
 	{
 		wrAllocer = create_cache_allocer(WRITEREQ_CACHE, sizeof(uv_write_t));
 	}
@@ -63,16 +64,16 @@ UvSession* UvSession::Create()
 	temp->UvSession::UvSession();
 	temp->Enable();
 	return temp;
-} 
+}
 
-void UvSession::Destory(UvSession* & session)
+void UvSession::Destory(UvSession*& session)
 {
 	session->Disable();
 	//手动析构
 	session->UvSession::~UvSession();
 	cache_free(sessionAllocer, session);
 
-	session = nullptr;
+	session = NULL;
 
 }
 
@@ -95,11 +96,40 @@ void UvSession::SendData(unsigned char* body, int len)
 {
 	//测试发送给我们的客户端
 	auto w_req = (uv_write_t*)cache_alloc(wrAllocer, sizeof(uv_write_t));
-	auto w_buf =  uv_buf_init((char*)body, len);
-	uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
+	uv_buf_t w_buf;
+	switch (this->socketType)
+	{
+
+	#pragma region WebSocket协议
+	case SocketType::WebSocket:
+		if (this->isWebSocketShakeHand)
+		{// 握过手
+			int pkgSize;
+			auto wsPkg = WebSocketProtocol::PackageData(body, len, &pkgSize);
+			w_buf = uv_buf_init((char*)wsPkg, pkgSize);
+			uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
+			WebSocketProtocol::FreePackageData(wsPkg);
+		}
+		else
+		{// 没有握过手
+			w_buf = uv_buf_init((char*)body, len);
+			uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
+		}
+		break;
+	#pragma endregion
+
+
+	case SocketType::TcpSocket:
+
+		break;
+	default:
+		break;
+	}
+
+
 }
 
-const char* UvSession::GetAddress(int & clientPort) const
+const char* UvSession::GetAddress(int& clientPort) const
 {
 	clientPort = this->clientPort;
 	return this->clientAddress;
@@ -121,6 +151,8 @@ void UvSession::Enable()
 	this->clientPort = 0;
 	this->recved = 0;
 	this->isWebSocketShakeHand = 0;
+	this->long_pkg = NULL;
+	this->long_pkg_size = 0;
 }
 
 void UvSession::Disable()

@@ -19,6 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\3rd\crypto\base64_decoder.c" />
+    <ClCompile Include="..\..\3rd\crypto\base64_encoder.c" />
+    <ClCompile Include="..\..\3rd\crypto\md5.c" />
+    <ClCompile Include="..\..\3rd\crypto\sha1.c" />
     <ClCompile Include="..\..\3rd\http_parser\http_parser.c" />
     <ClCompile Include="..\..\3rd\libuv\src\fs-poll.c" />
     <ClCompile Include="..\..\3rd\libuv\src\inet.c" />
@@ -59,6 +63,10 @@
     <ClCompile Include="WebSocketProtocol.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\3rd\crypto\base64_decoder.h" />
+    <ClInclude Include="..\..\3rd\crypto\base64_encoder.h" />
+    <ClInclude Include="..\..\3rd\crypto\md5.h" />
+    <ClInclude Include="..\..\3rd\crypto\sha1.h" />
     <ClInclude Include="..\..\3rd\http_parser\http_parser.h" />
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h" />
     <ClInclude Include="..\..\3rd\libuv\include\pthread-barrier.h" />

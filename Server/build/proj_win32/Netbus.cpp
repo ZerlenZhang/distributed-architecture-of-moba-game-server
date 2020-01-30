@@ -3,6 +3,9 @@
 #include "UvSession.h"
 #include "WebSocketProtocol.h"
 
+void OnWebSocketRecvCommond(UvSession* session, unsigned char* body, int len);
+void OnWebSocketRecvData(UvSession* session);
+
 
 #pragma region 回调函数
 
@@ -27,9 +30,46 @@ extern "C"
 		uv_buf_t* buf) {
 
 		auto session = (UvSession*)handle->data;
-		*buf = uv_buf_init(
-			session->recvBuf + session->recved,
-			RECV_LEN - session->recved); 
+
+		if (session->recved < RECV_LEN)
+		{
+			//session的长度为 RECV_LEN 的recvBuf还没有存满
+			*buf = uv_buf_init(session->recvBuf + session->recved,RECV_LEN - session->recved); 
+		}
+		else
+		{// recvBuf读满了，但是还没有读完 
+
+		
+			if (session->long_pkg == NULL)
+			{// 如果还没有new空间
+
+				switch (session->socketType)
+				{
+				case SocketType::TcpSocket:
+					break;
+				#pragma region WebSocket协议
+				case SocketType::WebSocket:
+					
+					if (session->isWebSocketShakeHand)
+					{// 握过手
+						int pkgSize;
+						int headSize;
+						WebSocketProtocol::ReadHeader((unsigned char*)session->recvBuf, session->recved, &pkgSize, &headSize);
+					
+						session->long_pkg_size = pkgSize;
+						session->long_pkg = (char*)malloc(pkgSize);
+					
+						memcpy(session->long_pkg, session->recvBuf, session->recved);
+					}
+					break;
+				#pragma endregion
+
+				}
+			}
+
+			*buf = uv_buf_init(session->long_pkg + session->recved, session->long_pkg_size - session->recved);
+		}
+		
 	}
 
 	//读取结束后的回调
@@ -41,44 +81,41 @@ extern "C"
 
 		//连接断开
 		if (nread < 0) {
+			printf("链接断开\n");
 			session->Close();
 			return;
 		}
 
 		session->recved += nread;
 
-
 		switch (session->socketType)
 		{
 		case SocketType::TcpSocket:
 			break;
+
+		#pragma region WebSocket协议	
 		case SocketType::WebSocket: 
 
 			if (session->isWebSocketShakeHand == 0)
 			{	//	shakeHand
 				if (WebSocketProtocol::ShakeHand(session, session->recvBuf, session->recved))
 				{	//握手成功
+					printf("握手成功\n");
 					session->isWebSocketShakeHand = 1;
+					session->recved = 0;
 				}
 			}
 			else//	recv/send Data
 			{
-
+				OnWebSocketRecvData(session);
 			}
 			break;
+		#pragma endregion
+
+
 		default:
 			break;
 		}
-
-
-		//字符串结尾
-		//buf->base[nread] = 0;
-		//printf("recv %d\t%s\n", nread, buf->base);
-
-		////发送信息
-		//session->SendData((unsigned char*)buf->base, buf->len);
-
-		//session->Close();
 	}
 
 	//TCP有用户链接进来
@@ -121,6 +158,74 @@ extern "C"
 #pragma endregion
 
 
+#pragma region WebSocket函数
+
+static void OnWebSocketRecvCommond(UvSession* session,unsigned char* body,int len)
+{
+	printf("client command!!\n");
+
+	//test
+	session->SendData(body, len);
+}
+
+static void OnWebSocketRecvData(UvSession* session)
+{
+	auto pkgData = (unsigned char*)(session->long_pkg != NULL ? session->long_pkg : session->recvBuf);
+
+	while (session->recved > 0)
+	{
+		//是否是关闭包
+		if (pkgData[0] == 0x88) {
+			session->Close();
+			return;
+		}
+
+		int pkgSize;
+		int headSize;
+		if (!WebSocketProtocol::ReadHeader(pkgData, session->recved, &pkgSize, &headSize))
+		{// 读取包头失败
+			printf("读取包头失败\n");
+			break;
+		}
+
+		if (session->recved < pkgSize)
+		{// 没有收完数据
+			printf("没有收完数据\n");
+			break;
+		}
+
+		//掩码位置紧随头部数据之后
+		//body位置在掩码之后
+		unsigned char* body = pkgData + headSize;
+		unsigned char* mask = body - 4;
+
+		//解析收到的纯数据
+		WebSocketProtocol::ParserRecvData(body, mask, pkgSize);
+
+		//处理收到的完整数据包
+		OnWebSocketRecvCommond(session, body, pkgSize);
+	
+		if (session->recved > pkgSize)
+		{
+			memmove(pkgData, pkgData + pkgSize, session->recved - pkgSize);
+		}
+
+		//每次减去读取到的长度
+		session->recved -= pkgSize;
+
+		//如果长包处理完了
+		if (session->recved == 0 && session->long_pkg != NULL)
+		{
+			free(session->long_pkg);
+			session->long_pkg = NULL;
+			session->long_pkg_size = 0;
+		}
+	}
+}
+
+#pragma endregion
+
+
 
 static Netbus g_instance;
 const Netbus* Netbus::Instance()
@@ -142,7 +247,7 @@ void Netbus::StartTcpServer(int port)const
 	{
 		printf("bind error\n");
 		free(listen);
-		listen = nullptr;
+		listen = NULL;
 		return;
 	}
 
@@ -153,7 +258,7 @@ void Netbus::StartTcpServer(int port)const
 	printf("Tcp 服务器已开机\n");
 }
 
-void Netbus::StartWebsocketServer(int port)const
+void Netbus::StartWebSocketServer(int port)const
 {
 	auto listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
 
@@ -167,7 +272,7 @@ void Netbus::StartWebsocketServer(int port)const
 	{
 		printf("bind error\n");
 		free(listen);
-		listen = nullptr;
+		listen = NULL;
 		return;
 	}
 

@@ -51,6 +51,10 @@ public:
 
 	//WebSocket情况下是否已经握手
 	int isWebSocketShakeHand;
+
+	// 如果包体大小超过 RECV_LEN 包数据就保存在这里，而不是recvData
+	char* long_pkg;
+	int long_pkg_size;
 private:
 	//是否已经关闭，用于在异步时避免重复关闭
 	bool isShutDown;

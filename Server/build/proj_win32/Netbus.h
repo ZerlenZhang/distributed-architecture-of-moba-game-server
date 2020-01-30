@@ -13,7 +13,7 @@ public:
 	static const Netbus* Instance();
 public:
 	void StartTcpServer(int port)const;
-	void StartWebsocketServer(int port)const;
+	void StartWebSocketServer(int port)const;
 	void Run()const;
 	void Init()const;
 };
@@ -26,6 +26,4 @@ public:
 
 
 #endif // !__NETBUS_H__
-
-
 

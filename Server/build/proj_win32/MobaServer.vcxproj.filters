@@ -31,6 +31,9 @@
     <Filter Include="3rd\http_parser">
       <UniqueIdentifier>{9e48b74e-61e8-4c9d-a88b-7e9879b6d462}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3rd\crypto">
+      <UniqueIdentifier>{ba1c91bf-c8ec-42d4-aa34-4c8363e9ed50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\apps\test\TestCpp.cpp">
@@ -147,6 +150,18 @@
     <ClCompile Include="WebSocketProtocol.cpp">
       <Filter>netbus</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\3rd\crypto\base64_decoder.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\crypto\base64_encoder.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\crypto\md5.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\3rd\crypto\sha1.c">
+      <Filter>3rd\crypto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h">
@@ -241,6 +256,18 @@
     </ClInclude>
     <ClInclude Include="WebSocketProtocol.h">
       <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\crypto\base64_decoder.h">
+      <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\crypto\base64_encoder.h">
+      <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\crypto\md5.h">
+      <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\3rd\crypto\sha1.h">
+      <Filter>3rd\crypto</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
