@@ -1,12 +1,14 @@
-#include "AbstractSession.h"
-#include "WebSocketProtocol.h"
-
-#include "../../3rd/crypto/base64_encoder.h"
-#include "../../3rd/http_parser/http_parser.h"
-#include "../../3rd/crypto/sha1.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "AbstractSession.h"
+#include "WebSocketProtocol.h"
+#include "../../3rd/crypto/base64_encoder.h"
+#include "../../3rd/http_parser/http_parser.h"
+#include "../../3rd/crypto/sha1.h"
+
+#include "../../utils/cache_alloc.h"
 
 
 #pragma region 全局常量
@@ -25,6 +27,9 @@ static const char* wb_accept =
 
 
 #pragma region 全局变量
+
+
+extern cache_allocer* writeBufAllocer;
 
 static char filed_sec_key[512];
 static char value_sec_key[512];
@@ -218,7 +223,7 @@ void WebSocketProtocol::ParserRecvData(unsigned char* rawData, unsigned char* ma
 }
 
 //将纯数据打包成WebSocket包
-unsigned char* WebSocketProtocol::PackageData(const unsigned char* rawData, int rowDataLen, int * out_pkgLen)
+unsigned char* WebSocketProtocol::Package(const unsigned char* rawData, int rowDataLen, int * out_pkgLen)
 {
 	int headSize = 2;
 	if (rowDataLen > 125 && rowDataLen < 65536)
@@ -232,7 +237,8 @@ unsigned char* WebSocketProtocol::PackageData(const unsigned char* rawData, int 
 		return NULL;
 	}
 
-	unsigned char* dataBuf = (unsigned char*)malloc(headSize + rowDataLen);
+	unsigned char* dataBuf = (unsigned char*)cache_alloc(writeBufAllocer,headSize + rowDataLen);
+	
 	dataBuf[0] = 0x81;
 	if (rowDataLen < 125) {
 		dataBuf[1] = rowDataLen;
@@ -251,9 +257,9 @@ unsigned char* WebSocketProtocol::PackageData(const unsigned char* rawData, int 
 }
 
 //释放WebSocket包
-void WebSocketProtocol::FreePackageData(unsigned char* pkg)
+void WebSocketProtocol::ReleasePackage(unsigned char* pkg)
 {
-	free(pkg);
+	cache_free(writeBufAllocer, pkg);
 }
 
 #pragma endregion

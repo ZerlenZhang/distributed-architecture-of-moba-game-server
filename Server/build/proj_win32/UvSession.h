@@ -61,7 +61,7 @@ private:
 };
 
 
-void InitSessionAllocer();
+void InitAllocers();
 
 #endif // !__UVSESSION_H__
 

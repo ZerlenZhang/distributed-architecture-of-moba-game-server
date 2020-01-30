@@ -1,13 +1,12 @@
-﻿  Netbus.cpp
+﻿  TcpPackageProtocol.cpp
   WebSocketProtocol.cpp
-F:\Projects\unity\Moba\Server\build\proj_win32\Netbus.cpp(86,27): warning C4244: “+=”: 从“ssize_t”转换到“int”，可能丢失数据
-F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(71,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(75,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 F:\Windows Kits\10\Include\10.0.18362.0\ucrt\string.h(338): message : 参见“strncpy”的声明
-F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(129,102): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(141,75): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(125,1): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(134,102): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(146,75): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(130,1): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 F:\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1774): message : 参见“sprintf”的声明
-F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(136,1): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+F:\Projects\unity\Moba\Server\build\proj_win32\WebSocketProtocol.cpp(141,1): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   正在生成代码...
 F:\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1774): message : 参见“sprintf”的声明
   MobaServer.vcxproj -> F:\Projects\unity\Moba\Server\build\proj_win32\x64\Debug\MobaServer.exe

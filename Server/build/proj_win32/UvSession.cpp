@@ -1,24 +1,33 @@
 #include "UvSession.h"
 #include "../../utils/cache_alloc.h"
 #include "WebSocketProtocol.h"
+#include "TcpPackageProtocol.h"
 
 #pragma region 内存管理
 
-#define SESSION_CACHE 3000
-#define	WRITEREQ_CACHE 2048
+#define SESSION_CACHE_CAPCITY 3000
+#define	WRITEREQ_CACHE_CAPCITY 2048
+#define WRITEBUF_CACHE_CAPCITY 1024
+#define CMD_CACHE_SIZE 1024
 
 //初始化内存分配器
 static cache_allocer* sessionAllocer = NULL;
 static cache_allocer* wrAllocer = NULL;
-void InitSessionAllocer()
+cache_allocer* writeBufAllocer = NULL;
+
+void InitAllocers()
 {
 	if (NULL == sessionAllocer)
 	{
-		sessionAllocer = create_cache_allocer(SESSION_CACHE, sizeof(UvSession));
+		sessionAllocer = create_cache_allocer(SESSION_CACHE_CAPCITY, sizeof(UvSession));
 	}
 	if (NULL == wrAllocer)
 	{
-		wrAllocer = create_cache_allocer(WRITEREQ_CACHE, sizeof(uv_write_t));
+		wrAllocer = create_cache_allocer(WRITEREQ_CACHE_CAPCITY, sizeof(uv_write_t));
+	}
+	if (NULL == writeBufAllocer)
+	{
+		writeBufAllocer = create_cache_allocer(WRITEBUF_CACHE_CAPCITY, CMD_CACHE_SIZE);
 	}
 }
 
@@ -105,10 +114,10 @@ void UvSession::SendData(unsigned char* body, int len)
 		if (this->isWebSocketShakeHand)
 		{// 握过手
 			int pkgSize;
-			auto wsPkg = WebSocketProtocol::PackageData(body, len, &pkgSize);
+			auto wsPkg = WebSocketProtocol::Package(body, len, &pkgSize);
 			w_buf = uv_buf_init((char*)wsPkg, pkgSize);
 			uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
-			WebSocketProtocol::FreePackageData(wsPkg);
+			WebSocketProtocol::ReleasePackage(wsPkg);
 		}
 		else
 		{// 没有握过手
@@ -118,12 +127,16 @@ void UvSession::SendData(unsigned char* body, int len)
 		break;
 	#pragma endregion
 
-
+	#pragma region Tcp协议
 	case SocketType::TcpSocket:
+		int pkgSize;
+		auto tcpPkg = TcpProtocol::Package(body, len, &pkgSize);
+		w_buf = uv_buf_init((char*)tcpPkg, pkgSize);
+		uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
+		TcpProtocol::ReleasePackage(tcpPkg);
+		break;
+	#pragma endregion
 
-		break;
-	default:
-		break;
 	}
 
 

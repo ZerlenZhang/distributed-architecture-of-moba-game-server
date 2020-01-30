@@ -2,9 +2,16 @@
 #include <uv.h>
 #include "UvSession.h"
 #include "WebSocketProtocol.h"
+#include "TcpPackageProtocol.h"
 
-void OnWebSocketRecvCommond(UvSession* session, unsigned char* body, int len);
+#pragma region 函数声明
+
+void OnRecvCommond(UvSession* session, unsigned char* body, int len);
 void OnWebSocketRecvData(UvSession* session);
+
+void OnTcpRecvData(UvSession* session);
+
+#pragma endregion
 
 
 #pragma region 回调函数
@@ -90,8 +97,14 @@ extern "C"
 
 		switch (session->socketType)
 		{
+
+		#pragma region Tcp协议
+
 		case SocketType::TcpSocket:
+			OnTcpRecvData(session);
 			break;
+
+		#pragma endregion
 
 		#pragma region WebSocket协议	
 		case SocketType::WebSocket: 
@@ -111,7 +124,6 @@ extern "C"
 			}
 			break;
 		#pragma endregion
-
 
 		default:
 			break;
@@ -158,15 +170,17 @@ extern "C"
 #pragma endregion
 
 
-#pragma region WebSocket函数
-
-static void OnWebSocketRecvCommond(UvSession* session,unsigned char* body,int len)
+static void OnRecvCommond(UvSession* session,unsigned char* body,int len)
 {
 	printf("client command!!\n");
 
 	//test
 	session->SendData(body, len);
 }
+
+
+#pragma region WebSocketProtocol
+
 
 static void OnWebSocketRecvData(UvSession* session)
 {
@@ -203,7 +217,7 @@ static void OnWebSocketRecvData(UvSession* session)
 		WebSocketProtocol::ParserRecvData(body, mask, pkgSize);
 
 		//处理收到的完整数据包
-		OnWebSocketRecvCommond(session, body, pkgSize);
+		OnRecvCommond(session, body, pkgSize);
 	
 		if (session->recved > pkgSize)
 		{
@@ -224,6 +238,55 @@ static void OnWebSocketRecvData(UvSession* session)
 }
 
 #pragma endregion
+
+#pragma region TcpProtocol
+
+static void OnTcpRecvData(UvSession* session)
+{
+	auto pkgData = (unsigned char*)(session->long_pkg != NULL ? session->long_pkg : session->recvBuf);
+
+	while (session->recved > 0)
+	{
+		int pkgSize;
+		int headSize;
+		if (!TcpProtocol::ReadHeader(pkgData, session->recved, &pkgSize, &headSize))
+		{// 读取包头失败
+			printf("读取包头失败\n");
+			break;
+		}
+
+		if (session->recved < pkgSize)
+		{// 没有收完数据
+			printf("没有收完数据\n");
+			break;
+		}
+
+		//body位置在掩码之后
+		unsigned char* body = pkgData + headSize;
+
+		//处理收到的完整数据包
+		OnRecvCommond(session, body, pkgSize);
+
+		if (session->recved > pkgSize)
+		{
+			memmove(pkgData, pkgData + pkgSize, session->recved - pkgSize);
+		}
+
+		//每次减去读取到的长度
+		session->recved -= pkgSize;
+
+		//如果长包处理完了
+		if (session->recved == 0 && session->long_pkg != NULL)
+		{
+			free(session->long_pkg);
+			session->long_pkg = NULL;
+			session->long_pkg_size = 0;
+		}
+	}
+}
+
+#pragma endregion
+
 
 
 
@@ -291,5 +354,5 @@ void Netbus::Run()const
 
 void Netbus::Init() const
 {
-	InitSessionAllocer();
+	InitAllocers();
 }

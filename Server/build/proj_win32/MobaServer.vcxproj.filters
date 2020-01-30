@@ -34,6 +34,9 @@
     <Filter Include="3rd\crypto">
       <UniqueIdentifier>{ba1c91bf-c8ec-42d4-aa34-4c8363e9ed50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="netbus\Protocol">
+      <UniqueIdentifier>{a3350088-958e-4814-91c1-ba1204f6b62e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\apps\test\TestCpp.cpp">
@@ -147,9 +150,6 @@
     <ClCompile Include="..\..\3rd\http_parser\http_parser.c">
       <Filter>3rd\http_parser</Filter>
     </ClCompile>
-    <ClCompile Include="WebSocketProtocol.cpp">
-      <Filter>netbus</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\3rd\crypto\base64_decoder.c">
       <Filter>3rd\crypto</Filter>
     </ClCompile>
@@ -161,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="..\..\3rd\crypto\sha1.c">
       <Filter>3rd\crypto</Filter>
+    </ClCompile>
+    <ClCompile Include="TcpPackageProtocol.cpp">
+      <Filter>netbus\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="WebSocketProtocol.cpp">
+      <Filter>netbus\Protocol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +260,6 @@
     <ClInclude Include="..\..\3rd\http_parser\http_parser.h">
       <Filter>3rd\http_parser</Filter>
     </ClInclude>
-    <ClInclude Include="WebSocketProtocol.h">
-      <Filter>netbus</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\3rd\crypto\base64_decoder.h">
       <Filter>3rd\crypto</Filter>
     </ClInclude>
@@ -268,6 +271,12 @@
     </ClInclude>
     <ClInclude Include="..\..\3rd\crypto\sha1.h">
       <Filter>3rd\crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="TcpPackageProtocol.h">
+      <Filter>netbus\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="WebSocketProtocol.h">
+      <Filter>netbus\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

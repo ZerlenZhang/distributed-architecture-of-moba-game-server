@@ -59,6 +59,7 @@
     <ClCompile Include="..\..\utils\cache_alloc.c" />
     <ClCompile Include="AbstractSession.cpp" />
     <ClCompile Include="Netbus.cpp" />
+    <ClCompile Include="TcpPackageProtocol.cpp" />
     <ClCompile Include="UvSession.cpp" />
     <ClCompile Include="WebSocketProtocol.cpp" />
   </ItemGroup>
@@ -96,6 +97,7 @@
     <ClInclude Include="..\..\utils\cache_alloc.h" />
     <ClInclude Include="AbstractSession.h" />
     <ClInclude Include="Netbus.h" />
+    <ClInclude Include="TcpPackageProtocol.h" />
     <ClInclude Include="UvSession.h" />
     <ClInclude Include="WebSocketProtocol.h" />
   </ItemGroup>
