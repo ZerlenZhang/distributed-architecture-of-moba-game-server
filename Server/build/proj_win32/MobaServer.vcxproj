@@ -55,13 +55,17 @@
     <ClCompile Include="..\..\3rd\libuv\src\win\util.c" />
     <ClCompile Include="..\..\3rd\libuv\src\win\winapi.c" />
     <ClCompile Include="..\..\3rd\libuv\src\win\winsock.c" />
+    <ClCompile Include="..\..\3rd\mjson\json.c" />
+    <ClCompile Include="..\..\apps\test\pf_cmd_map.cpp" />
+    <ClCompile Include="..\..\apps\test\proto\game.pb.cc" />
     <ClCompile Include="..\..\apps\test\TestCpp.cpp" />
+    <ClCompile Include="..\..\netbus\AbstractSession.cpp" />
+    <ClCompile Include="..\..\netbus\Netbus.cpp" />
+    <ClCompile Include="..\..\netbus\protocol\ProtoManager.cpp" />
+    <ClCompile Include="..\..\netbus\protocol\TcpPackageProtocol.cpp" />
+    <ClCompile Include="..\..\netbus\protocol\WebSocketProtocol.cpp" />
+    <ClCompile Include="..\..\netbus\UvSession.cpp" />
     <ClCompile Include="..\..\utils\cache_alloc.c" />
-    <ClCompile Include="AbstractSession.cpp" />
-    <ClCompile Include="Netbus.cpp" />
-    <ClCompile Include="TcpPackageProtocol.cpp" />
-    <ClCompile Include="UvSession.cpp" />
-    <ClCompile Include="WebSocketProtocol.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\crypto\base64_decoder.h" />
@@ -94,12 +98,20 @@
     <ClInclude Include="..\..\3rd\libuv\src\win\stream-inl.h" />
     <ClInclude Include="..\..\3rd\libuv\src\win\winapi.h" />
     <ClInclude Include="..\..\3rd\libuv\src\win\winsock.h" />
+    <ClInclude Include="..\..\3rd\mjson\json.h" />
+    <ClInclude Include="..\..\apps\test\pf_cmd_map.h" />
+    <ClInclude Include="..\..\apps\test\proto\game.pb.h" />
+    <ClInclude Include="..\..\netbus\AbstractSession.h" />
+    <ClInclude Include="..\..\netbus\Netbus.h" />
+    <ClInclude Include="..\..\netbus\protocol\ProtoManager.h" />
+    <ClInclude Include="..\..\netbus\protocol\TcpPackageProtocol.h" />
+    <ClInclude Include="..\..\netbus\protocol\WebSocketProtocol.h" />
+    <ClInclude Include="..\..\netbus\UvSession.h" />
     <ClInclude Include="..\..\utils\cache_alloc.h" />
-    <ClInclude Include="AbstractSession.h" />
-    <ClInclude Include="Netbus.h" />
-    <ClInclude Include="TcpPackageProtocol.h" />
-    <ClInclude Include="UvSession.h" />
-    <ClInclude Include="WebSocketProtocol.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\apps\test\proto\game.proto" />
+    <None Include="..\..\apps\test\proto\generate_proto_files.bat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -170,11 +182,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\Projects\unity\Moba\Server\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\unity\Moba\Server\3rd\protobuf;F:\Projects\unity\Moba\Server\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalOptions>ws2_32.lib Iphlpapi.lib Psapi.lib Userenv.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>ws2_32.lib Iphlpapi.lib Psapi.lib Userenv.lib libprotobufd.lib libprotocd.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>F:\Projects\unity\Moba\Server\build\proj_win32\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
