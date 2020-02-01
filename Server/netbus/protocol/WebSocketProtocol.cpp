@@ -7,8 +7,8 @@
 #include "../../3rd/http_parser/http_parser.h"
 #include "../../3rd/crypto/sha1.h"
 
-#include "../../utils/cache_alloc.h"
 #include "../AbstractSession.h"
+#include "../../utils/cache_alloc/cache_alloc.h"
 
 
 #pragma region 全局常量
@@ -189,6 +189,7 @@ bool WebSocketProtocol::ReadHeader(unsigned char* pkgData, int pkgLen, int* out_
 		headSize += 8;
 		if (pkgLen < headSize)
 		{// 没有足够位存放dataLen
+			printf("没有足够位存放dataLen\n");
 			return false;
 		}
 		int low = pkgData[5] | (pkgData[4] << 8) | (pkgData[3] << 16) | (pkgData[2] << 24);

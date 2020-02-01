@@ -3,11 +3,14 @@
 #include "UvSession.h"
 #include "../../netbus/protocol/WebSocketProtocol.h"
 #include "../../netbus/protocol/TcpPackageProtocol.h"
-#include "protocol/ProtoManager.h"
+#include "protocol/CmdPackageProtocol.h"
+#include "service/ServiceManager.h"
+#include "../apps/test/pf_cmd_map.h"
+#include "../utils/logger/logger.h"
 
 #pragma region 函数声明
 
-void OnRecvCommond(UvSession* session, unsigned char* body, int len);
+void OnRecvCommond(UvSession* session, unsigned char* body, const int len);
 void OnWebSocketRecvData(UvSession* session);
 
 void OnTcpRecvData(UvSession* session);
@@ -171,21 +174,26 @@ extern "C"
 #pragma endregion
 
 
-static void OnRecvCommond(UvSession* session,unsigned char* body,int len)
+static void OnRecvCommond(UvSession* session,unsigned char* body,const int len)
 {
+	//test
 	printf("client command!!\n");
 
-
 	CmdPackage* msg=NULL;
-	if (ProtoManager::DecodeCmdMsg(body, len, msg))
+	if (CmdPackageProtocol::DecodeCmdMsg(body, len, msg))
 	{
+		if (!ServiceManager::OnRecvCmdPackage(session, msg))
+		{
+			session->Close();
+		}
 
-		 
-		ProtoManager::FreeCmdMsg(msg);
+		//释放数据
+		CmdPackageProtocol::FreeCmdMsg(msg);
 	}
-
-	//test
-	session->SendData(body, len);
+	else
+	{
+		printf("解码失败\n");
+	}
 }
 
 
@@ -200,6 +208,7 @@ static void OnWebSocketRecvData(UvSession* session)
 	{
 		//是否是关闭包
 		if (pkgData[0] == 0x88) {
+			printf("收到关闭包\n");
 			session->Close();
 			return;
 		}
@@ -224,7 +233,7 @@ static void OnWebSocketRecvData(UvSession* session)
 		unsigned char* mask = body - 4;
 
 		//解析收到的纯数据
-		WebSocketProtocol::ParserRecvData(body, mask, pkgSize);
+		WebSocketProtocol::ParserRecvData(body, mask, pkgSize - headSize);
 
 		//处理收到的完整数据包
 		OnRecvCommond(session, body, pkgSize);
@@ -264,7 +273,6 @@ static void OnTcpRecvData(UvSession* session)
 			printf("读取包头失败\n");
 			break;
 		}
-
 		if (session->recved < pkgSize)
 		{// 没有收完数据
 			printf("没有收完数据\n");
@@ -275,7 +283,7 @@ static void OnTcpRecvData(UvSession* session)
 		unsigned char* body = pkgData + headSize;
 
 		//处理收到的完整数据包
-		OnRecvCommond(session, body, pkgSize);
+		OnRecvCommond(session, body, pkgSize-headSize);
 
 		if (session->recved > pkgSize)
 		{
@@ -364,5 +372,10 @@ void Netbus::Run()const
 
 void Netbus::Init() const
 {
+	CmdPackageProtocol::Init();
+	ServiceManager::Init();
+	logger::init("logger", "netbus_log", true);
+
+	InitPfCmdMap();
 	InitAllocers();
 }

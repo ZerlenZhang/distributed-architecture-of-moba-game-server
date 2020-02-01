@@ -46,6 +46,21 @@
     <Filter Include="app\test\proto">
       <UniqueIdentifier>{99f83c2c-4292-4de2-9cef-1a827c1fd58c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="netbus\service">
+      <UniqueIdentifier>{42ec8334-5a97-463b-80c5-71243a8e7896}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\timer">
+      <UniqueIdentifier>{105d3f67-8dff-461c-a8f4-09b5d97ae4d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\cache_alloc">
+      <UniqueIdentifier>{a9781b80-b1b9-4a5c-9737-51fbe6e63f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\timestamp">
+      <UniqueIdentifier>{0f541b9d-a711-4337-8f71-5f9e910e41b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\logger">
+      <UniqueIdentifier>{c429cebb-28dd-4970-b22b-4223f3a9eea8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rd\libuv\src\fs-poll.c">
@@ -141,9 +156,6 @@
     <ClCompile Include="..\..\3rd\libuv\src\win\winsock.c">
       <Filter>3rd\libuv\src\win</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\utils\cache_alloc.c">
-      <Filter>utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\3rd\http_parser\http_parser.c">
       <Filter>3rd\http_parser</Filter>
     </ClCompile>
@@ -165,9 +177,6 @@
     <ClCompile Include="..\..\apps\test\proto\game.pb.cc">
       <Filter>app\test\proto</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\netbus\protocol\ProtoManager.cpp">
-      <Filter>netbus\Protocol</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\netbus\protocol\TcpPackageProtocol.cpp">
       <Filter>netbus\Protocol</Filter>
     </ClCompile>
@@ -188,6 +197,27 @@
     </ClCompile>
     <ClCompile Include="..\..\apps\test\TestCpp.cpp">
       <Filter>app\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netbus\protocol\CmdPackageProtocol.cpp">
+      <Filter>netbus\Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netbus\service\AbstractService.cpp">
+      <Filter>netbus\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netbus\service\ServiceManager.cpp">
+      <Filter>netbus\service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.c">
+      <Filter>utils\cache_alloc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\timer\time_list.c">
+      <Filter>utils\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\logger\logger.cc">
+      <Filter>utils\logger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\timestamp\timestamp.c">
+      <Filter>utils\timestamp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +296,6 @@
     <ClInclude Include="..\..\3rd\libuv\src\win\winsock.h">
       <Filter>3rd\libuv\src\win</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\utils\cache_alloc.h">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\3rd\http_parser\http_parser.h">
       <Filter>3rd\http_parser</Filter>
     </ClInclude>
@@ -290,9 +317,6 @@
     <ClInclude Include="..\..\apps\test\proto\game.pb.h">
       <Filter>app\test\proto</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\netbus\protocol\ProtoManager.h">
-      <Filter>netbus\Protocol</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\netbus\protocol\TcpPackageProtocol.h">
       <Filter>netbus\Protocol</Filter>
     </ClInclude>
@@ -310,6 +334,27 @@
     </ClInclude>
     <ClInclude Include="..\..\apps\test\pf_cmd_map.h">
       <Filter>app\test\proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netbus\protocol\CmdPackageProtocol.h">
+      <Filter>netbus\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netbus\service\AbstractService.h">
+      <Filter>netbus\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netbus\service\ServiceManager.h">
+      <Filter>netbus\service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\cache_alloc\cache_alloc.h">
+      <Filter>utils\cache_alloc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\timer\time_list.h">
+      <Filter>utils\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\logger\logger.h">
+      <Filter>utils\logger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\timestamp\timestamp.h">
+      <Filter>utils\timestamp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

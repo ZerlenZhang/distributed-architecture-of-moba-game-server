@@ -1,5 +1,5 @@
 #include "pf_cmd_map.h"
-#include "../../netbus/protocol/ProtoManager.h"
+#include "../../netbus/protocol/CmdPackageProtocol.h"
 
 const char* pfCmdMap[] = {
 	"LoginReq",
@@ -8,5 +8,5 @@ const char* pfCmdMap[] = {
 
 void InitPfCmdMap()
 {
-	ProtoManager::RegisterPfCmdMap(pfCmdMap, sizeof(pfCmdMap) / sizeof(char*));
+	CmdPackageProtocol::RegisterPfCmdMap(pfCmdMap, sizeof(pfCmdMap) / sizeof(char*));
 }

@@ -127,7 +127,7 @@ void AddDescriptorsImpl() {
       "\n\ngame.proto\"E\n\010LoginReq\022\014\n\004name\030\001 \001(\t\022\013"
       "\n\003age\030\002 \001(\005\022\r\n\005email\030\003 \001(\t\022\017\n\007int_set\030\004 "
       "\001(\005\"\032\n\010LoginRes\022\016\n\006status\030\001 \001(\005*#\n\003Cmd\022\r"
-      "\n\teLoginReq\020\000\022\r\n\teLOginRes\020\001b\006proto3"
+      "\n\teLoginReq\020\000\022\r\n\teLoginRes\020\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
       descriptor, 156);

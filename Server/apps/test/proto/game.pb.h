@@ -61,13 +61,13 @@ extern LoginResDefaultTypeInternal _LoginRes_default_instance_;
 
 enum Cmd {
   eLoginReq = 0,
-  eLOginRes = 1,
+  eLoginRes = 1,
   Cmd_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   Cmd_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool Cmd_IsValid(int value);
 const Cmd Cmd_MIN = eLoginReq;
-const Cmd Cmd_MAX = eLOginRes;
+const Cmd Cmd_MAX = eLoginRes;
 const int Cmd_ARRAYSIZE = Cmd_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* Cmd_descriptor();

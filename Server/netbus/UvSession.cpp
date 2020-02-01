@@ -1,7 +1,11 @@
+#include <uv.h>
 #include "UvSession.h"
-#include "../../utils/cache_alloc.h"
 #include "../../netbus/protocol/WebSocketProtocol.h"
 #include "../../netbus/protocol/TcpPackageProtocol.h"
+#include "../utils/cache_alloc/cache_alloc.h"
+#include "protocol/CmdPackageProtocol.h"
+#include "service/ServiceManager.h"
+
 
 #pragma region 内存管理
 
@@ -96,8 +100,14 @@ void UvSession::Close()
 	if (this->isShutDown) {
 		return;
 	}
-	this->isShutDown = true;
+
 	printf("主动关机\n");
+
+	//通知所有父物有链接断开
+	ServiceManager::OnSessionDisconnected(this);
+
+
+	this->isShutDown = true;
 	uv_shutdown(&this->shutdown, (uv_stream_t*)&this->tcpHandle, shutdown_cb);
 }
 
@@ -148,8 +158,26 @@ const char* UvSession::GetAddress(int& clientPort) const
 	return this->clientAddress;
 }
 
-#pragma endregion
+void UvSession::SendCmdPackage(CmdPackage* msg)
+{
+	int bodyLen;
+	auto rawData = CmdPackageProtocol::EncodeCmdPackageToRaw(msg, &bodyLen);
+	if (rawData)
+	{// 编码成功 
 
+		//发送数据
+		SendData(rawData, bodyLen);
+
+		//释放数据
+		CmdPackageProtocol::FreeCmdPackageRaw(rawData);
+	}
+	else
+	{
+		printf("编码失败\n");
+	}
+}
+
+#pragma endregion
 
 
 #pragma region Override
@@ -174,5 +202,3 @@ void UvSession::Disable()
 }
 
 #pragma endregion
-
-

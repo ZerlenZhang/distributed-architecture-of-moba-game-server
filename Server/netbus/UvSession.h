@@ -1,9 +1,7 @@
 #ifndef __UVSESSION_H__
 #define __UVSESSION_H__
 
-#include <uv.h>
 #include "AbstractSession.h"
-
 #define RECV_LEN 4096
 
 //Socket类型
@@ -12,6 +10,7 @@ enum class SocketType
 	TcpSocket,
 	WebSocket
 };
+
 
 class UvSession :
 	public virtual AbstractSession
@@ -27,7 +26,8 @@ public:
 	virtual void SendData(unsigned char* body, int len) override;
 	//获取IP地址和端口
 	virtual const char* GetAddress(int & clientPort) const override;
-
+	//发送自定义包
+	virtual void SendCmdPackage(CmdPackage* msg)override;
 	#pragma endregion
 
 
