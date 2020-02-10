@@ -8,6 +8,7 @@
 #include "pf_cmd_map.h"
 #include "../../database/mysqlwarpper.h"
 #include "../../database/rediswarpper.h"
+#include "../../lua_wrapper/lua_wrapper.h"
 using namespace std; 
 
 #pragma region »Øµ÷
@@ -96,17 +97,21 @@ int main(int argc, char** argv)
 	Netbus::Instance()->Init();
 	logger::init("logger", "netbus_log", true);
 
-	TestMySql();
-	TestRedis();
+	//TestMySql();
+	//TestRedis();
 	//schedule(TestTimer, NULL, 3000, 4);
 
 
 	Netbus::Instance()->StartTcpServer(6080);
 	Netbus::Instance()->StartWebSocketServer(8001);
 	Netbus::Instance()->StartUdpServer(8002);
+
+	lua_wrapper::Init();
+
+	lua_wrapper::ExeLuaFile((char*)"./main.lua");
 	Netbus::Instance()->Run();
 
-	 
+	lua_wrapper::Exit();
 	system("pause");
 	return 0;
 }

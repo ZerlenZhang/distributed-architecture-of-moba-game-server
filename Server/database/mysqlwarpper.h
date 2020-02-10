@@ -12,16 +12,18 @@ struct MysqlContext
 	MYSQL* pConn;
 	bool isClosed = false;
 	uv_mutex_t lock;
+	void* udata;
 };
 
 typedef void(*MysqlQueryCallback)(const char* err, const std::vector<std::vector<std::string>*>* result);
+typedef void(*MysqlConnectCallback)(const char* error, MysqlContext* context);
 
 class mysql_wrapper
 {
 public:
 	static void connect(char* ip, int port, char* dbName,
 		char* uName, char* password,
-		void(*open_cb)(const char* error,MysqlContext* context));
+		MysqlConnectCallback,void* udata=NULL);
 
 	static void close(MysqlContext* context);
 

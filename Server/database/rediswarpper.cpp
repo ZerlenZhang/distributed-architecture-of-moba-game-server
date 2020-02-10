@@ -62,6 +62,8 @@ static void on_connect_complete(uv_work_t* req, int status)
 {
 	auto pInfo = (connect_req*)req->data;
 
+	log_debug("Redis 数据库链接成功")
+
 	pInfo->open_cb(pInfo->error, pInfo->context);
 
 	if (pInfo->ip)
@@ -92,6 +94,7 @@ static void on_close_complete(uv_work_t* req, int status)
 	if (req->data)
 		my_free(req->data);
 	my_free(req);
+	log_debug("Redis 数据库断开链接");
 }
 
 static void query_work(uv_work_t* req)

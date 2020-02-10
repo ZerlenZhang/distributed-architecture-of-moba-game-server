@@ -1,4 +1,5 @@
 #include "mysqlwarpper.h"
+#include "../utils/logger/logger.h"
 
 #define my_alloc malloc
 #define my_free free
@@ -13,7 +14,7 @@ struct connect_req
 	char* uName;
 	char* password;
 
-	void(*open_cb)(const char* error, MysqlContext* context);
+	MysqlConnectCallback open_cb;
 
 	char* error;
 	MysqlContext* context;
@@ -64,6 +65,8 @@ static void on_connect_complete(uv_work_t* req, int status)
 {
 	auto pInfo = (connect_req*)req->data;
 
+	log_debug("Mysql 数据库链接成功");
+
 	pInfo->open_cb(pInfo->error, pInfo->context);
 
 	if (pInfo->ip)
@@ -101,6 +104,7 @@ static void on_close_complete(uv_work_t* req, int status)
 	if (req->data)
 		my_free(req->data);
 	my_free(req);
+	log_debug("Mysql 数据库断开连接");
 }
 
 static void query_work(uv_work_t* req)
@@ -188,7 +192,7 @@ static void on_query_complete(uv_work_t* req, int status)
 
 
 
-void mysql_wrapper::connect(char* ip, int port, char* dbName, char* uName, char* password, void(*open_cb)(const char* error, MysqlContext* context))
+void mysql_wrapper::connect(char* ip, int port, char* dbName, char* uName, char* password, MysqlConnectCallback open_cb,void* udata)
 {
 	auto w = (uv_work_t * )my_alloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
@@ -207,6 +211,8 @@ void mysql_wrapper::connect(char* ip, int port, char* dbName, char* uName, char*
 	info->password = strdup(password);
 	info->open_cb = open_cb; 
 	info->context = lockContext;
+
+	info->context->udata = udata;
 
 	w->data = info;
 
