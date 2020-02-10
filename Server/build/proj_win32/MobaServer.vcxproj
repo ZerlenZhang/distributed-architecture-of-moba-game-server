@@ -59,14 +59,17 @@
     <ClCompile Include="..\..\apps\test\pf_cmd_map.cpp" />
     <ClCompile Include="..\..\apps\test\proto\game.pb.cc" />
     <ClCompile Include="..\..\apps\test\TestCpp.cpp" />
-    <ClCompile Include="..\..\netbus\AbstractSession.cpp" />
+    <ClCompile Include="..\..\database\mysqlwarpper.cpp" />
+    <ClCompile Include="..\..\database\rediswarpper.cpp" />
     <ClCompile Include="..\..\netbus\Netbus.cpp" />
     <ClCompile Include="..\..\netbus\protocol\CmdPackageProtocol.cpp" />
     <ClCompile Include="..\..\netbus\protocol\TcpPackageProtocol.cpp" />
     <ClCompile Include="..\..\netbus\protocol\WebSocketProtocol.cpp" />
     <ClCompile Include="..\..\netbus\service\AbstractService.cpp" />
     <ClCompile Include="..\..\netbus\service\ServiceManager.cpp" />
-    <ClCompile Include="..\..\netbus\UvSession.cpp" />
+    <ClCompile Include="..\..\netbus\session\AbstractSession.cpp" />
+    <ClCompile Include="..\..\netbus\session\TcpSession.cpp" />
+    <ClCompile Include="..\..\netbus\session\UdpSession.cpp" />
     <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.c" />
     <ClCompile Include="..\..\utils\logger\logger.cc" />
     <ClCompile Include="..\..\utils\timer\time_list.c" />
@@ -106,14 +109,17 @@
     <ClInclude Include="..\..\3rd\mjson\json.h" />
     <ClInclude Include="..\..\apps\test\pf_cmd_map.h" />
     <ClInclude Include="..\..\apps\test\proto\game.pb.h" />
-    <ClInclude Include="..\..\netbus\AbstractSession.h" />
+    <ClInclude Include="..\..\database\mysqlwarpper.h" />
+    <ClInclude Include="..\..\database\rediswarpper.h" />
     <ClInclude Include="..\..\netbus\Netbus.h" />
     <ClInclude Include="..\..\netbus\protocol\CmdPackageProtocol.h" />
     <ClInclude Include="..\..\netbus\protocol\TcpPackageProtocol.h" />
     <ClInclude Include="..\..\netbus\protocol\WebSocketProtocol.h" />
     <ClInclude Include="..\..\netbus\service\AbstractService.h" />
     <ClInclude Include="..\..\netbus\service\ServiceManager.h" />
-    <ClInclude Include="..\..\netbus\UvSession.h" />
+    <ClInclude Include="..\..\netbus\session\AbstractSession.h" />
+    <ClInclude Include="..\..\netbus\session\TcpSession.h" />
+    <ClInclude Include="..\..\netbus\session\UdpSession.h" />
     <ClInclude Include="..\..\utils\cache_alloc\cache_alloc.h" />
     <ClInclude Include="..\..\utils\logger\logger.h" />
     <ClInclude Include="..\..\utils\timer\time_list.h" />
@@ -192,14 +198,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\Projects\unity\Moba\Server\3rd\protobuf;F:\Projects\unity\Moba\Server\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>F:\Projects\unity\Moba\Server\3rd\hiredis\include;F:\Projects\unity\Moba\Server\3rd\mysqlclient\include;F:\Projects\unity\Moba\Server\3rd\protobuf;F:\Projects\unity\Moba\Server\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BrowseInformation>true</BrowseInformation>
+      <PreprocessorDefinitions>_CRTSECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalOptions>ws2_32.lib Iphlpapi.lib Psapi.lib Userenv.lib libprotobufd.lib libprotocd.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>F:\Projects\unity\Moba\Server\build\proj_win32\protobuf;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>ws2_32.lib Iphlpapi.lib Psapi.lib Userenv.lib libprotobufd.lib libprotocd.lib libmysql.lib  HiredisWrapper.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>F:\Projects\unity\Moba\Server\3rd\hiredis\lib;F:\Projects\unity\Moba\Server\3rd\mysqlclient\lib;F:\Projects\unity\Moba\Server\3rd\protobuf\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

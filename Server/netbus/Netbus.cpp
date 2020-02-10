@@ -1,46 +1,55 @@
 #include "Netbus.h"
 #include <uv.h>
-#include "UvSession.h"
 #include "../../netbus/protocol/WebSocketProtocol.h"
 #include "../../netbus/protocol/TcpPackageProtocol.h"
+#include "../../netbus/session/TcpSession.h"
+
 #include "protocol/CmdPackageProtocol.h"
 #include "service/ServiceManager.h"
-#include "../apps/test/pf_cmd_map.h"
+
 #include "../utils/logger/logger.h"
+#include "session/UdpSession.h"
 
 #pragma region 函数声明
 
-void OnRecvCommond(UvSession* session, unsigned char* body, const int len);
-void OnWebSocketRecvData(UvSession* session);
+void OnRecvCommond(AbstractSession& session, unsigned char* body, const int len);
 
-void OnTcpRecvData(UvSession* session);
+void OnWebSocketRecvData(TcpSession* session);
+
+void OnTcpRecvData(TcpSession* session);
 
 #pragma endregion
 
+struct UdpRecvBuf
+{
+	char* data;
+	int maxRecvLen;
+};
 
 #pragma region 回调函数
 
 extern "C"
 {
+	#pragma region Tcp_&_Websocket
 	//关闭链接回调
-	static void close_cb(uv_handle_t* handle) {
-		printf("用户断开链接\n");
+	static void tcp_close_cb(uv_handle_t* handle) {
+		log_debug("用户断开链接");
 
-		auto session = (UvSession*)handle->data;
-		UvSession::Destory(session);
+		auto session = (TcpSession*)handle->data;
+		TcpSession::Destory(session);
 	}
 
 	//断开链接的回调
-	static void shutdown_cb(uv_shutdown_t* req, int status) {
-		uv_close((uv_handle_t*)(req->handle), close_cb);
+	static void tcp_shutdown_cb(uv_shutdown_t* req, int status) {
+		uv_close((uv_handle_t*)(req->handle), tcp_close_cb);
 	}
 
-	//申请字符串空间
-	static void string_alloc(uv_handle_t* handle,
+	//Tcp申请字符串空间
+	static void tcp_str_alloc(uv_handle_t* handle,
 		size_t suggested_size,
 		uv_buf_t* buf) {
 
-		auto session = (UvSession*)handle->data;
+		auto session = (TcpSession*)handle->data;
 
 		if (session->recved < RECV_LEN)
 		{
@@ -84,15 +93,15 @@ extern "C"
 	}
 
 	//读取结束后的回调
-	static void after_read(uv_stream_t* stream,
+	static void tcp_after_read(uv_stream_t* stream,
 		ssize_t nread,
 		const uv_buf_t* buf) {
 
-		auto session = (UvSession*) stream->data;
+		auto session = (TcpSession*) stream->data;
 
 		//连接断开
 		if (nread < 0) {
-			printf("链接断开\n");
+			log_debug("链接断开");
 			session->Close();
 			return;
 		}
@@ -117,7 +126,7 @@ extern "C"
 			{	//	shakeHand
 				if (WebSocketProtocol::ShakeHand(session, session->recvBuf, session->recved))
 				{	//握手成功
-					printf("握手成功\n");
+					log_debug("握手成功");
 					session->isWebSocketShakeHand = 1;
 					session->recved = 0;
 				}
@@ -135,11 +144,11 @@ extern "C"
 	}
 
 	//TCP有用户链接进来
-	static void OnConnect(uv_stream_t* server, int status)
+	static void TcpOnConnect(uv_stream_t* server, int status)
 	{
 #pragma region 接入客户端
 
-		auto session = UvSession::Create();
+		auto session = TcpSession::Create();
 
 		auto pNewClient = &session->tcpHandle;
 		pNewClient->data = session;
@@ -158,33 +167,83 @@ extern "C"
 		session->clientPort = ntohs(addr.sin_port);
 		//保存socket类型
 		session->socketType = *((SocketType*)&server->data);
-		printf("new client comming:\t%s:%d\n", session->clientAddress, session->clientPort);
+		log_debug("new client comming:\t%s:%d", session->clientAddress, session->clientPort);
 
 #pragma endregion
 
 
 		//开始监听消息
-		uv_read_start((uv_stream_t*)pNewClient, string_alloc, after_read);
+		uv_read_start((uv_stream_t*)pNewClient, tcp_str_alloc, tcp_after_read);
 #pragma endregion
 
 
 	} 
+	
+	#pragma endregion
+
+	#pragma region Udp
+
+	//Udp申请字符串空间
+	static void udp_str_alloc(uv_handle_t* handle,
+		size_t suggested_size,
+		uv_buf_t* buf)
+	{
+		suggested_size = (suggested_size < 8192) ? 8192 : suggested_size;
+
+		auto pBuf = (UdpRecvBuf*)handle->data;
+		if (pBuf->maxRecvLen < suggested_size)
+		{// 表明当前空间不够
+			if (pBuf->data)
+			{
+				free(pBuf->data);
+				pBuf->data = NULL;
+			}
+			pBuf->data = (char*)malloc(suggested_size);
+			pBuf->maxRecvLen = suggested_size;
+		
+		}
+
+		buf->base = pBuf->data;
+		buf->len = suggested_size;
+	}
+
+	//Udp接收字符串完成
+	static void udp_after_recv(uv_udp_t* handle,
+		ssize_t nread,
+		const uv_buf_t* buf,
+		const struct sockaddr* addr,
+		unsigned flags)
+	{
+		UdpSession us;
+		us.udp_handler = (uv_udp_t*)handle;
+		us.addr = addr;
+		us.clientPort = ntohs(((struct sockaddr_in*)addr)->sin_port);
+		uv_ip4_name((struct sockaddr_in*)addr, us.clientAddress, 128);
+
+		log_debug("ip: %s:%d nread = %d", us.clientAddress,us.clientPort, nread);
+
+		OnRecvCommond(us,(unsigned char*)buf->base,buf->len);
+	}
+
+	#pragma endregion
+
+	
 }
 
 #pragma endregion
 
 
-static void OnRecvCommond(UvSession* session,unsigned char* body,const int len)
+static void OnRecvCommond(AbstractSession& session,unsigned char* body,const int len)
 {
 	//test
-	printf("client command!!\n");
+	log_debug("client command!!");
 
 	CmdPackage* msg=NULL;
 	if (CmdPackageProtocol::DecodeCmdMsg(body, len, msg))
 	{
-		if (!ServiceManager::OnRecvCmdPackage(session, msg))
+		if (!ServiceManager::OnRecvCmdPackage(&session, msg))
 		{
-			session->Close();
+			session.Close();
 		}
 
 		//释放数据
@@ -192,7 +251,7 @@ static void OnRecvCommond(UvSession* session,unsigned char* body,const int len)
 	}
 	else
 	{
-		printf("解码失败\n");
+		log_debug("解码失败");
 	}
 }
 
@@ -200,7 +259,7 @@ static void OnRecvCommond(UvSession* session,unsigned char* body,const int len)
 #pragma region WebSocketProtocol
 
 
-static void OnWebSocketRecvData(UvSession* session)
+static void OnWebSocketRecvData(TcpSession* session)
 {
 	auto pkgData = (unsigned char*)(session->long_pkg != NULL ? session->long_pkg : session->recvBuf);
 
@@ -208,7 +267,7 @@ static void OnWebSocketRecvData(UvSession* session)
 	{
 		//是否是关闭包
 		if (pkgData[0] == 0x88) {
-			printf("收到关闭包\n");
+			log_debug("收到关闭包");
 			session->Close();
 			return;
 		}
@@ -217,13 +276,13 @@ static void OnWebSocketRecvData(UvSession* session)
 		int headSize;
 		if (!WebSocketProtocol::ReadHeader(pkgData, session->recved, &pkgSize, &headSize))
 		{// 读取包头失败
-			printf("读取包头失败\n");
+			log_debug("读取包头失败");
 			break;
 		}
 
 		if (session->recved < pkgSize)
 		{// 没有收完数据
-			printf("没有收完数据\n");
+			log_debug("没有收完数据");
 			break;
 		}
 
@@ -236,7 +295,7 @@ static void OnWebSocketRecvData(UvSession* session)
 		WebSocketProtocol::ParserRecvData(body, mask, pkgSize - headSize);
 
 		//处理收到的完整数据包
-		OnRecvCommond(session, body, pkgSize);
+		OnRecvCommond(*session, body, pkgSize);
 	
 		if (session->recved > pkgSize)
 		{
@@ -260,7 +319,7 @@ static void OnWebSocketRecvData(UvSession* session)
 
 #pragma region TcpProtocol
 
-static void OnTcpRecvData(UvSession* session)
+static void OnTcpRecvData(TcpSession* session)
 {
 	auto pkgData = (unsigned char*)(session->long_pkg != NULL ? session->long_pkg : session->recvBuf);
 
@@ -270,12 +329,12 @@ static void OnTcpRecvData(UvSession* session)
 		int headSize;
 		if (!TcpProtocol::ReadHeader(pkgData, session->recved, &pkgSize, &headSize))
 		{// 读取包头失败
-			printf("读取包头失败\n");
+			log_debug("读取包头失败");
 			break;
 		}
 		if (session->recved < pkgSize)
 		{// 没有收完数据
-			printf("没有收完数据\n");
+			log_debug("没有收完数据");
 			break;
 		}
 
@@ -283,7 +342,7 @@ static void OnTcpRecvData(UvSession* session)
 		unsigned char* body = pkgData + headSize;
 
 		//处理收到的完整数据包
-		OnRecvCommond(session, body, pkgSize-headSize);
+		OnRecvCommond(*session, body, pkgSize-headSize);
 
 		if (session->recved > pkgSize)
 		{
@@ -326,7 +385,7 @@ void Netbus::StartTcpServer(int port)const
 	auto ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
 	if (0 != ret)
 	{
-		printf("bind error\n");
+		log_debug("bind error");
 		free(listen);
 		listen = NULL;
 		return;
@@ -335,8 +394,8 @@ void Netbus::StartTcpServer(int port)const
 	//强转记录socket类型
 	listen->data = (void*)SocketType::TcpSocket;
 
-	uv_listen((uv_stream_t*)listen, SOMAXCONN, OnConnect);
-	printf("Tcp 服务器已开机\n");
+	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
+	log_debug("Tcp 服务器已开机 %d",port);
 }
 
 void Netbus::StartWebSocketServer(int port)const
@@ -351,7 +410,7 @@ void Netbus::StartWebSocketServer(int port)const
 	auto ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
 	if (0 != ret)
 	{
-		printf("bind error\n");
+		log_debug("bind error");
 		free(listen);
 		listen = NULL;
 		return;
@@ -360,13 +419,31 @@ void Netbus::StartWebSocketServer(int port)const
 	//强转记录socket类型
 	listen->data = (void*)SocketType::WebSocket;
 
-	uv_listen((uv_stream_t*)listen, SOMAXCONN, OnConnect);
-	printf("Tcp 服务器已开机\n");
+	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
+	log_debug("WebSocket 服务器已开机 %d", port);
+}
+
+void Netbus::StartUdpServer(int port) const
+{
+	auto server = (uv_udp_t*)malloc(sizeof(uv_udp_t));
+	memset(server, 0, sizeof(uv_udp_t));
+
+	uv_udp_init(uv_default_loop(), server);
+
+	server->data = malloc(sizeof(UdpRecvBuf));
+	memset(server->data, 0, sizeof(UdpRecvBuf));
+
+	sockaddr_in addr;
+	uv_ip4_addr("0.0.0.0", port, &addr);
+	auto ret = uv_udp_bind(server, (const sockaddr*)&addr, 0);
+
+	uv_udp_recv_start(server, udp_str_alloc, udp_after_recv);
+	log_debug("Udp 服务器已开机 %d", port);
 }
 
 void Netbus::Run()const
 {
-	printf("开始监听\n");
+	log_debug("开始监听");
 	uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }
 
@@ -374,8 +451,5 @@ void Netbus::Init() const
 {
 	CmdPackageProtocol::Init();
 	ServiceManager::Init();
-	logger::init("logger", "netbus_log", true);
-
-	InitPfCmdMap();
 	InitAllocers();
 }

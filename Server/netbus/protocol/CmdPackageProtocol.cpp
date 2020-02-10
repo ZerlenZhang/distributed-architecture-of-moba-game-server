@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include "CmdPackageProtocol.h"
 #include "google/protobuf/message.h"
+#include "../../utils/logger/logger.h"
 
 
 #define MAX_PF_MAP_SIZE 1024
@@ -70,7 +71,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 	// serviceType (2 bytes) | cmdType (2 bytes) | userTag (4 bytes) | body
 	if (cmd_len < CMD_HEADER_SIZE)
 	{// 数据太短
-		printf("数据太短\n");
+		log_debug("数据太短");
 		return false;
 	}
 
@@ -105,7 +106,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 			|| out_msg->cmdType >= g_cmdCount
 			|| g_pf_map[out_msg->cmdType] == NULL)
 		{
-			printf("没有这个protobuf协议\n");
+			log_debug("没有这个protobuf协议");
 			free(out_msg);
 			out_msg = NULL;
 			return false;
@@ -114,7 +115,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 		tempMessagePointer = CreateMessage(g_pf_map[out_msg->cmdType]);
 		if (tempMessagePointer == NULL)
 		{
-			printf("获取Message类型为空\n");
+			log_debug("获取Message类型为空");
 			free(out_msg);
 			out_msg = NULL;
 			return false;
@@ -122,7 +123,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 
 		if (!tempMessagePointer->ParseFromArray(cmd + CMD_HEADER_SIZE, cmd_len - CMD_HEADER_SIZE))
 		{
-			printf("消息反序列化失败\n");
+			log_debug("消息反序列化失败");
 			free(out_msg);
 			out_msg = NULL;
 			ReleaseMessage(tempMessagePointer);

@@ -7,8 +7,10 @@
 #include "../../3rd/http_parser/http_parser.h"
 #include "../../3rd/crypto/sha1.h"
 
-#include "../AbstractSession.h"
 #include "../../utils/cache_alloc/cache_alloc.h"
+#include "../../utils/logger/logger.h"
+
+#include "../../netbus/session/AbstractSession.h"
 
 
 #pragma region 全局常量
@@ -121,7 +123,7 @@ bool WebSocketProtocol::ShakeHand(AbstractSession* session, char* body, int len)
 	if (has_sec_key && is_shaker_ended)
 	{
 		// 解析到了websocket里面的Sec-WebSocket-Key
-		printf("Sec-WebSocket-Key:\t%s\n", value_sec_key);
+		log_debug("Sec-WebSocket-Key:\t%s", value_sec_key);
 
 		// key + migic
 		static char key_migic[512];
@@ -158,12 +160,12 @@ bool WebSocketProtocol::ReadHeader(unsigned char* pkgData, int pkgLen, int* out_
 	if (pkgData[0] != 0x81 && pkgData[0] != 0x82)
 	{
 		//不是有效websocket数据头，直接返回，不处理
-		printf("不是有效websocket数据头, 直接返回\n");
+		log_debug("不是有效websocket数据头, 直接返回");
 		return false; 
 	}
 	if (pkgLen < 2)
 	{// 没有足够位存放dataLen
-		printf("没有足够位存放dataLen\n");
+		log_debug("没有足够位存放dataLen");
 		return false;
 	}
 
@@ -178,7 +180,7 @@ bool WebSocketProtocol::ReadHeader(unsigned char* pkgData, int pkgLen, int* out_
 		headSize += 2;
 		if (pkgLen < headSize)
 		{// 没有足够位存放dataLen
-			printf("没有足够位存放dataLen\n");
+			log_debug("没有足够位存放dataLen");
 			return false;
 		}
 		dataLen = pkgData[3] | (pkgData[2] << 8);
@@ -189,7 +191,7 @@ bool WebSocketProtocol::ReadHeader(unsigned char* pkgData, int pkgLen, int* out_
 		headSize += 8;
 		if (pkgLen < headSize)
 		{// 没有足够位存放dataLen
-			printf("没有足够位存放dataLen\n");
+			log_debug("没有足够位存放dataLen");
 			return false;
 		}
 		int low = pkgData[5] | (pkgData[4] << 8) | (pkgData[3] << 16) | (pkgData[2] << 24);
@@ -204,7 +206,7 @@ bool WebSocketProtocol::ReadHeader(unsigned char* pkgData, int pkgLen, int* out_
 	headSize += 4;
 	if (pkgLen < headSize)
 	{// 没有足够位存放mask
-		printf("没有足够位存放mask\n");
+		log_debug("没有足够位存放mask");
 		return false;
 	}
 

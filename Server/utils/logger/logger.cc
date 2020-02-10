@@ -127,9 +127,21 @@ logger::log(const char* file_name,
 	uv_fs_req_cleanup(&writeReq);
 
 	if (g_std_out) {
-		printf("%s:%u\n[%s] %s\n", file_name, line_num, g_log_level[level], msg_content);
+		switch (level)
+		{
+		case 0:
+			printf("\033[1;32m[%s]\t %s\n\033[0m", g_log_level[level], msg_content);
+			break;
+		case 1:
+			printf("\033[1;33m[%s]%s\n\033[0m", g_log_level[level], msg_content);
+			break;
+		case 2:
+			printf("\033[1;31m[%s]\t %s\n\033[0m", g_log_level[level], msg_content);
+			break;
+		}
+		printf("\t\033[37m%s:%u\n\033[0m", file_name, line_num);
 	}
 }
-
+								   
 
 

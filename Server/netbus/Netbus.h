@@ -14,6 +14,7 @@ public:
 public:
 	void StartTcpServer(int port)const;
 	void StartWebSocketServer(int port)const;
+	void StartUdpServer(int port)const;
 	void Run()const;
 	void Init()const;
 };

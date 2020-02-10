@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include "../../utils/cache_alloc/cache_alloc.h"
+#include "../../utils/logger/logger.h"
 
 extern cache_allocer* writeBufAllocer;
 
@@ -13,7 +14,7 @@ bool TcpProtocol::ReadHeader(unsigned char* data, int dataLen, int* out_pkgSize,
 {
 	if (dataLen < 2) 
 	{// 太短，无法解析
-		printf("太短，无法解析\n");
+		log_debug("太短，无法解析");
 		return false;
 	}
 

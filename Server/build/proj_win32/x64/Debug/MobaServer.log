@@ -1,9 +1,0 @@
-﻿  timestamp.c
-F:\Projects\unity\Moba\Server\utils\timestamp\timestamp.c(428,1): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-F:\Windows Kits\10\Include\10.0.18362.0\ucrt\time.h(506): message : 参见“localtime”的声明
-F:\Projects\unity\Moba\Server\utils\timestamp\timestamp.c(437,1): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-F:\Windows Kits\10\Include\10.0.18362.0\ucrt\time.h(506): message : 参见“localtime”的声明
-  TestCpp.cpp
-F:\Projects\unity\Moba\Server\3rd\protobuf\google\protobuf\wire_format_lite.h(863,48): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
-F:\Projects\unity\Moba\Server\3rd\protobuf\google\protobuf\wire_format_lite.h(874,48): warning C4146: 一元负运算符应用于无符号类型，结果仍为无符号类型
-  MobaServer.vcxproj -> F:\Projects\unity\Moba\Server\build\proj_win32\x64\Debug\MobaServer.exe

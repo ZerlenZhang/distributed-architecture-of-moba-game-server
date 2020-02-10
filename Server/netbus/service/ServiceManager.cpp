@@ -1,7 +1,7 @@
 #include <cstring>
 #include "AbstractService.h"
 #include "../../netbus/protocol/CmdPackageProtocol.h"
-#include "../../netbus/AbstractSession.h"
+#include "../../netbus/session/AbstractSession.h"
 #include "ServiceManager.h"
 #define MAX_SERVICE_COUNT 64
 

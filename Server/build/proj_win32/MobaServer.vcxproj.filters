@@ -61,6 +61,12 @@
     <Filter Include="utils\logger">
       <UniqueIdentifier>{c429cebb-28dd-4970-b22b-4223f3a9eea8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="netbus\session">
+      <UniqueIdentifier>{b81e81bd-a428-4567-9cf1-913feb3622d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="database">
+      <UniqueIdentifier>{a73256cf-6c71-410a-a19f-1980e96550b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rd\libuv\src\fs-poll.c">
@@ -183,15 +189,6 @@
     <ClCompile Include="..\..\netbus\protocol\WebSocketProtocol.cpp">
       <Filter>netbus\Protocol</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\netbus\AbstractSession.cpp">
-      <Filter>netbus</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netbus\Netbus.cpp">
-      <Filter>netbus</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\netbus\UvSession.cpp">
-      <Filter>netbus</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\apps\test\pf_cmd_map.cpp">
       <Filter>app\test\proto</Filter>
     </ClCompile>
@@ -218,6 +215,24 @@
     </ClCompile>
     <ClCompile Include="..\..\utils\timestamp\timestamp.c">
       <Filter>utils\timestamp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netbus\Netbus.cpp">
+      <Filter>netbus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netbus\session\AbstractSession.cpp">
+      <Filter>netbus\session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netbus\session\TcpSession.cpp">
+      <Filter>netbus\session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\netbus\session\UdpSession.cpp">
+      <Filter>netbus\session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\database\mysqlwarpper.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\database\rediswarpper.cpp">
+      <Filter>database</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,15 +338,6 @@
     <ClInclude Include="..\..\netbus\protocol\WebSocketProtocol.h">
       <Filter>netbus\Protocol</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\netbus\AbstractSession.h">
-      <Filter>netbus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netbus\Netbus.h">
-      <Filter>netbus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\netbus\UvSession.h">
-      <Filter>netbus</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\apps\test\pf_cmd_map.h">
       <Filter>app\test\proto</Filter>
     </ClInclude>
@@ -355,6 +361,24 @@
     </ClInclude>
     <ClInclude Include="..\..\utils\timestamp\timestamp.h">
       <Filter>utils\timestamp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netbus\Netbus.h">
+      <Filter>netbus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netbus\session\AbstractSession.h">
+      <Filter>netbus\session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netbus\session\TcpSession.h">
+      <Filter>netbus\session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\netbus\session\UdpSession.h">
+      <Filter>netbus\session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\database\mysqlwarpper.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\database\rediswarpper.h">
+      <Filter>database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

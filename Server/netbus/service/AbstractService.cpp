@@ -1,4 +1,4 @@
-#include "../../netbus/AbstractSession.h"
+#include "../../netbus/session/AbstractSession.h"
 #include "../../netbus/protocol/CmdPackageProtocol.h"
 #include "AbstractService.h"
 
