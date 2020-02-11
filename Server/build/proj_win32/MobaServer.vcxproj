@@ -99,9 +99,10 @@
     <ClCompile Include="..\..\apps\test\proto\game.pb.cc" />
     <ClCompile Include="..\..\apps\test\TestCpp.cpp" />
     <ClCompile Include="..\..\database\mysqlwarpper.cpp" />
-    <ClCompile Include="..\..\database\mysql_export_to_lua.cc" />
     <ClCompile Include="..\..\database\rediswarpper.cpp" />
     <ClCompile Include="..\..\lua_wrapper\lua_wrapper.cpp" />
+    <ClCompile Include="..\..\lua_wrapper\mysql_export_to_lua.cc" />
+    <ClCompile Include="..\..\lua_wrapper\redis_export_to_lua.cc" />
     <ClCompile Include="..\..\netbus\Netbus.cpp" />
     <ClCompile Include="..\..\netbus\protocol\CmdPackageProtocol.cpp" />
     <ClCompile Include="..\..\netbus\protocol\TcpPackageProtocol.cpp" />
@@ -180,9 +181,10 @@
     <ClInclude Include="..\..\apps\test\pf_cmd_map.h" />
     <ClInclude Include="..\..\apps\test\proto\game.pb.h" />
     <ClInclude Include="..\..\database\mysqlwarpper.h" />
-    <ClInclude Include="..\..\database\mysql_export_to_lua.h" />
     <ClInclude Include="..\..\database\rediswarpper.h" />
     <ClInclude Include="..\..\lua_wrapper\lua_wrapper.h" />
+    <ClInclude Include="..\..\lua_wrapper\mysql_export_to_lua.h" />
+    <ClInclude Include="..\..\lua_wrapper\redis_export_to_lua.h" />
     <ClInclude Include="..\..\netbus\Netbus.h" />
     <ClInclude Include="..\..\netbus\protocol\CmdPackageProtocol.h" />
     <ClInclude Include="..\..\netbus\protocol\TcpPackageProtocol.h" />

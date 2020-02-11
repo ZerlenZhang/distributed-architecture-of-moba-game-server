@@ -14,7 +14,7 @@ using namespace std;
 #pragma region »Øµ÷
 
 
-static void on_redis_query(const char* err, redisReply* result)
+static void on_redis_query(const char* err, RedisReply* result)
 {
 	if (err)
 	{
@@ -22,7 +22,7 @@ static void on_redis_query(const char* err, redisReply* result)
 		return;
 	}
 
-	log_debug("RedisQuery: %s", result->str);
+	log_debug("RedisQuery: %s", result->reply->str);
 }
 
 static void on_mysql_connect(const char* error,MysqlContext* context)

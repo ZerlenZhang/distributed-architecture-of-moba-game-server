@@ -9,14 +9,7 @@
 
 #pragma region 信息结构体
 
-//控制线程安全-加锁
-struct RedisContext
-{
-	//MYSQL* pConn;
-	bool isClosed = false;
-	uv_mutex_t lock;
-	redisContext* pConn;
-};
+
 
 //connect必须信息
 struct connect_req
@@ -24,7 +17,7 @@ struct connect_req
 	char* ip;
 	int port;
 
-	void(*open_cb)(const char* error, RedisContext* context);
+	RedisConnectCallback open_cb;
 
 	char* error;
 	RedisContext* context;
@@ -35,10 +28,13 @@ struct query_req
 {
 	RedisContext* context;
 	char* cmd;
-	void(*query_cb)(const char* err, redisReply* result);
+	RedisQueryCallback query_cb;
 	char* error;
-	redisReply* result;
+	RedisReply* myReply;
 };
+
+
+
 #pragma endregion
 
 #pragma region 回调
@@ -47,33 +43,36 @@ static void connect_work(uv_work_t* req)
 {
 	auto pInfo = (connect_req*)req->data;
 	timeval timeout = { 5.0};
-	auto pConn = RedisConnectWithTimeout(pInfo->ip, pInfo->port, timeout);
-	if (pConn->err)
+	pInfo->context->pConn = RedisConnectWithTimeout(pInfo->ip, pInfo->port, timeout);
+	if (pInfo->context->pConn->err)
 	{
-		pInfo->error = strdup(pConn->errstr);
-		RedisFree(pConn);
+		pInfo->error = strdup(pInfo->context->pConn->errstr);
+		RedisFree(pInfo->context->pConn);
+		pInfo->context->pConn = NULL;
 		return;
 	}
-
-	pInfo->context->pConn = pConn;
 }
 
 static void on_connect_complete(uv_work_t* req, int status)
 {
 	auto pInfo = (connect_req*)req->data;
 
-	log_debug("Redis 数据库链接成功")
+	log_debug("Redis 数据库链接成功");
 
-	pInfo->open_cb(pInfo->error, pInfo->context);
+	if (pInfo)
+	{
+		if (pInfo->open_cb)
+			pInfo->open_cb(pInfo->error, pInfo->context);
 
-	if (pInfo->ip)
-		free(pInfo->ip);
-	if (pInfo->error)
-		free(pInfo->error);
+		if (pInfo->ip)
+			free(pInfo->ip);
+		if (pInfo->error)
+			free(pInfo->error);
 
-	my_free(pInfo);
+		my_free(pInfo);
+	}
+
 	my_free(req);
-
 }
 
 static void close_work(uv_work_t* req)
@@ -82,17 +81,24 @@ static void close_work(uv_work_t* req)
 
 	//加锁，等待正在进行的查询结束
 	uv_mutex_lock(&pConn->lock);
-	log_debug("close 加锁");
+	//log_debug("close 加锁");
 	RedisFree(pConn->pConn);
 	pConn->pConn = NULL;
-	log_debug("close 释放");
+	//log_debug("close 释放");
 	uv_mutex_unlock(&pConn->lock);
 }
 
 static void on_close_complete(uv_work_t* req, int status)
 {
-	if (req->data)
-		my_free(req->data);
+	auto info = (RedisContext*)req->data;
+
+	if (info)
+	{
+		if (info->udata && info->autoFreeUdata)
+			free(info->udata);
+		my_free(info);
+
+	}
 	my_free(req);
 	log_debug("Redis 数据库断开链接");
 }
@@ -108,14 +114,24 @@ static void query_work(uv_work_t* req)
 	}
 	//线程锁
 	uv_mutex_lock(&pInfo->context->lock);
-	log_debug("query 加锁");
+	//log_debug("query 加锁");
 
 	auto replay = (redisReply*)RedisCommand(pInfo->context->pConn, pInfo->cmd);
+	
 	if (replay)
 	{
-		pInfo->result = replay;
+		if (replay->type == REDIS_REPLY_ERROR)
+		{
+			pInfo->error = strdup(replay->str);
+			FreeReplyObject(replay);
+		}
+		else
+		{
+			pInfo->myReply->reply = replay;
+		}
+
 	}
-	log_debug("query 释放");
+	//log_debug("query 释放");
 	uv_mutex_unlock(&pInfo->context->lock);
 
 }
@@ -123,27 +139,35 @@ static void query_work(uv_work_t* req)
 static void on_query_complete(uv_work_t* req, int status)
 {
 	auto pInfo = (query_req*)req->data;
-	
-	if(pInfo->query_cb)
-		pInfo->query_cb(pInfo->error, pInfo->result);
 
-	if (pInfo->cmd)
-		free(pInfo->cmd);
-	if (pInfo->error)
-		free(pInfo->error);
-	if (pInfo->result)
+	if (pInfo)
 	{
-		FreeReplyObject(pInfo->result);
+		if(pInfo->query_cb)
+			pInfo->query_cb(pInfo->error, pInfo->myReply);
+
+		if (pInfo->cmd)
+			free(pInfo->cmd);
+		if (pInfo->error)
+			free(pInfo->error);
+
+		if (pInfo->myReply)
+		{
+			if(pInfo->myReply->reply)
+				FreeReplyObject(pInfo->myReply->reply);
+
+			if (pInfo->myReply->udata && pInfo->myReply->autoFreeUdata)
+				free(pInfo->myReply->udata);
+			my_free(pInfo->myReply);
+		}
+		my_free(pInfo);
 	}
-	
-	my_free(pInfo);
 	my_free(req);
 }
 
 #pragma endregion
 
 #pragma region redis_wrapper
-void redis_wrapper::connect(char* ip, int port, void(*open_cb)(const char* error, RedisContext* context))
+void redis_wrapper::connect(char* ip, int port, RedisConnectCallback callback,void* udata,bool autoFreeUdata)
 {
 	auto w = (uv_work_t * )my_alloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
@@ -154,10 +178,12 @@ void redis_wrapper::connect(char* ip, int port, void(*open_cb)(const char* error
 	auto lockContext = (RedisContext*)my_alloc(sizeof(RedisContext));
 	memset(lockContext, 0, sizeof(RedisContext));
 	uv_mutex_init(&lockContext->lock);//初始化信号量
+	lockContext->udata = udata;
+	lockContext->autoFreeUdata = autoFreeUdata;
 
 	info->ip = strdup(ip);
 	info->port = port;
-	info->open_cb = open_cb; 
+	info->open_cb = callback;
 	info->context = lockContext;
 
 	w->data = info;
@@ -183,7 +209,7 @@ void redis_wrapper::close_redis(RedisContext* conntext)
 	uv_queue_work(uv_default_loop(), w, close_work, on_close_complete);
 } 
 
-void redis_wrapper::query(RedisContext* context, char* sql, void(*callback)(const char* err, redisReply* result))
+void redis_wrapper::query(RedisContext* context, char* sql, RedisQueryCallback callback,void* udata,bool autoFreeUdata)
 {
 	auto w = (uv_work_t*)my_alloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
@@ -191,9 +217,15 @@ void redis_wrapper::query(RedisContext* context, char* sql, void(*callback)(cons
 	auto pInfo = (query_req*)my_alloc(sizeof(query_req));
 	memset(pInfo, 0, sizeof(query_req));
 
+	auto myReply = (RedisReply*)my_alloc(sizeof(RedisReply));
+	memset(myReply, 0, sizeof(RedisReply));
+	myReply->udata = udata;
+	myReply->autoFreeUdata = autoFreeUdata;
+
 	pInfo->context = context;
 	pInfo->cmd = strdup(sql);
 	pInfo->query_cb = callback;
+	pInfo->myReply = myReply;
 
 	w->data = pInfo;
 

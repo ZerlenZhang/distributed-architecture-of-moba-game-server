@@ -2,7 +2,8 @@
 #include "../utils/logger/logger.h"
 
 #include <tolua_fix.h>
-#include "../database/mysql_export_to_lua.h"
+#include "mysql_export_to_lua.h"
+#include "redis_export_to_lua.h"
 
 lua_State* g_lua = NULL;
 
@@ -170,6 +171,7 @@ void lua_wrapper::Init()
 	toluafix_open(g_lua);
 
 	register_mysql_export(g_lua);
+	register_redis_export(g_lua);
 
 #pragma region Export_ÈÕÖ¾Ä£¿é
 	ExportFunc2Lua("log_error", lua_log_error);
