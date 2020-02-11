@@ -1,3 +1,4 @@
+--打印table
 function print_r ( t )  
     local print_r_cache={}
     local function sub_print_r(t,indent)
@@ -32,50 +33,67 @@ function print_r ( t )
     print()
 end
 
-function RedisCb(error,result)
-    if error then
-        log_error(error)
-        return
+--测试service
+local my_service={
+    OnSessionRecvCmd=function(session,msg)
+    end,
+    OnSessionDisConnected=function(session)
     end
-    print(result)
-end
+}
 
-table.print = print_r
+local ret = Service.Register(20,my_service)
+Debug.Log("注册结果",ret)
 
-log_debug("hello world")
-mysql_wrapper.connect("127.0.0.1",3306,"test_mysql","root","Zzl5201314...",
+--Mysql数据库
+Mysql.Connect("127.0.0.1",3306,"test_mysql","root","Zzl5201314...",
 function(err,context)
-    mysql_wrapper.query(context,"select * from test_class",
-function(err,queryTable)
+    Mysql.Query(context,"select * from test_class",
+function(err,QueryTable)
     if err then
-        log_error(err)
+        Debug.LogError(err)
         return
     end
-    log_debug("success")
-    print_r(queryTable)
-    mysql_wrapper.close(context)
+    Debug.Log("success")
+    print_r(QueryTable)
+    Mysql.Close(context)
 end)
 end)
 
-redis_wrapper.connect(
+
+--Redis数据库
+Redis.Connect(
     "127.0.0.1",
     7999,
     function(error,context)
     
         if error then
-            log_error(error)
+            Debug.LogError(error)
         end
 
-        redis_wrapper.query(context,
+        Redis.Query(context,
         "hgetall 001",
         function(error,result)
             if error then
-                log_error(error)
+                Debug.LogError(error)
                 return
             end
             print(result)
-            redis_wrapper.close_redis(context)
+            Redis.Close(context)
         end)
 
     
-    end);
+    end);    
+
+local timer = Timer.Repeat(
+    function()
+        print("timer");
+    end,1000,-5,800);
+print(timer)
+Timer.Once(
+    function()
+        Timer.Cancel(timer);
+        print("what ??????????");
+    end,
+    5000);
+
+

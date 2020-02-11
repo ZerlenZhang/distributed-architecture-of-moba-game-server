@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -100,9 +100,13 @@
     <ClCompile Include="..\..\apps\test\TestCpp.cpp" />
     <ClCompile Include="..\..\database\mysqlwarpper.cpp" />
     <ClCompile Include="..\..\database\rediswarpper.cpp" />
+    <ClCompile Include="..\..\lua_wrapper\logger_export_to_lua.cpp" />
     <ClCompile Include="..\..\lua_wrapper\lua_wrapper.cpp" />
     <ClCompile Include="..\..\lua_wrapper\mysql_export_to_lua.cc" />
     <ClCompile Include="..\..\lua_wrapper\redis_export_to_lua.cc" />
+    <ClCompile Include="..\..\lua_wrapper\service_export_to_lua.cpp" />
+    <ClCompile Include="..\..\lua_wrapper\session_export_to_lua.cpp" />
+    <ClCompile Include="..\..\lua_wrapper\timer_export_to_lua.cpp" />
     <ClCompile Include="..\..\netbus\Netbus.cpp" />
     <ClCompile Include="..\..\netbus\protocol\CmdPackageProtocol.cpp" />
     <ClCompile Include="..\..\netbus\protocol\TcpPackageProtocol.cpp" />
@@ -182,9 +186,13 @@
     <ClInclude Include="..\..\apps\test\proto\game.pb.h" />
     <ClInclude Include="..\..\database\mysqlwarpper.h" />
     <ClInclude Include="..\..\database\rediswarpper.h" />
+    <ClInclude Include="..\..\lua_wrapper\logger_export_to_lua.h" />
     <ClInclude Include="..\..\lua_wrapper\lua_wrapper.h" />
     <ClInclude Include="..\..\lua_wrapper\mysql_export_to_lua.h" />
     <ClInclude Include="..\..\lua_wrapper\redis_export_to_lua.h" />
+    <ClInclude Include="..\..\lua_wrapper\service_export_to_lua.h" />
+    <ClInclude Include="..\..\lua_wrapper\session_export_to_lua.h" />
+    <ClInclude Include="..\..\lua_wrapper\timer_export_to_lua.h" />
     <ClInclude Include="..\..\netbus\Netbus.h" />
     <ClInclude Include="..\..\netbus\protocol\CmdPackageProtocol.h" />
     <ClInclude Include="..\..\netbus\protocol\TcpPackageProtocol.h" />

@@ -1,12 +1,16 @@
 #include "pf_cmd_map.h"
 #include "../../netbus/protocol/CmdPackageProtocol.h"
+#include <map>
+#include <string>
+using std::map;
+using std::string;
 
-const char* pfCmdMap[] = {
-	"LoginReq",
-	"LoginRes",
+static map<int, string> cmd_map = {
+	{0,"LoginReq"},
+	{1,"LoginRes"}
 };
 
 void InitPfCmdMap()
 {
-	CmdPackageProtocol::RegisterPfCmdMap(pfCmdMap, sizeof(pfCmdMap) / sizeof(char*));
+	CmdPackageProtocol::RegisterProtoCmdMap(cmd_map);
 }

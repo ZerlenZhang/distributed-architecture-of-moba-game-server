@@ -1,89 +1,16 @@
 #include "lua_wrapper.h"
-#include "../utils/logger/logger.h"
 
 #include <tolua_fix.h>
+#include <string>
 #include "mysql_export_to_lua.h"
 #include "redis_export_to_lua.h"
+#include "service_export_to_lua.h"
+#include "session_export_to_lua.h"
+#include "logger_export_to_lua.h"
+#include "../utils/logger/logger.h"
+#include "timer_export_to_lua.h"
 
 lua_State* g_lua = NULL;
-
-
-
-#pragma region Export_日志
-static void lua_print_error(const char* fileName, int lineNum, const char* msg)
-{
-	logger::log(fileName, lineNum, tag_ERROR, msg);
-}
-static void lua_print_debug(const char* fileName, int lineNum, const char* msg)
-{
-	logger::log(fileName, lineNum, tag_DEBUG, msg);
-}
-static void lua_print_warning(const char* fileName, int lineNum, const char* msg)
-{
-	logger::log(fileName, lineNum, tag_WARNING, msg);
-}
-static void do_log_message(void(*log)(const char* file_name, int line_num, const char* msg), const char* msg) {
-	lua_Debug info;
-	int depth = 0;
-	while (lua_getstack(g_lua, depth, &info)) {
-
-		lua_getinfo(g_lua, "S", &info);
-		lua_getinfo(g_lua, "n", &info);
-		lua_getinfo(g_lua, "l", &info);
-
-		if (info.source[0] == '@') {
-			log(&info.source[1], info.currentline, msg);
-			return;
-		}
-
-		++depth;
-	}
-	if (depth == 0) {
-		log("trunk", 0, msg);
-	}
-}
-static int lua_log_debug(lua_State* L)
-{
-	const char* msg = luaL_checkstring(L, -1);
-	if (msg)
-	{//是哪个LUA文件？-> 访问lua调用信息
-
-		do_log_message(lua_print_debug, msg);
-	}
-	return 0;
-}
-static int lua_log_warning(lua_State* L)
-{
-	const char* msg = luaL_checkstring(L, -1);
-	if (msg)
-	{//是哪个LUA文件？-> 访问lua调用信息
-
-		do_log_message(lua_print_warning, msg);
-	}
-	return 0;
-}
-static int lua_log_error(lua_State* L)
-{
-	const char* msg = luaL_checkstring(L, -1);
-	if (msg)
-	{//是哪个LUA文件？-> 访问lua调用信息
-
-		do_log_message(lua_print_error, msg);
-	}
-	return 0;
-}
-#pragma endregion
-
-
-#pragma region 重定义_lua_panic函数
-
-static int lua_panic(lua_State* L)
-{
-	return lua_log_error(L);
-}
-
-#pragma endregion
-
 
 static bool
 pushFunctionByHandler(int nHandler)
@@ -164,24 +91,14 @@ void lua_wrapper::Init()
 	g_lua = luaL_newstate();
 	//打开所有lua库
 	luaL_openlibs(g_lua);
-	//重定义终止函数，默认是直接终止
-	lua_atpanic(g_lua, lua_panic);
-
-
 	toluafix_open(g_lua);
 
+	register_logger_export(g_lua);
 	register_mysql_export(g_lua);
 	register_redis_export(g_lua);
-
-#pragma region Export_日志模块
-	ExportFunc2Lua("log_error", lua_log_error);
-	ExportFunc2Lua("log_debug", lua_log_debug);
-	ExportFunc2Lua("log_warning", lua_log_warning);
-#pragma endregion
-
-
-
-
+	register_service_export(g_lua);
+	register_session_export(g_lua); 
+	register_timer_export(g_lua);
 }
 
 void lua_wrapper::Exit()

@@ -142,12 +142,12 @@ int register_redis_export(lua_State* tolua_S)
 	lua_getglobal(tolua_S, "_G");
 	if (lua_istable(tolua_S, -1)) {
 		tolua_open(tolua_S);
-		tolua_module(tolua_S, "redis_wrapper", 0);
-		tolua_beginmodule(tolua_S, "redis_wrapper");
+		tolua_module(tolua_S, "Redis", 0);
+		tolua_beginmodule(tolua_S, "Redis");
 
-		tolua_function(tolua_S, "connect", lua_redis_connect);
-		tolua_function(tolua_S, "close_redis", lua_redis_close);
-		tolua_function(tolua_S, "query", lua_redis_query);
+		tolua_function(tolua_S, "Connect", lua_redis_connect);
+		tolua_function(tolua_S, "Close", lua_redis_close);
+		tolua_function(tolua_S, "Query", lua_redis_query);
 		tolua_endmodule(tolua_S);
 	}
 	lua_pop(tolua_S, 1);

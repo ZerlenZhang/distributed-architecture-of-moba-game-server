@@ -52,15 +52,15 @@ on_uv_timer(uv_timer_t* handle) {
 }
 
 struct timer*
-schedule(void(*on_timer)(void* udata),
+schedule_repeat(void(*on_timer)(void* udata),
          void* udata,
 		 int after_msec,
-         int repeat_count) {
+         int repeat_count,int repeat_msec) {
 	struct timer* t = alloc_timer(on_timer, udata, repeat_count);
 
 	// Æô¶¯Ò»¸ötimer;
 	t->uv_timer.data = t;
-	uv_timer_start(&t->uv_timer, on_uv_timer, after_msec, after_msec);
+	uv_timer_start(&t->uv_timer, on_uv_timer, after_msec, repeat_msec);
 	// end 
 	return t;
 }
@@ -78,7 +78,12 @@ struct timer*
 schedule_once(void(*on_timer)(void* udata),
               void* udata,
 			  int after_msec) {
-	return schedule(on_timer, udata, after_msec, 1);
+	return schedule_repeat(on_timer, udata, after_msec, 1, after_msec);
+}
+
+void* get_timer_udata(timer* t)
+{
+	return t->udata;
 }
 
 

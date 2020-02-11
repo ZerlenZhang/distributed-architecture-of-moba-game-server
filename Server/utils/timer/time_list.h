@@ -17,10 +17,11 @@ struct timer;
 
 
 struct timer*
-schedule(void(*on_timer)(void* udata), 
+schedule_repeat(void(*on_timer)(void* udata), 
          void* udata, 
-		 int after_msec,
-		 int repeat_count);
+		 int delay,
+		 int repeat_count,
+		int repeat_msec);
 
 
 // 取消掉这个timer;
@@ -31,6 +32,8 @@ struct timer*
 schedule_once(void(*on_timer)(void* udata), 
               void* udata, 
 			  int after_msec);
+
+void* get_timer_udata(struct timer* t);
 
 #ifdef __cplusplus
 }

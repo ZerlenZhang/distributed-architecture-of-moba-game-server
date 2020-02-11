@@ -2,42 +2,15 @@
 #include <cstring>
 #include <cstdlib>
 #include "CmdPackageProtocol.h"
-#include "google/protobuf/message.h"
 #include "../../utils/logger/logger.h"
 
-
-#define MAX_PF_MAP_SIZE 1024
 
 #pragma region 全局变量
 
 static ProtoType g_protoType;
-static char* g_pf_map[MAX_PF_MAP_SIZE];
-static int g_cmdCount = 0;
+static map<int, string> g_pb_cmd_map;
 
 #pragma endregion
-
-static google::protobuf::Message* CreateMessage(const char* typeName)
-{
-	google::protobuf::Message* msg = NULL;
-	//根据名字，找到message的描述对象
-	auto descriptor = google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
-	if (descriptor)
-	{
-		//根据描述对象从对象工厂中生成一个对应模板对象
-		//根据模板复制出来一个
-		auto protoType = google::protobuf::MessageFactory::generated_factory()->GetPrototype(descriptor);
-		if (protoType)
-		{
-			msg = protoType->New();
-		}
-	}
-	return msg;
-}
-
-static void ReleaseMessage(google::protobuf::Message* msg)
-{
-	delete msg;
-}
 
 
 void CmdPackageProtocol::Init(::ProtoType proto_type)
@@ -45,19 +18,22 @@ void CmdPackageProtocol::Init(::ProtoType proto_type)
 	g_protoType = proto_type;
 }
 
-void CmdPackageProtocol::RegisterPfCmdMap(const char** pf_map, int len)
+
+void CmdPackageProtocol::RegisterProtoCmdMap(map<int, string>& map)
 {
-	len = MAX_PF_MAP_SIZE - g_cmdCount < len 
-		? MAX_PF_MAP_SIZE - g_cmdCount 
-		: len;
-
-	for (auto i = 0; i < len; i++)
+	for (auto x : map)
 	{
-		g_pf_map[g_cmdCount + i] = strdup(pf_map[i]);
+		g_pb_cmd_map.insert(x);
 	}
+}
 
-	g_cmdCount += len;
-
+const char* CmdPackageProtocol::ProtoCmdTypeToName(int cmdType)
+{
+	if (g_pb_cmd_map.find(cmdType) == g_pb_cmd_map.end())
+	{
+		return NULL;
+	}
+	return g_pb_cmd_map[cmdType].c_str();
 }
 
 ProtoType CmdPackageProtocol::ProtoType()
@@ -102,21 +78,10 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 		break;
 	case ProtoType::Protobuf:
 		//没有这个protobuf协议
-		if (out_msg->cmdType < 0
-			|| out_msg->cmdType >= g_cmdCount
-			|| g_pf_map[out_msg->cmdType] == NULL)
-		{
-			log_debug("没有这个protobuf协议");
-			free(out_msg);
-			out_msg = NULL;
-			return false;
-		}
-
-		tempMessagePointer = CreateMessage(g_pf_map[out_msg->cmdType]);
+		tempMessagePointer = CreateMessage(g_pb_cmd_map[out_msg->cmdType].c_str());
 		if (tempMessagePointer == NULL)
 		{
 			log_debug("获取Message类型为空");
-			free(out_msg);
 			out_msg = NULL;
 			return false;
 		}
@@ -218,4 +183,27 @@ unsigned char* CmdPackageProtocol::EncodeCmdPackageToRaw(const CmdPackage* msg, 
 void CmdPackageProtocol::FreeCmdPackageRaw(unsigned char* raw) 
 {
 	free(raw);
+}
+
+google::protobuf::Message* CmdPackageProtocol::CreateMessage(const char* typeName)
+{
+	google::protobuf::Message* msg = NULL;
+	//根据名字，找到message的描述对象
+	auto descriptor = google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
+	if (descriptor)
+	{
+		//根据描述对象从对象工厂中生成一个对应模板对象
+		//根据模板复制出来一个
+		auto protoType = google::protobuf::MessageFactory::generated_factory()->GetPrototype(descriptor);
+		if (protoType)
+		{
+			msg = protoType->New();
+		}
+	}
+	return msg;
+}
+
+void CmdPackageProtocol::ReleaseMessage(google::protobuf::Message* msg)
+{
+	delete msg;
 }

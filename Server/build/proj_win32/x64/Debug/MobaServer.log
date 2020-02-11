@@ -1,1 +1,11 @@
-﻿  MobaServer.vcxproj -> F:\Projects\unity\Moba\Server\build\proj_win32\x64\Debug\MobaServer.exe
+﻿  timer_export_to_lua.cpp
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(48,20): warning C4002: 类函数宏的调用“lua_tointeger”参数过多
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(58,21): warning C4002: 类函数宏的调用“lua_tointeger”参数过多
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(73,22): warning C4002: 类函数宏的调用“lua_tointeger”参数过多
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(81,21): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(84,76): warning C4244: “参数”: 从“lua_Integer”转换到“int”，可能丢失数据
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(84,63): warning C4244: “参数”: 从“lua_Integer”转换到“int”，可能丢失数据
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(84,51): warning C4244: “参数”: 从“lua_Integer”转换到“int”，可能丢失数据
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(96,20): warning C4002: 类函数宏的调用“lua_tointeger”参数过多
+F:\Projects\unity\Moba\Server\lua_wrapper\timer_export_to_lua.cpp(110,49): warning C4244: “参数”: 从“lua_Integer”转换到“int”，可能丢失数据
+  MobaServer.vcxproj -> F:\Projects\unity\Moba\Server\build\proj_win32\x64\Debug\MobaServer.exe

@@ -18,8 +18,6 @@ public:
 	//移除脚本函数
 	static void RemoveScriptHandle(int handle);
 
-
-private:
 	//导出C/C++函数
 	static void ExportFunc2Lua(
 		const char* name,

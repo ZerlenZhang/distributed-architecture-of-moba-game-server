@@ -1,6 +1,11 @@
 #ifndef __PROTOMANAGER_H__
 #define __PROTOMANAGER_H__
 
+#include "google/protobuf/message.h"
+#include <map>
+#include <string>
+using std::map;
+using std::string;
 
 //文本传输方式
 enum class ProtoType{
@@ -28,7 +33,12 @@ class CmdPackageProtocol
 public:
 	//初始化协议
 	static void Init(ProtoType proto_type=ProtoType::Protobuf);
-	static void RegisterPfCmdMap(const char** pf_map, int len);
+	
+	static void RegisterProtoCmdMap(map<int, string>& map);
+
+
+	static const char* ProtoCmdTypeToName(int cmdType);
+	
 	static ProtoType ProtoType();
 
 	static bool DecodeCmdMsg(unsigned char* cmd, const int cmd_len, struct CmdPackage*& out_msg);
@@ -36,6 +46,9 @@ public:
 
 	static unsigned char* EncodeCmdPackageToRaw(const struct CmdPackage* msg, int* out_len);
 	static void FreeCmdPackageRaw(unsigned char* raw);
+
+	static google::protobuf::Message* CreateMessage(const char* typeName);
+	static void ReleaseMessage(google::protobuf::Message* msg);
 };
 
 

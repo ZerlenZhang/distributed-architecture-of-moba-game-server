@@ -158,12 +158,12 @@ register_mysql_export(lua_State* tolua_S) {
 	lua_getglobal(tolua_S, "_G");
 	if (lua_istable(tolua_S, -1)) {
 		tolua_open(tolua_S);
-		tolua_module(tolua_S, "mysql_wrapper", 0);
-		tolua_beginmodule(tolua_S, "mysql_wrapper");
+		tolua_module(tolua_S, "Mysql", 0);
+		tolua_beginmodule(tolua_S, "Mysql");
 
-		tolua_function(tolua_S, "connect", lua_mysql_connect);
-		tolua_function(tolua_S, "close", lua_mysql_close);
-		tolua_function(tolua_S, "query", lua_mysql_query);
+		tolua_function(tolua_S, "Connect", lua_mysql_connect);
+		tolua_function(tolua_S, "Close", lua_mysql_close);
+		tolua_function(tolua_S, "Query", lua_mysql_query);
 		tolua_endmodule(tolua_S);
 	}
 	lua_pop(tolua_S, 1);
