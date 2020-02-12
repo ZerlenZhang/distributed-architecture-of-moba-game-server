@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7331febf-2a06-4cbe-bc1c-d7ba67373f70" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolPerson/PoolPerson.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="16">
+              <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
+              <folding>
+                <marker date="1581476247223" expanded="true" signature="6:60" ph="..." />
+                <marker date="1581476247223" expanded="true" signature="102:2187" ph="{...}" />
+                <marker date="1581476247223" expanded="true" signature="155:287" ph="{...}" />
+                <marker date="1581476247223" expanded="true" signature="297:393" ph="/// 自带对象池维护的Person ... " />
+                <marker date="1581476247223" expanded="true" signature="541:2185" ph="{...}" />
+                <marker date="1581476247223" expanded="false" signature="556:1191" ph="Static" />
+                <marker date="1581476247223" expanded="true" signature="580:686" ph="/// 对象池，这是整个泛型定义存在的意义! ... " />
+                <marker date="1581476247223" expanded="true" signature="930:1163" ph="{...}" />
+                <marker date="1581476247223" expanded="true" signature="1209:1282" ph="/// 重写死亡操作，对象池控制的话就不会销毁，而是回收 ... " />
+                <marker date="1581476247223" expanded="true" signature="1318:1361" ph="{...}" />
+                <marker date="1581476247223" expanded="true" signature="1399:1595" ph="{...}" />
+                <marker date="1581476247223" expanded="true" signature="1425:1585" ph="{...}" />
+                <marker date="1581476247223" expanded="false" signature="1605:2170" ph="对象池操作，只有在角色出生和死亡时调用" />
+                <marker date="1581476247223" expanded="true" signature="1679:1770" ph="{...}" />
+                <marker date="1581476247223" expanded="true" signature="1815:1901" ph="{...}" />
+                <marker date="1581476247223" expanded="true" signature="1932:2039" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolDataPerson/PoolDataPerson.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+              <folding>
+                <marker date="1581476276112" expanded="true" signature="6:39" ph="..." />
+                <marker date="1581476276112" expanded="true" signature="81:1130" ph="{...}" />
+                <marker date="1581476276112" expanded="true" signature="163:175" ph="{...}" />
+                <marker date="1581476276112" expanded="true" signature="185:309" ph="/// 自带从CSV读取数据的人物，继承此类的Person类需要具有UseCsvData特性 ... " />
+                <marker date="1581476276112" expanded="true" signature="441:1128" ph="{...}" />
+                <marker date="1581476276112" expanded="false" signature="465:538" ph="Fields" />
+                <marker date="1581476276112" expanded="false" signature="549:878" ph="IUseCsvData" />
+                <marker date="1581476276112" expanded="true" signature="681:798" ph="/// 加载数据，在这个函数中，应该完成对当前角色各项数据的赋值 ... " />
+                <marker date="1581476276112" expanded="true" signature="897:959" ph="/// 从对象池获取时加载数据资源 ... " />
+                <marker date="1581476276112" expanded="true" signature="1004:1122" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolPerson/PoolPerson.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolDataPerson/PoolDataPerson.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolPerson/PoolPerson.cs" />
+        <option value="$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolDataPerson/PoolDataPerson.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/.idea.UnityMobaClient/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/.idea.UnityMobaClient/.idea/indexLayout.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-440" />
+    <option name="y" value="-25" />
+    <option name="width" value="1445" />
+    <option name="height" value="1050" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="UnityExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="SolutionExplorer">
+        <option name="show-all-files" value="false" />
+      </pane>
+      <pane id="UnityExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+              <item name="ReadyGamerOne" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+              <item name="ReadyGamerOne" type="1045f7f1:UnityExplorerNode" />
+              <item name="Rougelike" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+              <item name="ReadyGamerOne" type="1045f7f1:UnityExplorerNode" />
+              <item name="Rougelike" type="1045f7f1:UnityExplorerNode" />
+              <item name="Person" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+              <item name="ReadyGamerOne" type="1045f7f1:UnityExplorerNode" />
+              <item name="Rougelike" type="1045f7f1:UnityExplorerNode" />
+              <item name="Person" type="1045f7f1:UnityExplorerNode" />
+              <item name="PersonSystem" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+              <item name="ReadyGamerOne" type="1045f7f1:UnityExplorerNode" />
+              <item name="Rougelike" type="1045f7f1:UnityExplorerNode" />
+              <item name="Person" type="1045f7f1:UnityExplorerNode" />
+              <item name="PersonSystem" type="1045f7f1:UnityExplorerNode" />
+              <item name="AutoPoolDataPerson" type="1045f7f1:UnityExplorerNode" />
+            </path>
+            <path>
+              <item name="" type="e068e287:UnityExplorerRootNode" />
+              <item name="Assets" type="8711f2a6:AssetsRoot" />
+              <item name="ReadyGamerOne" type="1045f7f1:UnityExplorerNode" />
+              <item name="Rougelike" type="1045f7f1:UnityExplorerNode" />
+              <item name="Person" type="1045f7f1:UnityExplorerNode" />
+              <item name="PersonSystem" type="1045f7f1:UnityExplorerNode" />
+              <item name="AutoPoolPerson" type="1045f7f1:UnityExplorerNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-hidden-items" value="false" />
+        <option name="show-project-names" value="true" />
+      </pane>
+      <pane id="FileSystemExplorer" />
+      <pane id="AssemblyExplorer" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="CodeLensConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="userSelectedPid" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="userSelectedPid" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7331febf-2a06-4cbe-bc1c-d7ba67373f70" name="Default Changelist" comment="" />
+      <created>1581476189760</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581476189760</updated>
+      <workItem from="1581476207877" duration="321000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="321000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20361687" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="NuGet" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Performance Profiler" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Unity" order="11" weight="0.41192788" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Unit Tests" order="13" />
+      <window_info anchor="bottom" id="Terminal" order="14" />
+      <window_info anchor="bottom" id="Event Log" order="15" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" weight="0.32953784" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="5" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" suspend="NONE" type="DotNet Exception Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolPerson/PoolPerson.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
+          <folding>
+            <marker date="1581476247223" expanded="true" signature="6:60" ph="..." />
+            <marker date="1581476247223" expanded="true" signature="102:2187" ph="{...}" />
+            <marker date="1581476247223" expanded="true" signature="155:287" ph="{...}" />
+            <marker date="1581476247223" expanded="true" signature="297:393" ph="/// 自带对象池维护的Person ... " />
+            <marker date="1581476247223" expanded="true" signature="541:2185" ph="{...}" />
+            <marker date="1581476247223" expanded="false" signature="556:1191" ph="Static" />
+            <marker date="1581476247223" expanded="true" signature="580:686" ph="/// 对象池，这是整个泛型定义存在的意义! ... " />
+            <marker date="1581476247223" expanded="true" signature="930:1163" ph="{...}" />
+            <marker date="1581476247223" expanded="true" signature="1209:1282" ph="/// 重写死亡操作，对象池控制的话就不会销毁，而是回收 ... " />
+            <marker date="1581476247223" expanded="true" signature="1318:1361" ph="{...}" />
+            <marker date="1581476247223" expanded="true" signature="1399:1595" ph="{...}" />
+            <marker date="1581476247223" expanded="true" signature="1425:1585" ph="{...}" />
+            <marker date="1581476247223" expanded="false" signature="1605:2170" ph="对象池操作，只有在角色出生和死亡时调用" />
+            <marker date="1581476247223" expanded="true" signature="1679:1770" ph="{...}" />
+            <marker date="1581476247223" expanded="true" signature="1815:1901" ph="{...}" />
+            <marker date="1581476247223" expanded="true" signature="1932:2039" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Rougelike/Person/PersonSystem/AutoPoolDataPerson/PoolDataPerson.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+          <folding>
+            <marker date="1581476276112" expanded="true" signature="6:39" ph="..." />
+            <marker date="1581476276112" expanded="true" signature="81:1130" ph="{...}" />
+            <marker date="1581476276112" expanded="true" signature="163:175" ph="{...}" />
+            <marker date="1581476276112" expanded="true" signature="185:309" ph="/// 自带从CSV读取数据的人物，继承此类的Person类需要具有UseCsvData特性 ... " />
+            <marker date="1581476276112" expanded="true" signature="441:1128" ph="{...}" />
+            <marker date="1581476276112" expanded="false" signature="465:538" ph="Fields" />
+            <marker date="1581476276112" expanded="false" signature="549:878" ph="IUseCsvData" />
+            <marker date="1581476276112" expanded="true" signature="681:798" ph="/// 加载数据，在这个函数中，应该完成对当前角色各项数据的赋值 ... " />
+            <marker date="1581476276112" expanded="true" signature="897:959" ph="/// 从对象池获取时加载数据资源 ... " />
+            <marker date="1581476276112" expanded="true" signature="1004:1122" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

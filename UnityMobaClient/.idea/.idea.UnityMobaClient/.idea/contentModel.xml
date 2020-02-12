@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ReadyGamerOne\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_UnityMobaClient.84056806.00" t="ExcludeRecursive" />
+    <e p="F:\Projects\unity\Moba\UnityMobaClient" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="ReadyGamerOne" t="Include">
+          <e p="Common" t="Include">
+            <e p="CEventCenter.cs" t="Include" />
+            <e p="IHasStringId.cs" t="Include" />
+            <e p="IObjectLifeTime.cs" t="Include" />
+            <e p="IPoolable.cs" t="Include" />
+            <e p="IUnityGameObject.cs" t="Include" />
+            <e p="MonoSingleton.cs" t="Include" />
+            <e p="ObjPoor.cs" t="Include" />
+            <e p="SafeSingleton.cs" t="Include" />
+            <e p="SceneMonoSingleton.cs" t="Include" />
+            <e p="Singleton.cs" t="Include" />
+            <e p="Trigger2DMessage.cs" t="Include" />
+          </e>
+          <e p="Const" t="Include">
+            <e p="ConstUtil.cs" t="Include" />
+            <e p="TxtSign.cs" t="Include" />
+            <e p="VersionDefine.cs" t="Include" />
+          </e>
+          <e p="Data" t="Include">
+            <e p="BitManager.cs" t="Include" />
+            <e p="CsvDecodingTools.cs" t="Include" />
+            <e p="CsvMgr.cs" t="Include" />
+            <e p="CsvReaderByString.cs" t="Include" />
+            <e p="CsvStreamReader.cs" t="Include" />
+            <e p="DataFactory.cs" t="Include" />
+            <e p="IDataFactory.cs" t="Include" />
+            <e p="IStringInit.cs" t="Include" />
+            <e p="ITxtSerializable.cs" t="Include" />
+            <e p="IUseCsvData.cs" t="Include" />
+            <e p="JsonManager.cs" t="Include" />
+            <e p="SerializableDictionary.cs" t="Include" />
+            <e p="TxtManager.cs" t="Include" />
+            <e p="XmlManager.cs" t="Include" />
+          </e>
+          <e p="Editor" t="Include">
+            <e p="EditorUtility.cs" t="Include" />
+            <e p="ToolWindow.cs" t="Include" />
+          </e>
+          <e p="EditorExtension" t="Include">
+            <e p="AnimationNameChooser.cs" t="Include" />
+            <e p="ArgChooser.cs" t="Include" />
+            <e p="ArgType.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="AnimationNameChooserDrawer.cs" t="Include" />
+              <e p="ArgChooserDrawer.cs" t="Include" />
+              <e p="MessagetTriggerDrawer.cs" t="Include" />
+              <e p="ResourcesPathChooserDrawer.cs" t="Include" />
+              <e p="StringChooseDrawer.cs" t="Include" />
+              <e p="TransformPathChooserDrawer.cs" t="Include" />
+            </e>
+            <e p="MessageTrigger.cs" t="Include" />
+            <e p="ResourcesPathChooser.cs" t="Include" />
+            <e p="StringChooser.cs" t="Include" />
+            <e p="Tools" t="Include">
+              <e p="AutoGenerateTool.cs" t="Include" />
+              <e p="ClassGeneraterTool.cs" t="Include" />
+            </e>
+            <e p="TransformPathChooser.cs" t="Include" />
+          </e>
+          <e p="Functions" t="Include">
+            <e p="Editor" t="Include">
+              <e p="SuperBloodBarEditor.cs" t="Include" />
+            </e>
+            <e p="SuperBloodBar.cs" t="Include" />
+          </e>
+          <e p="Global" t="Include">
+            <e p="GlobalVar.cs" t="Include" />
+            <e p="IEditorTools.cs" t="Include" />
+          </e>
+          <e p="Memory" t="Include">
+            <e p="AssetBundle" t="Include">
+              <e p="AssetBundleDownLoader.cs" t="Include" />
+              <e p="AssetBundleLoader.cs" t="Include" />
+              <e p="AssetBundleResourceLoader.cs" t="Include" />
+            </e>
+            <e p="IHotUpdatePath.cs" t="Include" />
+            <e p="IResourceLoader.cs" t="Include" />
+            <e p="ResourceMgr.cs" t="Include" />
+            <e p="ResourcesResourceLoader.cs" t="Include" />
+          </e>
+          <e p="Model" t="Include">
+            <e p="SceneSystem" t="Include">
+              <e p="AbstractScene.cs" t="Include" />
+              <e p="SceneMgr.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Rougelike" t="Include">
+            <e p="Agent" t="Include">
+              <e p="IAgent.cs" t="Include" />
+            </e>
+            <e p="Effect" t="Include">
+              <e p="AbstractEffect.cs" t="Include" />
+            </e>
+            <e p="Item" t="Include">
+              <e p="AbstractItemInfo.cs" t="Include" />
+              <e p="IItemablePerson.cs" t="Include" />
+            </e>
+            <e p="Person" t="Include">
+              <e p="Interfaces" t="Include">
+                <e p="IInteractablePerson.cs" t="Include" />
+                <e p="IRankablePerson.cs" t="Include" />
+                <e p="ITakeDamageablePerson.cs" t="Include" />
+              </e>
+              <e p="PersonController" t="Include">
+                <e p="AbstractCharacterController.cs" t="Include" />
+                <e p="UsePersonControllerAttribute.cs" t="Include" />
+              </e>
+              <e p="PersonSystem" t="Include">
+                <e p="AbstractPerson" t="Include">
+                  <e p="AbstractPerson.cs" t="Include" />
+                  <e p="AttackPersonExtension.cs" t="Include" />
+                  <e p="GameObjectExtension.cs" t="Include" />
+                </e>
+                <e p="AutoPoolDataPerson" t="Include">
+                  <e p="PoolDataPerson.cs" t="Include" />
+                  <e p="UseCsvDataAttribute.cs" t="Include" />
+                </e>
+                <e p="AutoPoolPerson" t="Include">
+                  <e p="PoolPerson.cs" t="Include" />
+                </e>
+              </e>
+              <e p="PersonTool.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Script" t="Include">
+            <e p="AbstractCharacterController.cs" t="Include" />
+            <e p="AbstractGameMgr.cs" t="Include" />
+            <e p="AudioMgr.cs" t="Include" />
+            <e p="CloseEnough.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="AbstractCharacterControllerEditor.cs" t="Include" />
+            </e>
+            <e p="MainLoop.cs" t="Include" />
+            <e p="TriggerContainer3D.cs" t="Include" />
+            <e p="TriggerInputer.cs" t="Include" />
+            <e p="TypeWriterEffect.cs" t="Include" />
+            <e p="UIInputer.cs" t="Include" />
+          </e>
+          <e p="ScriptableObjects" t="Include">
+            <e p="ConstStringChooser.cs" t="Include" />
+            <e p="Editor" t="Include">
+              <e p="ConstStringChooserDrawer.cs" t="Include" />
+              <e p="PrefUtilEditor.cs" t="Include" />
+            </e>
+            <e p="PrefItem.cs" t="Include" />
+            <e p="PrefUtil.cs" t="Include" />
+          </e>
+          <e p="Utility" t="Include">
+            <e p="Extensions" t="Include">
+              <e p="AlphaExtension.cs" t="Include" />
+              <e p="BoxCollider2DExtension.cs" t="Include" />
+              <e p="CameraExtension.cs" t="Include" />
+              <e p="DirectoryInfoExtension.cs" t="Include" />
+              <e p="GameObjectExtension.cs" t="Include" />
+              <e p="IntExtension.cs" t="Include" />
+              <e p="RectExtension.cs" t="Include" />
+              <e p="StringExtension.cs" t="Include" />
+              <e p="TransformExtension.cs" t="Include" />
+            </e>
+            <e p="IDrawGizmo.cs" t="Include" />
+            <e p="Utils" t="Include">
+              <e p="ConvertUtil.cs" t="Include" />
+              <e p="EnumUtil.cs" t="Include" />
+              <e p="FileUtil.cs" t="Include" />
+              <e p="GizmosUtil.cs" t="Include" />
+              <e p="InputUtil.cs" t="Include" />
+              <e p="TypeUtil.cs" t="Include" />
+              <e p="UiUtil.cs" t="Include" />
+              <e p="WindowsUtil.cs" t="Include" />
+            </e>
+          </e>
+          <e p="View" t="Include">
+            <e p="AssetUi" t="Include">
+              <e p="AbstractUiAsset.cs" t="Include" />
+              <e p="PanelAssetMgr.cs" t="Include" />
+              <e p="PanelUiAsset.cs" t="Include" />
+            </e>
+            <e p="PanelSystem" t="Include">
+              <e p="AbstractPanel.cs" t="Include" />
+              <e p="AbstractUI.cs" t="Include" />
+              <e p="Effects" t="Include">
+                <e p="ScreenEffect" t="Include">
+                  <e p="AbstractScreenEffect.cs" t="Include" />
+                  <e p="FadeInOut.cs" t="Include" />
+                </e>
+                <e p="Transition" t="Include">
+                  <e p="AbstractTransition.cs" t="Include" />
+                  <e p="ScollTransition.cs" t="Include" />
+                  <e p="TransionType.cs" t="Include" />
+                </e>
+              </e>
+              <e p="IStackPanel.cs" t="Include" />
+              <e p="PanelMgr.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="UnityMobaClient.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>
