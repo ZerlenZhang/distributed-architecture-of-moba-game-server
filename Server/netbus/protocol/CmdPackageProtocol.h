@@ -34,7 +34,7 @@ public:
 	//初始化协议
 	static void Init(ProtoType proto_type=ProtoType::Protobuf);
 	
-	static void RegisterProtoCmdMap(map<int, string>& map);
+	static void RegisterProtobufCmdMap(map<int, string>& map);
 
 
 	static const char* ProtoCmdTypeToName(int cmdType);

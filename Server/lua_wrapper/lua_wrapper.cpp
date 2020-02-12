@@ -1,6 +1,15 @@
 #include "lua_wrapper.h"
 
-#include <tolua_fix.h>
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+#include "tolua++.h"
+#ifdef __cplusplus
+}
+#endif // __cplusplus
+
+
+#include "tolua_fix.h"
 #include <string>
 #include "mysql_export_to_lua.h"
 #include "redis_export_to_lua.h"
@@ -9,9 +18,41 @@
 #include "logger_export_to_lua.h"
 #include "../utils/logger/logger.h"
 #include "timer_export_to_lua.h"
+#include "netbus_export_to_lua.h"
+#include "cmd_package_proto_export_to_lua.h"
 
 lua_State* g_lua = NULL;
 
+
+static int lua_lua_addsearchpath(lua_State* lua)
+{
+	auto path = luaL_checkstring(lua, 1);
+	if (path)
+	{
+		lua_wrapper::AddSearchPath(path);
+	}
+	return 0;
+}
+
+
+static void register_lua_export(lua_State* tolua_S)
+{
+	lua_getglobal(tolua_S, "_G");
+	if (lua_istable(tolua_S, -1)) {
+		tolua_open(tolua_S);
+		tolua_module(tolua_S, "Lua", 0);
+		tolua_beginmodule(tolua_S, "Lua");
+
+		tolua_function(tolua_S, "AddSearchPath", lua_lua_addsearchpath);
+		tolua_endmodule(tolua_S);
+	}
+	lua_pop(tolua_S, 1);
+}
+
+
+
+
+#pragma region Native
 static bool
 pushFunctionByHandler(int nHandler)
 {
@@ -85,7 +126,12 @@ executeFunction(int numArgs)
 	return ret;
 }
 
+#pragma endregion
 
+
+
+
+#pragma region lua_wrapper
 void lua_wrapper::Init()
 {
 	g_lua = luaL_newstate();
@@ -99,6 +145,9 @@ void lua_wrapper::Init()
 	register_service_export(g_lua);
 	register_session_export(g_lua); 
 	register_timer_export(g_lua);
+	register_lua_export(g_lua);
+	register_netbus_export(g_lua);
+	register_package_proto_export(g_lua);
 }
 
 void lua_wrapper::Exit()
@@ -115,9 +164,9 @@ lua_State* lua_wrapper::lua_state()
 	return g_lua;
 }
 
-bool lua_wrapper::ExeLuaFile(char* luaFilePath)
+bool lua_wrapper::DoFile(const std::string& luaFilePath)
 {
-	if (luaL_dofile(g_lua, luaFilePath))
+	if (luaL_dofile(g_lua, luaFilePath.c_str()))
 	{
 		lua_log_error(g_lua);
 		return false;
@@ -146,11 +195,23 @@ void lua_wrapper::RemoveScriptHandle(int handle)
 	toluafix_remove_function_by_refid(g_lua, handle);
 }
 
+void lua_wrapper::AddSearchPath(const std::string& path)
+{
+	char strPath[1024] = { 0 };
+	sprintf(strPath, "local path = string.match([[%s]],[[(.*)/[^/]*$]])\n package.path = package.path .. [[;]] .. path .. [[/?.lua;]] .. path .. [[/?/init.lua]]\n", path.c_str());
+	luaL_dostring(g_lua, strPath);
+}
+
+
 void lua_wrapper::ExportFunc2Lua(const char* name, int(*func)(lua_State*))
 {
 	lua_pushcfunction(g_lua, func);
 	lua_setglobal(g_lua, name);
 }
+
+#pragma endregion
+
+
 
 
 

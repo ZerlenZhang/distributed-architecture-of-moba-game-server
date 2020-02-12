@@ -12,9 +12,9 @@ public:
 	//µ¥Àý
 	static const Netbus* Instance();
 public:
-	void StartTcpServer(int port)const;
-	void StartWebSocketServer(int port)const;
-	void StartUdpServer(int port)const;
+	void TcpListen(int port)const;
+	void WebSocketListen(int port)const;
+	void UdpListen(int port)const;
 	void Run()const;
 	void Init()const;
 };

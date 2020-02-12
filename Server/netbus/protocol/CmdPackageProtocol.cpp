@@ -19,7 +19,7 @@ void CmdPackageProtocol::Init(::ProtoType proto_type)
 }
 
 
-void CmdPackageProtocol::RegisterProtoCmdMap(map<int, string>& map)
+void CmdPackageProtocol::RegisterProtobufCmdMap(map<int, string>& map)
 {
 	for (auto x : map)
 	{

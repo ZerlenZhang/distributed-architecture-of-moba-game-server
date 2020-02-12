@@ -45,7 +45,7 @@ static int lua_timer_repeat(lua_State* lua)
 		lua_pushnil(lua);
 		return 1;
 	}
-	auto after_msec = lua_tointeger(lua, 2, 0);
+	auto after_msec = (int)lua_tointeger(lua, 2, 0);
 	if (after_msec < 0)
 	{
 		if (handle)
@@ -55,7 +55,7 @@ static int lua_timer_repeat(lua_State* lua)
 		lua_pushnil(lua);
 		return 1;
 	}
-	auto repeatCount = lua_tointeger(lua, 3, );
+	auto repeatCount = (int)lua_tointeger(lua, 3, );
 	if (repeatCount == 0)
 	{
 		if (handle)
@@ -70,7 +70,7 @@ static int lua_timer_repeat(lua_State* lua)
 		repeatCount = -1;
 	}
 
-	auto repeate_msec = lua_tointeger(lua, 4, 0);
+	auto repeate_msec = (int)lua_tointeger(lua, 4, 0);
 	if (repeate_msec <= 0)
 	{
 		repeate_msec = after_msec;
@@ -93,7 +93,7 @@ static int lua_timer_once(lua_State* lua)
 		lua_pushnil(lua);
 		return 1;
 	}
-	auto after_msec = lua_tointeger(lua, 2, 0);
+	auto after_msec = (int)lua_tointeger(lua, 2, 0);
 	if (after_msec < 0)
 	{
 		if (handle)

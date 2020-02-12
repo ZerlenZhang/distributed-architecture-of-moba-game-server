@@ -373,7 +373,7 @@ const Netbus* Netbus::Instance()
 	return &g_instance;
 }
 
-void Netbus::StartTcpServer(int port)const
+void Netbus::TcpListen(int port)const
 {
 	auto listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
 
@@ -398,7 +398,7 @@ void Netbus::StartTcpServer(int port)const
 	log_debug("Tcp 服务器已开机 %d",port);
 }
 
-void Netbus::StartWebSocketServer(int port)const
+void Netbus::WebSocketListen(int port)const
 {
 	auto listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
 
@@ -423,7 +423,7 @@ void Netbus::StartWebSocketServer(int port)const
 	log_debug("WebSocket 服务器已开机 %d", port);
 }
 
-void Netbus::StartUdpServer(int port) const
+void Netbus::UdpListen(int port) const
 {
 	auto server = (uv_udp_t*)malloc(sizeof(uv_udp_t));
 	memset(server, 0, sizeof(uv_udp_t));
@@ -443,7 +443,6 @@ void Netbus::StartUdpServer(int port) const
 
 void Netbus::Run()const
 {
-	log_debug("开始监听");
 	uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }
 

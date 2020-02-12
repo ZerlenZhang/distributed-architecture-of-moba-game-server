@@ -286,9 +286,9 @@ static int lua_session_sendpackage(lua_State* lua)
 	lua_getfield(lua, 2, "4");// 6
 
 	CmdPackage msg;
-	msg.serviceType = lua_tointeger(lua, 3);
-	msg.cmdType = lua_tointeger(lua, 4);
-	msg.userTag = lua_tointeger(lua, 5);
+	msg.serviceType = (int)lua_tointeger(lua, 3);
+	msg.cmdType = (int)lua_tointeger(lua, 4);
+	msg.userTag = (int)lua_tointeger(lua, 5);
 
 	switch (CmdPackageProtocol::ProtoType())
 	{

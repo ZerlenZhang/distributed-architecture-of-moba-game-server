@@ -13,9 +13,6 @@
     <Filter Include="utils">
       <UniqueIdentifier>{4fd09449-c90a-4e49-896d-b9a94dc1243b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="app\test">
-      <UniqueIdentifier>{eb9c021d-bcd0-49d8-aa4e-bff39342f6e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3rd\libuv">
       <UniqueIdentifier>{b9750e03-f633-4fd0-bf07-5d8130602932}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
     <Filter Include="utils\proto_file_generate">
       <UniqueIdentifier>{4fb30785-6ab1-4acb-a453-006193c4cd7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="app\test\proto">
-      <UniqueIdentifier>{99f83c2c-4292-4de2-9cef-1a827c1fd58c}</UniqueIdentifier>
     </Filter>
     <Filter Include="netbus\service">
       <UniqueIdentifier>{42ec8334-5a97-463b-80c5-71243a8e7896}</UniqueIdentifier>
@@ -75,6 +69,12 @@
     </Filter>
     <Filter Include="3rd\tolua">
       <UniqueIdentifier>{001931ff-aeb5-4077-8905-855a351aa5c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="app\TestLua">
+      <UniqueIdentifier>{eb9c021d-bcd0-49d8-aa4e-bff39342f6e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="app\TestLua\proto">
+      <UniqueIdentifier>{99f83c2c-4292-4de2-9cef-1a827c1fd58c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -189,20 +189,11 @@
     <ClCompile Include="..\..\3rd\mjson\json.c">
       <Filter>3rd\mjson</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\apps\test\proto\game.pb.cc">
-      <Filter>app\test\proto</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\netbus\protocol\TcpPackageProtocol.cpp">
       <Filter>netbus\Protocol</Filter>
     </ClCompile>
     <ClCompile Include="..\..\netbus\protocol\WebSocketProtocol.cpp">
       <Filter>netbus\Protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\apps\test\pf_cmd_map.cpp">
-      <Filter>app\test\proto</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\apps\test\TestCpp.cpp">
-      <Filter>app\test</Filter>
     </ClCompile>
     <ClCompile Include="..\..\netbus\protocol\CmdPackageProtocol.cpp">
       <Filter>netbus\Protocol</Filter>
@@ -381,6 +372,18 @@
     <ClCompile Include="..\..\lua_wrapper\timer_export_to_lua.cpp">
       <Filter>lua_wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lua_wrapper\netbus_export_to_lua.cpp">
+      <Filter>lua_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lua_wrapper\cmd_package_proto_export_to_lua.cpp">
+      <Filter>lua_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\apps\lua_test\proto\game.pb.cc">
+      <Filter>app\TestLua\proto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\apps\lua_test\TestLua.cpp">
+      <Filter>app\TestLua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h">
@@ -476,17 +479,11 @@
     <ClInclude Include="..\..\3rd\mjson\json.h">
       <Filter>3rd\mjson</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\apps\test\proto\game.pb.h">
-      <Filter>app\test\proto</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\netbus\protocol\TcpPackageProtocol.h">
       <Filter>netbus\Protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\..\netbus\protocol\WebSocketProtocol.h">
       <Filter>netbus\Protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\apps\test\pf_cmd_map.h">
-      <Filter>app\test\proto</Filter>
     </ClInclude>
     <ClInclude Include="..\..\netbus\protocol\CmdPackageProtocol.h">
       <Filter>netbus\Protocol</Filter>
@@ -635,13 +632,25 @@
     <ClInclude Include="..\..\lua_wrapper\timer_export_to_lua.h">
       <Filter>lua_wrapper</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lua_wrapper\netbus_export_to_lua.h">
+      <Filter>lua_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lua_wrapper\cmd_package_proto_export_to_lua.h">
+      <Filter>lua_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\apps\lua_test\proto\game.pb.h">
+      <Filter>app\TestLua\proto</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\apps\test\proto\game.proto">
+    <None Include="..\..\apps\lua_test\proto\game.proto">
       <Filter>utils\proto_file_generate</Filter>
     </None>
-    <None Include="..\..\apps\test\proto\generate_proto_files.bat">
+    <None Include="..\..\apps\lua_test\proto\generate_proto_files.bat">
       <Filter>utils\proto_file_generate</Filter>
+    </None>
+    <None Include="..\bin\start_moba_server.bat">
+      <Filter>app\TestLua</Filter>
     </None>
   </ItemGroup>
 </Project>

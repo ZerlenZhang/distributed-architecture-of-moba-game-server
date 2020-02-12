@@ -1,0 +1,17 @@
+syntax = "proto3"; 
+enum Cmd {
+	INVALID_CMD = 0;
+	eLoginReq = 1;
+	eLoginRes = 2;
+}
+
+message LoginReq {  
+  string name = 1;  
+  int32 age = 2;  
+  string email = 3;  
+  int32 int_set = 4;
+}
+
+message LoginRes {
+  int32 status = 1;	
+}
