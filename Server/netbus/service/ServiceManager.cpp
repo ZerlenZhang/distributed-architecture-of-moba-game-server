@@ -43,7 +43,7 @@ void ServiceManager::OnSessionDisconnected(const AbstractSession* session)
 {
 	for (auto service : g_serviceSet)
 	{
-		if (service != NULL)
+		if (service == NULL)
 		{
 			continue;
 		}

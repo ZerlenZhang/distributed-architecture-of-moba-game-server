@@ -113,8 +113,6 @@ namespace ReadyGamerOne.Editor
                 FileUtil.CreateFolder(root + "/" + ConstNamespace);
                 FileUtil.CreateFolder(root + "/" + DataNamespace);
                 FileUtil.CreateFolder(root + "/" + ScriptNamespace);
-                FileUtil.CreateFolder(root + "/" + "Scenes");
-                FileUtil.CreateFolder(root + "/" + "Prefabs");
                 AssetDatabase.Refresh();
                 Debug.Log("生成完毕");
             }
