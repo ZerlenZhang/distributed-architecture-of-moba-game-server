@@ -5,7 +5,7 @@
 #include "base64_decoder.h"
 
 #define SMALL_CHUNK 256
-#define my_malloc malloc
+#define my_alloc malloc
 #define my_free free
 
 #define SMALL_CHUNK 256
@@ -28,10 +28,10 @@ base64_decode(const uint8_t* text, size_t sz, int* out_size) {
 	int decode_sz = ((sz + 3) / 4 * 3) + 1;
 	char *buffer = NULL;
 	if (decode_sz > SMALL_CHUNK) {
-		buffer = my_malloc(decode_sz);
+		buffer = my_alloc(decode_sz);
 	}
 	else {
-		buffer = my_malloc(SMALL_CHUNK);
+		buffer = my_alloc(SMALL_CHUNK);
 	}
 	int i, j;
 	int output = 0;

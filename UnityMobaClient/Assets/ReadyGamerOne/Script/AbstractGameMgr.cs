@@ -38,7 +38,7 @@ namespace ReadyGamerOne.Script
 
         protected virtual void WorkForOnlyOnce()
         {
-            print("work for only once");
+//            print("work for only once");
         }
 
         protected virtual void OnAnySceneLoad()

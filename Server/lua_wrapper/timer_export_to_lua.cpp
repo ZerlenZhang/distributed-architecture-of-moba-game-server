@@ -12,8 +12,10 @@ extern "C" {
 #include "../utils/timer/time_list.h"
 #include <cstdlib>
 
-#define my_malloc malloc
-#define my_free free
+#include "../utils/cache_alloc/small_alloc.h"
+
+#define my_alloc small_alloc
+#define my_free small_free
 
 struct timer_repeat
 {
@@ -76,7 +78,7 @@ static int lua_timer_repeat(lua_State* lua)
 		repeate_msec = after_msec;
 	}
 
-	auto tr = (timer_repeat*)my_malloc(sizeof(timer_repeat));
+	auto tr = (timer_repeat*)my_alloc(sizeof(timer_repeat));
 	tr->handler = handle;
 	tr->repeat_count = repeatCount;
 
@@ -103,7 +105,7 @@ static int lua_timer_once(lua_State* lua)
 		lua_pushnil(lua);
 		return 1;
 	}
-	auto tr = (timer_repeat*)my_malloc(sizeof(timer_repeat));
+	auto tr = (timer_repeat*)my_alloc(sizeof(timer_repeat));
 	tr->handler = handle;
 	tr->repeat_count = 1;
 

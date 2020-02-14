@@ -1,8 +1,23 @@
 #include "mysqlwarpper.h"
 #include "../utils/logger/logger.h"
 
-#define my_alloc malloc
-#define my_free free
+#include "../utils/cache_alloc/small_alloc.h"
+
+#define my_alloc small_alloc
+#define my_free small_free
+
+static char* my_strdup(const char* src)
+{
+	auto len = strlen(src) + 1;
+	auto dst = (char*)my_alloc(len);
+	strcpy(dst, src);
+	return dst;
+}
+
+static void free_strdup(char* str)
+{
+	my_free(str);
+}
 
 
 //connect必须信息
@@ -56,7 +71,7 @@ static void connect_work(uv_work_t* req)
 
 	if (result == NULL)
 	{
-		pInfo->error = strdup(mysql_error(pInfo->context->pConn));
+		pInfo->error = my_strdup(mysql_error(pInfo->context->pConn));
 	}
 
 	//log_debug("connect 释放");
@@ -73,15 +88,15 @@ static void on_connect_complete(uv_work_t* req, int status)
 		if(pInfo->open_cb)
 			pInfo->open_cb(pInfo->error, pInfo->context);
 		if (pInfo->ip)
-			free(pInfo->ip);
+			free_strdup(pInfo->ip);
 		if (pInfo->dbName)
-			free(pInfo->dbName);
+			free_strdup(pInfo->dbName);
 		if (pInfo->uName)
-			free(pInfo->uName);
+			free_strdup(pInfo->uName);
 		if (pInfo->password)
-			free(pInfo->password);
+			free_strdup(pInfo->password);
 		if (pInfo->error)
-			free(pInfo->error);
+			free_strdup(pInfo->error);
 		my_free(pInfo);
 	}
 
@@ -146,20 +161,6 @@ static void query_work(uv_work_t* req)
 
 	pInfo->myReply->result = result;
 	
-
-	/*auto num = mysql_num_fields(result);
-
-	MYSQL_ROW row;
-	while (row = mysql_fetch_row(result))
-	{
-		auto temp = new std::vector<std::string>;
-		for (auto i = 0; i < num; i++)
-		{
-			temp->push_back(row[i]);
-		}
-		pInfo->result->push_back(temp);
-	}
-	mysql_free_result(result); */
 	//释放线程锁
 	//log_debug("query 释放");
 	uv_mutex_unlock(&pInfo->context->lock);
@@ -174,9 +175,9 @@ static void on_query_complete(uv_work_t* req, int status)
 		if(pInfo->query_cb)
 			pInfo->query_cb(pInfo->error, pInfo->myReply);
 		if (pInfo->cmd)
-			free(pInfo->cmd);
+			free_strdup(pInfo->cmd);
 		if (pInfo->error)
-			free(pInfo->error);
+			free_strdup(pInfo->error);
 		if (pInfo->myReply)
 		{
 			if (pInfo->myReply->udata && pInfo->myReply->autoFreeUserData)
@@ -209,11 +210,11 @@ void mysql_wrapper::connect(char* ip, int port, char* dbName, char* uName, char*
 
 	lockContext->autoFreeUserData = autoFreeUdata;
 
-	info->ip = strdup(ip);
+	info->ip = my_strdup(ip);
 	info->port = port;
-	info->dbName = strdup(dbName);
-	info->uName = strdup(uName);
-	info->password = strdup(password);
+	info->dbName = my_strdup(dbName);
+	info->uName = my_strdup(uName);
+	info->password = my_strdup(password);
 	info->open_cb = open_cb; 
 	info->context = lockContext;
 
@@ -259,7 +260,7 @@ void mysql_wrapper::query(MysqlContext* context, char* sql, MysqlQueryCallback c
 	mysqlResult->udata = udata;
 
 	pInfo->context = context;
-	pInfo->cmd = strdup(sql);
+	pInfo->cmd = my_strdup(sql);
 	pInfo->query_cb = callback;
 	pInfo->myReply = mysqlResult;
 

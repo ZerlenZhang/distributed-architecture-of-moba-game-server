@@ -76,7 +76,7 @@ void InitDefaultsLoginRes() {
 const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginReq, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginReq, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -85,16 +85,21 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginReq, age_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginReq, email_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginReq, int_set_),
-  ~0u,  // no _has_bits_
+  0,
+  2,
+  1,
+  3,
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginRes, _has_bits_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginRes, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::LoginRes, status_),
+  0,
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::LoginReq)},
-  { 9, -1, sizeof(::LoginRes)},
+  { 0, 9, sizeof(::LoginReq)},
+  { 13, 19, sizeof(::LoginRes)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -124,13 +129,14 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\ngame.proto\"E\n\010LoginReq\022\014\n\004name\030\001 \001(\t\022\013"
-      "\n\003age\030\002 \001(\005\022\r\n\005email\030\003 \001(\t\022\017\n\007int_set\030\004 "
-      "\001(\005\"\032\n\010LoginRes\022\016\n\006status\030\001 \001(\005*#\n\003Cmd\022\r"
-      "\n\teLoginReq\020\000\022\r\n\teLoginRes\020\001b\006proto3"
+      "\n\ngame.proto\"E\n\010LoginReq\022\014\n\004name\030\001 \002(\t\022\013"
+      "\n\003age\030\002 \002(\005\022\r\n\005email\030\003 \002(\t\022\017\n\007int_set\030\004 "
+      "\002(\005\"\032\n\010LoginRes\022\016\n\006status\030\001 \002(\005*4\n\003Cmd\022\017"
+      "\n\013INVALID_CMD\020\000\022\r\n\teLoginReq\020\001\022\r\n\teLogin"
+      "Res\020\002"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 156);
+      descriptor, 165);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "game.proto", &protobuf_RegisterTypes);
 }
@@ -154,6 +160,7 @@ bool Cmd_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -183,14 +190,15 @@ LoginReq::LoginReq()
 LoginReq::LoginReq(const LoginReq& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.name().size() > 0) {
+  if (from.has_name()) {
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.email().size() > 0) {
+  if (from.has_email()) {
     email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
   }
   ::memcpy(&age_, &from.age_,
@@ -200,12 +208,12 @@ LoginReq::LoginReq(const LoginReq& from)
 }
 
 void LoginReq::SharedCtor() {
+  _cached_size_ = 0;
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(&age_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&int_set_) -
       reinterpret_cast<char*>(&age_)) + sizeof(int_set_));
-  _cached_size_ = 0;
 }
 
 LoginReq::~LoginReq() {
@@ -247,11 +255,23 @@ void LoginReq::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&age_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&int_set_) -
-      reinterpret_cast<char*>(&age_)) + sizeof(int_set_));
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 3u) {
+    if (cached_has_bits & 0x00000001u) {
+      GOOGLE_DCHECK(!name_.IsDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited()));
+      (*name_.UnsafeRawStringPointer())->clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(!email_.IsDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited()));
+      (*email_.UnsafeRawStringPointer())->clear();
+    }
+  }
+  if (cached_has_bits & 12u) {
+    ::memset(&age_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&int_set_) -
+        reinterpret_cast<char*>(&age_)) + sizeof(int_set_));
+  }
+  _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
 
@@ -265,27 +285,27 @@ bool LoginReq::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string name = 1;
+      // required string name = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->name().data(), static_cast<int>(this->name().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "LoginReq.name"));
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "LoginReq.name");
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // int32 age = 2;
+      // required int32 age = 2;
       case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-
+          set_has_age();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &age_)));
@@ -295,27 +315,27 @@ bool LoginReq::MergePartialFromCodedStream(
         break;
       }
 
-      // string email = 3;
+      // required string email = 3;
       case 3: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_email()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->email().data(), static_cast<int>(this->email().length()),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "LoginReq.email"));
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "LoginReq.email");
         } else {
           goto handle_unusual;
         }
         break;
       }
 
-      // int32 int_set = 4;
+      // required int32 int_set = 4;
       case 4: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
-
+          set_has_int_set();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &int_set_)));
@@ -351,39 +371,40 @@ void LoginReq::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+  cached_has_bits = _has_bits_[0];
+  // required string name = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->name().data(), static_cast<int>(this->name().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
       "LoginReq.name");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->name(), output);
   }
 
-  // int32 age = 2;
-  if (this->age() != 0) {
+  // required int32 age = 2;
+  if (cached_has_bits & 0x00000004u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->age(), output);
   }
 
-  // string email = 3;
-  if (this->email().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+  // required string email = 3;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->email().data(), static_cast<int>(this->email().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
       "LoginReq.email");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->email(), output);
   }
 
-  // int32 int_set = 4;
-  if (this->int_set() != 0) {
+  // required int32 int_set = 4;
+  if (cached_has_bits & 0x00000008u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->int_set(), output);
   }
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+  if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:LoginReq)
 }
@@ -395,83 +416,114 @@ void LoginReq::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+  cached_has_bits = _has_bits_[0];
+  // required string name = 1;
+  if (cached_has_bits & 0x00000001u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->name().data(), static_cast<int>(this->name().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
       "LoginReq.name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->name(), target);
   }
 
-  // int32 age = 2;
-  if (this->age() != 0) {
+  // required int32 age = 2;
+  if (cached_has_bits & 0x00000004u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->age(), target);
   }
 
-  // string email = 3;
-  if (this->email().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+  // required string email = 3;
+  if (cached_has_bits & 0x00000002u) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->email().data(), static_cast<int>(this->email().length()),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
       "LoginReq.email");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->email(), target);
   }
 
-  // int32 int_set = 4;
-  if (this->int_set() != 0) {
+  // required int32 int_set = 4;
+  if (cached_has_bits & 0x00000008u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->int_set(), target);
   }
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+  if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:LoginReq)
   return target;
 }
 
-size_t LoginReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:LoginReq)
+size_t LoginReq::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:LoginReq)
   size_t total_size = 0;
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
-  }
-  // string name = 1;
-  if (this->name().size() > 0) {
+  if (has_name()) {
+    // required string name = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
   }
 
-  // string email = 3;
-  if (this->email().size() > 0) {
+  if (has_email()) {
+    // required string email = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->email());
   }
 
-  // int32 age = 2;
-  if (this->age() != 0) {
+  if (has_age()) {
+    // required int32 age = 2;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->age());
   }
 
-  // int32 int_set = 4;
-  if (this->int_set() != 0) {
+  if (has_int_set()) {
+    // required int32 int_set = 4;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->int_set());
   }
 
+  return total_size;
+}
+size_t LoginReq::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:LoginReq)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
+    // required string name = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+
+    // required string email = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->email());
+
+    // required int32 age = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->age());
+
+    // required int32 int_set = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->int_set());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -501,19 +553,23 @@ void LoginReq::MergeFrom(const LoginReq& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.name().size() > 0) {
-
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  if (from.email().size() > 0) {
-
-    email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
-  }
-  if (from.age() != 0) {
-    set_age(from.age());
-  }
-  if (from.int_set() != 0) {
-    set_int_set(from.int_set());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 15u) {
+    if (cached_has_bits & 0x00000001u) {
+      set_has_name();
+      name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    }
+    if (cached_has_bits & 0x00000002u) {
+      set_has_email();
+      email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
+    }
+    if (cached_has_bits & 0x00000004u) {
+      age_ = from.age_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      int_set_ = from.int_set_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
 }
 
@@ -532,6 +588,7 @@ void LoginReq::CopyFrom(const LoginReq& from) {
 }
 
 bool LoginReq::IsInitialized() const {
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   return true;
 }
 
@@ -545,6 +602,7 @@ void LoginReq::InternalSwap(LoginReq* other) {
   email_.Swap(&other->email_);
   swap(age_, other->age_);
   swap(int_set_, other->int_set_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
 }
@@ -574,6 +632,7 @@ LoginRes::LoginRes()
 LoginRes::LoginRes(const LoginRes& from)
   : ::google::protobuf::Message(),
       _internal_metadata_(NULL),
+      _has_bits_(from._has_bits_),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   status_ = from.status_;
@@ -581,8 +640,8 @@ LoginRes::LoginRes(const LoginRes& from)
 }
 
 void LoginRes::SharedCtor() {
-  status_ = 0;
   _cached_size_ = 0;
+  status_ = 0;
 }
 
 LoginRes::~LoginRes() {
@@ -623,6 +682,7 @@ void LoginRes::Clear() {
   (void) cached_has_bits;
 
   status_ = 0;
+  _has_bits_.Clear();
   _internal_metadata_.Clear();
 }
 
@@ -636,11 +696,11 @@ bool LoginRes::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 status = 1;
+      // required int32 status = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
             static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-
+          set_has_status();
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &status_)));
@@ -676,14 +736,15 @@ void LoginRes::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 status = 1;
-  if (this->status() != 0) {
+  cached_has_bits = _has_bits_[0];
+  // required int32 status = 1;
+  if (cached_has_bits & 0x00000001u) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->status(), output);
   }
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+  if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
+        _internal_metadata_.unknown_fields(), output);
   }
   // @@protoc_insertion_point(serialize_end:LoginRes)
 }
@@ -695,14 +756,15 @@ void LoginRes::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 status = 1;
-  if (this->status() != 0) {
+  cached_has_bits = _has_bits_[0];
+  // required int32 status = 1;
+  if (cached_has_bits & 0x00000001u) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->status(), target);
   }
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+  if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+        _internal_metadata_.unknown_fields(), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:LoginRes)
   return target;
@@ -712,18 +774,17 @@ size_t LoginRes::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:LoginRes)
   size_t total_size = 0;
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
+  if (_internal_metadata_.have_unknown_fields()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
+        _internal_metadata_.unknown_fields());
   }
-  // int32 status = 1;
-  if (this->status() != 0) {
+  // required int32 status = 1;
+  if (has_status()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->status());
   }
-
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -753,7 +814,7 @@ void LoginRes::MergeFrom(const LoginRes& from) {
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.status() != 0) {
+  if (from.has_status()) {
     set_status(from.status());
   }
 }
@@ -773,6 +834,7 @@ void LoginRes::CopyFrom(const LoginRes& from) {
 }
 
 bool LoginRes::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
   return true;
 }
 
@@ -783,6 +845,7 @@ void LoginRes::Swap(LoginRes* other) {
 void LoginRes::InternalSwap(LoginRes* other) {
   using std::swap;
   swap(status_, other->status_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(_cached_size_, other->_cached_size_);
 }

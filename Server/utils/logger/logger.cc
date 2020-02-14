@@ -20,6 +20,7 @@ static uint32_t g_last_second;
 static char g_format_time[64] = { 0 };
 static char* g_log_level[] = { (char*)"Debug", (char*)"Warning", (char*)"Error"};
 static bool g_std_out = false;
+static bool isInit = false;
 
 static void 
 open_file(tm* time_struct) {
@@ -73,6 +74,9 @@ format_time() {
 
 void 
 logger::init(const char* path,const char* prefix, bool std_output) {
+	if (isInit)
+		return;
+	isInit = true;
 
 	g_prefix = prefix;
 	g_log_path = path;

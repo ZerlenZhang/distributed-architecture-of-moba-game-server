@@ -4,8 +4,23 @@
 #include "rediswarpper.h"
 #include "../utils/logger/logger.h"
 
-#define my_alloc malloc
-#define my_free free
+#include "../utils/cache_alloc/small_alloc.h"
+
+#define my_alloc small_alloc
+#define my_free small_free
+
+static char* my_strdup(const char* src)
+{
+	auto len = strlen(src) + 1;
+	auto dst = (char*)my_alloc(len);
+	strcpy(dst, src);
+	return dst;
+}
+
+static void free_my_strdup(char* str)
+{
+	my_free(str);
+}
 
 #pragma region 信息结构体
 
@@ -46,7 +61,7 @@ static void connect_work(uv_work_t* req)
 	pInfo->context->pConn = RedisConnectWithTimeout(pInfo->ip, pInfo->port, timeout);
 	if (pInfo->context->pConn->err)
 	{
-		pInfo->error = strdup(pInfo->context->pConn->errstr);
+		pInfo->error = my_strdup(pInfo->context->pConn->errstr);
 		RedisFree(pInfo->context->pConn);
 		pInfo->context->pConn = NULL;
 		return;
@@ -65,9 +80,9 @@ static void on_connect_complete(uv_work_t* req, int status)
 			pInfo->open_cb(pInfo->error, pInfo->context);
 
 		if (pInfo->ip)
-			free(pInfo->ip);
+			free_my_strdup(pInfo->ip);
 		if (pInfo->error)
-			free(pInfo->error);
+			free_my_strdup(pInfo->error);
 
 		my_free(pInfo);
 	}
@@ -122,7 +137,7 @@ static void query_work(uv_work_t* req)
 	{
 		if (replay->type == REDIS_REPLY_ERROR)
 		{
-			pInfo->error = strdup(replay->str);
+			pInfo->error = my_strdup(replay->str);
 			FreeReplyObject(replay);
 		}
 		else
@@ -146,9 +161,9 @@ static void on_query_complete(uv_work_t* req, int status)
 			pInfo->query_cb(pInfo->error, pInfo->myReply);
 
 		if (pInfo->cmd)
-			free(pInfo->cmd);
+			free_my_strdup(pInfo->cmd);
 		if (pInfo->error)
-			free(pInfo->error);
+			free_my_strdup(pInfo->error);
 
 		if (pInfo->myReply)
 		{
@@ -181,7 +196,7 @@ void redis_wrapper::connect(char* ip, int port, RedisConnectCallback callback,vo
 	lockContext->udata = udata;
 	lockContext->autoFreeUdata = autoFreeUdata;
 
-	info->ip = strdup(ip);
+	info->ip = my_strdup(ip);
 	info->port = port;
 	info->open_cb = callback;
 	info->context = lockContext;
@@ -223,7 +238,7 @@ void redis_wrapper::query(RedisContext* context, char* sql, RedisQueryCallback c
 	myReply->autoFreeUdata = autoFreeUdata;
 
 	pInfo->context = context;
-	pInfo->cmd = strdup(sql);
+	pInfo->cmd = my_strdup(sql);
 	pInfo->query_cb = callback;
 	pInfo->myReply = myReply;
 

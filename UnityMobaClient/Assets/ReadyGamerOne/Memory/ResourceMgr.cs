@@ -46,7 +46,7 @@ namespace ReadyGamerOne.MemorySystem
         {
             Assert.IsNotNull(resourceLoader);
             _resourceLoader = resourceLoader;
-            Debug.Log("初始化");
+//            Debug.Log("初始化");
             _resourceLoader.Init(pather, originConstData, assetConstUtil);
         }
 

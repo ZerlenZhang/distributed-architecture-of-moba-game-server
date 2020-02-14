@@ -60,13 +60,12 @@ class LoginResDefaultTypeInternal;
 extern LoginResDefaultTypeInternal _LoginRes_default_instance_;
 
 enum Cmd {
-  eLoginReq = 0,
-  eLoginRes = 1,
-  Cmd_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  Cmd_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+  INVALID_CMD = 0,
+  eLoginReq = 1,
+  eLoginRes = 2
 };
 bool Cmd_IsValid(int value);
-const Cmd Cmd_MIN = eLoginReq;
+const Cmd Cmd_MIN = INVALID_CMD;
 const Cmd Cmd_MAX = eLoginRes;
 const int Cmd_ARRAYSIZE = Cmd_MAX + 1;
 
@@ -108,6 +107,13 @@ class LoginReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
     return *this;
   }
   #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
   static const ::google::protobuf::Descriptor* descriptor();
   static const LoginReq& default_instance();
 
@@ -164,7 +170,8 @@ class LoginReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // string name = 1;
+  // required string name = 1;
+  bool has_name() const;
   void clear_name();
   static const int kNameFieldNumber = 1;
   const ::std::string& name() const;
@@ -178,7 +185,8 @@ class LoginReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // string email = 3;
+  // required string email = 3;
+  bool has_email() const;
   void clear_email();
   static const int kEmailFieldNumber = 3;
   const ::std::string& email() const;
@@ -192,13 +200,15 @@ class LoginReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
   ::std::string* release_email();
   void set_allocated_email(::std::string* email);
 
-  // int32 age = 2;
+  // required int32 age = 2;
+  bool has_age() const;
   void clear_age();
   static const int kAgeFieldNumber = 2;
   ::google::protobuf::int32 age() const;
   void set_age(::google::protobuf::int32 value);
 
-  // int32 int_set = 4;
+  // required int32 int_set = 4;
+  bool has_int_set() const;
   void clear_int_set();
   static const int kIntSetFieldNumber = 4;
   ::google::protobuf::int32 int_set() const;
@@ -206,13 +216,25 @@ class LoginReq : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // @@protoc_insertion_point(class_scope:LoginReq)
  private:
+  void set_has_name();
+  void clear_has_name();
+  void set_has_age();
+  void clear_has_age();
+  void set_has_email();
+  void clear_has_email();
+  void set_has_int_set();
+  void clear_has_int_set();
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable int _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr email_;
   ::google::protobuf::int32 age_;
   ::google::protobuf::int32 int_set_;
-  mutable int _cached_size_;
   friend struct ::protobuf_game_2eproto::TableStruct;
   friend void ::protobuf_game_2eproto::InitDefaultsLoginReqImpl();
 };
@@ -244,6 +266,13 @@ class LoginRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
     return *this;
   }
   #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
   static const ::google::protobuf::Descriptor* descriptor();
   static const LoginRes& default_instance();
 
@@ -300,7 +329,8 @@ class LoginRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // accessors -------------------------------------------------------
 
-  // int32 status = 1;
+  // required int32 status = 1;
+  bool has_status() const;
   void clear_status();
   static const int kStatusFieldNumber = 1;
   ::google::protobuf::int32 status() const;
@@ -308,10 +338,13 @@ class LoginRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
 
   // @@protoc_insertion_point(class_scope:LoginRes)
  private:
+  void set_has_status();
+  void clear_has_status();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::int32 status_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
+  ::google::protobuf::int32 status_;
   friend struct ::protobuf_game_2eproto::TableStruct;
   friend void ::protobuf_game_2eproto::InitDefaultsLoginResImpl();
 };
@@ -326,22 +359,32 @@ class LoginRes : public ::google::protobuf::Message /* @@protoc_insertion_point(
 #endif  // __GNUC__
 // LoginReq
 
-// string name = 1;
+// required string name = 1;
+inline bool LoginReq::has_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void LoginReq::set_has_name() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void LoginReq::clear_has_name() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void LoginReq::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_name();
 }
 inline const ::std::string& LoginReq::name() const {
   // @@protoc_insertion_point(field_get:LoginReq.name)
   return name_.GetNoArena();
 }
 inline void LoginReq::set_name(const ::std::string& value) {
-  
+  set_has_name();
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:LoginReq.name)
 }
 #if LANG_CXX11
 inline void LoginReq::set_name(::std::string&& value) {
-  
+  set_has_name();
   name_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:LoginReq.name)
@@ -349,66 +392,86 @@ inline void LoginReq::set_name(::std::string&& value) {
 #endif
 inline void LoginReq::set_name(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  
+  set_has_name();
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:LoginReq.name)
 }
 inline void LoginReq::set_name(const char* value, size_t size) {
-  
+  set_has_name();
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:LoginReq.name)
 }
 inline ::std::string* LoginReq::mutable_name() {
-  
+  set_has_name();
   // @@protoc_insertion_point(field_mutable:LoginReq.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LoginReq::release_name() {
   // @@protoc_insertion_point(field_release:LoginReq.name)
-  
+  clear_has_name();
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void LoginReq::set_allocated_name(::std::string* name) {
   if (name != NULL) {
-    
+    set_has_name();
   } else {
-    
+    clear_has_name();
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:LoginReq.name)
 }
 
-// int32 age = 2;
+// required int32 age = 2;
+inline bool LoginReq::has_age() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void LoginReq::set_has_age() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void LoginReq::clear_has_age() {
+  _has_bits_[0] &= ~0x00000004u;
+}
 inline void LoginReq::clear_age() {
   age_ = 0;
+  clear_has_age();
 }
 inline ::google::protobuf::int32 LoginReq::age() const {
   // @@protoc_insertion_point(field_get:LoginReq.age)
   return age_;
 }
 inline void LoginReq::set_age(::google::protobuf::int32 value) {
-  
+  set_has_age();
   age_ = value;
   // @@protoc_insertion_point(field_set:LoginReq.age)
 }
 
-// string email = 3;
+// required string email = 3;
+inline bool LoginReq::has_email() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void LoginReq::set_has_email() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void LoginReq::clear_has_email() {
+  _has_bits_[0] &= ~0x00000002u;
+}
 inline void LoginReq::clear_email() {
   email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_email();
 }
 inline const ::std::string& LoginReq::email() const {
   // @@protoc_insertion_point(field_get:LoginReq.email)
   return email_.GetNoArena();
 }
 inline void LoginReq::set_email(const ::std::string& value) {
-  
+  set_has_email();
   email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:LoginReq.email)
 }
 #if LANG_CXX11
 inline void LoginReq::set_email(::std::string&& value) {
-  
+  set_has_email();
   email_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
   // @@protoc_insertion_point(field_set_rvalue:LoginReq.email)
@@ -416,46 +479,56 @@ inline void LoginReq::set_email(::std::string&& value) {
 #endif
 inline void LoginReq::set_email(const char* value) {
   GOOGLE_DCHECK(value != NULL);
-  
+  set_has_email();
   email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:LoginReq.email)
 }
 inline void LoginReq::set_email(const char* value, size_t size) {
-  
+  set_has_email();
   email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:LoginReq.email)
 }
 inline ::std::string* LoginReq::mutable_email() {
-  
+  set_has_email();
   // @@protoc_insertion_point(field_mutable:LoginReq.email)
   return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LoginReq::release_email() {
   // @@protoc_insertion_point(field_release:LoginReq.email)
-  
+  clear_has_email();
   return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void LoginReq::set_allocated_email(::std::string* email) {
   if (email != NULL) {
-    
+    set_has_email();
   } else {
-    
+    clear_has_email();
   }
   email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
   // @@protoc_insertion_point(field_set_allocated:LoginReq.email)
 }
 
-// int32 int_set = 4;
+// required int32 int_set = 4;
+inline bool LoginReq::has_int_set() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void LoginReq::set_has_int_set() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void LoginReq::clear_has_int_set() {
+  _has_bits_[0] &= ~0x00000008u;
+}
 inline void LoginReq::clear_int_set() {
   int_set_ = 0;
+  clear_has_int_set();
 }
 inline ::google::protobuf::int32 LoginReq::int_set() const {
   // @@protoc_insertion_point(field_get:LoginReq.int_set)
   return int_set_;
 }
 inline void LoginReq::set_int_set(::google::protobuf::int32 value) {
-  
+  set_has_int_set();
   int_set_ = value;
   // @@protoc_insertion_point(field_set:LoginReq.int_set)
 }
@@ -464,16 +537,26 @@ inline void LoginReq::set_int_set(::google::protobuf::int32 value) {
 
 // LoginRes
 
-// int32 status = 1;
+// required int32 status = 1;
+inline bool LoginRes::has_status() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void LoginRes::set_has_status() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void LoginRes::clear_has_status() {
+  _has_bits_[0] &= ~0x00000001u;
+}
 inline void LoginRes::clear_status() {
   status_ = 0;
+  clear_has_status();
 }
 inline ::google::protobuf::int32 LoginRes::status() const {
   // @@protoc_insertion_point(field_get:LoginRes.status)
   return status_;
 }
 inline void LoginRes::set_status(::google::protobuf::int32 value) {
-  
+  set_has_status();
   status_ = value;
   // @@protoc_insertion_point(field_set:LoginRes.status)
 }

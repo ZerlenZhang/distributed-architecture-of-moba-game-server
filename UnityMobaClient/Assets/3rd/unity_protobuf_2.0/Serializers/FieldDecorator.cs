@@ -1,8 +1,6 @@
 ﻿#if !NO_RUNTIME
 using System;
 
-using ProtoBuf.Meta;
-
 #if FEAT_IKVM
 using Type = IKVM.Reflection.Type;
 using IKVM.Reflection;

@@ -240,19 +240,18 @@ Message* lua_table_to_protobuf(lua_State* L, int stack_index, const char* msg_na
 static int lua_session_close(lua_State* lua)
 {
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
-	if (NULL != session)
+	if (NULL == session)
 	{
 		return 0;
 	}
 
 	session->Close();
 	return 0;
-
 }
 static int lua_session_getaddress(lua_State* lua)
 {
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
-	if (NULL != session)
+	if (NULL == session)
 	{
 		return 0;
 	}
@@ -263,12 +262,47 @@ static int lua_session_getaddress(lua_State* lua)
 	lua_pushinteger(lua, clientPort);
 	return 2;
 }
+static int lua_session_setutag(lua_State* lua)
+{
+	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
+	if (NULL == session)
+	{
+		return 0;
+	}
+
+	auto utag = (unsigned int)lua_tointeger(lua, 2);
+	session->utag = utag;
+	return 0;
+}
+static int lua_session_getutag(lua_State* lua)
+{
+	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
+	if (NULL == session)
+	{
+		return 0;
+	}
+	lua_pushinteger(lua, session->utag);
+	return 1;
+}
+
+static int lua_session_isclient(lua_State* lua)
+{
+	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
+	if (NULL == session)
+	{
+		return 0;
+	}
+	lua_pushinteger(lua,session->isClient);
+	return 1;
+}
+
+//第一个参数：session
+//第二个参数：表：{1： sType, 2: cType, 3: uTag, 4: body}
 static int lua_session_sendpackage(lua_State* lua)
 {
-
 	// 1
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
-	if (NULL != session)
+	if (NULL == session)
 	{
 		return 0;
 	}
@@ -278,39 +312,51 @@ static int lua_session_sendpackage(lua_State* lua)
 		return 0;
 	}
 
-
-
-	lua_getfield(lua, 2, "1");// 3
-	lua_getfield(lua, 2, "2");// 4
-	lua_getfield(lua, 2, "3");// 5
-	lua_getfield(lua, 2, "4");// 6
-
 	CmdPackage msg;
-	msg.serviceType = (int)lua_tointeger(lua, 3);
-	msg.cmdType = (int)lua_tointeger(lua, 4);
-	msg.userTag = (int)lua_tointeger(lua, 5);
 
+	auto num = luaL_len(lua, 2);
+	if (num != 4)
+		return 0;
+
+	lua_pushnumber(lua, 1);
+	lua_gettable(lua, 2);
+	msg.serviceType = luaL_checkinteger(lua, -1);
+	lua_pop(lua, 1);
+
+	lua_pushnumber(lua, 2);
+	lua_gettable(lua, 2);
+	msg.cmdType = luaL_checkinteger(lua, -1);
+	lua_pop(lua, 1);
+
+	lua_pushnumber(lua, 3);
+	lua_gettable(lua, 2);
+	msg.userTag = luaL_checkinteger(lua, -1);
+	lua_pop(lua, 1);
+
+	lua_pushnumber(lua, 4);
+	lua_gettable(lua, 2);
 	switch (CmdPackageProtocol::ProtoType())
 	{
 	case ProtoType::Json:
-		msg.body = (char*)lua_tostring(lua, 6);
+		msg.body = (char*)lua_tostring(lua, -1);
 		session->SendCmdPackage(&msg);
 		break;
 	case ProtoType::Protobuf:
-		if (!lua_istable(lua, 6))
+		if (!lua_istable(lua, -1))
 		{
 			msg.body = NULL;
 		}
 		else
 		{// protobuf message table
 			msg.body =
-			lua_table_to_protobuf(lua, 6,
+			lua_table_to_protobuf(lua, lua_gettop(lua),
 				CmdPackageProtocol::ProtoCmdTypeToName(msg.cmdType));
 		}
 		session->SendCmdPackage(&msg);
 		CmdPackageProtocol::ReleaseMessage((Message*)msg.body);
 		break;
-	} 
+	}
+	lua_pop(lua, 1);
 	return 0;
 }
 
@@ -326,6 +372,9 @@ void register_session_export(lua_State* tolua_S)
 		tolua_function(tolua_S, "Close", lua_session_close);
 		tolua_function(tolua_S, "GetAddress", lua_session_getaddress);
 		tolua_function(tolua_S, "SendPackage", lua_session_sendpackage);
+		tolua_function(tolua_S, "SetUTag", lua_session_setutag);
+		tolua_function(tolua_S, "GetUTag", lua_session_getutag);
+		tolua_function(tolua_S, "IsClient", lua_session_isclient);
 		//tolua_function(tolua_S, "query", lua_redis_query);
 		tolua_endmodule(tolua_S);
 	}

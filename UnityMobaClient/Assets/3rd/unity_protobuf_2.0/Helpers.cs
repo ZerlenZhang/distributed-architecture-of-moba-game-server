@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections;
 
 #if FEAT_IKVM
 using Type = IKVM.Reflection.Type;

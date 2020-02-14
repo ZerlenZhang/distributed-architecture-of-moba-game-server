@@ -3,7 +3,13 @@
 #include <cstdlib>
 #include "CmdPackageProtocol.h"
 #include "../../utils/logger/logger.h"
+#include "../../utils/cache_alloc/small_alloc.h"
+#include "../../utils/cache_alloc/cache_alloc.h"
 
+extern cache_allocer* writeBufAllocer;
+
+#define my_alloc small_alloc
+#define my_free small_free
 
 #pragma region 全局变量
 
@@ -51,7 +57,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 		return false;
 	}
 
-	out_msg = (CmdPackage*)malloc(sizeof(CmdPackage));
+	out_msg = (CmdPackage*)my_alloc(sizeof(CmdPackage));
 	memset(out_msg, 0, sizeof(CmdPackage));
 
 	out_msg->serviceType = cmd[0] | (cmd[1] << 8);
@@ -71,7 +77,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 	switch (g_protoType)
 	{
 	case ProtoType::Json:
-		tempCharPointer = (char*)malloc(dataLen + 1);
+		tempCharPointer = (char*)cache_alloc(writeBufAllocer, dataLen + 1);
 		memcpy(tempCharPointer, cmd + CMD_HEADER_SIZE, dataLen);
 		tempCharPointer[dataLen] = 0;
 		out_msg->body = tempCharPointer;
@@ -82,6 +88,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 		if (tempMessagePointer == NULL)
 		{
 			log_debug("获取Message类型为空");
+			my_free(tempMessagePointer);
 			out_msg = NULL;
 			return false;
 		}
@@ -89,7 +96,7 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 		if (!tempMessagePointer->ParseFromArray(cmd + CMD_HEADER_SIZE, cmd_len - CMD_HEADER_SIZE))
 		{
 			log_debug("消息反序列化失败");
-			free(out_msg);
+			my_free(out_msg);
 			out_msg = NULL;
 			ReleaseMessage(tempMessagePointer);
 			return false;
@@ -111,7 +118,7 @@ void CmdPackageProtocol::FreeCmdMsg(CmdPackage* msg)
 		switch (g_protoType)
 		{
 		case ProtoType::Json:
-			free(msg->body);
+			cache_free(writeBufAllocer, msg->body);
 			msg->body = NULL;
 			break;
 		case ProtoType::Protobuf:
@@ -122,7 +129,7 @@ void CmdPackageProtocol::FreeCmdMsg(CmdPackage* msg)
 		}
 	}
 
-	free(msg);
+	my_free(msg);
 }
 
 unsigned char* CmdPackageProtocol::EncodeCmdPackageToRaw(const CmdPackage* msg, int* out_len)
@@ -132,41 +139,50 @@ unsigned char* CmdPackageProtocol::EncodeCmdPackageToRaw(const CmdPackage* msg, 
 
 	unsigned char* rawData = NULL;
 
-	char* tempCharPointer;
-	int tempLen;
-	google::protobuf::Message* tempMessagePointer;
+	char* tempCharPointer=NULL;
+	int tempLen=0;
+	google::protobuf::Message* tempMessagePointer=NULL;
+
 
 	switch (g_protoType)
 	{
 	case ProtoType::Json:
+		if (msg->body)
+		{
+			tempCharPointer = (char*)msg->body;
+			tempLen = strlen(tempCharPointer) + 1;
+		}
 
-		tempCharPointer = (char*)msg->body;
-		tempLen = strlen(tempCharPointer) + 1;
-
-		rawData = (unsigned char*)malloc(CMD_HEADER_SIZE + tempLen);
-		memcpy(rawData + CMD_HEADER_SIZE, tempCharPointer, tempLen -1);
-
-		rawData[CMD_HEADER_SIZE + tempLen - 1] = 0;
-
-		//传出参数
-		*out_len = CMD_HEADER_SIZE + tempLen;
+		rawData = (unsigned char*)cache_alloc(writeBufAllocer, CMD_HEADER_SIZE + tempLen);
+		
+		if (msg->body)
+		{
+			memcpy(rawData + CMD_HEADER_SIZE, tempCharPointer, tempLen -1);
+			rawData[CMD_HEADER_SIZE + tempLen - 1] = 0;
+		}
 		break;
 	case ProtoType::Protobuf:
-		tempMessagePointer = (google::protobuf::Message*)msg->body;
-		tempLen = tempMessagePointer->ByteSize();
-		rawData = (unsigned char*)malloc(CMD_HEADER_SIZE + tempLen);
+		if (msg->body)
+		{
+			tempMessagePointer = (google::protobuf::Message*)msg->body;
+			tempLen = tempMessagePointer->ByteSize();
+		}
 
-		if (!tempMessagePointer->SerializePartialToArray(rawData + CMD_HEADER_SIZE, tempLen))
+		rawData = (unsigned char*)cache_alloc(writeBufAllocer, CMD_HEADER_SIZE + tempLen);
+
+		if(tempMessagePointer && !tempMessagePointer->SerializePartialToArray(rawData + CMD_HEADER_SIZE, tempLen))
 		{// 如果序列化不成功
-			free(rawData);
+			cache_free(writeBufAllocer, rawData);
 			*out_len = 0;
 			return NULL;
 		}
 
 		//传出参数
-		*out_len = CMD_HEADER_SIZE + tempLen;
 		break;
 	}
+	
+
+	*out_len = CMD_HEADER_SIZE + tempLen;
 
 	//写包头信息
 	rawData[0] = msg->serviceType & 0x000000ff;
@@ -182,11 +198,12 @@ unsigned char* CmdPackageProtocol::EncodeCmdPackageToRaw(const CmdPackage* msg, 
 
 void CmdPackageProtocol::FreeCmdPackageRaw(unsigned char* raw) 
 {
-	free(raw);
+	cache_free(writeBufAllocer, raw);
 }
 
 google::protobuf::Message* CmdPackageProtocol::CreateMessage(const char* typeName)
 {
+	log_debug("messageType: %s", typeName);
 	google::protobuf::Message* msg = NULL;
 	//根据名字，找到message的描述对象
 	auto descriptor = google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);

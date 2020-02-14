@@ -5,7 +5,7 @@
 #include "uv.h"
 #include "time_list.h"
 
-#define my_malloc malloc
+#define my_alloc malloc
 #define my_free free
 
 
@@ -19,7 +19,7 @@ typedef struct timer {
 static struct timer* 
 alloc_timer(void(*on_timer)(void* udata),
             void* udata, int repeat_count) {
-	struct timer* t = my_malloc(sizeof(struct timer));
+	struct timer* t = my_alloc(sizeof(struct timer));
 	memset(t, 0, sizeof(struct timer));
 
 	t->on_timer = on_timer;

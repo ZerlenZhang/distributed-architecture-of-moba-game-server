@@ -118,6 +118,7 @@
     <ClCompile Include="..\..\netbus\session\TcpSession.cpp" />
     <ClCompile Include="..\..\netbus\session\UdpSession.cpp" />
     <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.c" />
+    <ClCompile Include="..\..\utils\cache_alloc\small_alloc.c" />
     <ClCompile Include="..\..\utils\logger\logger.cc" />
     <ClCompile Include="..\..\utils\timer\time_list.c" />
     <ClCompile Include="..\..\utils\timestamp\timestamp.c" />
@@ -205,6 +206,7 @@
     <ClInclude Include="..\..\netbus\session\TcpSession.h" />
     <ClInclude Include="..\..\netbus\session\UdpSession.h" />
     <ClInclude Include="..\..\utils\cache_alloc\cache_alloc.h" />
+    <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h" />
     <ClInclude Include="..\..\utils\logger\logger.h" />
     <ClInclude Include="..\..\utils\timer\time_list.h" />
     <ClInclude Include="..\..\utils\timestamp\timestamp.h" />

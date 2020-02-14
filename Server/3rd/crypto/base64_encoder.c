@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define my_malloc malloc
+#define my_alloc malloc
 #define my_free free
 
 #define SMALL_CHUNK 256
@@ -16,10 +16,10 @@ base64_encode(const uint8_t* text, int sz, int* out_esz) {
 	
 	char *buffer = NULL;
 	if (encode_sz >= SMALL_CHUNK) {
-		buffer = my_malloc(encode_sz + 1);
+		buffer = my_alloc(encode_sz + 1);
 	}
 	else {
-		buffer = my_malloc(SMALL_CHUNK);
+		buffer = my_alloc(SMALL_CHUNK);
 	}
 	int i, j;
 	j = 0;

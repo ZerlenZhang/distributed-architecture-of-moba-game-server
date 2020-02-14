@@ -277,7 +277,8 @@ push_proto_message_tolua(const Message* message) {
 }
 
 
-
+//第一个参数：sType
+//第二个参数：表：{OnSessionRecvCmd，OnSessionDisconnected}
 static int lua_redis_service(lua_State* lua)
 {
 	auto  serviceType = tolua_tonumber(lua, 1, 0);
@@ -323,7 +324,6 @@ int register_service_export(lua_State* tolua_S)
 		tolua_beginmodule(tolua_S, "Service");
 
 		tolua_function(tolua_S, "Register", lua_redis_service);
-		//tolua_function(tolua_S, "query", lua_redis_query);
 		tolua_endmodule(tolua_S);
 	}
 	lua_pop(tolua_S, 1);
@@ -337,11 +337,12 @@ int register_service_export(lua_State* tolua_S)
 
 
 bool LuaService::OnSessionRecvCmd(const AbstractSession* session, const CmdPackage* package) const
-{// 如果是Protobuf就把内容解析后传给Lua，如果是json就不变
-
+{
+	// 如果是Protobuf就把内容解析后传给Lua，如果是json就不变
 	// { 1： serviceType, 2: cmdType, 3 uTag, 4:body }
 	auto index = 1;
 	auto lua = lua_wrapper::lua_state();
+	tolua_pushuserdata(lua, (void*)session);
 	lua_newtable(lua);
 	lua_pushinteger(lua, package->serviceType);
 	lua_rawseti(lua, -2, index++);
@@ -365,8 +366,8 @@ bool LuaService::OnSessionRecvCmd(const AbstractSession* session, const CmdPacka
 			push_proto_message_tolua((Message*)package->body);
 			break;
 		}
-		lua_rawseti(lua, -2, index++);
 	}
+	lua_rawseti(lua, -2, index++);
 	execute_service_function(this->luaRecvFuncHandle, 2);
 	return true;
 }

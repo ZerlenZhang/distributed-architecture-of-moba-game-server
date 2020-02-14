@@ -14,6 +14,7 @@ namespace ReadyGamerOne.Common
                 if (_instance == null) {
                     _instance = FindObjectOfType(typeof(T)) as T;
                     if (_instance == null) {
+//                        Debug.Log("新建："+typeof(T).Name);
                         GameObject obj = new GameObject();
                         _instance = (T)obj.AddComponent(typeof(T));
                         obj.hideFlags = HideFlags.DontSave;
@@ -26,15 +27,15 @@ namespace ReadyGamerOne.Common
         }
 
         protected virtual void Awake() {
-            DontDestroyOnLoad(this.gameObject);
             if (_instance == null)
             {
-                Debug.Log("赋值全局单例:"+GetType().Name+" " + GetHashCode());
+//                Debug.Log("赋值全局单例:"+GetType().Name+" " + GetHashCode());
                 _instance = this as T;
+                DontDestroyOnLoad(this.gameObject);
             }
-            else
+            else if(_instance!=this)
             {
-                Debug.Log("销毁当前物体：" + GetHashCode());
+//                Debug.Log(this.GetType().Name+"重复生成，销毁当前物体："+ GetHashCode());
                 GameObject.Destroy(this.gameObject);
             }
         }

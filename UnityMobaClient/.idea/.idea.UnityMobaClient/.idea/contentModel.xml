@@ -106,15 +106,39 @@
           </e>
         </e>
         <e p="Moba" t="Include">
+          <e p="Const" t="Include">
+            <e p="Auto" t="Include">
+              <e p="OtherResName.cs" t="Include" />
+              <e p="OtherResPath.cs" t="Include" />
+              <e p="PanelName.cs" t="Include" />
+              <e p="UiName.cs" t="Include" />
+            </e>
+          </e>
           <e p="Data" t="Include">
             <e p="Protocol" t="Include">
               <e p="game.cs" t="Include" />
             </e>
           </e>
+          <e p="Network" t="Include">
+            <e p="NetworkMgr.cs" t="Include" />
+          </e>
           <e p="Script" t="Include">
-            <e p="Network" t="Include">
-              <e p="NetworkMgr.cs" t="Include" />
+            <e p="Auto" t="Include">
+              <e p="MobaMgr.cs" t="Include" />
             </e>
+            <e p="MobaMgr.cs" t="Include" />
+            <e p="TestScript.cs" t="Include" />
+          </e>
+          <e p="Utility" t="Include">
+            <e p="Auto" t="Include">
+              <e p="AssetConstUtil.cs" t="Include" />
+            </e>
+          </e>
+          <e p="View" t="Include">
+            <e p="Auto" t="Include">
+              <e p="ChatPanel.cs" t="Include" />
+            </e>
+            <e p="ChatPanel.cs" t="Include" />
           </e>
         </e>
         <e p="ReadyGamerOne" t="Include">
@@ -204,6 +228,10 @@
               <e p="SceneMgr.cs" t="Include" />
             </e>
           </e>
+          <e p="Network" t="Include">
+            <e p="CmdPackageProtocol.cs" t="Include" />
+            <e p="TcpProtocol.cs" t="Include" />
+          </e>
           <e p="Rougelike" t="Include">
             <e p="Agent" t="Include">
               <e p="IAgent.cs" t="Include" />
@@ -269,6 +297,7 @@
             <e p="Extensions" t="Include">
               <e p="AlphaExtension.cs" t="Include" />
               <e p="BoxCollider2DExtension.cs" t="Include" />
+              <e p="ByteArrayExtension.cs" t="Include" />
               <e p="CameraExtension.cs" t="Include" />
               <e p="DirectoryInfoExtension.cs" t="Include" />
               <e p="GameObjectExtension.cs" t="Include" />

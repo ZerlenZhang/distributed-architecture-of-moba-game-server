@@ -12,7 +12,7 @@
 
 #pragma region 函数声明
 
-void OnRecvCommond(AbstractSession& session, unsigned char* body, const int len);
+void OnRecvCommond(AbstractSession* session, unsigned char* body, const int len);
 
 void OnWebSocketRecvData(TcpSession* session);
 
@@ -26,11 +26,17 @@ struct UdpRecvBuf
 	int maxRecvLen;
 };
 
+struct TcpConnectInfo
+{
+	TcpConnectedCallback cb;
+	void* data;
+};
+
 #pragma region 回调函数
 
 extern "C"
 {
-	#pragma region Tcp_&_Websocket
+#pragma region Tcp_&_Websocket
 	//关闭链接回调
 	static void tcp_close_cb(uv_handle_t* handle) {
 		log_debug("用户断开链接");
@@ -54,42 +60,34 @@ extern "C"
 		if (session->recved < RECV_LEN)
 		{
 			//session的长度为 RECV_LEN 的recvBuf还没有存满
-			*buf = uv_buf_init(session->recvBuf + session->recved,RECV_LEN - session->recved); 
+			*buf = uv_buf_init(session->recvBuf + session->recved, RECV_LEN - session->recved);
 		}
 		else
 		{// recvBuf读满了，但是还没有读完 
 
-		
+
 			if (session->long_pkg == NULL)
 			{// 如果还没有new空间
-
+				int pkgSize;
+				int headSize;
 				switch (session->socketType)
 				{
 				case SocketType::TcpSocket:
+					TcpProtocol::ReadHeader((unsigned char*)session->recvBuf, session->recved, &pkgSize, &headSize);
 					break;
-				#pragma region WebSocket协议
 				case SocketType::WebSocket:
-					
-					if (session->isWebSocketShakeHand)
-					{// 握过手
-						int pkgSize;
-						int headSize;
-						WebSocketProtocol::ReadHeader((unsigned char*)session->recvBuf, session->recved, &pkgSize, &headSize);
-					
-						session->long_pkg_size = pkgSize;
-						session->long_pkg = (char*)malloc(pkgSize);
-					
-						memcpy(session->long_pkg, session->recvBuf, session->recved);
-					}
+					WebSocketProtocol::ReadHeader((unsigned char*)session->recvBuf, session->recved, &pkgSize, &headSize);
 					break;
-				#pragma endregion
-
 				}
+				session->long_pkg_size = pkgSize;
+				session->long_pkg = (char*)malloc(pkgSize);
+
+				memcpy(session->long_pkg, session->recvBuf, session->recved);
 			}
 
 			*buf = uv_buf_init(session->long_pkg + session->recved, session->long_pkg_size - session->recved);
 		}
-		
+
 	}
 
 	//读取结束后的回调
@@ -97,11 +95,10 @@ extern "C"
 		ssize_t nread,
 		const uv_buf_t* buf) {
 
-		auto session = (TcpSession*) stream->data;
+		auto session = (TcpSession*)stream->data;
 
 		//连接断开
 		if (nread < 0) {
-			log_debug("链接断开");
 			session->Close();
 			return;
 		}
@@ -111,16 +108,16 @@ extern "C"
 		switch (session->socketType)
 		{
 
-		#pragma region Tcp协议
+#pragma region Tcp协议
 
 		case SocketType::TcpSocket:
 			OnTcpRecvData(session);
 			break;
 
-		#pragma endregion
+#pragma endregion
 
-		#pragma region WebSocket协议	
-		case SocketType::WebSocket: 
+#pragma region WebSocket协议	
+		case SocketType::WebSocket:
 
 			if (session->isWebSocketShakeHand == 0)
 			{	//	shakeHand
@@ -136,7 +133,7 @@ extern "C"
 				OnWebSocketRecvData(session);
 			}
 			break;
-		#pragma endregion
+#pragma endregion
 
 		default:
 			break;
@@ -156,7 +153,7 @@ extern "C"
 		//将新客户端TCP句柄也加入到事件循环中
 		uv_tcp_init(uv_default_loop(), pNewClient);
 		//客户端接入服务器 
-		uv_accept(server,(uv_stream_t*) pNewClient);
+		uv_accept(server, (uv_stream_t*)pNewClient);
 
 #pragma region 获取接入者IP和端口
 
@@ -177,11 +174,11 @@ extern "C"
 #pragma endregion
 
 
-	} 
-	
-	#pragma endregion
+	}
 
-	#pragma region Udp
+#pragma endregion
+
+#pragma region Udp
 
 	//Udp申请字符串空间
 	static void udp_str_alloc(uv_handle_t* handle,
@@ -200,7 +197,7 @@ extern "C"
 			}
 			pBuf->data = (char*)malloc(suggested_size);
 			pBuf->maxRecvLen = suggested_size;
-		
+
 		}
 
 		buf->base = pBuf->data;
@@ -220,30 +217,30 @@ extern "C"
 		us.clientPort = ntohs(((struct sockaddr_in*)addr)->sin_port);
 		uv_ip4_name((struct sockaddr_in*)addr, us.clientAddress, 128);
 
-		log_debug("ip: %s:%d nread = %d", us.clientAddress,us.clientPort, nread);
+		log_debug("ip: %s:%d nread = %d", us.clientAddress, us.clientPort, nread);
 
-		OnRecvCommond(us,(unsigned char*)buf->base,buf->len);
+		OnRecvCommond(&us, (unsigned char*)buf->base, buf->len);
 	}
 
-	#pragma endregion
+#pragma endregion
 
-	
+
 }
 
 #pragma endregion
 
 
-static void OnRecvCommond(AbstractSession& session,unsigned char* body,const int len)
+static void OnRecvCommond(AbstractSession* session, unsigned char* body, const int len)
 {
 	//test
 	log_debug("client command!!");
 
-	CmdPackage* msg=NULL;
+	CmdPackage* msg = NULL;
 	if (CmdPackageProtocol::DecodeCmdMsg(body, len, msg))
 	{
-		if (!ServiceManager::OnRecvCmdPackage(&session, msg))
+		if (!ServiceManager::OnRecvCmdPackage(session, msg))
 		{
-			session.Close();
+			session->Close();
 		}
 
 		//释放数据
@@ -295,8 +292,8 @@ static void OnWebSocketRecvData(TcpSession* session)
 		WebSocketProtocol::ParserRecvData(body, mask, pkgSize - headSize);
 
 		//处理收到的完整数据包
-		OnRecvCommond(*session, body, pkgSize);
-	
+		OnRecvCommond(session, body, pkgSize);
+
 		if (session->recved > pkgSize)
 		{
 			memmove(pkgData, pkgData + pkgSize, session->recved - pkgSize);
@@ -342,7 +339,7 @@ static void OnTcpRecvData(TcpSession* session)
 		unsigned char* body = pkgData + headSize;
 
 		//处理收到的完整数据包
-		OnRecvCommond(*session, body, pkgSize-headSize);
+		OnRecvCommond(session, body, pkgSize - headSize);
 
 		if (session->recved > pkgSize)
 		{
@@ -362,8 +359,32 @@ static void OnTcpRecvData(TcpSession* session)
 	}
 }
 
+
 #pragma endregion
 
+static void after_connect(uv_connect_t* handle, int status)
+{
+	auto session = (AbstractSession*)handle->handle->data;
+	auto info = (TcpConnectInfo*)handle->data;
+	if (status)
+	{
+		if (info && info->cb)
+		{
+			info->cb(1, NULL, info->data);
+		}
+		session->Close();
+		free(info);
+		free(handle);
+		return;
+	}
+	if (info && info->cb)
+	{
+		info->cb(0, session, info->data);
+		free(info);
+	}
+	uv_read_start(handle->handle, tcp_str_alloc, tcp_after_read);
+	free(handle);
+}
 
 
 
@@ -395,7 +416,7 @@ void Netbus::TcpListen(int port)const
 	listen->data = (void*)SocketType::TcpSocket;
 
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
-	log_debug("Tcp 服务器已开机 %d",port);
+	log_debug("Tcp 服务器已开机 %d", port);
 }
 
 void Netbus::WebSocketListen(int port)const
@@ -451,4 +472,35 @@ void Netbus::Init() const
 	CmdPackageProtocol::Init();
 	ServiceManager::Init();
 	InitAllocers();
+}
+
+void Netbus::TcpConnect(const char* serverIp, int port, TcpConnectedCallback callback, void* udata)const
+{
+	sockaddr_in addr;
+	auto ret = uv_ip4_addr(serverIp, port, &addr);
+	if (ret)
+		return;
+
+	auto s = TcpSession::Create();
+	s->isClient = 1; 
+	s->socketType = SocketType::TcpSocket;
+	strcpy(s->clientAddress, serverIp);
+	s->clientPort = port;
+
+	auto client = &s->tcpHandle;
+	memset(client, 0, sizeof(uv_tcp_t));
+
+	uv_tcp_init(uv_default_loop(), client);
+	client->data = (void*)s;
+
+
+	auto req = (uv_connect_t*)malloc(sizeof(uv_connect_t));
+
+	auto info = (TcpConnectInfo*)malloc(sizeof(TcpConnectInfo));
+	memset(info, 0, sizeof(TcpConnectInfo));
+	info->cb = callback;
+	info->data = udata;
+	req->data = info;
+
+	ret = uv_tcp_connect(req, client, (struct sockaddr*) & addr, after_connect);
 }

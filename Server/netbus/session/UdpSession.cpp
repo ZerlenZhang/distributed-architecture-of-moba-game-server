@@ -2,6 +2,10 @@
 #include "UdpSession.h"
 #include "../protocol/CmdPackageProtocol.h"
 #include "../../utils/logger/logger.h"
+#include "../../utils/cache_alloc/small_alloc.h"
+
+#define my_alloc small_alloc
+#define my_free small_free
 
 void AfterUdpSend(uv_udp_send_t* req, int status)
 {
@@ -9,7 +13,7 @@ void AfterUdpSend(uv_udp_send_t* req, int status)
 	{
 		log_debug("udp send success");
 	}
-	free(req);
+	my_free(req);
 }
 
 void UdpSession::Close()
@@ -19,7 +23,7 @@ void UdpSession::Close()
 void UdpSession::SendData(unsigned char* body, int len)
 {
 	auto wbuf = uv_buf_init((char*)body, len);
-	auto req = (uv_udp_send_t*)malloc(sizeof(uv_udp_send_t));
+	auto req = (uv_udp_send_t*)my_alloc(sizeof(uv_udp_send_t));
 	uv_udp_send(req, this->udp_handler, &wbuf, 1, this->addr, AfterUdpSend);
 } 
 

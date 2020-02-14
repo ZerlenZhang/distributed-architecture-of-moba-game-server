@@ -1,5 +1,13 @@
 local cmdNameMap={
-    "LoginReq",
-    "LoginRes",
+    "LoginReq" ,
+    "LoginRes" ,
+    "ExitReq" ,
+    "ExitRes" , 
+    "SendMsgReq" ,
+    "SendMsgRes" ,
+    "OnUserLogin" ,
+    "OnUserExit",
+    "OnSendMsg" ,
+    
 };
 return cmdNameMap;

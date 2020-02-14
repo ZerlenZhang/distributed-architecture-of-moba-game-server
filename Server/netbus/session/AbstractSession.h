@@ -4,6 +4,11 @@ struct CmdPackage;
 class AbstractSession
 {
 public:
+	unsigned int isClient;
+	unsigned int utag;
+
+	AbstractSession();
+
 	virtual void Close() = 0;
 	virtual void SendData(unsigned char* body,int len) = 0;
 	virtual const char* GetAddress(int & clientPort)const = 0;
