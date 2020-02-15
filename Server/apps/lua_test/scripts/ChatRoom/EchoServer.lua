@@ -2,11 +2,11 @@ return {
     serviceType = 1,
     service = {
         OnSessionRecvCmd=function(s,msg)
+            print(msg[3]);
             --如果是Protobuf就把内容解析后传给Lua
 	        --{ 1： serviceType, 2: cmdType, 3: uTag, 4: body }
             print(msg[1]);
             print(msg[2]);
-            print(msg[3]);
             local body = msg[4];
             print("body.name: ",body.name);
             print("body.email: ",body.email);

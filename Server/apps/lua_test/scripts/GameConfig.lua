@@ -7,6 +7,7 @@ remote_servers[sType.Auth]={
     serviceType = sType.Auth,
     ip = "127.0.0.1",
     port = 8000,
+    descrip = "Auth Server",
 };
 
 return {

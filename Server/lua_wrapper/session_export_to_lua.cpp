@@ -285,6 +285,29 @@ static int lua_session_getutag(lua_State* lua)
 	return 1;
 }
 
+static int lua_session_setuid(lua_State* lua)
+{
+	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
+	if (NULL == session)
+	{
+		return 0;
+	}
+
+	auto uid = (unsigned int)lua_tointeger(lua, 2);
+	session->uid = uid;
+	return 0;
+}
+static int lua_session_getuid(lua_State* lua)
+{
+	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
+	if (NULL == session)
+	{
+		return 0;
+	}
+	lua_pushinteger(lua, session->uid);
+	return 1;
+}
+
 static int lua_session_isclient(lua_State* lua)
 {
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
@@ -292,8 +315,27 @@ static int lua_session_isclient(lua_State* lua)
 	{
 		return 0;
 	}
-	lua_pushinteger(lua,session->isClient);
+	lua_pushboolean(lua,session->isClient ? 1:0);
 	return 1;
+}
+
+
+static int lua_session_sendrawpackage(lua_State* lua)
+{
+	// 1
+	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
+	if (NULL == session)
+	{
+		return 0;
+	}
+
+	//2
+	auto* pk = (struct RawPackage*)tolua_touserdata(lua, 2, NULL);
+	if (!pk)
+		return 0;
+
+	session->SendRawPackage(pk);
+	return 0;
 }
 
 //第一个参数：session
@@ -361,6 +403,8 @@ static int lua_session_sendpackage(lua_State* lua)
 }
 
 
+
+
 void register_session_export(lua_State* tolua_S)
 {
 	lua_getglobal(tolua_S, "_G");
@@ -372,8 +416,11 @@ void register_session_export(lua_State* tolua_S)
 		tolua_function(tolua_S, "Close", lua_session_close);
 		tolua_function(tolua_S, "GetAddress", lua_session_getaddress);
 		tolua_function(tolua_S, "SendPackage", lua_session_sendpackage);
+		tolua_function(tolua_S, "SendRawPackage", lua_session_sendrawpackage);
 		tolua_function(tolua_S, "SetUTag", lua_session_setutag);
 		tolua_function(tolua_S, "GetUTag", lua_session_getutag);
+		tolua_function(tolua_S, "SetUId", lua_session_setuid);
+		tolua_function(tolua_S, "GetUId", lua_session_getuid);
 		tolua_function(tolua_S, "IsClient", lua_session_isclient);
 		//tolua_function(tolua_S, "query", lua_redis_query);
 		tolua_endmodule(tolua_S);

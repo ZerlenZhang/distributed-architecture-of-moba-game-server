@@ -7,33 +7,60 @@ using namespace std;
 #include "../../lua_wrapper/lua_wrapper.h"
 #include "../../netbus/Netbus.h"
 #include "../../utils/logger/logger.h"
+#include "../../utils/win32/WinUtil.h"
+#include "../../utils/Encoding.h"
 
-
+static string exeFilePath;
+static string protoFileDir;
+const string& GetProtoDir()
+{
+	return protoFileDir;
+}
+const string& GetExeFilePath()
+{
+	return exeFilePath;
+}
 
 int main(int argc, char** argv)
 {
+	exeFilePath = argv[0];
+
+	//logger::init("logger/Main", "Main", true);
+
 	Netbus::Instance()->Init();
 	lua_wrapper::Init();
 	
 	//Æô¶¯
-	if (argc != 3)
+	if (argc < 3)
 	{
+		protoFileDir = WinUtil::GetDirPath(argv[0]);
 		string searchPath = "../../apps/lua_test/scripts/";
 		lua_wrapper::AddSearchPath(searchPath);
-		lua_wrapper::DoFile(searchPath+"main.lua");
+		lua_wrapper::DoFile(searchPath+"gateway/gateway_server_main.lua");
 	}
-	else
+	else if(argc == 3)
 	{
+		protoFileDir = WinUtil::GetDirPath(argv[0]);
 		string searchPath = argv[1];
 		if (*(searchPath.end() - 1) != '/')
 		{
 			searchPath += "/";		
 		}
-		lua_wrapper::AddSearchPath(searchPath);
+		lua_wrapper::AddSearchPath(argv[1]);
+		lua_wrapper::DoFile(searchPath + argv[2]);
+
+	}
+	else if (argc == 4)
+	{
+		protoFileDir = argv[3];
+		string searchPath = argv[1];
+		if (*(searchPath.end() - 1) != '/')
+		{
+			searchPath += "/";
+		}
+		lua_wrapper::AddSearchPath(argv[1]);
 		lua_wrapper::DoFile(searchPath + argv[2]);
 	}
-
-
 
 	//ÔËÐÐ
 	Netbus::Instance()->Run();

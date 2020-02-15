@@ -36,7 +36,7 @@ const char* UdpSession::GetAddress(int& clientPort) const
 void UdpSession::SendCmdPackage(CmdPackage* msg)
 {
 	int bodyLen;
-	auto rawData = CmdPackageProtocol::EncodeCmdPackageToRaw(msg, &bodyLen);
+	auto rawData = CmdPackageProtocol::EncodeCmdPackageToBytes(msg, &bodyLen);
 	if (rawData)
 	{// 编码成功 
 
@@ -44,10 +44,15 @@ void UdpSession::SendCmdPackage(CmdPackage* msg)
 		SendData(rawData, bodyLen);
 
 		//释放数据
-		CmdPackageProtocol::FreeCmdPackageRaw(rawData);
+		CmdPackageProtocol::FreeCmdPackageBytes(rawData);
 	}
 	else
 	{
 		log_debug("编码失败");
 	}
+}
+
+void UdpSession::SendRawPackage(RawPackage* pkg)
+{
+	this->SendData(pkg->rawCmd, pkg->rawLen);
 }

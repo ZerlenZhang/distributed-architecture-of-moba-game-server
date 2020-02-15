@@ -4,7 +4,7 @@
 #include "AbstractSession.h"
 
 class UdpSession :
-	public virtual AbstractSession
+	public AbstractSession
 {
 public:
 	uv_udp_t* udp_handler;
@@ -19,6 +19,9 @@ public:
 	virtual const char* GetAddress(int& clientPort) const override;
 	//发送自定义包
 	virtual void SendCmdPackage(CmdPackage* msg)override;
+
+	// 通过 AbstractSession 继承
+	virtual void SendRawPackage(RawPackage* pkg) override;
 };
 
 

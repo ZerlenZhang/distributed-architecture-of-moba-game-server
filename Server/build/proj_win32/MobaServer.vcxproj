@@ -119,9 +119,11 @@
     <ClCompile Include="..\..\netbus\session\UdpSession.cpp" />
     <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.c" />
     <ClCompile Include="..\..\utils\cache_alloc\small_alloc.c" />
+    <ClCompile Include="..\..\utils\Encoding.cpp" />
     <ClCompile Include="..\..\utils\logger\logger.cc" />
     <ClCompile Include="..\..\utils\timer\time_list.c" />
     <ClCompile Include="..\..\utils\timestamp\timestamp.c" />
+    <ClCompile Include="..\..\utils\win32\WinUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\crypto\base64_decoder.h" />
@@ -207,9 +209,11 @@
     <ClInclude Include="..\..\netbus\session\UdpSession.h" />
     <ClInclude Include="..\..\utils\cache_alloc\cache_alloc.h" />
     <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h" />
+    <ClInclude Include="..\..\utils\Encoding.h" />
     <ClInclude Include="..\..\utils\logger\logger.h" />
     <ClInclude Include="..\..\utils\timer\time_list.h" />
     <ClInclude Include="..\..\utils\timestamp\timestamp.h" />
+    <ClInclude Include="..\..\utils\win32\WinUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\apps\lua_test\proto\game.proto" />

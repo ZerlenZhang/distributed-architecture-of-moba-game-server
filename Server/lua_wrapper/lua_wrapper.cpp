@@ -143,6 +143,7 @@ void lua_wrapper::Init()
 	register_mysql_export(g_lua);
 	register_redis_export(g_lua);
 	register_service_export(g_lua);
+	register_rawcmd_export(g_lua);
 	register_session_export(g_lua); 
 	register_timer_export(g_lua);
 	register_lua_export(g_lua);
@@ -197,8 +198,14 @@ void lua_wrapper::RemoveScriptHandle(int handle)
 
 void lua_wrapper::AddSearchPath(const std::string& path)
 {
+	auto tempPath = path;
+	if (*(tempPath.end() - 1) != '/')
+	{
+		tempPath += "/";
+	}
+
 	char strPath[1024] = { 0 };
-	sprintf(strPath, "local path = string.match([[%s]],[[(.*)/[^/]*$]])\n package.path = package.path .. [[;]] .. path .. [[/?.lua;]] .. path .. [[/?/init.lua]]\n", path.c_str());
+	sprintf(strPath, "local path = string.match([[%s]],[[(.*)/[^/]*$]])\n package.path = package.path .. [[;]] .. path .. [[/?.lua;]] .. path .. [[/?/init.lua]]\n", tempPath.c_str());
 	luaL_dostring(g_lua, strPath);
 }
 

@@ -2,8 +2,9 @@
 
 AbstractSession::AbstractSession()
 {
-	this->isClient = 0;
+	this->isClient = false;
 	this->utag = 0;
+	this->uid = 0;
 }
 
 void AbstractSession::Enable()

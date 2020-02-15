@@ -2,8 +2,18 @@
 #include "../../netbus/protocol/CmdPackageProtocol.h"
 #include "AbstractService.h"
 
+AbstractService::AbstractService()
+{
+	useRawPackage = false;
+}
+
+bool AbstractService::OnSessionRecvRawPackage(const AbstractSession* session, const RawPackage* package) const
+{
+	return false;
+}
+
 // if return false, close socket
-bool AbstractService::OnSessionRecvCmd(const AbstractSession* session, const CmdPackage* package) const
+bool AbstractService::OnSessionRecvCmdPackage(const AbstractSession* session, const CmdPackage* package) const
 {
 	return false;
 }

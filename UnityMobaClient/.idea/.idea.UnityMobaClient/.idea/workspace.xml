@@ -2,82 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7331febf-2a06-4cbe-bc1c-d7ba67373f70" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/ReadyGamerOne/Network/CmdPackageProtocol.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/ReadyGamerOne/Utility/Extensions/ByteArrayExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/game.pb.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/game.pb.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/game.pb.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/game.pb.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/game.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/game.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/protoc.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/cpp_test/proto/protoc.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/proto/game.pb.cc" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/proto/game.pb.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/proto/game.pb.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/proto/game.pb.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/proto/game.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/proto/game.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/proto/protoc.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/proto/protoc.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/CmdNameMap.lua" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/CmdNameMap.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/TestLua.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/TestLua.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/ChatRoom/EchoServer.lua" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/ChatRoom/EchoServer.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/ChatRoom/chat_room_main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/ChatRoom/chat_room_main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/GameConfig.lua" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/GameConfig.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/gateway/gateway_server_main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/gateway/gateway_server_main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/apps/lua_test/scripts/gateway/gw_services.lua" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/build/bin/MobaServer.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/bin/MobaServer.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/bin/logger/TestLua/gateway.20200212.log" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/bin/logger/TestLua/gateway.20200212.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/bin/start_chatroom_server.bat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/.suo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/Browse.VC.db" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/Browse.VC.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/1d0253da129d2c2e/WEBSOCKETPROTOCOL.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/1d0253da129d2c2e/WEBSOCKETPROTOCOL.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/2a4bec2afb2b99c4/UV-COMMON.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/2a4bec2afb2b99c4/UV-COMMON.ipch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/301565ef7f0534d4/NETBUS.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/301565ef7f0534d4/NETBUS.ipch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/3f5092ce8d43327e/TCPPACKAGEPROTOCOL.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/3f5092ce8d43327e/TCPPACKAGEPROTOCOL.ipch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/50ebd5382a7ea39c/LOGGER.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/50ebd5382a7ea39c/LOGGER.ipch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/6f4ed5eac079e8f3/CMDPACKAGEPROTOCOL.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/6f4ed5eac079e8f3/CMDPACKAGEPROTOCOL.ipch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/c75a7fa0ad73b3d0/SERVICEMANAGER.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/c75a7fa0ad73b3d0/SERVICEMANAGER.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/ce8ba99eb0557974/TCP.ipch" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/.vs/MobaServer/v16/ipch/AutoPCH/ce8ba99eb0557974/TCP.ipch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/MobaServer.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/MobaServer.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build/proj_win32/MobaServer.vcxproj.filters" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build/proj_win32/MobaServer.vcxproj.filters" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/lua_wrapper/cmd_package_proto_export_to_lua.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/lua_wrapper/cmd_package_proto_export_to_lua.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/lua_wrapper/cmd_package_proto_export_to_lua.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/lua_wrapper/cmd_package_proto_export_to_lua.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/lua_wrapper/lua_wrapper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/lua_wrapper/lua_wrapper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/lua_wrapper/netbus_export_to_lua.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/lua_wrapper/netbus_export_to_lua.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/lua_wrapper/service_export_to_lua.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/lua_wrapper/service_export_to_lua.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/lua_wrapper/service_export_to_lua.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/lua_wrapper/service_export_to_lua.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/lua_wrapper/session_export_to_lua.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/lua_wrapper/session_export_to_lua.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/netbus/Netbus.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/Netbus.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/Netbus.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/Netbus.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/netbus/protocol/CmdPackageProtocol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/protocol/CmdPackageProtocol.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/protocol/CmdPackageProtocol.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/protocol/CmdPackageProtocol.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/service/AbstractService.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/service/AbstractService.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/service/AbstractService.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/service/AbstractService.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/netbus/service/ServiceManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/service/ServiceManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityMobaClient/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityMobaClient/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnityMobaClient/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnityMobaClient/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/BclHelpers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/BclHelpers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/BufferExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/BufferExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Helpers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Helpers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/ImplicitFields.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/ImplicitFields.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Meta/RuntimeTypeModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Meta/RuntimeTypeModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/NetObjectCache.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/NetObjectCache.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/ProtoIncludeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/ProtoIncludeAttribute.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/ArrayDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/ArrayDecorator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/BooleanSerializer(1).cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/BooleanSerializer(1).cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/CharSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/CharSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DateTimeSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DateTimeSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DecimalSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DecimalSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DefaultValueDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DefaultValueDecorator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DoubleSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/DoubleSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/EnumSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/EnumSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/FieldDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/FieldDecorator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/Int16Serializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/Int16Serializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/Int32Serializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/Int32Serializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/Int64Serializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/Int64Serializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/MemberSpecifiedDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/MemberSpecifiedDecorator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/NetObjectSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/NetObjectSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/NullDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/NullDecorator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/ParseableSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/ParseableSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/ProtoDecoratorBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/ProtoDecoratorBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SByteSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SByteSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SingleSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SingleSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/StringSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/StringSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SurrogateSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SurrogateSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SystemTypeSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/SystemTypeSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/TagDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/TagDecorator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/TimeSpanSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/TimeSpanSerializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UInt16Serializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UInt16Serializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UInt32Serializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UInt32Serializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UInt64Serializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UInt64Serializer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UriDecorator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/3rd/unity_protobuf_2.0/Serializers/UriDecorator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/service/ServiceManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/service/ServiceManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/session/AbstractSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/session/AbstractSession.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/session/AbstractSession.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/session/AbstractSession.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/session/TcpSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/session/TcpSession.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/session/TcpSession.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/session/TcpSession.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/session/UdpSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/session/UdpSession.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/netbus/session/UdpSession.h" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/netbus/session/UdpSession.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Moba/Data/Protocol/game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Moba/Data/Protocol/game.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Moba/Script/Network.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Moba/Script/Network/NetworkMgr.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Moba/Script/Network/NetworkMgr.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ReadyGamerOne/Common/MonoSingleton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ReadyGamerOne/Common/MonoSingleton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ReadyGamerOne/Memory/ResourceMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ReadyGamerOne/Memory/ResourceMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ReadyGamerOne/Script/AbstractGameMgr.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ReadyGamerOne/Script/AbstractGameMgr.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProtoGen/game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ProtoGen/game.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProtoGen/game.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ProtoGen/game.proto" afterDir="false" />
     </list>
@@ -92,7 +56,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/MobaMgr.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
+            <state relative-caret-position="16">
               <caret line="3" selection-start-line="3" selection-end-line="3" />
               <folding>
                 <marker date="1581657939653" expanded="false" signature="6:80" ph="..." />
@@ -107,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Moba/Network/NetworkMgr.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-754">
+            <state relative-caret-position="1152">
               <caret line="163" column="56" selection-start-line="163" selection-start-column="56" selection-end-line="163" selection-end-column="56" />
               <folding>
                 <marker date="1581669718914" expanded="false" signature="6:214" ph="..." />
@@ -152,36 +116,108 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/Auto/MobaMgr.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+            <state relative-caret-position="253">
+              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
               <folding>
-                <marker date="1581657299453" expanded="false" signature="6:61" ph="..." />
-                <marker date="1581657299453" expanded="true" signature="83:434" ph="{...}" />
-                <marker date="1581657299453" expanded="true" signature="142:432" ph="{...}" />
-                <marker date="1581657299453" expanded="true" signature="386:429" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
-              <folding>
-                <marker date="1581664268702" expanded="false" signature="6:112" ph="..." />
-                <marker date="1581664268702" expanded="true" signature="135:202" ph="{...}" />
-                <marker date="1581664268702" expanded="true" signature="179:200" ph="{...}" />
+                <marker date="1581765100714" expanded="false" signature="6:61" ph="..." />
+                <marker date="1581765100714" expanded="true" signature="83:434" ph="{...}" />
+                <marker date="1581765100714" expanded="true" signature="142:432" ph="{...}" />
+                <marker date="1581765100714" expanded="true" signature="386:429" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="92">
+              <caret line="8" column="41" lean-forward="true" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+              <folding>
+                <marker date="1581765464898" expanded="false" signature="6:112" ph="..." />
+                <marker date="1581765464898" expanded="true" signature="135:936" ph="{...}" />
+                <marker date="1581765464898" expanded="true" signature="179:934" ph="{...}" />
+                <marker date="1581765464898" expanded="true" signature="254:524" ph="{...}" />
+                <marker date="1581765464898" expanded="true" signature="305:514" ph="{...}" />
+                <marker date="1581765464898" expanded="true" signature="562:910" ph="{...}" />
+                <marker date="1581765464898" expanded="true" signature="748:879" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Moba/Data/Protocol/game.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-305">
+              <caret line="167" column="6" selection-start-line="167" selection-start-column="6" selection-end-line="167" selection-end-column="6" />
+              <folding>
+                <marker date="1581764604426" expanded="true" signature="0:387" ph="/* ------------------------------------------------------------------------------ ... */" />
+                <marker date="1581764604426" expanded="true" signature="407:7791" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="554:1104" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="765:838" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="997:1100" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="1250:1799" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="1460:1533" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="1692:1795" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="1951:2507" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="2166:2241" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="2400:2503" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="2659:3211" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="2872:2945" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="3104:3207" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="3365:4137" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="3566:3631" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="3802:3871" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="4030:4133" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="4289:5060" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="4489:4554" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="4725:4794" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="4953:5056" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="5210:6234" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="5409:5474" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="5645:5714" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="5893:5968" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="6127:6230" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="6323:6704" ph="{...}" />
+                <marker date="1581764604426" expanded="true" signature="6785:7786" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Network/CmdPackageProtocol.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-113">
+              <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+              <folding>
+                <marker date="1581561855563" expanded="true" signature="6:94" ph="..." />
+                <marker date="1581561855563" expanded="true" signature="127:3585" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="134:278" ph="/// 命令包协议 ... " />
+                <marker date="1581561855563" expanded="true" signature="321:3583" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="359:479" ph="{...}" />
+                <marker date="1581561855563" expanded="false" signature="545:765" ph="/// 打包Protobuf ... " />
+                <marker date="1581561855563" expanded="false" signature="866:1380" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="969:1078" ph="{...}" />
+                <marker date="1581561855563" expanded="false" signature="1390:1653" ph="/// 从byte数组解析出CmdPackage ... " />
+                <marker date="1581561855563" expanded="true" signature="1751:2069" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="2130:2282" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="2204:2272" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="2300:2520" ph="/// 打包Json ... " />
+                <marker date="1581561855563" expanded="false" signature="2607:3151" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="2729:2849" ph="{...}" />
+                <marker date="1581561855563" expanded="false" signature="3226:3577" ph="{...}" />
+                <marker date="1581561855563" expanded="true" signature="3296:3555" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Moba/View/ChatPanel.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="303">
               <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
               <folding>
                 <marker date="1581667551367" expanded="true" signature="6:158" ph="..." />
@@ -191,7 +227,7 @@
                 <marker date="1581667551367" expanded="true" signature="715:817" ph="{...}" />
                 <marker date="1581667551367" expanded="true" signature="863:971" ph="{...}" />
                 <marker date="1581667551367" expanded="true" signature="975:2451" ph="Net_Callback" />
-                <marker date="1581667551367" expanded="true" signature="1060:2437" ph="{...}" />
+                <marker date="1581667551367" expanded="false" signature="1060:2437" ph="{...}" />
                 <marker date="1581667551367" expanded="true" signature="1096:2433" ph="{...}" />
                 <marker date="1581667551367" expanded="true" signature="1782:1829" ph="{...}" />
                 <marker date="1581667551367" expanded="true" signature="1839:1887" ph="{...}" />
@@ -204,10 +240,10 @@
                 <marker date="1581667551367" expanded="true" signature="2630:2735" ph="{...}" />
                 <marker date="1581667551367" expanded="true" signature="2760:3033" ph="{...}" />
                 <marker date="1581667551367" expanded="true" signature="2870:2907" ph="{...}" />
-                <marker date="1581667551367" expanded="true" signature="3053:4934" ph="Native" />
+                <marker date="1581667551367" expanded="false" signature="3053:4934" ph="Native" />
                 <marker date="1581667551367" expanded="false" signature="3106:3570" ph="{...}" />
                 <marker date="1581667551367" expanded="false" signature="3635:4243" ph="{...}" />
-                <marker date="1581667551367" expanded="true" signature="4310:4918" ph="{...}" />
+                <marker date="1581667551367" expanded="false" signature="4310:4918" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -349,14 +385,14 @@
         <option value="$PROJECT_DIR$/Assets/ReadyGamerOne/Network/CmdPackageProtocol.cs" />
         <option value="$PROJECT_DIR$/Assets/Moba/Script/Network/NetworkMgr.cs" />
         <option value="$PROJECT_DIR$/Assets/ReadyGamerOne/Memory/ResourceMgr.cs" />
-        <option value="$PROJECT_DIR$/Assets/Moba/Script/Auto/MobaMgr.cs" />
         <option value="$PROJECT_DIR$/Assets/ReadyGamerOne/Network/TcpProtocol.cs" />
         <option value="$PROJECT_DIR$/Assets/ReadyGamerOne/Script/AbstractGameMgr.cs" />
         <option value="$PROJECT_DIR$/Assets/ReadyGamerOne/Common/MonoSingleton.cs" />
         <option value="$PROJECT_DIR$/Assets/Moba/Script/MobaMgr.cs" />
-        <option value="$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Moba/View/ChatPanel.cs" />
         <option value="$PROJECT_DIR$/Assets/Moba/Network/NetworkMgr.cs" />
+        <option value="$PROJECT_DIR$/Assets/Moba/Script/Auto/MobaMgr.cs" />
+        <option value="$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs" />
       </list>
     </option>
   </component>
@@ -369,19 +405,91 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="831" />
-    <option name="y" value="37" />
-    <option name="width" value="1154" />
-    <option name="height" value="1028" />
+    <option name="x" value="297" />
+    <option name="y" value="-20" />
+    <option name="width" value="1155" />
+    <option name="height" value="1029" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="FileSystemExplorer" />
+      <pane id="AssemblyExplorer" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Moba" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Moba" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Data" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Moba" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Data" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Protocol" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Moba" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Script" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="ReadyGamerOne" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="UnityMobaClient" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assembly-CSharp" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Assets" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="ReadyGamerOne" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Network" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-all-files" value="false" />
+      </pane>
       <pane id="UnityExplorer">
         <subPane>
           <expand>
@@ -474,11 +582,12 @@
       <workItem from="1581578565369" duration="2007000" />
       <workItem from="1581657450994" duration="9515000" />
       <workItem from="1581669031171" duration="4175000" />
+      <workItem from="1581764611291" duration="5029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37629000" />
+    <option name="totallyTimeSpent" value="42658000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -492,7 +601,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.39467594" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16744809" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -584,32 +693,6 @@
             <marker date="1578996460000" expanded="true" signature="1505:1577" ph="{...}" />
             <marker date="1578996460000" expanded="true" signature="1620:1686" ph="{...}" />
             <marker date="1578996460000" expanded="true" signature="1744:1890" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Network/CmdPackageProtocol.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-269">
-          <caret line="32" column="31" lean-forward="true" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
-          <folding>
-            <marker date="1581561855563" expanded="true" signature="6:94" ph="..." />
-            <marker date="1581561855563" expanded="true" signature="127:3585" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="134:278" ph="/// 命令包协议 ... " />
-            <marker date="1581561855563" expanded="true" signature="321:3583" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="359:479" ph="{...}" />
-            <marker date="1581561855563" expanded="false" signature="545:765" ph="/// 打包Protobuf ... " />
-            <marker date="1581561855563" expanded="false" signature="866:1380" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="969:1078" ph="{...}" />
-            <marker date="1581561855563" expanded="false" signature="1390:1653" ph="/// 从byte数组解析出CmdPackage ... " />
-            <marker date="1581561855563" expanded="true" signature="1751:2069" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="2130:2282" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="2204:2272" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="2300:2520" ph="/// 打包Json ... " />
-            <marker date="1581561855563" expanded="false" signature="2607:3151" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="2729:2849" ph="{...}" />
-            <marker date="1581561855563" expanded="false" signature="3226:3577" ph="{...}" />
-            <marker date="1581561855563" expanded="true" signature="3296:3555" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -770,51 +853,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Moba/Data/Protocol/game.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Common/MonoSingleton.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="51" column="23" lean-forward="true" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+        <state relative-caret-position="80">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
           <folding>
-            <marker date="1581586441688" expanded="true" signature="0:387" ph="/* ------------------------------------------------------------------------------ ... */" />
-            <marker date="1581586441688" expanded="true" signature="407:7321" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="554:1104" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="765:838" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="997:1100" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="1250:1799" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="1460:1533" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="1692:1795" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="1951:2507" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="2166:2241" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="2400:2503" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="2659:3211" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="2872:2945" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="3104:3207" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="3365:4137" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="3566:3631" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="3802:3871" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="4030:4133" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="4289:5060" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="4489:4554" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="4725:4794" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="4953:5056" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="5210:6234" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="5409:5474" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="5645:5714" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="5893:5968" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="6127:6230" ph="{...}" />
-            <marker date="1581586441688" expanded="true" signature="6315:7316" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="49:1448" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="56:155" ph="/// MonoBehavior单例泛型类 ... " />
+            <marker date="1581577766360" expanded="true" signature="240:1446" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="325:961" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="343:951" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="384:903" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="495:885" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="1002:1440" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="1038:1232" ph="{...}" />
+            <marker date="1581577766360" expanded="true" signature="1269:1430" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs">
+    <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/MobaMgr.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="8" column="41" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+        <state relative-caret-position="16">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
           <folding>
-            <marker date="1581664268702" expanded="false" signature="6:112" ph="..." />
-            <marker date="1581664268702" expanded="true" signature="135:202" ph="{...}" />
-            <marker date="1581664268702" expanded="true" signature="179:200" ph="{...}" />
+            <marker date="1581657939653" expanded="false" signature="6:80" ph="..." />
+            <marker date="1581657939653" expanded="true" signature="103:328" ph="{...}" />
+            <marker date="1581657939653" expanded="true" signature="135:326" ph="{...}" />
+            <marker date="1581657939653" expanded="true" signature="241:323" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Moba/Network/NetworkMgr.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1152">
+          <caret line="163" column="56" selection-start-line="163" selection-start-column="56" selection-end-line="163" selection-end-column="56" />
+          <folding>
+            <marker date="1581669718914" expanded="false" signature="6:214" ph="..." />
+            <marker date="1581669718914" expanded="true" signature="238:7051" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="294:7049" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="968:1103" ph="/// 添加监听者 ... " />
+            <marker date="1581669718914" expanded="true" signature="1188:1387" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="1397:1532" ph="/// 移除监听者 ... " />
+            <marker date="1581669718914" expanded="true" signature="1620:1853" ph="{...}" />
+            <marker date="1581669718914" expanded="false" signature="1889:3670" ph="发送数据" />
+            <marker date="1581669718914" expanded="true" signature="1980:2489" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="2583:3245" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="2882:3140" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="3172:3235" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="3296:3642" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="3322:3514" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="3546:3632" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="3721:3838" ph="{...}" />
+            <marker date="1581669718914" expanded="false" signature="3879:4292" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="3989:4268" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="4139:4250" ph="{...}" />
+            <marker date="1581669718914" expanded="false" signature="4335:4418" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="4428:5537" ph="链接" />
+            <marker date="1581669718914" expanded="true" signature="4476:5416" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="4502:5311" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="5217:5297" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="5343:5406" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="5463:5509" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="5588:5661" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="5718:6185" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="5744:6080" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="6112:6175" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="6275:6678" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="6714:6767" ph="/// 断开链接 ... " />
+            <marker date="1581669718914" expanded="true" signature="6802:7043" ph="{...}" />
+            <marker date="1581669718914" expanded="true" signature="6962:7033" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -916,97 +1025,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/Auto/MobaMgr.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
-          <folding>
-            <marker date="1581657299453" expanded="false" signature="6:61" ph="..." />
-            <marker date="1581657299453" expanded="true" signature="83:434" ph="{...}" />
-            <marker date="1581657299453" expanded="true" signature="142:432" ph="{...}" />
-            <marker date="1581657299453" expanded="true" signature="386:429" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/MobaMgr.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <marker date="1581657939653" expanded="false" signature="6:80" ph="..." />
-            <marker date="1581657939653" expanded="true" signature="103:328" ph="{...}" />
-            <marker date="1581657939653" expanded="true" signature="135:326" ph="{...}" />
-            <marker date="1581657939653" expanded="true" signature="241:323" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Common/MonoSingleton.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-          <folding>
-            <marker date="1581577766360" expanded="true" signature="49:1448" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="56:155" ph="/// MonoBehavior单例泛型类 ... " />
-            <marker date="1581577766360" expanded="true" signature="240:1446" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="325:961" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="343:951" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="384:903" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="495:885" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="1002:1440" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="1038:1232" ph="{...}" />
-            <marker date="1581577766360" expanded="true" signature="1269:1430" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Moba/Network/NetworkMgr.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-754">
-          <caret line="163" column="56" selection-start-line="163" selection-start-column="56" selection-end-line="163" selection-end-column="56" />
-          <folding>
-            <marker date="1581669718914" expanded="false" signature="6:214" ph="..." />
-            <marker date="1581669718914" expanded="true" signature="238:7051" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="294:7049" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="968:1103" ph="/// 添加监听者 ... " />
-            <marker date="1581669718914" expanded="true" signature="1188:1387" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="1397:1532" ph="/// 移除监听者 ... " />
-            <marker date="1581669718914" expanded="true" signature="1620:1853" ph="{...}" />
-            <marker date="1581669718914" expanded="false" signature="1889:3670" ph="发送数据" />
-            <marker date="1581669718914" expanded="true" signature="1980:2489" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="2583:3245" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="2882:3140" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="3172:3235" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="3296:3642" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="3322:3514" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="3546:3632" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="3721:3838" ph="{...}" />
-            <marker date="1581669718914" expanded="false" signature="3879:4292" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="3989:4268" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="4139:4250" ph="{...}" />
-            <marker date="1581669718914" expanded="false" signature="4335:4418" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="4428:5537" ph="链接" />
-            <marker date="1581669718914" expanded="true" signature="4476:5416" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="4502:5311" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="5217:5297" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="5343:5406" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="5463:5509" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="5588:5661" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="5718:6185" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="5744:6080" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="6112:6175" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="6275:6678" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="6714:6767" ph="/// 断开链接 ... " />
-            <marker date="1581669718914" expanded="true" signature="6802:7043" ph="{...}" />
-            <marker date="1581669718914" expanded="true" signature="6962:7033" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Moba/View/ChatPanel.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
+        <state relative-caret-position="303">
           <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
           <folding>
             <marker date="1581667551367" expanded="true" signature="6:158" ph="..." />
@@ -1016,7 +1037,7 @@
             <marker date="1581667551367" expanded="true" signature="715:817" ph="{...}" />
             <marker date="1581667551367" expanded="true" signature="863:971" ph="{...}" />
             <marker date="1581667551367" expanded="true" signature="975:2451" ph="Net_Callback" />
-            <marker date="1581667551367" expanded="true" signature="1060:2437" ph="{...}" />
+            <marker date="1581667551367" expanded="false" signature="1060:2437" ph="{...}" />
             <marker date="1581667551367" expanded="true" signature="1096:2433" ph="{...}" />
             <marker date="1581667551367" expanded="true" signature="1782:1829" ph="{...}" />
             <marker date="1581667551367" expanded="true" signature="1839:1887" ph="{...}" />
@@ -1029,10 +1050,103 @@
             <marker date="1581667551367" expanded="true" signature="2630:2735" ph="{...}" />
             <marker date="1581667551367" expanded="true" signature="2760:3033" ph="{...}" />
             <marker date="1581667551367" expanded="true" signature="2870:2907" ph="{...}" />
-            <marker date="1581667551367" expanded="true" signature="3053:4934" ph="Native" />
+            <marker date="1581667551367" expanded="false" signature="3053:4934" ph="Native" />
             <marker date="1581667551367" expanded="false" signature="3106:3570" ph="{...}" />
             <marker date="1581667551367" expanded="false" signature="3635:4243" ph="{...}" />
-            <marker date="1581667551367" expanded="true" signature="4310:4918" ph="{...}" />
+            <marker date="1581667551367" expanded="false" signature="4310:4918" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/Auto/MobaMgr.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+          <folding>
+            <marker date="1581765100714" expanded="false" signature="6:61" ph="..." />
+            <marker date="1581765100714" expanded="true" signature="83:434" ph="{...}" />
+            <marker date="1581765100714" expanded="true" signature="142:432" ph="{...}" />
+            <marker date="1581765100714" expanded="true" signature="386:429" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/ReadyGamerOne/Network/CmdPackageProtocol.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-113">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+          <folding>
+            <marker date="1581561855563" expanded="true" signature="6:94" ph="..." />
+            <marker date="1581561855563" expanded="true" signature="127:3585" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="134:278" ph="/// 命令包协议 ... " />
+            <marker date="1581561855563" expanded="true" signature="321:3583" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="359:479" ph="{...}" />
+            <marker date="1581561855563" expanded="false" signature="545:765" ph="/// 打包Protobuf ... " />
+            <marker date="1581561855563" expanded="false" signature="866:1380" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="969:1078" ph="{...}" />
+            <marker date="1581561855563" expanded="false" signature="1390:1653" ph="/// 从byte数组解析出CmdPackage ... " />
+            <marker date="1581561855563" expanded="true" signature="1751:2069" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="2130:2282" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="2204:2272" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="2300:2520" ph="/// 打包Json ... " />
+            <marker date="1581561855563" expanded="false" signature="2607:3151" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="2729:2849" ph="{...}" />
+            <marker date="1581561855563" expanded="false" signature="3226:3577" ph="{...}" />
+            <marker date="1581561855563" expanded="true" signature="3296:3555" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Moba/Data/Protocol/game.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-305">
+          <caret line="167" column="6" selection-start-line="167" selection-start-column="6" selection-end-line="167" selection-end-column="6" />
+          <folding>
+            <marker date="1581764604426" expanded="true" signature="0:387" ph="/* ------------------------------------------------------------------------------ ... */" />
+            <marker date="1581764604426" expanded="true" signature="407:7791" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="554:1104" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="765:838" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="997:1100" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="1250:1799" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="1460:1533" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="1692:1795" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="1951:2507" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="2166:2241" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="2400:2503" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="2659:3211" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="2872:2945" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="3104:3207" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="3365:4137" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="3566:3631" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="3802:3871" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="4030:4133" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="4289:5060" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="4489:4554" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="4725:4794" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="4953:5056" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="5210:6234" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="5409:5474" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="5645:5714" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="5893:5968" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="6127:6230" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="6323:6704" ph="{...}" />
+            <marker date="1581764604426" expanded="true" signature="6785:7786" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Moba/Script/TestScript.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="8" column="41" lean-forward="true" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
+          <folding>
+            <marker date="1581765464898" expanded="false" signature="6:112" ph="..." />
+            <marker date="1581765464898" expanded="true" signature="135:936" ph="{...}" />
+            <marker date="1581765464898" expanded="true" signature="179:934" ph="{...}" />
+            <marker date="1581765464898" expanded="true" signature="254:524" ph="{...}" />
+            <marker date="1581765464898" expanded="true" signature="305:514" ph="{...}" />
+            <marker date="1581765464898" expanded="true" signature="562:910" ph="{...}" />
+            <marker date="1581765464898" expanded="true" signature="748:879" ph="{...}" />
           </folding>
         </state>
       </provider>

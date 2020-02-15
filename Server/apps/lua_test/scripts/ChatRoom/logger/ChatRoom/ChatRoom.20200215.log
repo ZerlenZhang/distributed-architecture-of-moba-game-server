@@ -1,0 +1,114 @@
+20200215 13:39:43 Debug../ChatRoom/chat_room_main.lua:22  
+start all service success
+20200215 13:39:43 Debug../ChatRoom/chat_room_main.lua:30  
+register chat_server success
+20200215 13:40:12 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:166  
+new client comming:	127.0.0.1:56803
+20200215 13:40:18 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:166  
+new client comming:	127.0.0.1:56812
+20200215 13:40:21 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:21 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:21 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:23 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:23 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:23 Debug../ChatRoom/ChatServer.lua:7  
+broad !	7
+20200215 13:40:23 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:23 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:27 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:27 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:27 Debug../ChatRoom/ChatServer.lua:7  
+broad !	9
+20200215 13:40:27 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:27 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:30 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:30 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:30 Debug../ChatRoom/ChatServer.lua:7  
+broad !	9
+20200215 13:40:30 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:30 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:33 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:33 Debug../ChatRoom/ChatServer.lua:41  
+127.0.0.1	:	56803	 leave chat_room
+20200215 13:40:33 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:33 Debug../ChatRoom/ChatServer.lua:7  
+broad !	8
+20200215 13:40:33 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:33 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:35 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:35 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:35 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:36 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:36 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:36 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:36 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:36 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:36 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:38 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:38 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:38 Debug../ChatRoom/ChatServer.lua:7  
+broad !	7
+20200215 13:40:38 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:38 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:40 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:235  
+client command!!
+20200215 13:40:40 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:40 Debug../ChatRoom/ChatServer.lua:7  
+broad !	9
+20200215 13:40:40 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:40 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:41 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:105  
+主动关机
+20200215 13:40:41 Debug../ChatRoom/ChatServer.lua:90  
+127.0.0.1	:	56812	 leave chat_room
+20200215 13:40:41 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:41 Debug../ChatRoom/ChatServer.lua:7  
+broad !	8
+20200215 13:40:41 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:47  
+用户断开链接
+20200215 13:40:41 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:64  
+write success
+20200215 13:40:42 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:105  
+主动关机
+20200215 13:40:42 Debug../ChatRoom/ChatServer.lua:90  
+127.0.0.1	:	56803	 leave chat_room
+20200215 13:40:42 Debug../ChatRoom/ChatServer.lua:4  
+broad...
+20200215 13:40:42 DebugF:\Projects\unity\Moba\Server\netbus\session\TcpSession.cpp:47  
+用户断开链接

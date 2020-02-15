@@ -5,7 +5,7 @@ local ProtoType={
     Json=0,
     Protobuf=1,
 };
-ProtoManager.Init(ProtoType.Protobuf);
+ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\build\\proj_win32\\x64\\Debug\\protos");
 --如果是Protobuf协议，还需要注册映射表
 if ProtoManager.ProtoType()==ProtoType.Protobuf then
     local cmdNameMap=require("CmdNameMap");
@@ -16,8 +16,6 @@ end
 
 --开启网络服务
 Netbus.TcpListen(6080);
-Netbus.WebsocketListen(8001);
-Netbus.UdpListen(8002);
 
 print("start all service success");
 

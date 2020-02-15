@@ -13,7 +13,7 @@ enum class SocketType
 
 
 class TcpSession :
-	public virtual AbstractSession
+	public AbstractSession
 {
 public:
 	static TcpSession* Create();
@@ -28,6 +28,9 @@ public:
 	virtual const char* GetAddress(int & clientPort) const override;
 	//发送自定义包
 	virtual void SendCmdPackage(CmdPackage* msg)override;
+
+	// 通过 AbstractSession 继承
+	virtual void SendRawPackage(RawPackage* pkg) override;
 	#pragma endregion
 
 
@@ -58,6 +61,7 @@ public:
 private:
 	//是否已经关闭，用于在异步时避免重复关闭
 	bool isShutDown;
+
 };
 
 

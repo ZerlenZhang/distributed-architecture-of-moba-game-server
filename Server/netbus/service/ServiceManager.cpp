@@ -32,20 +32,36 @@ bool ServiceManager::RegisterService(int serviceType, AbstractService* service)
 	return true;
 }
 
-bool ServiceManager::OnRecvCmdPackage(const AbstractSession* session, const CmdPackage* package)
+bool ServiceManager::OnRecvCmd(const AbstractSession* session, const RawPackage* raw)
 {
-	if (NULL == package)
+	if (NULL == raw)
 	{
-		log_warning("CmdPackage 包为空");
+		log_warning("CmdRaw 包为空");
 		return false;
 	}
-	if (g_serviceSet[package->serviceType] == NULL)
+	if (g_serviceSet[raw->serviceType] == NULL)
 	{// 没有注册过
-		log_warning("未注册的serviceType: %d", package->serviceType);
+		log_warning("未注册的serviceType: %d", raw->serviceType);
 		return false;
 	}
 
-	return g_serviceSet[package->serviceType]->OnSessionRecvCmd(session,package);
+	//是否使用原始数据
+	if (g_serviceSet[raw->serviceType]->useRawPackage)
+	{
+		return g_serviceSet[raw->serviceType]->OnSessionRecvRawPackage(session, raw);
+	}
+
+	//使用包数据
+	CmdPackage* pk;
+	if (CmdPackageProtocol::DecodeBytesToCmdPackage(raw->rawCmd, raw->rawLen, pk))
+	{
+		auto ret = g_serviceSet[raw->serviceType]->OnSessionRecvCmdPackage(session, pk);
+		CmdPackageProtocol::FreeCmdPackage(pk);
+		return ret;
+	}
+
+
+	return false;
 }
 
 void ServiceManager::OnSessionDisconnected(const AbstractSession* session)

@@ -35,7 +35,7 @@ static int lua_tcp_connect(lua_State* lua)
 	auto ip = luaL_checkstring(lua, 1);
 	if (NULL == ip)
 		return 0;
-	auto port = luaL_checkinteger(lua, 1);
+	auto port = luaL_checkinteger(lua, 2);
 	auto handle = toluafix_ref_function(lua, 3, 0);
 	if (0 == handle)
 		return 0;
@@ -72,6 +72,11 @@ static int lua_websocket(lua_State* lua)
 	return 0;
 }
 
+
+#include<map>
+#include<string>
+using std::map;
+using std::string;
 void register_netbus_export(lua_State* tolua_S)
 {
 	lua_getglobal(tolua_S, "_G");

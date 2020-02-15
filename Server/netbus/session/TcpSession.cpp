@@ -102,13 +102,12 @@ void TcpSession::Close()
 		return;
 	}
 
-	log_debug("主动关机");
-
 	//通知所有父物有链接断开
 	ServiceManager::OnSessionDisconnected(this);
 
 
 	this->isShutDown = true;
+	memset(&this->shutdown, 0, sizeof(uv_shutdown_t));
 	uv_shutdown(&this->shutdown, (uv_stream_t*)&this->tcpHandle, shutdown_cb);
 }
 
@@ -162,7 +161,7 @@ const char* TcpSession::GetAddress(int& clientPort) const
 void TcpSession::SendCmdPackage(CmdPackage* msg)
 {
 	int bodyLen;
-	auto rawData = CmdPackageProtocol::EncodeCmdPackageToRaw(msg, &bodyLen);
+	auto rawData = CmdPackageProtocol::EncodeCmdPackageToBytes(msg, &bodyLen);
 	if (rawData)
 	{// 编码成功 
 
@@ -170,7 +169,7 @@ void TcpSession::SendCmdPackage(CmdPackage* msg)
 		SendData(rawData, bodyLen);
 
 		//释放数据
-		CmdPackageProtocol::FreeCmdPackageRaw(rawData);
+		CmdPackageProtocol::FreeCmdPackageBytes(rawData);
 	}
 	else
 	{
@@ -200,6 +199,11 @@ void TcpSession::Enable()
 void TcpSession::Disable()
 {
 	AbstractSession::Disable();
+}
+
+void TcpSession::SendRawPackage(RawPackage* pkg)
+{
+	this->SendData(pkg->rawCmd, pkg->rawLen);
 }
 
 #pragma endregion

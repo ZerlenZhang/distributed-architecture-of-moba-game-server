@@ -1,6 +1,11 @@
 #ifndef __NETBUS_H__
 #define __NETBUS_H__
 
+#include <string>
+using std::string;
+
+#include "protocol/CmdPackageProtocol.h"
+
 
 class AbstractSession;
 typedef void (*TcpConnectedCallback)(int, AbstractSession*, void*);

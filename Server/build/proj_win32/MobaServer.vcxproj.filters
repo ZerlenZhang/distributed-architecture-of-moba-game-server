@@ -76,6 +76,9 @@
     <Filter Include="app\TestLua\proto">
       <UniqueIdentifier>{99f83c2c-4292-4de2-9cef-1a827c1fd58c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils\win32">
+      <UniqueIdentifier>{6f2cf272-8ff5-4d9f-8e79-cfae3e670b67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rd\libuv\src\fs-poll.c">
@@ -387,6 +390,12 @@
     <ClCompile Include="..\..\utils\cache_alloc\small_alloc.c">
       <Filter>utils\cache_alloc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\utils\win32\WinUtil.cpp">
+      <Filter>utils\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\Encoding.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h">
@@ -646,6 +655,12 @@
     </ClInclude>
     <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h">
       <Filter>utils\cache_alloc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\win32\WinUtil.h">
+      <Filter>utils\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\Encoding.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

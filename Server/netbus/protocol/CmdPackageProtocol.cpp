@@ -1,10 +1,16 @@
 
 #include <cstring>
 #include <cstdlib>
+#include <io.h>
 #include "CmdPackageProtocol.h"
 #include "../../utils/logger/logger.h"
 #include "../../utils/cache_alloc/small_alloc.h"
 #include "../../utils/cache_alloc/cache_alloc.h"
+#include <google\protobuf\dynamic_message.h>
+#include <google\protobuf\compiler\importer.h>
+#include "../../utils/win32/WinUtil.h"
+using namespace google::protobuf;
+using namespace google::protobuf::compiler;
 
 extern cache_allocer* writeBufAllocer;
 
@@ -15,18 +21,46 @@ extern cache_allocer* writeBufAllocer;
 
 static ProtoType g_protoType;
 static map<int, string> g_pb_cmd_map;
+static DynamicMessageFactory* factory;
+static Importer* importer;
 
 #pragma endregion
 
+static bool error = false;
 
-void CmdPackageProtocol::Init(::ProtoType proto_type)
+void CmdPackageProtocol::Init(::ProtoType proto_type,const string& protoFileDir)
 {
 	g_protoType = proto_type;
+	if (ProtoType::Protobuf == proto_type)
+	{
+		_finddata_t file;
+		//if (_findfirst(protoFileDir.c_str(),&file)==-1l)
+		//{
+		//	log_error("使用protobuf但指定目录无效：%s", protoFileDir.c_str());
+		//	error = true;
+		//	return;
+		//}
+		
+		static DiskSourceTree sourceTree;
+		sourceTree.MapPath("", protoFileDir);
+		importer = new Importer(&sourceTree, NULL);
+
+		WinUtil::SearchFromDir(protoFileDir, "*.proto", -1, SearchType::ENUM_FILE,
+			[](const string& dirPath, const string& fileName)
+			{
+				importer->Import(fileName);
+				return true;
+			});
+
+		factory = new DynamicMessageFactory;
+	}
 }
 
 
 void CmdPackageProtocol::RegisterProtobufCmdMap(map<int, string>& map)
 {
+	if (error)
+		return;
 	for (auto x : map)
 	{
 		g_pb_cmd_map.insert(x);
@@ -35,6 +69,8 @@ void CmdPackageProtocol::RegisterProtobufCmdMap(map<int, string>& map)
 
 const char* CmdPackageProtocol::ProtoCmdTypeToName(int cmdType)
 {
+	if (error)
+		return nullptr;
 	if (g_pb_cmd_map.find(cmdType) == g_pb_cmd_map.end())
 	{
 		return NULL;
@@ -47,9 +83,33 @@ ProtoType CmdPackageProtocol::ProtoType()
 	return g_protoType;
 }
 
-bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, CmdPackage*& out_msg)
+bool CmdPackageProtocol::DecodeBytesToRawPackage(unsigned char* cmd, const int cmd_len, RawPackage* out_msg)
+{
+	if (error)
+		return false;
+
+	// serviceType (2 bytes) | cmdType (2 bytes) | userTag (4 bytes) | body
+	if (cmd_len < CMD_HEADER_SIZE)
+	{// 数据太短
+		log_debug("数据太短");
+		return false;
+	}
+	out_msg->serviceType = cmd[0] | (cmd[1] << 8);
+	out_msg->cmdType = cmd[2] | (cmd[3] << 8);
+	out_msg->userTag = cmd[4] | (cmd[5] << 8) | (cmd[6] << 16) | (cmd[7] << 24);
+	out_msg->rawCmd = cmd;
+	out_msg->rawLen = cmd_len;
+
+	return true;
+}
+
+bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int cmd_len, CmdPackage*& out_msg)
 {
 	out_msg = NULL;
+
+	if (error)
+		return false;
+
 	// serviceType (2 bytes) | cmdType (2 bytes) | userTag (4 bytes) | body
 	if (cmd_len < CMD_HEADER_SIZE)
 	{// 数据太短
@@ -111,8 +171,10 @@ bool CmdPackageProtocol::DecodeCmdMsg(unsigned char* cmd, const int cmd_len, Cmd
 	return true;
 }
 
-void CmdPackageProtocol::FreeCmdMsg(CmdPackage* msg)
+void CmdPackageProtocol::FreeCmdPackage(CmdPackage* msg)
 {
+	if (msg == NULL)
+		return;
 	if (msg->body)
 	{
 		switch (g_protoType)
@@ -132,8 +194,11 @@ void CmdPackageProtocol::FreeCmdMsg(CmdPackage* msg)
 	my_free(msg);
 }
 
-unsigned char* CmdPackageProtocol::EncodeCmdPackageToRaw(const CmdPackage* msg, int* out_len)
+unsigned char* CmdPackageProtocol::EncodeCmdPackageToBytes(const CmdPackage* msg, int* out_len)
 {
+
+	if (error)
+		return NULL;
 	//加密
 
 
@@ -196,28 +261,24 @@ unsigned char* CmdPackageProtocol::EncodeCmdPackageToRaw(const CmdPackage* msg, 
 	return rawData;
 }
 
-void CmdPackageProtocol::FreeCmdPackageRaw(unsigned char* raw) 
+void CmdPackageProtocol::FreeCmdPackageBytes(unsigned char* raw) 
 {
 	cache_free(writeBufAllocer, raw);
 }
 
 google::protobuf::Message* CmdPackageProtocol::CreateMessage(const char* typeName)
 {
-	log_debug("messageType: %s", typeName);
-	google::protobuf::Message* msg = NULL;
-	//根据名字，找到message的描述对象
-	auto descriptor = google::protobuf::DescriptorPool::generated_pool()->FindMessageTypeByName(typeName);
-	if (descriptor)
-	{
-		//根据描述对象从对象工厂中生成一个对应模板对象
-		//根据模板复制出来一个
-		auto protoType = google::protobuf::MessageFactory::generated_factory()->GetPrototype(descriptor);
-		if (protoType)
-		{
-			msg = protoType->New();
+	if (error)
+		return nullptr;
+	google::protobuf::Message* message = NULL;
+	const google::protobuf::Descriptor* descriptor = importer->pool()->FindMessageTypeByName(typeName);//generated_pool
+	if (descriptor) {
+		const google::protobuf::Message* prototype = factory->GetPrototype(descriptor);
+		if (prototype) {
+			message = prototype->New();
 		}
 	}
-	return msg;
+	return message;
 }
 
 void CmdPackageProtocol::ReleaseMessage(google::protobuf::Message* msg)

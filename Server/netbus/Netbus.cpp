@@ -4,11 +4,15 @@
 #include "../../netbus/protocol/TcpPackageProtocol.h"
 #include "../../netbus/session/TcpSession.h"
 
-#include "protocol/CmdPackageProtocol.h"
 #include "service/ServiceManager.h"
 
 #include "../utils/logger/logger.h"
 #include "session/UdpSession.h"
+
+#include "../utils/cache_alloc/small_alloc.h"
+
+#define my_alloc small_alloc
+#define my_free small_free
 
 #pragma region 函数声明
 
@@ -235,16 +239,14 @@ static void OnRecvCommond(AbstractSession* session, unsigned char* body, const i
 	//test
 	log_debug("client command!!");
 
-	CmdPackage* msg = NULL;
-	if (CmdPackageProtocol::DecodeCmdMsg(body, len, msg))
+
+	RawPackage raw;
+	if (CmdPackageProtocol::DecodeBytesToRawPackage(body, len, &raw))
 	{
-		if (!ServiceManager::OnRecvCmdPackage(session, msg))
+		if (!ServiceManager::OnRecvCmd(session, &raw))
 		{
 			session->Close();
-		}
-
-		//释放数据
-		CmdPackageProtocol::FreeCmdMsg(msg);
+		}		
 	}
 	else
 	{
@@ -365,25 +367,33 @@ static void OnTcpRecvData(TcpSession* session)
 static void after_connect(uv_connect_t* handle, int status)
 {
 	auto session = (AbstractSession*)handle->handle->data;
+	auto testS = (TcpSession*)session;
 	auto info = (TcpConnectInfo*)handle->data;
-	if (status)
+	if (status) 
 	{
-		if (info && info->cb)
+		if (info)
 		{
-			info->cb(1, NULL, info->data);
+			if(info->cb)
+				info->cb(1, NULL, info->data);
+			my_free(info);
+			info = NULL;
 		}
-		session->Close();
-		free(info);
-		free(handle);
+		if(session)
+			session->Close();
+		my_free(handle);
 		return;
 	}
-	if (info && info->cb)
+	if (info)
 	{
-		info->cb(0, session, info->data);
-		free(info);
+		if (info->cb)
+		{
+			info->cb(0, session, info->data);
+		}
+		my_free(info);
+		info = NULL;
 	}
 	uv_read_start(handle->handle, tcp_str_alloc, tcp_after_read);
-	free(handle);
+	my_free(handle);
 }
 
 
@@ -416,7 +426,6 @@ void Netbus::TcpListen(int port)const
 	listen->data = (void*)SocketType::TcpSocket;
 
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
-	log_debug("Tcp 服务器已开机 %d", port);
 }
 
 void Netbus::WebSocketListen(int port)const
@@ -441,7 +450,6 @@ void Netbus::WebSocketListen(int port)const
 	listen->data = (void*)SocketType::WebSocket;
 
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
-	log_debug("WebSocket 服务器已开机 %d", port);
 }
 
 void Netbus::UdpListen(int port) const
@@ -459,7 +467,6 @@ void Netbus::UdpListen(int port) const
 	auto ret = uv_udp_bind(server, (const sockaddr*)&addr, 0);
 
 	uv_udp_recv_start(server, udp_str_alloc, udp_after_recv);
-	log_debug("Udp 服务器已开机 %d", port);
 }
 
 void Netbus::Run()const
@@ -469,7 +476,6 @@ void Netbus::Run()const
 
 void Netbus::Init() const
 {
-	CmdPackageProtocol::Init();
 	ServiceManager::Init();
 	InitAllocers();
 }
@@ -482,22 +488,23 @@ void Netbus::TcpConnect(const char* serverIp, int port, TcpConnectedCallback cal
 		return;
 
 	auto s = TcpSession::Create();
-	s->isClient = 1; 
+	s->isClient = true; 
 	s->socketType = SocketType::TcpSocket;
 	strcpy(s->clientAddress, serverIp);
 	s->clientPort = port;
 
 	auto client = &s->tcpHandle;
-	memset(client, 0, sizeof(uv_tcp_t));
 
 	uv_tcp_init(uv_default_loop(), client);
-	client->data = (void*)s;
+	client->data = s;
 
 
-	auto req = (uv_connect_t*)malloc(sizeof(uv_connect_t));
+	auto req = (uv_connect_t*)my_alloc(sizeof(uv_connect_t));
+	memset(req, 0, sizeof(uv_connect_t));
 
-	auto info = (TcpConnectInfo*)malloc(sizeof(TcpConnectInfo));
+	auto info = (TcpConnectInfo*)my_alloc(sizeof(TcpConnectInfo));
 	memset(info, 0, sizeof(TcpConnectInfo));
+
 	info->cb = callback;
 	info->data = udata;
 	req->data = info;
