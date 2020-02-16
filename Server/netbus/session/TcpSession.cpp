@@ -44,7 +44,7 @@ extern "C"
 {
 	//关闭链接回调
 	static void close_cb(uv_handle_t* handle) {
-		log_debug("用户断开链接");
+		//log_debug("用户断开链接");
 
 		auto session = (TcpSession*)handle->data;
 		TcpSession::Destory(session);
@@ -52,6 +52,10 @@ extern "C"
 
 	//断开链接的回调
 	static void shutdown_cb(uv_shutdown_t* req, int status) {
+		if (status != 0)
+		{
+			log_error("tcp shutdown failed");
+		}	
 		uv_close((uv_handle_t*)(req->handle), close_cb);
 	}
 
@@ -59,9 +63,9 @@ extern "C"
 	static void after_write(uv_write_t* req, int status)
 	{
 		//如果写请求成功
-		if (status == 0)
+		if (status != 0)
 		{
-			log_debug("write success");
+			log_error("tcp write failed");
 		}
 		cache_free(wrAllocer, req);
 	}

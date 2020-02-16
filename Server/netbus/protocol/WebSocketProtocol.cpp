@@ -89,6 +89,7 @@ extern "C" {
 #pragma endregion
 
 
+
 #pragma region WebSocketProtocol
 
 bool WebSocketProtocol::ShakeHand(AbstractSession* session, char* body, int len)
@@ -199,7 +200,6 @@ bool WebSocketProtocol::ReadHeader(unsigned char* pkgData, int pkgLen, int* out_
 
 		//因为这里用不到那么多数据，所以dataLen就只取低位
 		dataLen = low;
-
 	}
 
 	//还有四个mask位
@@ -242,7 +242,10 @@ unsigned char* WebSocketProtocol::Package(const unsigned char* rawData, int rowD
 
 	unsigned char* dataBuf = (unsigned char*)cache_alloc(writeBufAllocer,headSize + rowDataLen);
 	
-	dataBuf[0] = 0x81;
+	// 0x81 指的是字符串 0x82才是二进制
+	dataBuf[0] = 0x82;
+
+
 	if (rowDataLen < 125) {
 		dataBuf[1] = rowDataLen;
 	}

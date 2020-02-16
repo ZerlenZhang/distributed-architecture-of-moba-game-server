@@ -22,7 +22,7 @@ public:
 	//Session接收到CmdPackage时调用
 	virtual bool OnSessionRecvCmdPackage(const AbstractSession* session, const CmdPackage* package)const override;
 	//Session关闭时调用
-	virtual bool OnSessionDisconnected(const AbstractSession* session)const override;
+	virtual bool OnSessionDisconnected(const AbstractSession* session,const int& serviceType)const override;
 };
 
 

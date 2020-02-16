@@ -42,6 +42,7 @@ static void on_lua_repeat_func(void* udata)
 static int lua_timer_repeat(lua_State* lua)
 {
 	auto handle = toluafix_ref_function(lua, 1, 0);
+
 	if (!handle)
 	{
 		lua_pushnil(lua);

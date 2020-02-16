@@ -1,7 +1,5 @@
 #include<iostream>
 #include<string>
-
-#include "proto/game.pb.h"
 using namespace std; 
 
 #include "../../lua_wrapper/lua_wrapper.h"
@@ -29,14 +27,14 @@ int main(int argc, char** argv)
 
 	Netbus::Instance()->Init();
 	lua_wrapper::Init();
-	
+
 	//Æô¶¯
-	if (argc < 3)
+	if (argc == 2)
 	{
 		protoFileDir = WinUtil::GetDirPath(argv[0]);
 		string searchPath = "../../apps/lua_test/scripts/";
 		lua_wrapper::AddSearchPath(searchPath);
-		lua_wrapper::DoFile(searchPath+"gateway/gateway_server_main.lua");
+		lua_wrapper::DoFile(searchPath+argv[1]);
 	}
 	else if(argc == 3)
 	{
@@ -50,17 +48,13 @@ int main(int argc, char** argv)
 		lua_wrapper::DoFile(searchPath + argv[2]);
 
 	}
-	else if (argc == 4)
-	{
-		protoFileDir = argv[3];
-		string searchPath = argv[1];
-		if (*(searchPath.end() - 1) != '/')
-		{
-			searchPath += "/";
-		}
-		lua_wrapper::AddSearchPath(argv[1]);
-		lua_wrapper::DoFile(searchPath + argv[2]);
+	else {
+		protoFileDir = WinUtil::GetDirPath(argv[0]);
+		string searchPath = "../../apps/lua_test/scripts/";
+		lua_wrapper::AddSearchPath(searchPath);
+		lua_wrapper::DoFile(searchPath + "gateway/gateway_server_main.lua");
 	}
+
 
 	//ÔËÐÐ
 	Netbus::Instance()->Run();

@@ -17,8 +17,9 @@ public:
 
 	//Session接收到命令时调用
 	virtual bool OnSessionRecvCmdPackage(const AbstractSession* session, const CmdPackage* package)const;
-	//Session关闭时调用
-	virtual bool OnSessionDisconnected(const AbstractSession* session)const;
+	
+	//Session断开某个服务的链接时调用关闭时调用
+	virtual bool OnSessionDisconnected(const AbstractSession* session,const int & serviceType)const;
 };
 
 

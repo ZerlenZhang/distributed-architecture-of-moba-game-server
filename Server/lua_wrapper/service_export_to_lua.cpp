@@ -424,9 +424,10 @@ bool LuaService::OnSessionRecvCmdPackage(const AbstractSession* session, const C
 	return true;
 }
 
-bool LuaService::OnSessionDisconnected(const AbstractSession* session) const
+bool LuaService::OnSessionDisconnected(const AbstractSession* session, const int& serviceType) const
 {
 	tolua_pushuserdata(lua_wrapper::lua_state(),(void*) session);
-	execute_service_function(this->luaDisconnectFuncHandle, 1);
+	tolua_pushnumber(lua_wrapper::lua_state(), serviceType);
+	execute_service_function(this->luaDisconnectFuncHandle, 2);
 	return true;
 }

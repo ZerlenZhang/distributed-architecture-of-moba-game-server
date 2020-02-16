@@ -66,12 +66,14 @@ bool ServiceManager::OnRecvCmd(const AbstractSession* session, const RawPackage*
 
 void ServiceManager::OnSessionDisconnected(const AbstractSession* session)
 {
+	auto index = -1;
 	for (auto service : g_serviceSet)
 	{
+		index++;
 		if (service == NULL)
 		{
 			continue;
 		}
-		service->OnSessionDisconnected(session);
+		service->OnSessionDisconnected(session,index);
 	}
 }

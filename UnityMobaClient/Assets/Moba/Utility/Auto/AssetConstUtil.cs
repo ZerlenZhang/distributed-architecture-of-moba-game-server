@@ -8,6 +8,7 @@ namespace Moba.Utility
 		private System.Collections.Generic.Dictionary<string,string> nameToPath 
 			= new System.Collections.Generic.Dictionary<string,string>{
 					{ @"ChatPanel" , @"ClassPanel\ChatPanel" },
+					{ @"LoginPanel" , @"ClassPanel\LoginPanel" },
 					{ @"SelfUi" , @"ClassUi\SelfUi" },
 					{ @"StatusUi" , @"ClassUi\StatusUi" },
 					{ @"TalkUi" , @"ClassUi\TalkUi" },

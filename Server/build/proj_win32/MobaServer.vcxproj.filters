@@ -37,9 +37,6 @@
     <Filter Include="3rd\mjson">
       <UniqueIdentifier>{986e44de-c089-4c4b-9ec8-c0f5b2b834d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utils\proto_file_generate">
-      <UniqueIdentifier>{4fb30785-6ab1-4acb-a453-006193c4cd7f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="netbus\service">
       <UniqueIdentifier>{42ec8334-5a97-463b-80c5-71243a8e7896}</UniqueIdentifier>
     </Filter>
@@ -72,9 +69,6 @@
     </Filter>
     <Filter Include="app\TestLua">
       <UniqueIdentifier>{eb9c021d-bcd0-49d8-aa4e-bff39342f6e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="app\TestLua\proto">
-      <UniqueIdentifier>{99f83c2c-4292-4de2-9cef-1a827c1fd58c}</UniqueIdentifier>
     </Filter>
     <Filter Include="utils\win32">
       <UniqueIdentifier>{6f2cf272-8ff5-4d9f-8e79-cfae3e670b67}</UniqueIdentifier>
@@ -381,9 +375,6 @@
     <ClCompile Include="..\..\lua_wrapper\cmd_package_proto_export_to_lua.cpp">
       <Filter>lua_wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\apps\lua_test\proto\game.pb.cc">
-      <Filter>app\TestLua\proto</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\apps\lua_test\TestLua.cpp">
       <Filter>app\TestLua</Filter>
     </ClCompile>
@@ -650,9 +641,6 @@
     <ClInclude Include="..\..\lua_wrapper\cmd_package_proto_export_to_lua.h">
       <Filter>lua_wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\apps\lua_test\proto\game.pb.h">
-      <Filter>app\TestLua\proto</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h">
       <Filter>utils\cache_alloc</Filter>
     </ClInclude>
@@ -662,16 +650,5 @@
     <ClInclude Include="..\..\utils\Encoding.h">
       <Filter>utils</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\apps\lua_test\proto\game.proto">
-      <Filter>utils\proto_file_generate</Filter>
-    </None>
-    <None Include="..\..\apps\lua_test\proto\generate_proto_files.bat">
-      <Filter>utils\proto_file_generate</Filter>
-    </None>
-    <None Include="..\bin\start_moba_server.bat">
-      <Filter>app\TestLua</Filter>
-    </None>
   </ItemGroup>
 </Project>

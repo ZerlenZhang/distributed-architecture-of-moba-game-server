@@ -24,12 +24,30 @@ static map<int, string> g_pb_cmd_map;
 static DynamicMessageFactory* factory;
 static Importer* importer;
 
+static bool error = false;
+static string protoFileDir;
 #pragma endregion
 
-static bool error = false;
+//错误收集器，输出.proto文件错误
+class ErrorCollector:public MultiFileErrorCollector
+{
+	// 通过 MultiFileErrorCollector 继承
+	virtual void AddError(const string& filename, int line, int column, const string& message) override
+	{
+		logger::log((protoFileDir + "\\" + filename).c_str(), line, (int)tag_ERROR, message.c_str());
+	}
+
+	virtual void AddWarning(const string& filename, int line, int column,
+		const string& message)override 
+	{
+		logger::log((protoFileDir + "\\" + filename).c_str(), line, (int)tag_WARNING, message.c_str());
+	}
+
+};
 
 void CmdPackageProtocol::Init(::ProtoType proto_type,const string& protoFileDir)
 {
+	::protoFileDir = protoFileDir;
 	g_protoType = proto_type;
 	if (ProtoType::Protobuf == proto_type)
 	{
@@ -42,13 +60,15 @@ void CmdPackageProtocol::Init(::ProtoType proto_type,const string& protoFileDir)
 		//}
 		
 		static DiskSourceTree sourceTree;
+		static ErrorCollector ec;
 		sourceTree.MapPath("", protoFileDir);
-		importer = new Importer(&sourceTree, NULL);
+		importer = new Importer(&sourceTree, &ec);
 
 		WinUtil::SearchFromDir(protoFileDir, "*.proto", -1, SearchType::ENUM_FILE,
-			[](const string& dirPath, const string& fileName)
+			[=](const string& dirPath, const string& fileName)
 			{
 				importer->Import(fileName);
+				//表示加载完这个，继续加载后面的
 				return true;
 			});
 
@@ -147,7 +167,7 @@ bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int c
 		tempMessagePointer = CreateMessage(g_pb_cmd_map[out_msg->cmdType].c_str());
 		if (tempMessagePointer == NULL)
 		{
-			log_debug("获取Message类型为空");
+			log_debug("获取Message类型为空：%s", g_pb_cmd_map[out_msg->cmdType].c_str());
 			my_free(tempMessagePointer);
 			out_msg = NULL;
 			return false;
@@ -215,15 +235,14 @@ unsigned char* CmdPackageProtocol::EncodeCmdPackageToBytes(const CmdPackage* msg
 		if (msg->body)
 		{
 			tempCharPointer = (char*)msg->body;
-			tempLen = strlen(tempCharPointer) + 1;
+			tempLen = strlen(tempCharPointer);
 		}
 
 		rawData = (unsigned char*)cache_alloc(writeBufAllocer, CMD_HEADER_SIZE + tempLen);
 		
 		if (msg->body)
 		{
-			memcpy(rawData + CMD_HEADER_SIZE, tempCharPointer, tempLen -1);
-			rawData[CMD_HEADER_SIZE + tempLen - 1] = 0;
+			memcpy(rawData + CMD_HEADER_SIZE, tempCharPointer, tempLen);
 		}
 		break;
 	case ProtoType::Protobuf:

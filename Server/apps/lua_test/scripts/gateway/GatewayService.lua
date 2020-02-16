@@ -14,11 +14,11 @@ function ConnectToServer(sType,ip,port)
 		function(err,session)
 			connectingSession[sType]=false;
 			if err~=0 then
-				Debug.LogError("failed to connect to server ["..config.servers[sType].descrip.."]"..ip..port);
+				Debug.LogError("connect to server ["..config.servers[sType].descrip.."]"..ip..port.." failed, reconnecting...");
 				return;
 			end
 			--链接成功
-			print("success to connect to server ["..config.servers[sType].descrip.."]"..ip..port);
+			print("connect to server ["..config.servers[sType].descrip.."]"..ip..port.." success");
 			sessionDic[sType]=session;
 		end)
 end
@@ -60,6 +60,25 @@ return   {
     OnSessionRecvRaw=function(s,raw)
     	if Session.IsClient(s) then
     		-- 发给客户端
+            local sType,cType,utag = RawCmd.ReadHeader(raw);
+
+            --根据utag查找可客户端session
+            --必须要区分命令时登陆前还是登陆后
+            --只有命令的类型才知道我峨嵋你是要到uid里查，还是到utag里查
+            --先预留出来，做登陆的时候在做
+            local clientSession = nil;
+            if uid_sessionDic[utag]~=nil then
+                clientSession=uid_sessionDic[utag];
+            elseif tag_sessionDic[utag]~=nil then
+                clientSession=tag_sessionDic[utag];
+            end
+            --永远不要让用户知道utag
+            RawCmd.SetUTag(raw,0);
+
+            --发给用户
+            if clientSession then
+                Session.SendRawPackage(clientSession,raw);
+            end
     	else
     		-- 发给服务器
     		local sType,cType,utag = RawCmd.ReadHeader(raw);
@@ -83,39 +102,49 @@ return   {
     			utag=uid;
     			uid_sessionDic[utag]=s;
     		end
-
     		--打上utag然后发给我们的服务器
     		RawCmd.SetUTag(raw,utag);
     		Session.SendRawPackage(targetServerSession,raw);
     	end
     end,
-    OnSessionDisconnected=function(s)
-    	if Session.IsClient(s) then
-    		--连接到其他服务器的链接断开了
+    OnSessionDisconnected=function(s,sType)
+
+    	if Session.IsClient(s) then 
     		for k,v in pairs(sessionDic) do
     			if v==s then
-    				print("GatewayServer disconnected from: ["..config.servers[k].descrip.."]");
+    				Debug.LogError("disconnected from: ["..config.servers[k].descrip.."]");
     				sessionDic[k]=nil;
     			end
     		end
     		return;
     	else
-    		--连接到客户端的链接断开了
+    		--print("client leave");
 
-    		print("client removed");
-    		--1.把客户端删除
+            local ip,port = Session.GetAddress(s);
+            print("client ["..ip..":"..port.."] leave");
+
+    		--1.把客户端从utag临时映射表删除
     		local utag = Session.GetUTag(s);
     		if tag_sessionDic[uTag]~=nil then
     			tag_sessionDic[uTag]=nil;
     			Session.SetUTag(s,0);
-    			table.remove(tag_sessionDic,uTag);
+    			--table.remove(tag_sessionDic,uTag);
     		end
+            --2.把客户端从uid映射表删除
     		local uid = Session.GetUId(s);
     		if uid_sessionDic[uid]~=nil then
     			uid_sessionDic[uid]=nil;
-    			Session.SetUTag(s,0);
-    			table.remove(uid_sessionDic,uid);
+                --这里不能把用户uid值为零，用户注册的每个服务都会走这段代码
+                --如果第一次我们就把uid置为零，后面走这段代码的服务器就不知道
+                --是哪个用户掉线了
+    			--Session.SetUId(s,0);n
+    			--table.remove(uid_sessionDic,uid);
     		end
+
+            --客户端uid用户掉线，我要把这个事件告诉中转服务器
+            if uid~=0 then
+
+            end
     	end
     end,
 };

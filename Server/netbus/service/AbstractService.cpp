@@ -18,7 +18,7 @@ bool AbstractService::OnSessionRecvCmdPackage(const AbstractSession* session, co
 	return false;
 }
 
-bool AbstractService::OnSessionDisconnected(const AbstractSession* session) const
+bool AbstractService::OnSessionDisconnected(const AbstractSession* session, const int& serviceType) const
 {
 	return false;
 }

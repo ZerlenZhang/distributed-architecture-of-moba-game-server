@@ -85,7 +85,7 @@ return  {
                 OnRecvSendReq(s,msg);
             end
         end,
-        OnSessionDisconnected=function(s)
+        OnSessionDisconnected=function(s,sType)
             local ip,port=Session.GetAddress(s);
             print(ip,":",port," leave chat_room");
             for i = 1,#sessionSet do 

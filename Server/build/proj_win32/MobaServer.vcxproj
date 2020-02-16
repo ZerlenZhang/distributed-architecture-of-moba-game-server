@@ -95,7 +95,6 @@
     <ClCompile Include="..\..\3rd\tolua\tolua_map.c" />
     <ClCompile Include="..\..\3rd\tolua\tolua_push.c" />
     <ClCompile Include="..\..\3rd\tolua\tolua_to.c" />
-    <ClCompile Include="..\..\apps\lua_test\proto\game.pb.cc" />
     <ClCompile Include="..\..\apps\lua_test\TestLua.cpp" />
     <ClCompile Include="..\..\database\mysqlwarpper.cpp" />
     <ClCompile Include="..\..\database\rediswarpper.cpp" />
@@ -186,7 +185,6 @@
     <ClInclude Include="..\..\3rd\tolua\tolua++.h" />
     <ClInclude Include="..\..\3rd\tolua\tolua_event.h" />
     <ClInclude Include="..\..\3rd\tolua\tolua_fix.h" />
-    <ClInclude Include="..\..\apps\lua_test\proto\game.pb.h" />
     <ClInclude Include="..\..\database\mysqlwarpper.h" />
     <ClInclude Include="..\..\database\rediswarpper.h" />
     <ClInclude Include="..\..\lua_wrapper\cmd_package_proto_export_to_lua.h" />
@@ -214,11 +212,6 @@
     <ClInclude Include="..\..\utils\timer\time_list.h" />
     <ClInclude Include="..\..\utils\timestamp\timestamp.h" />
     <ClInclude Include="..\..\utils\win32\WinUtil.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\apps\lua_test\proto\game.proto" />
-    <None Include="..\..\apps\lua_test\proto\generate_proto_files.bat" />
-    <None Include="..\bin\start_moba_server.bat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

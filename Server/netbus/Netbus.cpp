@@ -36,23 +36,18 @@ struct TcpConnectInfo
 	void* data;
 };
 
+struct TcpListenInfo
+{
+	TcpListenCallback cb;
+	SocketType socketType;
+	void* data;
+};
+
 #pragma region 回调函数
 
 extern "C"
 {
 #pragma region Tcp_&_Websocket
-	//关闭链接回调
-	static void tcp_close_cb(uv_handle_t* handle) {
-		log_debug("用户断开链接");
-
-		auto session = (TcpSession*)handle->data;
-		TcpSession::Destory(session);
-	}
-
-	//断开链接的回调
-	static void tcp_shutdown_cb(uv_shutdown_t* req, int status) {
-		uv_close((uv_handle_t*)(req->handle), tcp_close_cb);
-	}
 
 	//Tcp申请字符串空间
 	static void tcp_str_alloc(uv_handle_t* handle,
@@ -149,7 +144,12 @@ extern "C"
 	{
 #pragma region 接入客户端
 
+		auto info = (TcpListenInfo*)server->data;
 		auto session = TcpSession::Create();
+
+		//赋值
+		session->socketType = info->socketType;
+		server->data = (void*)info->socketType;
 
 		auto pNewClient = &session->tcpHandle;
 		pNewClient->data = session;
@@ -166,18 +166,16 @@ extern "C"
 		uv_tcp_getpeername(pNewClient, (sockaddr*)&addr, &len);
 		uv_ip4_name(&addr, session->clientAddress, 64);
 		session->clientPort = ntohs(addr.sin_port);
-		//保存socket类型
-		session->socketType = *((SocketType*)&server->data);
-		log_debug("new client comming:\t%s:%d", session->clientAddress, session->clientPort);
 
 #pragma endregion
 
+		//回调
+		if(info->cb)
+			info->cb(session, info->data);
 
 		//开始监听消息
 		uv_read_start((uv_stream_t*)pNewClient, tcp_str_alloc, tcp_after_read);
 #pragma endregion
-
-
 	}
 
 #pragma endregion
@@ -404,7 +402,7 @@ const Netbus* Netbus::Instance()
 	return &g_instance;
 }
 
-void Netbus::TcpListen(int port)const
+void Netbus::TcpListen(int port, TcpListenCallback callback, void* udata)const
 {
 	auto listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
 
@@ -422,13 +420,19 @@ void Netbus::TcpListen(int port)const
 		return;
 	}
 
-	//强转记录socket类型
-	listen->data = (void*)SocketType::TcpSocket;
+	static TcpListenInfo info;
+	memset(&info, 0, sizeof(TcpListenInfo));
+	info.cb = callback;
+	info.data = udata;
+	info.socketType = SocketType::TcpSocket;
+
+	//强转记录TcpListenInfo类型
+	listen->data = (void*)&info;
 
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
 }
 
-void Netbus::WebSocketListen(int port)const
+void Netbus::WebSocketListen(int port, TcpListenCallback callback, void* udata)const
 {
 	auto listen = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
 
@@ -446,8 +450,14 @@ void Netbus::WebSocketListen(int port)const
 		return;
 	}
 
-	//强转记录socket类型
-	listen->data = (void*)SocketType::WebSocket;
+	static TcpListenInfo info;
+	memset(&info, 0, sizeof(TcpListenInfo));
+	info.cb = callback;
+	info.data = udata;
+	info.socketType = SocketType::WebSocket;
+
+	//强转记录TcpListenInfo类型
+	listen->data = (void*)&info;
 
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
 }

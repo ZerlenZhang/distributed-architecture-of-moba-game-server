@@ -8,11 +8,11 @@ extern "C" {
 }
 #endif // __cplusplus
 
-
 #include "tolua_fix.h"
 
 #include "../netbus/Netbus.h"
 #include "lua_wrapper.h"
+#include "../utils/logger/logger.h"
 
 static void on_tcp_connect(int err, AbstractSession* s, void* udata)
 {
@@ -26,6 +26,22 @@ static void on_tcp_connect(int err, AbstractSession* s, void* udata)
 		tolua_pushuserdata(lua, s);
 	}
 	lua_wrapper::ExeScriptHandle((int)udata, 2);
+	lua_wrapper::RemoveScriptHandle((int)udata);
+}
+
+static void on_tcp_listen(AbstractSession* s, void* udata)
+{
+	auto lua = lua_wrapper::lua_state();
+	tolua_pushuserdata(lua, s);
+	lua_wrapper::ExeScriptHandle((int)udata, 1);
+	lua_wrapper::RemoveScriptHandle((int)udata);
+}
+
+static void on_ws_listen(AbstractSession* s, void* udata)
+{
+	auto lua = lua_wrapper::lua_state();
+	tolua_pushuserdata(lua, s);
+	lua_wrapper::ExeScriptHandle((int)udata, 1);
 	lua_wrapper::RemoveScriptHandle((int)udata);
 }
 
@@ -46,10 +62,20 @@ static int lua_tcp_connect(lua_State* lua)
 
 static int lua_tcp(lua_State* lua)
 {
-	if (lua_gettop(lua) != 1)
-		return 0;
-	auto port = (int)lua_tointeger(lua, 1);
-	Netbus::Instance()->TcpListen(port);
+	auto cout = lua_gettop(lua);
+	auto port = luaL_checkinteger(lua, 1);
+	if (cout == 1)
+	{
+		Netbus::Instance()->TcpListen(port);
+	}
+	else if(cout == 2)
+	{
+		auto handle = toluafix_ref_function(lua, 2, 0);
+		if (0 == handle)
+			return 0;
+
+		Netbus::Instance()->TcpListen(port, on_tcp_listen, (void*)handle);
+	}
 
 	return 0;
 }
@@ -64,10 +90,20 @@ static int lua_udp(lua_State* lua)
 }
 static int lua_websocket(lua_State* lua)
 {
-	if (lua_gettop(lua) != 1)
-		return 0;
-	auto port = (int)lua_tointeger(lua, 1);
-	Netbus::Instance()->WebSocketListen(port);
+	auto cout = lua_gettop(lua);
+	auto port = luaL_checkinteger(lua, 1);
+	if (cout == 1)
+	{
+		Netbus::Instance()->WebSocketListen(port);
+	}
+	else if (cout == 2)
+	{
+		auto handle = toluafix_ref_function(lua, 2, 0);
+		if (0 == handle)
+			return 0;
+
+		Netbus::Instance()->WebSocketListen(port, on_ws_listen, (void*)handle);
+	}
 
 	return 0;
 }

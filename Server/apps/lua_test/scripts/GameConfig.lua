@@ -19,4 +19,12 @@ return {
 
     servers = remote_servers,
 
+    auth_mysql={
+    	host="127.0.0.1",
+    	port=3306,
+    	dbName="auth_center_db",
+    	uname="root",
+    	upwd="Zzl5201314...",
+	},
+
 };

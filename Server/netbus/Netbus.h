@@ -7,8 +7,11 @@ using std::string;
 #include "protocol/CmdPackageProtocol.h"
 
 
+
+
 class AbstractSession;
 typedef void (*TcpConnectedCallback)(int, AbstractSession*, void*);
+typedef void (*TcpListenCallback)(AbstractSession*, void*);
 
 class Netbus
 {
@@ -16,8 +19,8 @@ public:
 	//µ¥Àý
 	static const Netbus* Instance();
 public:
-	void TcpListen(int port)const;
-	void WebSocketListen(int port)const;
+	void TcpListen(int port, TcpListenCallback callback=0,void* udata=0)const;
+	void WebSocketListen(int port, TcpListenCallback callback = 0, void* udata = 0)const;
 	void UdpListen(int port)const;
 	void Run()const;
 	void Init()const;
