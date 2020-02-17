@@ -182,6 +182,12 @@ int lua_log_error(lua_State* luastate) {
 
 static int
 lua_logger_init(lua_State* tolua_S) {
+	if (3 != lua_gettop(tolua_S))
+	{
+		log_error("º¯Êýµ÷ÓÃ´íÎó");
+		return 0;
+	}
+
 	const char* path = lua_tostring(tolua_S, 1);
 	if (path == NULL) {
 		return 0;

@@ -13,6 +13,7 @@ extern "C" {
 #include <cstdlib>
 
 #include "../utils/cache_alloc/small_alloc.h"
+#include "../utils/logger/logger.h"
 
 #define my_alloc small_alloc
 #define my_free small_free
@@ -41,6 +42,11 @@ static void on_lua_repeat_func(void* udata)
 
 static int lua_timer_repeat(lua_State* lua)
 {
+	if (4 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto handle = toluafix_ref_function(lua, 1, 0);
 
 	if (!handle)
@@ -90,6 +96,11 @@ static int lua_timer_repeat(lua_State* lua)
 }
 static int lua_timer_once(lua_State* lua)
 {
+	if (2 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto handle = toluafix_ref_function(lua, 1, 0);
 	if (!handle)
 	{
@@ -116,6 +127,11 @@ static int lua_timer_once(lua_State* lua)
 }
 static int lua_timer_cancel(lua_State* lua)
 {
+	if (1 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	if (!lua_isuserdata(lua, 1))
 	{
 		return 0;

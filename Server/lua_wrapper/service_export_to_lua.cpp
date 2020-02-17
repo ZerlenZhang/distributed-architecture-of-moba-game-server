@@ -153,7 +153,7 @@ execute_service_function(int nHandler, int numArgs) {
 #pragma endregion
 
 
-static void
+void
 push_proto_message_tolua(const Message* message) {
 	lua_State* state = lua_wrapper::lua_state();
 	if (!message) {
@@ -281,6 +281,11 @@ push_proto_message_tolua(const Message* message) {
 //第二个参数：表：{OnSessionRecvCmd，OnSessionDisconnected}
 static int lua_register_service(lua_State* lua)
 {
+	if (2 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto  serviceType = tolua_tonumber(lua, 1, 0);
 	if (!lua_istable(lua, 2))
 	{// 如果不是表，直接返回
@@ -317,6 +322,11 @@ static int lua_register_service(lua_State* lua)
 
 static int lua_register_raw_service(lua_State* lua)
 {
+	if (2 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto  serviceType = tolua_tonumber(lua, 1, 0);
 	if (!lua_istable(lua, 2))
 	{// 如果不是表，直接返回

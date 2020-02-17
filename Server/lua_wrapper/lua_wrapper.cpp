@@ -59,7 +59,7 @@ pushFunctionByHandler(int nHandler)
 	toluafix_get_function_by_refid(g_lua, nHandler);                  /* L: ... func */
 	if (!lua_isfunction(g_lua, -1))
 	{
-		log_error("[LUA ERROR] function refid '%d' does not reference a Lua function", nHandler);
+		log_error("没有注册过这个函数句柄：%d", nHandler);
 		lua_pop(g_lua, 1);
 		return false;
 	}

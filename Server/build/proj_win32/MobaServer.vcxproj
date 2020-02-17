@@ -116,8 +116,8 @@
     <ClCompile Include="..\..\netbus\session\AbstractSession.cpp" />
     <ClCompile Include="..\..\netbus\session\TcpSession.cpp" />
     <ClCompile Include="..\..\netbus\session\UdpSession.cpp" />
-    <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.c" />
-    <ClCompile Include="..\..\utils\cache_alloc\small_alloc.c" />
+    <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.cpp" />
+    <ClCompile Include="..\..\utils\cache_alloc\small_alloc.cpp" />
     <ClCompile Include="..\..\utils\Encoding.cpp" />
     <ClCompile Include="..\..\utils\logger\logger.cc" />
     <ClCompile Include="..\..\utils\timer\time_list.c" />

@@ -27,15 +27,94 @@ namespace gprotocol
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserCenterInfo")]
+  public partial class UserCenterInfo : global::ProtoBuf.IExtensible
+  {
+    public UserCenterInfo() {}
+    
+    private string _unick;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"unick", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string unick
+    {
+      get { return _unick; }
+      set { _unick = value; }
+    }
+    private int _uface;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"uface", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int uface
+    {
+      get { return _uface; }
+      set { _uface = value; }
+    }
+    private int _usex;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"usex", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int usex
+    {
+      get { return _usex; }
+      set { _usex = value; }
+    }
+    private int _uvip;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"uvip", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int uvip
+    {
+      get { return _uvip; }
+      set { _uvip = value; }
+    }
+    private int _uid;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"uid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int uid
+    {
+      get { return _uid; }
+      set { _uid = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GuestLoginRes")]
+  public partial class GuestLoginRes : global::ProtoBuf.IExtensible
+  {
+    public GuestLoginRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private UserCenterInfo _uinfo = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"uinfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public UserCenterInfo uinfo
+    {
+      get { return _uinfo; }
+      set { _uinfo = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"LoginCmd")]
     public enum LoginCmd
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_CMD", Value=0)]
-      INVALID_CMD = 0,
+      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_LOGIN_CMD", Value=0)]
+      INVALID_LOGIN_CMD = 0,
             
       [global::ProtoBuf.ProtoEnum(Name=@"eGuestLoginReq", Value=1)]
-      eGuestLoginReq = 1
+      eGuestLoginReq = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eGuestLoginRes", Value=2)]
+      eGuestLoginRes = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eReLogin", Value=3)]
+      eReLogin = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eUserLostConn", Value=4)]
+      eUserLostConn = 4
     }
   
 }

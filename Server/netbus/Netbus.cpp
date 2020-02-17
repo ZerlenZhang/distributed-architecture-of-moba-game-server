@@ -149,7 +149,6 @@ extern "C"
 
 		//¸³Öµ
 		session->socketType = info->socketType;
-		server->data = (void*)info->socketType;
 
 		auto pNewClient = &session->tcpHandle;
 		pNewClient->data = session;
@@ -235,7 +234,7 @@ extern "C"
 static void OnRecvCommond(AbstractSession* session, unsigned char* body, const int len)
 {
 	//test
-	log_debug("client command!!");
+	//log_debug("client command!!");
 
 
 	RawPackage raw;

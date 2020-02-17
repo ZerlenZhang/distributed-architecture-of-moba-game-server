@@ -239,6 +239,11 @@ Message* lua_table_to_protobuf(lua_State* L, int stack_index, const char* msg_na
 
 static int lua_session_close(lua_State* lua)
 {
+	if (1 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
 	{
@@ -250,6 +255,11 @@ static int lua_session_close(lua_State* lua)
 }
 static int lua_session_getaddress(lua_State* lua)
 {
+	if (1 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
 	{
@@ -264,6 +274,11 @@ static int lua_session_getaddress(lua_State* lua)
 }
 static int lua_session_setutag(lua_State* lua)
 {
+	if (2 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
 	{
@@ -276,6 +291,11 @@ static int lua_session_setutag(lua_State* lua)
 }
 static int lua_session_getutag(lua_State* lua)
 {
+	if (1 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
 	{
@@ -287,6 +307,11 @@ static int lua_session_getutag(lua_State* lua)
 
 static int lua_session_setuid(lua_State* lua)
 {
+	if (2 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
 	{
@@ -299,6 +324,11 @@ static int lua_session_setuid(lua_State* lua)
 }
 static int lua_session_getuid(lua_State* lua)
 {
+	if (1 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
 	{
@@ -310,6 +340,11 @@ static int lua_session_getuid(lua_State* lua)
 
 static int lua_session_isclient(lua_State* lua)
 {
+	if (1 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
 	{
@@ -322,6 +357,11 @@ static int lua_session_isclient(lua_State* lua)
 
 static int lua_session_sendrawpackage(lua_State* lua)
 {
+	if (2 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	// 1
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)
@@ -342,6 +382,11 @@ static int lua_session_sendrawpackage(lua_State* lua)
 //第二个参数：表：{1： sType, 2: cType, 3: uTag, 4: body}
 static int lua_session_sendpackage(lua_State* lua)
 {
+	if (2 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	// 1
 	auto session = (AbstractSession*)tolua_touserdata(lua, 1, 0);
 	if (NULL == session)

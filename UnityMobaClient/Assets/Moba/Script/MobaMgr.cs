@@ -1,3 +1,4 @@
+using Assets.Moba.Const;
 using gprotocol;
 using Moba.Const;
 using Moba.Network;
@@ -25,9 +26,29 @@ namespace Moba.Script
 				OnAuthCmd);
 		}
 
+		private void OnGuestLoginReturn(CmdPackageProtocol.CmdPackage pk)
+		{
+			var res = CmdPackageProtocol.ProtobufDeserialize<GuestLoginRes>(pk.body);
+			if (null == res)
+				return;
+			if (res.status != Responce.Ok)
+			{
+				Debug.LogWarning("Guest Login status: " + res.status);
+				return;
+			}
+
+			var info = res.uinfo;
+			Debug.Log(info.unick+" "+info.uid);
+		}	
+
 		private void OnAuthCmd(CmdPackageProtocol.CmdPackage pk)
 		{
-			
+			switch ((LoginCmd)pk.cmdType)
+			{
+				case LoginCmd.eGuestLoginRes:
+					OnGuestLoginReturn(pk);
+					break;
+			}
 		}
 
 		/// <summary>
@@ -39,7 +60,7 @@ namespace Moba.Script
 
 			var req = new GuestLoginReq
 			{
-				guest_key = RandomUtil.RandomStr(10)
+				guest_key = "2g12s12g2asrghtr2jyrei",
 			};
 
 			NetworkMgr.Instance.SendProtobufCmd(

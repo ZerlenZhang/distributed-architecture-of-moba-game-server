@@ -90,6 +90,11 @@ on_lua_query_cb(const char* err, RedisReply* result)
 
 static int
 lua_redis_connect(lua_State* tolua_S) {
+	if (3 != lua_gettop(tolua_S))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	char* ip = (char*)tolua_tostring(tolua_S, 1, 0);
 	if (ip == NULL) {
 		return 0;
@@ -104,6 +109,11 @@ lua_redis_connect(lua_State* tolua_S) {
 
 static int
 lua_redis_close(lua_State* tolua_S) {
+	if (1 != lua_gettop(tolua_S))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	void* context = tolua_touserdata(tolua_S, 1, 0);
 	if (context) {
 		redis_wrapper::close_redis((RedisContext*)context);
@@ -118,6 +128,11 @@ lua_redis_close(lua_State* tolua_S) {
 
 static int
 lua_redis_query(lua_State* tolua_S) {
+	if (3 != lua_gettop(tolua_S))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto context = tolua_touserdata(tolua_S, 1, 0);
 	if (!context)
 		return 0;

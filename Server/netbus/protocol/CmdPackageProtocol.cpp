@@ -45,6 +45,11 @@ class ErrorCollector:public MultiFileErrorCollector
 
 };
 
+void CmdPackageProtocol::Init(::ProtoType proto_type)
+{
+	g_protoType = proto_type;
+}
+
 void CmdPackageProtocol::Init(::ProtoType proto_type,const string& protoFileDir)
 {
 	::protoFileDir = protoFileDir;
@@ -67,6 +72,7 @@ void CmdPackageProtocol::Init(::ProtoType proto_type,const string& protoFileDir)
 		WinUtil::SearchFromDir(protoFileDir, "*.proto", -1, SearchType::ENUM_FILE,
 			[=](const string& dirPath, const string& fileName)
 			{
+				//log_debug("加载：%s", fileName.c_str());
 				importer->Import(fileName);
 				//表示加载完这个，继续加载后面的
 				return true;
@@ -81,8 +87,10 @@ void CmdPackageProtocol::RegisterProtobufCmdMap(map<int, string>& map)
 {
 	if (error)
 		return;
+	auto index = 0;
 	for (auto x : map)
 	{
+		//log_debug("注册CmdNameMap: %d : %s", index++, x.second.c_str());
 		g_pb_cmd_map.insert(x);
 	}
 }
@@ -167,7 +175,7 @@ bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int c
 		tempMessagePointer = CreateMessage(g_pb_cmd_map[out_msg->cmdType].c_str());
 		if (tempMessagePointer == NULL)
 		{
-			log_debug("获取Message类型为空：%s", g_pb_cmd_map[out_msg->cmdType].c_str());
+			log_error("获取Message类型为空, cmdType: %d, messageName: %s", out_msg->cmdType, g_pb_cmd_map[out_msg->cmdType].c_str());
 			my_free(tempMessagePointer);
 			out_msg = NULL;
 			return false;
@@ -175,7 +183,7 @@ bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int c
 
 		if (!tempMessagePointer->ParseFromArray(cmd + CMD_HEADER_SIZE, cmd_len - CMD_HEADER_SIZE))
 		{
-			log_debug("消息反序列化失败");
+			log_error("消息反序列化失败");
 			my_free(out_msg);
 			out_msg = NULL;
 			ReleaseMessage(tempMessagePointer);

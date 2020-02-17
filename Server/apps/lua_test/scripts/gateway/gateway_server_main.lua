@@ -5,15 +5,17 @@ local ProtoType={
     Json=0,
     Protobuf=1,
 };
-ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\apps\\lua_test\\scripts\\protos");
+
+ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\apps\\lua_test\\scripts\\auth\\Const");
 --如果是Protobuf协议，还需要注册映射表
 if ProtoManager.ProtoType()==ProtoType.Protobuf then
-    local cmdNameMap=require("CmdNameMap");
+    local cmdNameMap=require("auth/Const/CmdNameMap");
     if cmdNameMap then
         ProtoManager.RegisterCmdMap(cmdNameMap);
+    else
+        Debug.LogError("register cmdNameMap failed");
     end
 end
-
 --读取配置文件
 local config = require("GameConfig");
 

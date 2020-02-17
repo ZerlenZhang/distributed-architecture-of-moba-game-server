@@ -91,6 +91,11 @@ on_lua_query_cb(const char* err, MysqlResult* result)
 #pragma region Lua_Callback
 static int
 lua_mysql_connect(lua_State* tolua_S) {
+	if (6 != lua_gettop(tolua_S))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	char* ip = (char*)tolua_tostring(tolua_S, 1, 0);
 	if (ip == NULL) {
 		return 0;
@@ -120,6 +125,11 @@ lua_mysql_connect(lua_State* tolua_S) {
 
 static int
 lua_mysql_close(lua_State* tolua_S) {
+	if (1 != lua_gettop(tolua_S))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	void* context = tolua_touserdata(tolua_S, 1, 0);
 	if (context) {
 		mysql_wrapper::close((MysqlContext*)context);
@@ -134,6 +144,11 @@ lua_mysql_close(lua_State* tolua_S) {
 
 static int
 lua_mysql_query(lua_State* tolua_S) {
+	if (3 != lua_gettop(tolua_S))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto context = tolua_touserdata(tolua_S, 1, 0);
 	if (!context)
 		return 0;

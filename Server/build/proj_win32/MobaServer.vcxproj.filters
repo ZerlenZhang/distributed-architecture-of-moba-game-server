@@ -201,9 +201,6 @@
     <ClCompile Include="..\..\netbus\service\ServiceManager.cpp">
       <Filter>netbus\service</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.c">
-      <Filter>utils\cache_alloc</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\utils\timer\time_list.c">
       <Filter>utils\timer</Filter>
     </ClCompile>
@@ -378,14 +375,17 @@
     <ClCompile Include="..\..\apps\lua_test\TestLua.cpp">
       <Filter>app\TestLua</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\utils\cache_alloc\small_alloc.c">
-      <Filter>utils\cache_alloc</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\utils\win32\WinUtil.cpp">
       <Filter>utils\win32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\utils\Encoding.cpp">
       <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.cpp">
+      <Filter>utils\cache_alloc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utils\cache_alloc\small_alloc.cpp">
+      <Filter>utils\cache_alloc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -496,9 +496,6 @@
     </ClInclude>
     <ClInclude Include="..\..\netbus\service\ServiceManager.h">
       <Filter>netbus\service</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\utils\cache_alloc\cache_alloc.h">
-      <Filter>utils\cache_alloc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\utils\timer\time_list.h">
       <Filter>utils\timer</Filter>
@@ -641,14 +638,17 @@
     <ClInclude Include="..\..\lua_wrapper\cmd_package_proto_export_to_lua.h">
       <Filter>lua_wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h">
-      <Filter>utils\cache_alloc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\utils\win32\WinUtil.h">
       <Filter>utils\win32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\utils\Encoding.h">
       <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\cache_alloc\cache_alloc.h">
+      <Filter>utils\cache_alloc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h">
+      <Filter>utils\cache_alloc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

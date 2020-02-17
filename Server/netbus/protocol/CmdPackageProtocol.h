@@ -42,6 +42,7 @@ class CmdPackageProtocol
 {
 public:
 	//初始化协议
+	static void Init(::ProtoType proto_type);
 	static void Init(::ProtoType proto_type, const string& protoFileDir);
 	
 	static void RegisterProtobufCmdMap(map<int, string>& map);

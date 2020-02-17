@@ -5,12 +5,14 @@ local ProtoType={
     Json=0,
     Protobuf=1,
 };
-ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\build\\proj_win32\\x64\\Debug\\protos");
+ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\apps\\lua_test\\scripts\\ChatRoom\\Const");
 --如果是Protobuf协议，还需要注册映射表
 if ProtoManager.ProtoType()==ProtoType.Protobuf then
-    local cmdNameMap=require("CmdNameMap");
+    local cmdNameMap=require("ChatRoom/Const/CmdNameMap");
     if cmdNameMap then
         ProtoManager.RegisterCmdMap(cmdNameMap);
+    else
+    	Debug.LogError("register cmdNameMap failed");
     end
 end
 

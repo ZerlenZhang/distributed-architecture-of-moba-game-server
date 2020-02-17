@@ -30,24 +30,35 @@ static void on_tcp_connect(int err, AbstractSession* s, void* udata)
 }
 
 static void on_tcp_listen(AbstractSession* s, void* udata)
-{
+{	
+	//如果没有自定义参数就是没有传递第二第三参数
+	if (udata == NULL)
+		return;
 	auto lua = lua_wrapper::lua_state();
 	tolua_pushuserdata(lua, s);
 	lua_wrapper::ExeScriptHandle((int)udata, 1);
-	lua_wrapper::RemoveScriptHandle((int)udata);
+	//lua_wrapper::RemoveScriptHandle((int)udata);
 }
 
 static void on_ws_listen(AbstractSession* s, void* udata)
 {
+	//如果没有自定义参数就是没有传递第二第三参数
+	if (udata == NULL)
+		return;
 	auto lua = lua_wrapper::lua_state();
 	tolua_pushuserdata(lua, s);
 	lua_wrapper::ExeScriptHandle((int)udata, 1);
-	lua_wrapper::RemoveScriptHandle((int)udata);
+	//lua_wrapper::RemoveScriptHandle((int)udata);
 }
 
 // ip port lua_func
 static int lua_tcp_connect(lua_State* lua)
 {
+	if (3 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
 	auto ip = luaL_checkstring(lua, 1);
 	if (NULL == ip)
 		return 0;
@@ -72,17 +83,26 @@ static int lua_tcp(lua_State* lua)
 	{
 		auto handle = toluafix_ref_function(lua, 2, 0);
 		if (0 == handle)
+		{
+			log_error("TcpListen_函数句柄无效");
 			return 0;
+		}
 
 		Netbus::Instance()->TcpListen(port, on_tcp_listen, (void*)handle);
+	}else
+	{
+		log_error("TcpListen_函数调用错误");
 	}
 
 	return 0;
 }
 static int lua_udp(lua_State* lua)
 {
-	if (lua_gettop(lua) != 1)
+	if (1 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
 		return 0;
+	}
 	auto port = (int)lua_tointeger(lua, 1);
 	Netbus::Instance()->UdpListen(port);
 
@@ -103,6 +123,10 @@ static int lua_websocket(lua_State* lua)
 			return 0;
 
 		Netbus::Instance()->WebSocketListen(port, on_ws_listen, (void*)handle);
+	}else
+	{
+		log_error("函数调用错误");
+		return 0;
 	}
 
 	return 0;

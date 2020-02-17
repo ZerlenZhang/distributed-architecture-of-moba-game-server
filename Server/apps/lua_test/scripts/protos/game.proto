@@ -1,0 +1,47 @@
+syntax = "proto2";
+
+enum ChatCmd {
+	  INVALID_CMD = 0;
+	  eLoginReq = 1;
+	  eLoginRes = 2;
+    eExitReq = 3;
+    eExitRes = 4;
+    eSendMsgReq = 5;
+    eSendMsgRes = 6;
+    eOnUserLogin = 7;
+    eOnUserExit = 8;
+    eOnSendMsg = 9;
+}
+
+
+message LoginRes {
+  required int32 status = 1;	
+}
+
+message ExitRes{
+  required int32 status = 1;
+}
+
+message SendMsgReq{
+  required string content = 1;
+}
+
+message SendMsgRes{
+  required int32 status = 1;
+}
+
+message OnUserLogin{
+  required string ip = 1;
+  required int32 port =2;
+}
+
+message OnUserExit{
+  required string ip = 1;
+  required int32 port =2;
+}
+
+message OnSendMsg{
+  required string ip = 1;
+  required int32 port = 2;
+  required string content =3;
+}
