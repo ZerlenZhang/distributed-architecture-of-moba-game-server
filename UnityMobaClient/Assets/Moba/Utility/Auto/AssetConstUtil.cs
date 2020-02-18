@@ -8,10 +8,22 @@ namespace Moba.Utility
 		private System.Collections.Generic.Dictionary<string,string> nameToPath 
 			= new System.Collections.Generic.Dictionary<string,string>{
 					{ @"ChatPanel" , @"ClassPanel\ChatPanel" },
+					{ @"HomePanel" , @"ClassPanel\HomePanel" },
 					{ @"LoginPanel" , @"ClassPanel\LoginPanel" },
+					{ @"Avator_0" , @"ClassSprite\roundheader\Avator_0" },
+					{ @"Avator_1" , @"ClassSprite\roundheader\Avator_1" },
+					{ @"Avator_2" , @"ClassSprite\roundheader\Avator_2" },
+					{ @"Avator_3" , @"ClassSprite\roundheader\Avator_3" },
+					{ @"Avator_4" , @"ClassSprite\roundheader\Avator_4" },
+					{ @"Avator_5" , @"ClassSprite\roundheader\Avator_5" },
+					{ @"Avator_6" , @"ClassSprite\roundheader\Avator_6" },
+					{ @"Avator_7" , @"ClassSprite\roundheader\Avator_7" },
+					{ @"Avator_8" , @"ClassSprite\roundheader\Avator_8" },
+					{ @"AvtorChooserDlg" , @"ClassUi\AvtorChooserDlg" },
 					{ @"SelfUi" , @"ClassUi\SelfUi" },
 					{ @"StatusUi" , @"ClassUi\StatusUi" },
 					{ @"TalkUi" , @"ClassUi\TalkUi" },
+					{ @"UserInfoDlg" , @"ClassUi\UserInfoDlg" },
 					{ @"TimeLine" , @"TimeLine" },
 				};
 		public override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;

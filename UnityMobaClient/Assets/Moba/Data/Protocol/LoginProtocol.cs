@@ -97,6 +97,54 @@ namespace gprotocol
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EditProfileReq")]
+  public partial class EditProfileReq : global::ProtoBuf.IExtensible
+  {
+    public EditProfileReq() {}
+    
+    private string _unick;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"unick", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string unick
+    {
+      get { return _unick; }
+      set { _unick = value; }
+    }
+    private int _uface;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"uface", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int uface
+    {
+      get { return _uface; }
+      set { _uface = value; }
+    }
+    private int _usex;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"usex", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int usex
+    {
+      get { return _usex; }
+      set { _usex = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EditProfileRes")]
+  public partial class EditProfileRes : global::ProtoBuf.IExtensible
+  {
+    public EditProfileRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"LoginCmd")]
     public enum LoginCmd
     {
@@ -114,7 +162,13 @@ namespace gprotocol
       eReLogin = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"eUserLostConn", Value=4)]
-      eUserLostConn = 4
+      eUserLostConn = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eEditProfileReq", Value=5)]
+      eEditProfileReq = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eEditProfileRes", Value=6)]
+      eEditProfileRes = 6
     }
   
 }

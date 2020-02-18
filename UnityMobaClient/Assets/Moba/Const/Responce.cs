@@ -1,4 +1,4 @@
-namespace Assets.Moba.Const
+namespace Moba.Const
 {
     public static class Responce
     {

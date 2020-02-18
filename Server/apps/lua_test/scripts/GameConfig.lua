@@ -27,4 +27,11 @@ return {
     	upwd="Zzl5201314...",
 	},
 
+    center_redis={
+        host="127.0.0.1",
+        port=7999,
+        db_index=1,
+        auth="Zzl5201314..."
+    },
+
 };

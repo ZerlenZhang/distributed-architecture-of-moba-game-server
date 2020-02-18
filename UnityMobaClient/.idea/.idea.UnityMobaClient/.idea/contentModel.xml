@@ -111,8 +111,12 @@
               <e p="OtherResName.cs" t="Include" />
               <e p="OtherResPath.cs" t="Include" />
               <e p="PanelName.cs" t="Include" />
+              <e p="SceneName.cs" t="Include" />
+              <e p="SpriteName.cs" t="Include" />
               <e p="UiName.cs" t="Include" />
             </e>
+            <e p="Message.cs" t="Include" />
+            <e p="PrefKey.cs" t="Include" />
             <e p="Responce.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
@@ -121,6 +125,10 @@
               <e p="LoginProtocol.cs" t="Include" />
               <e p="ServiceProtocol.cs" t="Include" />
             </e>
+          </e>
+          <e p="Global" t="Include">
+            <e p="GlobalVar.cs" t="Include" />
+            <e p="NetInfo.cs" t="Include" />
           </e>
           <e p="Network" t="Include">
             <e p="NetworkMgr.cs" t="Include" />
@@ -140,9 +148,14 @@
           <e p="View" t="Include">
             <e p="Auto" t="Include">
               <e p="ChatPanel.cs" t="Include" />
+              <e p="HomePanel.cs" t="Include" />
               <e p="LoginPanel.cs" t="Include" />
             </e>
             <e p="ChatPanel.cs" t="Include" />
+            <e p="Dlgs" t="Include">
+              <e p="UserInfoDlg.cs" t="Include" />
+            </e>
+            <e p="HomePanel.cs" t="Include" />
             <e p="LoginPanel.cs" t="Include" />
           </e>
         </e>

@@ -16,11 +16,12 @@ function mysql_connect_to_auth_center()
 				Timer.Once(mysql_connect_to_auth_center,5000);
 				return;
 			end
-			Debug.Log("connect to auth_center_db success");
+			Debug.Log("connect to mysql success");
 			mysqlConn=conn;
 		end);
 end
 
+--handler:err,uinfo
 function get_guest_user( key,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
@@ -64,6 +65,7 @@ function get_guest_user( key,handler )
 	end);
 end
 
+--handler: err
 function insert_guest_user( key,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
@@ -91,9 +93,31 @@ function insert_guest_user( key,handler )
 	end);
 end
 
-mysql_connect_to_auth_center();
+--handler: err
+function edit_profile(uid,unick,uface,usex,ret_handle)
+	if mysqlConn==nil then
+		--数据库还没有联好
+		if handler then
+			handler("mysql is not connected");
+		end
+		return;
+	end
+
+	local sql = 'update uinfo set unick="%s",usex=%d,uface=%d where uid=%d';
+	sql=string.format(sql,unick,usex,uface,uid);
+	Mysql.Query(mysqlConn,sql,
+		function( err,ret )
+			if err then
+				ret_handle(err);
+			else
+				ret_handle(nil);
+			end
+		end);
+end
 
 return {
+	Connect=mysql_connect_to_auth_center,
 	GetGuestUinfo=get_guest_user,
 	InsertGuestUser=insert_guest_user,
+	EditProfile=edit_profile,
 };

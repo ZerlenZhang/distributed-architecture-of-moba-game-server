@@ -2,5 +2,7 @@ return {
     "GuestLoginReq",
     "GuestLoginRes",
 	"ReLogin",
-	"UserLostConn"
+	"UserLostConn",
+	"EditProfileReq",
+	"EditProfileRes",
 };

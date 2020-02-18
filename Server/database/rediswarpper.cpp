@@ -72,7 +72,7 @@ static void on_connect_complete(uv_work_t* req, int status)
 {
 	auto pInfo = (connect_req*)req->data;
 
-	log_debug("Redis 数据库链接成功");
+	//log_debug("Redis 数据库链接成功");
 
 	if (pInfo)
 	{

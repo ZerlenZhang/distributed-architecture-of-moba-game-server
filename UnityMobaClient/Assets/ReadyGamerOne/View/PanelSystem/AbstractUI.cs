@@ -71,9 +71,9 @@ namespace ReadyGamerOne.View
         /// 创建窗体
         /// </summary>
         /// <returns></returns>
-        protected virtual void Create(string path)
+        protected virtual void Create(string assetName)
         {
-            m_sResName = path;
+            m_sResName = assetName;
 
             if (m_TransFrom)
             {
