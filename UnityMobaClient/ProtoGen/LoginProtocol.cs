@@ -10,6 +10,23 @@
 // Generated from: LoginProtocol.proto
 namespace gprotocol
 {
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserUnregisterRes")]
+  public partial class UserUnregisterRes : global::ProtoBuf.IExtensible
+  {
+    public UserUnregisterRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GuestLoginReq")]
   public partial class GuestLoginReq : global::ProtoBuf.IExtensible
   {
@@ -145,6 +162,96 @@ namespace gprotocol
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AccountUpgradeReq")]
+  public partial class AccountUpgradeReq : global::ProtoBuf.IExtensible
+  {
+    public AccountUpgradeReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private string _upwd_md5;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"upwd_md5", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string upwd_md5
+    {
+      get { return _upwd_md5; }
+      set { _upwd_md5 = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AccountUpgradeRes")]
+  public partial class AccountUpgradeRes : global::ProtoBuf.IExtensible
+  {
+    public AccountUpgradeRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserLoginReq")]
+  public partial class UserLoginReq : global::ProtoBuf.IExtensible
+  {
+    public UserLoginReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private string _upwd_md5;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"upwd_md5", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string upwd_md5
+    {
+      get { return _upwd_md5; }
+      set { _upwd_md5 = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserLoginRes")]
+  public partial class UserLoginRes : global::ProtoBuf.IExtensible
+  {
+    public UserLoginRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private UserCenterInfo _uinfo = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"uinfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public UserCenterInfo uinfo
+    {
+      get { return _uinfo; }
+      set { _uinfo = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"LoginCmd")]
     public enum LoginCmd
     {
@@ -168,7 +275,25 @@ namespace gprotocol
       eEditProfileReq = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"eEditProfileRes", Value=6)]
-      eEditProfileRes = 6
+      eEditProfileRes = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eAccountUpgradeReq", Value=7)]
+      eAccountUpgradeReq = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eAccountUpgradeRes", Value=8)]
+      eAccountUpgradeRes = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eUserLoginReq", Value=9)]
+      eUserLoginReq = 9,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eUserLoginRes", Value=10)]
+      eUserLoginRes = 10,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eUserUnregisterReq", Value=11)]
+      eUserUnregisterReq = 11,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eUserUnregisterRes", Value=12)]
+      eUserUnregisterRes = 12
     }
   
 }

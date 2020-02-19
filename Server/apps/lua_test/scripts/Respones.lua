@@ -4,4 +4,6 @@ return {
 	UserIsFreeze = -101,
 	UserIsNotGuest = -102,
 	InvalidParams = -103,
+	UnameHasExist = -104,
+	UnameOrPwdError = -105,
 };

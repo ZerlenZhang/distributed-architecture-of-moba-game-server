@@ -1,6 +1,11 @@
+using System;
+using Moba.Const;
 using Moba.Global;
 using Moba.Script;
+using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.Utility;
+using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +23,36 @@ namespace Moba.View.Dlgs
 
 
         public GameObject avtorChooser;
+        public GameObject registerUi;
+
+        public InputField userNameEditor;
+        public InputField userPwdEditor;
         public Button closeBtn;
 
 
         private int uface;
         private int usex;
+
+        private void Start()
+        {
+            //监听事件
+            CEventCenter.AddListener<int>(Message.UpgradeGuest,OnUpgradeGuest);
+            CEventCenter.AddListener(Message.Unregister,
+                () =>
+                {
+                    PanelMgr.PopPanel();
+                    Destroy(this.gameObject);
+                }, true);
+        }
+
+        private void OnUpgradeGuest(int status)
+        {
+            if (status == Responce.Ok)
+            {
+                this.OnHideRegister();
+                this.upgrader.SetActive(false);
+            }
+        }
         
         private void OnEnable()
         {
@@ -35,6 +65,36 @@ namespace Moba.View.Dlgs
             womanToggle.isOn = this.usex == 1;
         }
         
+        
+        public void OnShowRegister()
+        {
+            registerUi.SetActive(true);
+        }
+
+        public void OnRegister()
+        {
+            if (!NetInfo.isGuest)
+                return;
+            if (string.IsNullOrEmpty(userNameEditor.text))
+                return;
+            if (string.IsNullOrEmpty(userNameEditor.text))
+                return;
+
+            var pwdMd5 = SecurityUtil.Md5(this.userPwdEditor.text);
+
+            MobaMgr.Instance.UpgradeGuest(this.userNameEditor.text, pwdMd5);
+            
+            //OnHideRegister();
+        }
+
+        public void OnHideRegister() 
+        {
+            if (registerUi == null)
+            {
+                throw new Exception("????");
+            }
+            registerUi.SetActive(false);
+        }
         
 
         public void OnClose()
@@ -65,15 +125,11 @@ namespace Moba.View.Dlgs
             avatorImag.sprite = ResourceMgr.GetAsset<Sprite>("Avator_" + this.uface);
             OnClickMask();
         }
-
-        public void OnRegister()
-        {
-            
-        }
+        
 
         public void OnUnRegister()
         {
-            
+            MobaMgr.Instance.Unregister();
         }
 
         public void OnConfirmInfo()

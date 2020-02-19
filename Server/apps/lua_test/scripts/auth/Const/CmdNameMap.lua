@@ -5,4 +5,10 @@ return {
 	"UserLostConn",
 	"EditProfileReq",
 	"EditProfileRes",
+	"AccountUpgradeReq",
+	"AccountUpgradeRes",
+	"UserLoginReq",
+	"UserLoginRes",
+	"UserUnregisterReq",
+	"UserUnregisterRes",
 };

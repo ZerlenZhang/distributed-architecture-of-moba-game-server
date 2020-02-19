@@ -55,19 +55,21 @@ GatewayServiceInit();
 local g_ukey=1;
 local tag_sessionDic={};
 local uid_sessionDic={};
-local cmdType = require("gateway/Const/CmdType");
+local cmdType = require("auth/Const/CmdType");
 local serviceType = require("ServiceType");
 local responce = require("Respones");
 
 function IsLoginReturnRes( cType )
-    if cmdType.eGuestLoginRes == cType then
+    if cmdType.eGuestLoginRes == cType
+    or cmdType.eUserLoginRes == cType then
         return true;
     end
     return false;
 end
 
 function IsLoginRequestCmd( ctype )
-    if cmdType.eGuestLoginReq == ctype then
+    if cmdType.eGuestLoginReq == ctype
+        or cmdType.eUserLoginReq == ctype then
         return true;
     end
     return false;
@@ -130,13 +132,19 @@ return   {
             --print("BBB");
             clientSession=uid_sessionDic[utag];
             
-            --永远不要让用户知道utag
-            RawCmd.SetUTag(raw,0);
 
             --发给用户
             if clientSession then
                 --print("flag");
+                --永远不要让用户知道utag
+                RawCmd.SetUTag(raw,0);
                 Session.SendRawPackage(clientSession,raw);
+
+                --如果是注销消息
+                if cType==cmdType.eUserUnregisterRes then
+                    Session.SetUId(clientSession,0);
+                    uid_sessionDic[utag]=nil;
+                end
             else
                 print("clientSession is null? utag: ",utag);
             end

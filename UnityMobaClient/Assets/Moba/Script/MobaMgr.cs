@@ -1,3 +1,4 @@
+using System;
 using Moba.Const;
 using Moba.Global;
 using gprotocol;
@@ -17,6 +18,7 @@ namespace Moba.Script
 		private EditProfileReq _editProfileReq = null;
 
 		public StringChooser startPanel = new StringChooser(typeof(PanelName));
+		
 		partial void OnSafeAwake()
 		{
 			//do any thing you want
@@ -28,6 +30,79 @@ namespace Moba.Script
 			NetworkMgr.Instance.AddCmdPackageListener(
 				(int)ServiceType.Auth,
 				OnAuthCmd);
+		}
+
+		#region ServerCallBack
+
+		private void OnAuthCmd(CmdPackageProtocol.CmdPackage pk)
+		{
+//			print("recv cmd: "+pk.cmdType);
+			switch ((LoginCmd)pk.cmdType)
+			{
+				case LoginCmd.eGuestLoginRes:
+					OnGuestLoginReturn(pk);
+					break;
+				case LoginCmd.eEditProfileRes:
+					OnEditProfileReturn(pk);
+					break;
+				case LoginCmd.eAccountUpgradeRes:
+					OnAccountUpgradeReturn(pk);
+					break;
+				case LoginCmd.eUserLoginRes:
+					OnUserLoginReturn(pk);
+					break;
+				case LoginCmd.eUserUnregisterRes:
+					var res = CmdPackageProtocol.ProtobufDeserialize<UserUnregisterRes>(pk.body);
+					if (res == null)
+						return;
+					if (res.status != Responce.Ok)
+					{
+						Debug.Log("Login status:" + res.status);
+						break;
+					}
+					//注销成功
+					CEventCenter.BroadMessage(Message.Unregister);
+					break;
+			}
+		}
+
+		private void OnUserLoginReturn(CmdPackageProtocol.CmdPackage pk)
+		{			
+			var res = CmdPackageProtocol.ProtobufDeserialize<UserLoginRes>(pk.body);
+         	if (null == res) 
+            { 
+	            return; 
+            }
+            if (res.status != Responce.Ok)
+            {
+	            Debug.LogWarning("UserLogin status: " + res.status);
+	            return;
+            }
+			
+            //保存用户信息
+            NetInfo.SaveInfo(res.uinfo,false);
+            //同步网络信息
+            CEventCenter.BroadMessage(Message.SyncNetInfo);
+            //切换至主界面
+            PanelMgr.PushPanel(PanelName.HomePanel);
+            
+		}
+
+		private void OnAccountUpgradeReturn(CmdPackageProtocol.CmdPackage pk)
+		{
+			var res = CmdPackageProtocol.ProtobufDeserialize<AccountUpgradeRes>(pk.body);
+			if (null == res)
+			{
+				return;
+			}
+
+			print("AccountUpgradeRes.Status: " + res.status);
+			CEventCenter.BroadMessage(Message.UpgradeGuest,res.status);
+
+			if (res.status == Responce.Ok)
+			{
+				NetInfo.SetIsGuest(false);
+			}
 		}
 
 		/// <summary>
@@ -45,7 +120,7 @@ namespace Moba.Script
 
 			if (res.status != Responce.Ok)
 			{
-				Debug.LogWarning("Guest Login status: " + res.status);
+				Debug.LogWarning("Guest UserLogin status: " + res.status);
 				return;
 			}
 			
@@ -57,19 +132,6 @@ namespace Moba.Script
 			PanelMgr.PushPanel(PanelName.HomePanel);
 		}	
 
-		private void OnAuthCmd(CmdPackageProtocol.CmdPackage pk)
-		{
-//			print("recv cmd: "+pk.cmdType);
-			switch ((LoginCmd)pk.cmdType)
-			{
-				case LoginCmd.eGuestLoginRes:
-					OnGuestLoginReturn(pk);
-					break;
-				case LoginCmd.eEditProfileRes:
-					OnEditProfileReturn(pk);
-					break;
-			}
-		}
 
 		/// <summary>
 		/// 修改信息服务器回调
@@ -95,8 +157,31 @@ namespace Moba.Script
 			_editProfileReq = null;
 			//通知更新
 			CEventCenter.BroadMessage(Message.SyncNetInfo);
-		}
+		}		
 
+		#endregion
+		
+		#region public
+
+		/// <summary>
+		/// 正式注册
+		/// </summary>
+		/// <param name="uName"></param>
+		/// <param name="upwdMd5"></param>
+		public void UpgradeGuest(string uName, string upwdMd5)
+		{
+			print("尝试注册");
+			var req = new AccountUpgradeReq
+			{
+				uname = uName,
+				upwd_md5 = upwdMd5,
+			};
+			NetworkMgr.Instance.SendProtobufCmd(
+				(int) ServiceType.Auth,
+				(int) LoginCmd.eAccountUpgradeReq,
+				req);
+		}
+		
 		/// <summary>
 		/// 游客登陆
 		/// </summary>
@@ -125,6 +210,33 @@ namespace Moba.Script
 				req);
 		}
 
+		/// <summary>
+		/// 用户登录
+		/// </summary>
+		/// <param name="uname"></param>
+		/// <param name="upwd"></param>
+		public void UserLogin(string uname, string upwd)
+		{
+			var md5 = SecurityUtil.Md5(upwd);
+			print(uname + "  " + upwd);
+
+			var req = new UserLoginReq
+			{
+				uname = uname,
+				upwd_md5 = md5,
+			};
+			NetworkMgr.Instance.SendProtobufCmd(
+				(int) ServiceType.Auth,
+				(int) LoginCmd.eUserLoginReq,
+				req);
+		}
+
+		/// <summary>
+		/// 修改资料
+		/// </summary>
+		/// <param name="unick"></param>
+		/// <param name="uface"></param>
+		/// <param name="usex"></param>
 		public void EditProfile(string unick,int uface,int usex)
 		{
 			if (unick.Length <= 0)
@@ -145,5 +257,19 @@ namespace Moba.Script
 				_editProfileReq);
 			
 		}
+
+
+		/// <summary>
+		/// 注销
+		/// </summary>
+		public void Unregister()
+		{
+			print("注销");
+			NetworkMgr.Instance.SendProtobufCmd(
+				(int)ServiceType.Auth,
+				(int)LoginCmd.eUserUnregisterReq,
+				null);
+		}
+		#endregion
 	}
 }

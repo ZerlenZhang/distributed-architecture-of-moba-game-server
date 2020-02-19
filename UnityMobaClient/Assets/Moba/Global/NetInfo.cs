@@ -12,11 +12,18 @@ namespace Moba.Global
         public static int uvip{ get; private set; }
         public static bool isGuest { get; private set; } = true;
 
+        //public static string guest_key { get; private set; } = null;
+
+        public static void SetIsGuest(bool value)
+        {
+            isGuest = value;
+        }
+
         /// <summary>
         /// 保存用户信息
         /// </summary>
         /// <param name="info"></param>
-        public static void SaveInfo(UserCenterInfo info,bool isGuest)
+        public static void SaveInfo(UserCenterInfo info,bool isGuest)//,string guestKey=null)
         {
             Assert.IsNotNull(info);
             unick = info.unick;
@@ -24,6 +31,7 @@ namespace Moba.Global
             usex = info.usex;
             uvip = info.uvip;
             NetInfo.isGuest = isGuest;
+            //guest_key = guestKey;
         }
 
         /// <summary>
