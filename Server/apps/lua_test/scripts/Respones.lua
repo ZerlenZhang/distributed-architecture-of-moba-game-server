@@ -6,4 +6,5 @@ return {
 	InvalidParams = -103,
 	UnameHasExist = -104,
 	UnameOrPwdError = -105,
+	InvalidOprate = -106,
 };

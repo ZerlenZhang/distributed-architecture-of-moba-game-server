@@ -1,7 +1,7 @@
 using System;
+using Moba.Protocol;
 using Moba.Const;
 using Moba.Global;
-using Moba.Script;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Utility;
@@ -16,7 +16,6 @@ namespace Moba.View.Dlgs
         public InputField unickEditor;
         public GameObject upgrader;
         public Image avatorImag;
-        public Button avatorBtn;
 
         public Toggle manToggle;
         public Toggle womanToggle;
@@ -27,8 +26,6 @@ namespace Moba.View.Dlgs
 
         public InputField userNameEditor;
         public InputField userPwdEditor;
-        public Button closeBtn;
-
 
         private int uface;
         private int usex;
@@ -37,12 +34,17 @@ namespace Moba.View.Dlgs
         {
             //监听事件
             CEventCenter.AddListener<int>(Message.UpgradeGuest,OnUpgradeGuest);
-            CEventCenter.AddListener(Message.Unregister,
-                () =>
-                {
-                    PanelMgr.PopPanel();
-                    Destroy(this.gameObject);
-                }, true);
+            CEventCenter.AddListener(Message.Unregister,OnUnregister);
+        }
+
+        private void OnDestroy()
+        {
+            CEventCenter.RemoveListener<int>(Message.UpgradeGuest,OnUpgradeGuest);
+            CEventCenter.RemoveListener(Message.Unregister,OnUnregister);
+        }
+        private void OnUnregister()
+        {
+            PanelMgr.PopPanel();
         }
 
         private void OnUpgradeGuest(int status)
@@ -82,7 +84,7 @@ namespace Moba.View.Dlgs
 
             var pwdMd5 = SecurityUtil.Md5(this.userPwdEditor.text);
 
-            MobaMgr.Instance.UpgradeGuest(this.userNameEditor.text, pwdMd5);
+            AuthServiceProxy.Instance.UpgradeGuest(this.userNameEditor.text, pwdMd5);
             
             //OnHideRegister();
         }
@@ -129,7 +131,7 @@ namespace Moba.View.Dlgs
 
         public void OnUnRegister()
         {
-            MobaMgr.Instance.Unregister();
+            AuthServiceProxy.Instance.Unregister();
         }
 
         public void OnConfirmInfo()
@@ -143,7 +145,7 @@ namespace Moba.View.Dlgs
             Debug.Log(this.unickEditor.text + " " + this.usex + " " + this.uface + " ");
             
             OnClose();
-            MobaMgr.Instance.EditProfile(this.unickEditor.text, this.uface, this.usex);
+            AuthServiceProxy.Instance.EditProfile(this.unickEditor.text, this.uface, this.usex);
         }
     }
 }

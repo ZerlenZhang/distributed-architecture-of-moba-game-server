@@ -107,6 +107,7 @@
     <ClCompile Include="..\..\lua_wrapper\service_export_to_lua.cpp" />
     <ClCompile Include="..\..\lua_wrapper\session_export_to_lua.cpp" />
     <ClCompile Include="..\..\lua_wrapper\timer_export_to_lua.cpp" />
+    <ClCompile Include="..\..\lua_wrapper\utils_export_to_lua.cpp" />
     <ClCompile Include="..\..\netbus\Netbus.cpp" />
     <ClCompile Include="..\..\netbus\protocol\CmdPackageProtocol.cpp" />
     <ClCompile Include="..\..\netbus\protocol\TcpPackageProtocol.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="..\..\lua_wrapper\service_export_to_lua.h" />
     <ClInclude Include="..\..\lua_wrapper\session_export_to_lua.h" />
     <ClInclude Include="..\..\lua_wrapper\timer_export_to_lua.h" />
+    <ClInclude Include="..\..\lua_wrapper\utils_export_to_lua.h" />
     <ClInclude Include="..\..\netbus\Netbus.h" />
     <ClInclude Include="..\..\netbus\protocol\CmdPackageProtocol.h" />
     <ClInclude Include="..\..\netbus\protocol\TcpPackageProtocol.h" />

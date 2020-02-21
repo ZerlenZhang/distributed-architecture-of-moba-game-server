@@ -8,7 +8,7 @@ namespace Moba.Const
 		/// <summary>
 		/// 同步网络信息
 		/// </summary>
-		public const string SyncNetInfo = "SyncNetInfo";
+		public const string SyncAuthInfo = "SyncAuthInfo";
 
 		/// <summary>
 		/// 升级游客账号
@@ -20,5 +20,15 @@ namespace Moba.Const
 		/// 注销账号
 		/// </summary>
 		public const string Unregister = "Unregister";
+		
+		/// <summary>
+		/// 同步游戏数据
+		/// </summary>
+		public const string SyncUgameInfo = "SyncUgameInfo";
+
+		/// <summary>
+		/// 成功获取游戏信息
+		/// </summary>
+		public const string GetUgameInfoSuccess = "GetUgameInfoSuccess";
 	}
 }

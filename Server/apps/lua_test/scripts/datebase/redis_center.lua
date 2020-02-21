@@ -22,7 +22,7 @@ function redis_connect_to_center()
 						Debug.LogError(err);
 						return;
 					end
-					print("connect to redis success");
+					print("connect to redis [ "..index.." ] success");
 				end)
 		end);
 end

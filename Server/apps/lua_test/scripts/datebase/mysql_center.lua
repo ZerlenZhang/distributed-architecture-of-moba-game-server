@@ -16,7 +16,7 @@ function mysql_connect_to_auth_center()
 				Timer.Once(mysql_connect_to_auth_center,5000);
 				return;
 			end
-			Debug.Log("connect to mysql success");
+			Debug.Log("connect to mysql [ auth_center_db ] success");
 			mysqlConn=conn;
 		end);
 end
@@ -244,9 +244,8 @@ function get_uinfo_by_uname_pwd( uname,upwd,handler )
 
 	local sql="select uid,unick,usex,uface,uvip,status,is_guest from uinfo where uname=\"%s\" and upwd=\"%s\" limit 1";
 	sql=string.format(sql,uname,upwd);
-	print(sql);
+	--print(sql);
 	Mysql.Query(mysqlConn,sql,function( err,ret )
-		print("555");
 		--出现错误
 		if err then
 			if handler then

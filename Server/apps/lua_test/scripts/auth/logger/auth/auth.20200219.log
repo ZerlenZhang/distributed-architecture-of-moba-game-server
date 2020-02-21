@@ -424,3 +424,55 @@ select uid,unick,usex,uface,uvip,status,is_guest from uinfo where uname="zerlen"
 555
 20200219 17:16:35 Debug../auth/Guest.lua:290  
 1 waaaaa login
+20200219 19:18:02 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200219 19:18:03 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200219 19:18:03 Debug../datebase/redis_center.lua:25  
+connect to redis success
+20200219 19:18:03 Debug../datebase/mysql_center.lua:19  
+connect to mysql success
+20200219 19:18:03 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:52074]
+20200219 19:18:25 Debug../datebase/mysql_center.lua:247  
+select uid,unick,usex,uface,uvip,status,is_guest from uinfo where uname="zerlen" and upwd="202CB962AC59075B964B07152D234B70" limit 1
+20200219 19:18:26 Debug../datebase/mysql_center.lua:249  
+555
+20200219 19:18:26 Debug../auth/Guest.lua:290  
+1 waaaaa login
+20200219 19:45:30 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200219 19:45:30 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200219 19:45:30 Debug../datebase/redis_center.lua:25  
+connect to redis success
+20200219 19:45:30 Debug../datebase/mysql_center.lua:19  
+connect to mysql success
+20200219 19:45:31 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:52443]
+20200219 19:46:24 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200219 19:47:30 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200219 19:47:32 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200219 19:47:32 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200219 19:47:33 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200219 19:47:33 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200219 19:47:34 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200219 19:49:22 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200219 19:49:22 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200219 19:49:22 Debug../datebase/mysql_center.lua:19  
+connect to mysql success
+20200219 19:49:22 Debug../datebase/redis_center.lua:25  
+connect to redis success
+20200219 19:49:22 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:52518]
+20200219 19:49:50 Debug../auth/Guest.lua:290  
+1 sdfa login

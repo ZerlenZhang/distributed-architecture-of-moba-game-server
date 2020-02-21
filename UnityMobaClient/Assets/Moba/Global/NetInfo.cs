@@ -47,5 +47,22 @@ namespace Moba.Global
             NetInfo.uface = uface;
             NetInfo.usex = usex;
         }
+
+        public static UserGameInfo gameInfo { get; private set; } = null;
+
+        /// <summary>
+        /// 保存游戏信息
+        /// </summary>
+        /// <param name="userGameInfo"></param>
+        public static void SaveUgameInfo(UserGameInfo userGameInfo)
+        {
+            gameInfo = userGameInfo;
+        }
+
+        public static void RecvLoginBonues()
+        {
+            gameInfo.ucoin_1 += gameInfo.bonues;
+            gameInfo.bonues_status = 1;
+        }
     }
 }

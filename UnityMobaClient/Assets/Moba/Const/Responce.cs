@@ -9,5 +9,6 @@ namespace Moba.Const
         public const int InvalidParams = -103;
         public const int UnameHasExist = -104;
         public const int UnameOrPwdError = -105;
+        public const int InvalidOprate = -106;
     }
 }

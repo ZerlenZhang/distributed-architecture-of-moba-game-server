@@ -82,7 +82,7 @@ return   {
             local sType,cType,utag = RawCmd.ReadHeader(raw);
             local clientSession = nil;
             --如果是登陆命令的回复
-            if IsLoginReturnRes(cType) then
+            if sType==serviceType.Auth and IsLoginReturnRes(cType) then
                 --print("AAA");
                 --取消tag_sessionDIc中的引用
                 clientSession=tag_sessionDic[utag];
@@ -141,7 +141,7 @@ return   {
                 Session.SendRawPackage(clientSession,raw);
 
                 --如果是注销消息
-                if cType==cmdType.eUserUnregisterRes then
+                if sType==serviceType.Auth and cType==cmdType.eUserUnregisterRes then
                     Session.SetUId(clientSession,0);
                     uid_sessionDic[utag]=nil;
                 end
@@ -158,7 +158,7 @@ return   {
     		end
  
             --如果是登陆请求
-            if IsLoginRequestCmd(cType) then
+            if sType==serviceType.Auth and IsLoginRequestCmd(cType) then
                 utag = Session.GetUTag(s);
                 if utag==0 then
                     --print("is loginRequest");

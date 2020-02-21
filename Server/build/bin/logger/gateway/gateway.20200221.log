@@ -1,0 +1,14 @@
+20200221 13:47:55 Debug../../apps/lua_test/scripts/gateway/gateway_server_main.lua:28  
+Gateway Server [tcp] listen at: 	6080
+20200221 13:47:55 Debug../../apps/lua_test/scripts/gateway/gateway_server_main.lua:40  
+register Gateway Service:[1] service success
+20200221 13:47:55 Debug../../apps/lua_test/scripts/gateway/gateway_server_main.lua:40  
+register Gateway Service:[2] service success
+20200221 13:47:57 Error../../apps/lua_test/scripts/gateway/GatewayService.lua:17  
+connect to server [System Server]127.0.0.18001 failed, reconnecting...
+20200221 13:47:57 Error../../apps/lua_test/scripts/gateway/GatewayService.lua:17  
+connect to server [Auth Server]127.0.0.18000 failed, reconnecting...
+20200221 13:48:02 Error../../apps/lua_test/scripts/gateway/GatewayService.lua:17  
+connect to server [Auth Server]127.0.0.18000 failed, reconnecting...
+20200221 13:48:02 Error../../apps/lua_test/scripts/gateway/GatewayService.lua:17  
+connect to server [System Server]127.0.0.18001 failed, reconnecting...

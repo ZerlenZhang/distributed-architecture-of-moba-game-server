@@ -9,9 +9,9 @@ extern "C" {
 
 #include "tolua_fix.h"
 #include "lua_wrapper.h"
-#include "../utils/timer/time_list.h"
 #include <cstdlib>
 
+#include "../utils/timer/time_list.h"
 #include "../utils/cache_alloc/small_alloc.h"
 #include "../utils/logger/logger.h"
 

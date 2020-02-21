@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+enum MobaCmd{
+	INVALID_LOGIN_CMD = 0;
+	eGetMobaInfoReq = 1;
+	eGetMobaInfoRes = 2;
+	eRecvLoginBonuesReq = 3;
+	eRecvLoginBonuesRes = 4;
+}
+
+message RecvLoginBonuesRes{
+	required int32 status = 1;
+}
+
+message UserGameInfo{
+	required int32 ucoin_1 = 1;
+	required int32 ucoin_2 = 2;
+	required int32 uexp = 3;
+	required int32 uvip = 4;
+	required int32 uitem_1 = 5;
+	required int32 uitem_2 = 6;	
+	required int32 bonues_status = 7;
+	required int32 bonues = 8;
+	required int32 days = 9;
+}
+
+message GetMobaInfoRes{
+	required int32 status = 1;
+	optional UserGameInfo uinfo = 2;
+}

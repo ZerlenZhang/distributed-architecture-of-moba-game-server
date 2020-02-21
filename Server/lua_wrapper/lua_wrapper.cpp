@@ -20,6 +20,7 @@ extern "C" {
 #include "timer_export_to_lua.h"
 #include "netbus_export_to_lua.h"
 #include "cmd_package_proto_export_to_lua.h"
+#include "utils_export_to_lua.h"
 
 lua_State* g_lua = NULL;
 
@@ -149,6 +150,7 @@ void lua_wrapper::Init()
 	register_lua_export(g_lua);
 	register_netbus_export(g_lua);
 	register_package_proto_export(g_lua);
+	register_utils_export(g_lua);
 }
 
 void lua_wrapper::Exit()

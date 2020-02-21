@@ -123,8 +123,10 @@
             <e p="Protocol" t="Include">
               <e p="ChatProtocol.cs" t="Include" />
               <e p="LoginProtocol.cs" t="Include" />
+              <e p="MobaProtocol.cs" t="Include" />
               <e p="ServiceProtocol.cs" t="Include" />
             </e>
+            <e p="UlevelMgr.cs" t="Include" />
           </e>
           <e p="Global" t="Include">
             <e p="GlobalVar.cs" t="Include" />
@@ -132,6 +134,10 @@
           </e>
           <e p="Network" t="Include">
             <e p="NetworkMgr.cs" t="Include" />
+          </e>
+          <e p="Protocol" t="Include">
+            <e p="AuthServiceProxy.cs" t="Include" />
+            <e p="SystemServiceProxy.cs" t="Include" />
           </e>
           <e p="Script" t="Include">
             <e p="Auto" t="Include">
@@ -153,6 +159,7 @@
             </e>
             <e p="ChatPanel.cs" t="Include" />
             <e p="Dlgs" t="Include">
+              <e p="LoginBonuesUi.cs" t="Include" />
               <e p="UserInfoDlg.cs" t="Include" />
             </e>
             <e p="HomePanel.cs" t="Include" />

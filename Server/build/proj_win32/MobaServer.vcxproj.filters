@@ -387,6 +387,9 @@
     <ClCompile Include="..\..\utils\cache_alloc\small_alloc.cpp">
       <Filter>utils\cache_alloc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lua_wrapper\utils_export_to_lua.cpp">
+      <Filter>lua_wrapper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h">
@@ -649,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h">
       <Filter>utils\cache_alloc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lua_wrapper\utils_export_to_lua.h">
+      <Filter>lua_wrapper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

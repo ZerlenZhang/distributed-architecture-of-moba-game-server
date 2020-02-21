@@ -78,7 +78,7 @@ namespace Moba.Network
                 OnAfterSend, this.clientSocket);
         }
 
-        public void SendProtobufCmd(int serviceType, int cmdType, ProtoBuf.IExtensible body)
+        public void SendProtobufCmd(int serviceType, int cmdType, ProtoBuf.IExtensible body=null)
         {
             var cmdPackage = CmdPackageProtocol.PackageProtobuf(serviceType, cmdType, body);
             if (cmdPackage == null)

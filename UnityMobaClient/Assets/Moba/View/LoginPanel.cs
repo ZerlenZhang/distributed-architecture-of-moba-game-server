@@ -1,4 +1,4 @@
-using Moba.Script;
+using Moba.Protocol;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
@@ -15,9 +15,12 @@ namespace Moba.View
 			userName = view["LoginUi/Dlg/UserKey"].GetComponent<InputField>();
 			pwdName = view["LoginUi/Dlg/Pwd"].GetComponent<InputField>();
 
+			userName.text = "zerlen";
+			pwdName.text = "123";
+
 			Assert.IsTrue(userName && pwdName);
 			
-			add_button_listener("GuestLoginBtn",MobaMgr.Instance.GuestLogin);
+			add_button_listener("GuestLoginBtn",AuthServiceProxy.Instance.GuestLogin);
 			add_button_listener("LoginUi/Dlg/TextBtn", Login);
 		}
 
@@ -26,7 +29,7 @@ namespace Moba.View
 			if (string.IsNullOrEmpty(userName.text)
 			    || string.IsNullOrEmpty(pwdName.text))
 				return;
-			MobaMgr.Instance.UserLogin(userName.text, pwdName.text);
+			AuthServiceProxy.Instance.UserLogin(userName.text, pwdName.text);
 		}
 	}
 }

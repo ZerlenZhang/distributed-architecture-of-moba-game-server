@@ -10,12 +10,21 @@ remote_servers[sType.Auth]={
     descrip = "Auth Server",
 };
 
+remote_servers[sType.System]={
+    serviceType = sType.System,
+    ip = "127.0.0.1",
+    port = 8001,
+    descrip = "System Server",
+};
+
+
+
 return {
     gateway_tcp_ip = "127.0.0.1",
     gateway_tcp_port = 6080,
 
     gateway_ws_ip = "127.0.0.1",
-    gateway_ws_port = 8001,
+    gateway_ws_port = 6081,
 
     servers = remote_servers,
 
@@ -27,10 +36,25 @@ return {
     	upwd="Zzl5201314...",
 	},
 
+    game_mysql={
+        host="127.0.0.1",
+        port=3306,
+        dbName="moba_game",
+        uname="root",
+        upwd="Zzl5201314...",
+    },
+
     center_redis={
         host="127.0.0.1",
         port=7999,
         db_index=1,
+        auth="Zzl5201314..."
+    },
+
+    game_redis={
+        host="127.0.0.1",
+        port=7999,
+        db_index=2,
         auth="Zzl5201314..."
     },
 
