@@ -1,7 +1,13 @@
 local config=require("GameConfig");
 local conn=nil;
 
-function redis_connect_to_center()
+local function redis_connect_to_center()
+
+	if conn then
+		return;
+	end
+
+
 	local host = config.center_redis.host;
 	local port = config.center_redis.port;
 	local index = config.center_redis.db_index;
@@ -27,7 +33,7 @@ function redis_connect_to_center()
 		end);
 end
 
-function set_uinfo( uid,uinfo )
+local function set_uinfo( uid,uinfo )
 	if nil==conn then
 		Debug.LogError("redis is not connected yet");
 		return;
@@ -50,7 +56,7 @@ function set_uinfo( uid,uinfo )
 end
 
 --handler: err,uinfo
-function get_uinfo( uid,handler )
+local function get_uinfo( uid,handler )
 	if nil==conn then
 		Debug.LogError("redis is not connected yet");
 		return;
@@ -76,7 +82,7 @@ function get_uinfo( uid,handler )
 		end);
 end
 
-function edit_profile( uid,unick,usex,uface )
+local function edit_profile( uid,unick,usex,uface )
 	get_uinfo(uid,
 		function ( err,uinfo )
 			if err then
@@ -97,4 +103,5 @@ return {
 	GetUinfo=get_uinfo,
 	SetUinfo=set_uinfo,
 	EditProfile=edit_profile,
+	IsConnect=function() return conn~=nil end
 };

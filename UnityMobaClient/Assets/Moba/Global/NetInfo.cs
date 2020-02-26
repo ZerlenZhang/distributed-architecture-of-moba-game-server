@@ -64,5 +64,13 @@ namespace Moba.Global
             gameInfo.ucoin_1 += gameInfo.bonues;
             gameInfo.bonues_status = 1;
         }
+
+
+        public static int zoneId { get; private set; } = -1;
+
+        public static void SetZoneId(int id)
+        {
+            zoneId = id;
+        }
     }
 }

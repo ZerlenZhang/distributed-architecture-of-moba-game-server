@@ -295,11 +295,12 @@ static int lua_register_service(lua_State* lua)
 
 	lua_getfield(lua, 2, "OnSessionRecvCmd");
 	lua_getfield(lua, 2, "OnSessionDisconnected");
-	
+	lua_getfield(lua, 2, "OnSessionConnected");
 	//栈： 3:OnSessionRecvCmd  4:OnSessionDisconnected
 
 	auto recvHandle = save_service_function(lua, 3, 0);
 	auto disHandle = save_service_function(lua, 4, 0);
+	auto connHandle = save_service_function(lua, 5, 0);
 
 	if (recvHandle || disHandle)
 	{// 两个函数不都为零
@@ -307,6 +308,7 @@ static int lua_register_service(lua_State* lua)
 		auto ls = new LuaService();
 		ls->luaDisconnectFuncHandle = disHandle;
 		ls->luaRecvCmdPackageHandle = recvHandle;
+		ls->luaConnFuncHandle = connHandle;
 		ls->luaRecvRawPackageHandle = 0;
 
 		ls->useRawPackage = false;
@@ -336,11 +338,12 @@ static int lua_register_raw_service(lua_State* lua)
 
 	lua_getfield(lua, 2, "OnSessionRecvRaw");
 	lua_getfield(lua, 2, "OnSessionDisconnected");
-
+	lua_getfield(lua, 2, "OnSessionConnected");
 	//栈： 3:OnSessionRecvCmd  4:OnSessionDisconnected
 
 	auto recvHandle = save_service_function(lua, 3, 0);
 	auto disHandle = save_service_function(lua, 4, 0);
+	auto connHandle = save_service_function(lua, 5, 0);
 
 	if (recvHandle || disHandle)
 	{// 两个函数不都为零
@@ -348,6 +351,7 @@ static int lua_register_raw_service(lua_State* lua)
 		auto ls = new LuaService();
 		ls->luaDisconnectFuncHandle = disHandle;
 		ls->luaRecvCmdPackageHandle = 0;
+		ls->luaConnFuncHandle = connHandle;
 		ls->luaRecvRawPackageHandle = recvHandle;
 
 		ls->useRawPackage = true;
@@ -394,6 +398,11 @@ bool LuaService::OnSessionRecvRawPackage(const AbstractSession* session, const R
 	tolua_pushuserdata(lua, (void*)session);
 	tolua_pushuserdata(lua, (void*)package);
 
+	if (luaRecvRawPackageHandle == 0)
+	{
+		log_error("OnSessionRecvCmdPackage：luaRecvRawPackageHandle==0");
+		return false;
+	}
 	execute_service_function(this->luaRecvRawPackageHandle, 2);
 	return true;
 }
@@ -430,6 +439,11 @@ bool LuaService::OnSessionRecvCmdPackage(const AbstractSession* session, const C
 		}
 	}
 	lua_rawseti(lua, -2, index++);
+	if (luaRecvCmdPackageHandle == 0)
+	{
+		log_error("OnSessionRecvCmdPackage：luaRecvCmdPackageHandle==0");
+		return false;
+	}
 	execute_service_function(this->luaRecvCmdPackageHandle, 2);
 	return true;
 }
@@ -438,6 +452,20 @@ bool LuaService::OnSessionDisconnected(const AbstractSession* session, const int
 {
 	tolua_pushuserdata(lua_wrapper::lua_state(),(void*) session);
 	tolua_pushnumber(lua_wrapper::lua_state(), serviceType);
+
+	if (luaDisconnectFuncHandle == 0)
+	{
+		log_error("OnSessionRecvCmdPackage：luaDisconnectFuncHandle==0");
+		return false;
+	}
 	execute_service_function(this->luaDisconnectFuncHandle, 2);
 	return true;
+}
+
+void LuaService::OnSessionConnected(const AbstractSession* session, const int& serviceType) const
+{
+	tolua_pushuserdata(lua_wrapper::lua_state(), (void*)session);
+	tolua_pushnumber(lua_wrapper::lua_state(), serviceType);
+	if(this->luaConnFuncHandle)
+		execute_service_function(this->luaConnFuncHandle, 2);
 }

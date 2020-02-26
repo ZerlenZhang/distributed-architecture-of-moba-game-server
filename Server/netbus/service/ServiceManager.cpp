@@ -77,3 +77,17 @@ void ServiceManager::OnSessionDisconnected(const AbstractSession* session)
 		service->OnSessionDisconnected(session,index);
 	}
 }
+
+void ServiceManager::OnSessionConnect(const AbstractSession* session)
+{
+	auto index = -1;
+	for (auto service : g_serviceSet)
+	{
+		index++;
+		if (service == NULL)
+		{
+			continue;
+		}
+		service->OnSessionConnected(session, index);
+	}
+}

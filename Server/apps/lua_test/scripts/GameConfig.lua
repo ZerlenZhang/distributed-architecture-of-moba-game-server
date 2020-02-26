@@ -1,5 +1,6 @@
 local sType = require("ServiceType");
 
+
 local remote_servers={};
 
 --注册服务所部署的IP地址和端口
@@ -15,6 +16,13 @@ remote_servers[sType.System]={
     ip = "127.0.0.1",
     port = 8001,
     descrip = "System Server",
+};
+
+remote_servers[sType.Logic]={
+    serviceType = sType.Logic,
+    ip = "127.0.0.1",
+    port = 8002,
+    descrip = "Logic Server",
 };
 
 

@@ -13,6 +13,7 @@ class LuaService :
 {
 public:
 	unsigned int luaRecvCmdPackageHandle;
+	unsigned int luaConnFuncHandle;
 	unsigned int luaDisconnectFuncHandle;
 	unsigned int luaRecvRawPackageHandle;
 
@@ -23,6 +24,9 @@ public:
 	virtual bool OnSessionRecvCmdPackage(const AbstractSession* session, const CmdPackage* package)const override;
 	//Session关闭时调用
 	virtual bool OnSessionDisconnected(const AbstractSession* session,const int& serviceType)const override;
+
+	virtual void OnSessionConnected(const AbstractSession* session, const int& serviceType)const override;
+	
 };
 
 

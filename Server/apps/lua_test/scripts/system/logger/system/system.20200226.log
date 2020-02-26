@@ -1,0 +1,46 @@
+20200226 22:55:30 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200226 22:55:30 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200226 22:55:30 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200226 22:55:30 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200226 22:55:35 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:50542]
+20200226 22:55:53 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200226 22:55:56 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../system/SystemLogic.lua:210: attempt to call a nil value (field 'AddCoin1')
+20200226 22:57:38 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200226 22:57:51 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200226 22:57:51 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200226 22:57:51 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200226 22:57:51 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200226 22:57:51 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:50967]
+20200226 22:58:00 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200226 22:58:28 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200226 23:07:40 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200226 23:07:40 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200226 23:07:40 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200226 23:07:40 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200226 23:07:43 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:52893]
+20200226 23:07:53 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200226 23:08:07 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200226 23:08:59 Debug../system/SystemLogic.lua:36  
+check_login_bonues

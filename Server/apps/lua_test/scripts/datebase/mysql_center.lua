@@ -2,7 +2,12 @@ local config=require("GameConfig");
 local mysqlConn=nil;
 
 --链接数据库
-function mysql_connect_to_auth_center()
+local function mysql_connect_to_auth_center()
+
+	if mysqlConn then
+		return;
+	end
+
 	local authConfig = config.auth_mysql;
 	Mysql.Connect(
 		authConfig.host,
@@ -287,4 +292,5 @@ return {
 	EditProfile=edit_profile,
 	CheckUnameExist=check_uname_exist,
 	GuestAccountUpgrade =guest_account_upgrade,
+	IsConnect=function() return mysqlConn~=nil end
 };

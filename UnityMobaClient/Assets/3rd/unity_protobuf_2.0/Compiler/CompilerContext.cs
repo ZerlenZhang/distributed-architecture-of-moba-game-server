@@ -225,12 +225,12 @@ namespace ProtoBuf.Compiler
             {
                 if (methodPairs[i].MetaKey == metaKey) { return read ? methodPairs[i].Deserialize : methodPairs[i].Serialize; }
             }
-            throw new ArgumentException("Meta-key not found", "metaKey");
+            throw new ArgumentException("Meta-tab not found", "metaKey");
         }
 
         internal int MapMetaKeyToCompiledKey(int metaKey)
         {
-            if (metaKey < 0 || methodPairs == null) return metaKey; // all meta, or a dummy/wildcard key
+            if (metaKey < 0 || methodPairs == null) return metaKey; // all meta, or a dummy/wildcard tab
 
             for (int i = 0; i < methodPairs.Length; i++)
             {

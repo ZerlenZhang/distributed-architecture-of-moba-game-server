@@ -88,7 +88,7 @@ namespace ProtoBuf.Serializers
 #if SILVERLIGHT
             return false;
 #else
-            MethodBuilder method = ctx.GetDedicatedMethod(key, read);
+            MethodBuilder method = ctx.GetDedicatedMethod(tab, read);
             if (method == null) return false;
 
             using (Compiler.Local token = new ProtoBuf.Compiler.Local(ctx, ctx.MapType(typeof(SubItemToken))))
@@ -124,7 +124,7 @@ namespace ProtoBuf.Serializers
             {
                 ctx.LoadValue(valueFrom);
                 if (type.IsValueType) ctx.CastToObject(type);
-                ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(key)); // re-map for formality, but would expect identical, else dedicated method
+                ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(tab)); // re-map for formality, but would expect identical, else dedicated method
                 ctx.LoadReaderWriter();
                 ctx.EmitCall(ctx.MapType(typeof(ProtoWriter)).GetMethod(recursionCheck ?  "WriteObject" : "WriteRecursionSafeObject"));
             }
@@ -135,7 +135,7 @@ namespace ProtoBuf.Serializers
             {
                 ctx.LoadValue(valueFrom);
                 if (type.IsValueType) ctx.CastToObject(type);
-                ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(key)); // re-map for formality, but would expect identical, else dedicated method
+                ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(tab)); // re-map for formality, but would expect identical, else dedicated method
                 ctx.LoadReaderWriter();
                 ctx.EmitCall(ctx.MapType(typeof(ProtoReader)).GetMethod("ReadObject"));
                 ctx.CastFromObject(type);

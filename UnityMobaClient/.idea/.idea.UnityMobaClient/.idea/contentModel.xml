@@ -118,10 +118,12 @@
             <e p="Message.cs" t="Include" />
             <e p="PrefKey.cs" t="Include" />
             <e p="Responce.cs" t="Include" />
+            <e p="ZoneId.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
             <e p="Protocol" t="Include">
               <e p="ChatProtocol.cs" t="Include" />
+              <e p="LogicProtocol.cs" t="Include" />
               <e p="LoginProtocol.cs" t="Include" />
               <e p="MobaProtocol.cs" t="Include" />
               <e p="ServiceProtocol.cs" t="Include" />
@@ -137,6 +139,7 @@
           </e>
           <e p="Protocol" t="Include">
             <e p="AuthServiceProxy.cs" t="Include" />
+            <e p="LogicServiceProxy.cs" t="Include" />
             <e p="SystemServiceProxy.cs" t="Include" />
           </e>
           <e p="Script" t="Include">
@@ -160,6 +163,7 @@
             <e p="ChatPanel.cs" t="Include" />
             <e p="Dlgs" t="Include">
               <e p="LoginBonuesUi.cs" t="Include" />
+              <e p="MatchUi.cs" t="Include" />
               <e p="UserInfoDlg.cs" t="Include" />
             </e>
             <e p="HomePanel.cs" t="Include" />
@@ -303,8 +307,11 @@
             <e p="DebugInfo.cs" t="Include" />
             <e p="Editor" t="Include">
               <e p="AbstractCharacterControllerEditor.cs" t="Include" />
+              <e p="TabBarEditor.cs" t="Include" />
+              <e p="TabPairDrawer.cs" t="Include" />
             </e>
             <e p="MainLoop.cs" t="Include" />
+            <e p="TabBar.cs" t="Include" />
             <e p="TriggerContainer3D.cs" t="Include" />
             <e p="TriggerInputer.cs" t="Include" />
             <e p="TypeWriterEffect.cs" t="Include" />

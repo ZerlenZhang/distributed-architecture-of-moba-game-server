@@ -83,7 +83,7 @@ namespace ReadyGamerOne.Data
 			return objDic[dataKey];
 		}
 		/// <summary>
-		/// 根据T，key 获取一条数据
+		/// 根据T，tab 获取一条数据
 		/// </summary>
 		/// <param name="key"></param>
 		/// <param name="filePath"></param>

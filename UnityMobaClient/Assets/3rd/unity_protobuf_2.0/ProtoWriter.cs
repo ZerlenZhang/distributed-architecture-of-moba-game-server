@@ -24,10 +24,10 @@ namespace ProtoBuf
         private Stream dest;
         TypeModel model;
         /// <summary>
-        /// Write an encapsulated sub-object, using the supplied unique key (reprasenting a type).
+        /// Write an encapsulated sub-object, using the supplied unique tab (reprasenting a type).
         /// </summary>
         /// <param name="value">The object to write.</param>
-        /// <param name="key">The key that uniquely identifies the type within the model.</param>
+        /// <param name="key">The tab that uniquely identifies the type within the model.</param>
         /// <param name="writer">The destination.</param>
         public static void WriteObject(object value, int key, ProtoWriter writer)
         {
@@ -57,12 +57,12 @@ namespace ProtoBuf
 #endif 
         }
         /// <summary>
-        /// Write an encapsulated sub-object, using the supplied unique key (reprasenting a type) - but the
+        /// Write an encapsulated sub-object, using the supplied unique tab (reprasenting a type) - but the
         /// caller is asserting that this relationship is non-recursive; no recursion check will be
         /// performed.
         /// </summary>
         /// <param name="value">The object to write.</param>
-        /// <param name="key">The key that uniquely identifies the type within the model.</param>
+        /// <param name="key">The tab that uniquely identifies the type within the model.</param>
         /// <param name="writer">The destination.</param>
         public static void WriteRecursionSafeObject(object value, int key, ProtoWriter writer)
         {

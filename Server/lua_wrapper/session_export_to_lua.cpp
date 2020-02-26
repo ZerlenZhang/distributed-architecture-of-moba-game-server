@@ -402,8 +402,11 @@ static int lua_session_sendpackage(lua_State* lua)
 	CmdPackage msg;
 
 	auto num = luaL_len(lua, 2);
-	if (num != 4)
+	if (num != 4 && num != 3)
+	{
+		log_error("Session.SendPackage²ÎÊý´íÎó")
 		return 0;
+	}
 
 	lua_pushnumber(lua, 1);
 	lua_gettable(lua, 2);
@@ -419,6 +422,13 @@ static int lua_session_sendpackage(lua_State* lua)
 	lua_gettable(lua, 2);
 	msg.userTag = luaL_checkinteger(lua, -1);
 	lua_pop(lua, 1);
+
+	if (num == 3)
+	{
+		msg.body = NULL;
+		session->SendCmdPackage(&msg);
+		return 0;
+	}
 
 	lua_pushnumber(lua, 4);
 	lua_gettable(lua, 2);

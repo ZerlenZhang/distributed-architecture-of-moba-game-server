@@ -71,7 +71,7 @@ namespace ReadyGamerOne.Data
             while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
             {
                 reader.ReadStartElement("item");
-                reader.ReadStartElement("key");
+                reader.ReadStartElement("tab");
                 TKey key = (TKey)keySerializer.Deserialize(reader);
                 reader.ReadEndElement();
                 reader.ReadStartElement("value");
@@ -96,7 +96,7 @@ namespace ReadyGamerOne.Data
             foreach (TKey key in this.Keys)
             {
                 writer.WriteStartElement("item");
-                writer.WriteStartElement("key");
+                writer.WriteStartElement("tab");
                 keySerializer.Serialize(writer, key);
                 writer.WriteEndElement();
                 writer.WriteStartElement("value");

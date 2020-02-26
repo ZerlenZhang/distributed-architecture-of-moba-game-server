@@ -1,0 +1,763 @@
+20200225 19:04:12 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:04:12 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:04:12 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:04:12 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:04:18 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:63175]
+20200225 19:04:18 Debug../logic/GameMgr.lua:194  
+gateway connect to logic
+20200225 19:04:32 Debug../logic/GameMgr.lua:153  
+Player [ 1 ] come in
+20200225 19:07:24 Debug../logic/GameMgr.lua:179  
+Player [ 1 ] leave
+20200225 19:09:33 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:09:33 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:09:33 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:09:33 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:09:36 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:63964]
+20200225 19:09:36 Debug../logic/GameMgr.lua:194  
+gateway connect to logic
+20200225 19:10:02 Debug../logic/GameMgr.lua:153  
+Player [ 1 ] come in
+20200225 19:13:27 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:13:27 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:13:27 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:13:27 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:13:29 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:64530]
+20200225 19:13:29 Debug../logic/GameMgr.lua:194  
+gateway connect to logic
+20200225 19:13:40 Debug../logic/GameMgr.lua:153  
+Player [ 1 ] come in
+20200225 19:17:07 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:17:07 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:17:07 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:17:07 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:17:09 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:65036]
+20200225 19:17:09 Debug../logic/GameMgr.lua:194  
+gateway connect to logic
+20200225 19:17:18 Debug../logic/GameMgr.lua:153  
+Player [ 1 ] come in
+20200225 19:18:07 Debug../logic/GameMgr.lua:179  
+Player [ 1 ] leave
+20200225 19:41:00 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:41:00 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:41:00 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:41:00 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:41:03 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:51931]
+20200225 19:41:03 Debug../logic/GameMgr.lua:209  
+gateway connect to logic
+20200225 19:41:18 Debug../logic/GameMgr.lua:168  
+Player [ 1 ] come in
+20200225 19:41:38 Debug../logic/GameMgr.lua:194  
+Player [ 1 ] leave
+20200225 19:44:41 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:44:41 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:44:41 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:44:41 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:44:43 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:52461]
+20200225 19:44:43 Debug../logic/GameMgr.lua:209  
+gateway connect to logic
+20200225 19:46:04 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:46:04 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:46:04 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:46:04 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:46:06 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:52651]
+20200225 19:46:06 Debug../logic/GameMgr.lua:210  
+gateway connect to logic
+20200225 19:47:28 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:47:28 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:47:28 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:47:28 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200225 19:47:28 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:47:33 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:52845]
+20200225 19:47:33 Debug../logic/GameMgr.lua:211  
+gateway connect to logic
+20200225 19:47:33 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:47:38 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:47:43 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:47:48 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:47:53 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:47:58 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:48:03 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:48:08 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:51:56 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:51:56 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:51:56 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:51:56 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 19:51:56 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 19:51:56 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 19:51:56 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 19:52:01 Debug../logic/GameMgr.lua:60  
+_load_robots
+20200225 19:52:01 Debug../logic/GameMgr.lua:39  
+_do_load_robot_ugame_info
+20200225 19:53:24 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:53:24 Debug../logic/GameMgr.lua:62  
+_load_robots
+20200225 19:53:24 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:53:24 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 19:53:24 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 19:53:24 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 19:53:24 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 19:53:29 Debug../logic/GameMgr.lua:62  
+_load_robots
+20200225 19:53:29 Debug../logic/GameMgr.lua:39  
+_do_load_robot_ugame_info
+20200225 19:54:37 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:54:37 Debug../logic/GameMgr.lua:64  
+_load_robots
+20200225 19:54:37 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:54:37 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 19:54:37 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 19:54:37 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 19:54:37 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 19:54:42 Debug../logic/GameMgr.lua:64  
+_load_robots
+20200225 19:54:42 Debug../logic/GameMgr.lua:39  
+_do_load_robot_ugame_info
+20200225 19:55:28 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:55:28 Debug../logic/GameMgr.lua:64  
+_load_robots
+20200225 19:55:28 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:55:28 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 19:55:28 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 19:55:28 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 19:55:28 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 19:55:33 Debug../logic/GameMgr.lua:64  
+_load_robots
+20200225 19:55:33 Debug../logic/GameMgr.lua:39  
+_do_load_robot_ugame_info
+20200225 19:55:33 Error../logic/GameMgr.lua:47  
+not ret or #ret<=0
+20200225 19:59:04 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 19:59:04 Debug../logic/GameMgr.lua:64  
+_load_robots
+20200225 19:59:04 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 19:59:04 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 19:59:04 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 19:59:04 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 19:59:04 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 19:59:09 Debug../logic/GameMgr.lua:64  
+_load_robots
+20200225 19:59:09 Debug../logic/GameMgr.lua:39  
+_do_load_robot_ugame_info
+20200225 19:59:09 Debug../datebase/mysql_game.lua:294  
+Get data :	2
+20200225 19:59:09 Error../logic/GameMgr.lua:47  
+not ret or #ret<=0
+20200225 20:00:17 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 20:00:17 Debug../logic/GameMgr.lua:62  
+_load_robots
+20200225 20:00:17 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 20:00:17 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 20:00:17 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 20:00:17 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 20:00:17 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 20:00:22 Debug../logic/GameMgr.lua:62  
+_load_robots
+20200225 20:00:22 Debug../logic/GameMgr.lua:39  
+_do_load_robot_ugame_info
+20200225 20:00:22 Debug../datebase/mysql_game.lua:294  
+Get data :	2
+20200225 20:00:22 Debug../logic/GameMgr.lua:33  
+4 info enter redis
+20200225 20:00:22 Debug../logic/GameMgr.lua:33  
+1 info enter redis
+20200225 20:01:46 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 20:01:46 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 20:01:46 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 20:01:46 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 20:01:46 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 20:01:46 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 20:01:51 Debug../datebase/mysql_game.lua:294  
+Get data :	2
+20200225 20:01:51 Debug../logic/GameMgr.lua:33  
+Robot[ 4 ] info enter redis
+20200225 20:01:51 Debug../logic/GameMgr.lua:33  
+Robot[ 1 ] info enter redis
+20200225 20:02:08 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 20:02:08 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 20:02:08 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 20:02:08 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 20:02:08 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 20:02:08 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 20:02:13 Debug../logic/GameMgr.lua:33  
+Robot[ 4 ] info enter redis
+20200225 20:02:13 Debug../logic/GameMgr.lua:33  
+Robot[ 1 ] info enter redis
+20200225 20:51:49 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 20:51:49 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 20:51:49 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 20:51:49 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 20:51:49 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 20:51:49 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 20:51:54 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/RobotPlayer.lua:15: attempt to call a nil value (field 'setmetatable')
+20200225 20:52:27 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 20:52:27 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 20:52:27 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 20:52:27 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 20:52:27 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 20:52:27 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 20:52:32 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 20:52:32 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:00:31 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:00:31 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:00:31 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:00:31 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:00:31 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:00:31 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:00:33 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:62632]
+20200225 21:00:33 Debug../logic/GameMgr.lua:274  
+gateway connect to logic
+20200225 21:00:36 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:00:36 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:00:54 Debug../logic/GameMgr.lua:233  
+Player [ 1 ] come in
+20200225 21:01:00 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:06:30 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:06:30 Errortrunk:0  
+error loading module 'logic/GameMgr' from file '../logic/GameMgr.lua':
+	../logic/GameMgr.lua:155: function arguments expected near 'then'
+20200225 21:06:32 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:63437]
+20200225 21:07:05 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:07:05 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:07:05 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:07:05 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:07:05 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:07:05 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:07:07 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:63520]
+20200225 21:07:07 Debug../logic/GameMgr.lua:274  
+gateway connect to logic
+20200225 21:07:10 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:07:10 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:07:20 Debug../logic/GameMgr.lua:233  
+Player [ 1 ] come in
+20200225 21:07:26 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:07:26 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:28 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:30 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:31 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:07:32 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:34 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:36 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:07:36 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:38 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:40 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:41 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:07:42 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:44 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:46 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:07:46 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:48 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:50 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:51 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:07:52 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:54 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:56 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:07:56 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:07:58 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:10:51 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:10:51 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:10:51 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:10:51 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:10:51 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:10:51 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:10:52 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:64086]
+20200225 21:10:52 Debug../logic/GameMgr.lua:272  
+gateway connect to logic
+20200225 21:10:56 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:10:56 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:11:08 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] ../logic/GameMgr.lua:222: attempt to call a table value (upvalue 'Player')
+20200225 21:12:06 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:12:06 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:12:06 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:12:06 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:12:06 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:12:06 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:12:07 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:64252]
+20200225 21:12:07 Debug../logic/GameMgr.lua:273  
+gateway connect to logic
+20200225 21:12:11 Error../datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200225 21:12:11 Error../datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200225 21:12:11 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:12:11 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:12:11 Error../datebase/redis_center.lua:51  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200225 21:12:11 Error../datebase/redis_center.lua:51  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200225 21:12:36 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:12:36 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:12:36 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:12:36 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:12:36 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:12:36 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:12:39 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:64336]
+20200225 21:12:39 Debug../logic/GameMgr.lua:273  
+gateway connect to logic
+20200225 21:12:41 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:12:41 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:12:50 Debug../logic/GameMgr.lua:232  
+Player [ 1 ] come in
+20200225 21:12:55 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:12:57 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:12:57 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:12:59 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:13:01 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:13:02 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:13:03 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:13:05 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:13:07 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:13:07 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:13:09 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:13:11 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:15:53 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:15:53 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:15:53 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:15:53 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:15:53 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:15:53 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:15:55 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:64779]
+20200225 21:15:55 Debug../logic/GameMgr.lua:275  
+gateway connect to logic
+20200225 21:15:58 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:15:58 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:16:09 Debug../logic/GameMgr.lua:234  
+Player [ 1 ] come in
+20200225 21:16:13 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:16:15 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:16:15 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:16:17 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:16:19 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:16:20 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:16:21 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:16:23 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:125: attempt to call a nil value (method 'AddPlayer')
+20200225 21:16:23 Debug../logic/GameMgr.lua:260  
+Player [ 1 ] leave
+20200225 21:20:13 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:20:13 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:20:13 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:20:13 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:20:13 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:20:13 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:20:16 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:65482]
+20200225 21:20:16 Debug../logic/GameMgr.lua:276  
+gateway connect to logic
+20200225 21:20:18 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:20:18 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:20:22 Debug../logic/GameMgr.lua:235  
+Player [ 1 ] come in
+20200225 21:20:28 Debug../logic/GameMgr.lua:125  
+room id: 	-1	1
+20200225 21:20:28 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:126: attempt to call a nil value (method 'AddPlayer')
+20200225 21:20:29 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:20:30 Debug../logic/GameMgr.lua:125  
+room id: 	-1	1
+20200225 21:20:30 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:126: attempt to call a nil value (method 'AddPlayer')
+20200225 21:20:32 Debug../logic/GameMgr.lua:125  
+room id: 	-1	1
+20200225 21:20:32 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:126: attempt to call a nil value (method 'AddPlayer')
+20200225 21:20:34 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:20:34 Debug../logic/GameMgr.lua:125  
+room id: 	-1	1
+20200225 21:20:34 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:126: attempt to call a nil value (method 'AddPlayer')
+20200225 21:20:36 Debug../logic/GameMgr.lua:125  
+room id: 	-1	1
+20200225 21:26:58 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:26:58 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:26:58 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:26:58 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:26:58 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:26:58 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:27:03 Debug../logic/GameMgr.lua:63  
+Robot[ 4 ] info enter redis
+20200225 21:27:03 Debug../logic/GameMgr.lua:63  
+Robot[ 1 ] info enter redis
+20200225 21:27:04 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:50099]
+20200225 21:27:04 Debug../logic/GameMgr.lua:280  
+gateway connect to logic
+20200225 21:27:21 Debug../logic/GameMgr.lua:239  
+Player [ 1 ] come in
+20200225 21:27:27 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:27 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:29 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:27:29 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:29 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:31 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:31 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:33 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:33 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:34 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:27:35 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:35 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:37 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:37 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:39 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:27:39 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:40 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:42 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:42 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:44 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:27:44 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:128: attempt to call a nil value (method 'AddPlayer')
+20200225 21:27:44 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] attempt to index a nil value
+20200225 21:27:46 Debug../logic/GameMgr.lua:123  
+find room	-1	1
+20200225 21:36:00 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:36:00 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:36:00 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:36:00 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:36:00 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:36:00 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:36:01 Debug../logic/GameMgr.lua:119  
+zoneType	1	rooms	0
+20200225 21:36:01 Debug../logic/GameMgr.lua:119  
+zoneType	2	rooms	0
+20200225 21:36:03 Debug../logic/GameMgr.lua:119  
+zoneType	1	rooms	0
+20200225 21:36:03 Debug../logic/GameMgr.lua:119  
+zoneType	2	rooms	0
+20200225 21:36:05 Debug../logic/GameMgr.lua:119  
+zoneType	1	rooms	0
+20200225 21:36:05 Debug../logic/GameMgr.lua:119  
+zoneType	2	rooms	0
+20200225 21:36:05 Debug../logic/GameMgr.lua:62  
+Robot[ 4 ] info enter redis
+20200225 21:36:05 Debug../logic/GameMgr.lua:62  
+Robot[ 1 ] info enter redis
+20200225 21:36:07 Debug../logic/GameMgr.lua:119  
+zoneType	1	rooms	0
+20200225 21:36:07 Debug../logic/GameMgr.lua:119  
+zoneType	2	rooms	0
+20200225 21:36:09 Debug../logic/GameMgr.lua:119  
+zoneType	1	rooms	0
+20200225 21:36:09 Debug../logic/GameMgr.lua:119  
+zoneType	2	rooms	0
+20200225 21:36:11 Debug../logic/GameMgr.lua:119  
+zoneType	1	rooms	0
+20200225 21:36:11 Debug../logic/GameMgr.lua:119  
+zoneType	2	rooms	0
+20200225 21:36:27 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200225 21:36:27 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200225 21:36:27 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200225 21:36:27 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:36:27 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200225 21:36:27 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:36:30 Debug../logic/logic_server_main.lua:32  
+new client come [127.0.0.1:51794]
+20200225 21:36:30 Debug../logic/GameMgr.lua:278  
+gateway connect to logic
+20200225 21:36:32 Debug../logic/GameMgr.lua:62  
+Robot[ 4 ] info enter redis
+20200225 21:36:32 Debug../logic/GameMgr.lua:62  
+Robot[ 1 ] info enter redis
+20200225 21:36:45 Debug../logic/GameMgr.lua:237  
+Player [ 1 ] come in
+20200225 21:36:53 Debug../logic/MatchMgr.lua:38  
+room init 	1	1
+20200225 21:36:53 Debug../logic/GameMgr.lua:159  
+create room	1
+20200225 21:36:53 Debug../logic/MatchMgr.lua:57  
+add player: 	sdfa
+20200225 21:36:54 Debug../logic/GameMgr.lua:123  
+find room	1	1
+20200225 21:36:54 Debug../logic/MatchMgr.lua:57  
+add player: 	gst415252
+20200225 21:36:54 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/MatchMgr.lua:98: attempt to call a nil value (method 'GetInfo')
+20200225 21:36:56 Debug../logic/GameMgr.lua:123  
+find room	1	1
+20200225 21:36:56 Debug../logic/MatchMgr.lua:57  
+add player: 	gst415252
+20200225 21:36:58 Debug../logic/GameMgr.lua:123  
+find room	1	1
+20200225 21:36:58 Debug../logic/MatchMgr.lua:57  
+add player: 	gst415252
+20200225 21:37:00 Debug../logic/GameMgr.lua:123  
+find room	1	1
+20200225 21:37:00 Debug../logic/MatchMgr.lua:57  
+add player: 	gst415252
+20200225 21:37:02 Debug../logic/GameMgr.lua:123  
+find room	1	1
+20200225 21:37:02 Debug../logic/MatchMgr.lua:57  
+add player: 	gst415252
+20200225 21:37:04 Debug../logic/GameMgr.lua:123  
+find room	1	1
+20200225 21:37:04 Debug../logic/MatchMgr.lua:57  
+add player: 	gst415252
+20200225 21:37:06 Debug../logic/GameMgr.lua:123  
+find room	1	1
+20200225 21:37:06 Debug../logic/MatchMgr.lua:57  
+add player: 	gst415252
+20200225 21:37:08 Debug../logic/GameMgr.lua:123  
+find room	1	1

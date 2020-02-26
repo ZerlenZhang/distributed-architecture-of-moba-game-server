@@ -8,7 +8,7 @@ local connectingSession={};
 
 
 --连接到指定服务器
-function ConnectToServer(sType,ip,port)
+local function ConnectToServer(sType,ip,port)
 	Netbus.TcpConnect(ip,port,
 		--链接成功的回调
 		function(err,session)
@@ -25,7 +25,7 @@ end
 
 
 --检查服务器的链接
-function CheckServerConnect()
+local function CheckServerConnect()
 	-- 检查服务的链接，每秒进行一次
 	for k,v in pairs(config.servers) do
 		if sessionDic[v.serviceType]==nil 
@@ -40,7 +40,7 @@ end
 
 
 --初始化网关服务器
-function GatewayServiceInit()
+local function GatewayServiceInit()
 	for k,v in pairs(config.servers) do
 		sessionDic[v.serviceType]=nil;
 		connectingSession[v.serviceType]=false;
@@ -59,7 +59,7 @@ local cmdType = require("auth/Const/CmdType");
 local serviceType = require("ServiceType");
 local responce = require("Respones");
 
-function IsLoginReturnRes( cType )
+local function IsLoginReturnRes( cType )
     if cmdType.eGuestLoginRes == cType
     or cmdType.eUserLoginRes == cType then
         return true;
@@ -67,7 +67,7 @@ function IsLoginReturnRes( cType )
     return false;
 end
 
-function IsLoginRequestCmd( ctype )
+local function IsLoginRequestCmd( ctype )
     if cmdType.eGuestLoginReq == ctype
         or cmdType.eUserLoginReq == ctype then
         return true;

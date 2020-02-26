@@ -55,7 +55,7 @@ namespace ProtoBuf.Serializers
             ctx.LoadValue(valueFrom);
             ctx.CastToObject(type);
             ctx.LoadReaderWriter();
-            ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(key));
+            ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(tab));
             if (type ==  ctx.MapType(typeof(object))) ctx.LoadNullRef();
             else ctx.LoadValue(type);
             ctx.LoadValue((int)options);
@@ -67,7 +67,7 @@ namespace ProtoBuf.Serializers
             ctx.LoadValue(valueFrom);
             ctx.CastToObject(type);
             ctx.LoadReaderWriter();
-            ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(key));
+            ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(tab));
             ctx.LoadValue((int)options);
             ctx.EmitCall(ctx.MapType(typeof(BclHelpers)).GetMethod("WriteNetObject"));
         }

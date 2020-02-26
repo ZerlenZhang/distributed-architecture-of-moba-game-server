@@ -1,3 +1,4 @@
+using Moba.Global;
 using Moba.Protocol;
 using UnityEngine;
 
@@ -5,10 +6,12 @@ namespace Moba.View.Dlgs
 {
     public class LoginBonuesUi : MonoBehaviour
     {
+        public GameObject recvBtn;
 
         public GameObject[] fingerPrints;
         public void ShowLoginBonues(int days)
         {
+            print(days);
             int i;
             for ( i = 0; i < days; i++)
             {
@@ -19,18 +22,22 @@ namespace Moba.View.Dlgs
             {
                 this.fingerPrints[i].SetActive(false);
             }
+
+
+            this.recvBtn.SetActive(NetInfo.gameInfo.bonues_status == 0);
         }
 
         public void OnRecvLoginBonuesClick()
         {
-            this.gameObject.SetActive(false);
             SystemServiceProxy.Instance.RecvLoginBonues();
+            Destroy(this.gameObject);
         }
 
 
         public void OnClose()
         {
             this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
         
     }

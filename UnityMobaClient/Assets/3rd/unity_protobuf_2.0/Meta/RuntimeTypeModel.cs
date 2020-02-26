@@ -703,7 +703,7 @@ namespace ProtoBuf.Meta
         private readonly BasicList types = new BasicList();
 
         /// <summary>
-        /// Provides the key that represents a given type in the current model.
+        /// Provides the tab that represents a given type in the current model.
         /// </summary>
         protected override int GetKeyImpl(Type type)
         {
@@ -811,9 +811,9 @@ namespace ProtoBuf.Meta
         //{   // this list is thread-safe for reading
         //    .Serializer;
         //}
-        //internal override IProtoSerializer GetTypeSerializer(int key)
+        //internal override IProtoSerializer GetTypeSerializer(int tab)
         //{   // this list is thread-safe for reading
-        //    MetaType type = (MetaType)types.TryGet(key);
+        //    MetaType type = (MetaType)types.TryGet(tab);
         //    if (type != null) return type.Serializer;
         //    throw new KeyNotFoundException();
 
@@ -1012,16 +1012,16 @@ namespace ProtoBuf.Meta
 
 #if FEAT_IKVM
             /// <summary>
-            /// The name of the container that holds the key pair.
+            /// The name of the container that holds the tab pair.
             /// </summary>
             public string KeyContainer { get; set; }
             /// <summary>
-            /// The path to a file that hold the key pair.
+            /// The path to a file that hold the tab pair.
             /// </summary>
             public string KeyFile { get; set; }
 
             /// <summary>
-            /// The public  key to sign the file with.
+            /// The public  tab to sign the file with.
             /// </summary>
             public string PublicKey { get; set; }
 #endif
@@ -1262,7 +1262,7 @@ namespace ProtoBuf.Meta
         {
             il = Override(type, "Serialize");
             Compiler.CompilerContext ctx = new Compiler.CompilerContext(il, false, true, methodPairs, this, ilVersion, assemblyName, MapType(typeof(object)));
-            // arg0 = this, arg1 = key, arg2=obj, arg3=dest
+            // arg0 = this, arg1 = tab, arg2=obj, arg3=dest
             Compiler.CodeLabel[] jumpTable = new Compiler.CodeLabel[types.Count];
             for (int i = 0; i < jumpTable.Length; i++)
             {
@@ -1284,7 +1284,7 @@ namespace ProtoBuf.Meta
 
             il = Override(type, "Deserialize");
             ctx = new Compiler.CompilerContext(il, false, false, methodPairs, this, ilVersion, assemblyName, MapType(typeof(object)));
-            // arg0 = this, arg1 = key, arg2=obj, arg3=source
+            // arg0 = this, arg1 = tab, arg2=obj, arg3=source
             for (int i = 0; i < jumpTable.Length; i++)
             {
                 jumpTable[i] = ctx.DefineLabel();
@@ -1392,7 +1392,7 @@ namespace ProtoBuf.Meta
                                 if (lastKey != methodPairs[i].BaseKey)
                                 {
                                     lastKey = methodPairs[i].BaseKey;
-                                    // find the actual base-index for this base-key (i.e. the index of
+                                    // find the actual base-index for this base-tab (i.e. the index of
                                     // the base-type)
                                     int keyIndex = -1;
                                     for (int j = subtypeLabels.Length; j < methodPairs.Length; j++)

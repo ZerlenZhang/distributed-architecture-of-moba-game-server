@@ -1,0 +1,561 @@
+20200223 10:54:03 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 10:54:03 Errortrunk:0  
+error loading module 'logic/Const/Zone' from file '../logic/Const/Zone.lua':
+	../logic/Const/Zone.lua:3: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 10:54:43 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 10:54:43 Errortrunk:0  
+error loading module 'logic/Const/Zone' from file '../logic/Const/Zone.lua':
+	../logic/Const/Zone.lua:3: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 10:55:43 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 10:55:43 Errortrunk:0  
+error loading module 'logic/Const/Zone' from file '../logic/Const/Zone.lua':
+	../logic/Const/Zone.lua:3: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 10:56:38 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 10:56:38 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 10:56:38 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 10:56:44 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:49499]
+20200223 10:56:44 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 10:57:35 Debug../logic/LogicService.lua:24  
+client [127.0.0.1:49499] leave
+20200223 11:03:38 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:03:38 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:03:38 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:03:38 DebugF:\Projects\unity\Moba\Server\apps\lua_test\TestLua.cpp:66  
+服务器退出
+20200223 11:03:51 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:49734]
+20200223 11:04:45 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:04:45 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:04:45 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:04:47 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:49761]
+20200223 11:04:47 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:09:00 Debug../logic/LogicService.lua:24  
+client [127.0.0.1:49761] leave
+20200223 11:10:46 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:49846]
+20200223 11:10:46 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:11:28 Debug../logic/LogicService.lua:24  
+client [127.0.0.1:49846] leave
+20200223 11:14:53 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:49910]
+20200223 11:14:53 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:15:07 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:15:45 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] attempt to index a nil value
+20200223 11:17:19 Debug../logic/LogicService.lua:24  
+client [127.0.0.1:49910] leave
+20200223 11:19:28 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:19:29 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:19:29 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:19:31 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50037]
+20200223 11:19:31 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:19:39 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:19:50 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:19:50 Debug../logic/GameMgr.lua:118  
+flag 2
+20200223 11:19:50 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] attempt to index a nil value
+20200223 11:22:44 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:22:44 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:22:44 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:22:46 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50084]
+20200223 11:22:46 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:22:58 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:23:02 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:23:02 Debug../logic/GameMgr.lua:118  
+flag 2
+20200223 11:23:02 Error../logic/GameMgr.lua:125  
+msg.zoneId is null
+20200223 11:28:19 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:28:19 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:28:19 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:40:34 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:40:34 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:40:34 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:40:37 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50405]
+20200223 11:40:37 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:40:46 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:40:52 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:42:00 Debug../logic/GameMgr.lua:82  
+Player [ 1 ] leave
+20200223 11:47:25 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:47:25 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:47:25 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:47:27 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50489]
+20200223 11:47:27 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:47:35 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:47:39 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:47:39 Debug../logic/GameMgr.lua:123  
+flag 2
+20200223 11:47:39 Error../logic/GameMgr.lua:130  
+msg.zoneid is null
+20200223 11:49:32 Debug../logic/GameMgr.lua:82  
+Player [ 1 ] leave
+20200223 11:49:45 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:49:45 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:49:46 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:49:47 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50539]
+20200223 11:49:47 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:49:56 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:49:59 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:49:59 Debug../logic/GameMgr.lua:123  
+flag 2
+20200223 11:49:59 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] attempt to index a nil value
+20200223 11:51:18 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:51:18 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:51:18 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50568]
+20200223 11:51:18 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:51:18 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:51:23 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:51:23 Error../logic/GameMgr.lua:114  
+player is null ???
+20200223 11:51:41 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:52:23 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:52:23 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:52:23 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:52:26 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50597]
+20200223 11:52:26 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:52:34 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:52:37 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:52:37 Debug../logic/GameMgr.lua:123  
+flag 2
+20200223 11:53:34 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 11:53:34 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 11:53:34 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 11:53:36 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:50613]
+20200223 11:53:36 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 11:53:43 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 11:53:46 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 11:53:46 Debug../logic/GameMgr.lua:123  
+flag 2
+20200223 11:54:54 Debug../logic/GameMgr.lua:82  
+Player [ 1 ] leave
+20200223 12:27:39 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 12:27:39 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 12:27:39 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 12:31:30 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 12:31:30 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 12:31:30 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 12:31:31 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:51491]
+20200223 12:31:31 Debug../logic/GameMgr.lua:97  
+gateway connect to logic
+20200223 12:31:34 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 12:31:34 Error../logic/GameMgr.lua:114  
+player is null ???
+20200223 12:31:47 Debug../logic/GameMgr.lua:56  
+Player [ 1 ] come in
+20200223 12:31:50 Debug../logic/GameMgr.lua:109  
+flag 1
+20200223 12:31:50 Debug../logic/GameMgr.lua:123  
+flag 2
+20200223 12:31:50 Debug../logic/GameMgr.lua:135  
+zid: 	1
+20200223 12:33:53 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 12:33:53 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 12:33:53 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 12:33:56 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:51522]
+20200223 12:33:56 Debug../logic/GameMgr.lua:98  
+gateway connect to logic
+20200223 12:34:02 Debug../logic/GameMgr.lua:57  
+Player [ 1 ] come in
+20200223 12:34:02 Debug../logic/GameMgr.lua:28  
+Send: 	0
+20200223 12:34:11 Debug../logic/GameMgr.lua:110  
+flag 1
+20200223 12:34:11 Debug../logic/GameMgr.lua:124  
+flag 2
+20200223 12:34:11 Debug../logic/GameMgr.lua:136  
+zid: 	1
+20200223 12:34:11 Debug../logic/GameMgr.lua:142  
+flag 3
+20200223 12:34:11 Debug../logic/GameMgr.lua:148  
+flag 4
+20200223 12:34:11 Debug../logic/GameMgr.lua:28  
+Send: 	nil
+20200223 12:35:07 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 12:35:07 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 12:35:07 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 12:35:11 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:51548]
+20200223 12:35:11 Debug../logic/GameMgr.lua:98  
+gateway connect to logic
+20200223 12:35:17 Debug../logic/GameMgr.lua:57  
+Player [ 1 ] come in
+20200223 12:35:17 Debug../logic/GameMgr.lua:28  
+Send: 	nil
+20200223 12:35:21 Debug../logic/GameMgr.lua:110  
+flag 1
+20200223 12:35:21 Debug../logic/GameMgr.lua:124  
+flag 2
+20200223 12:35:21 Debug../logic/GameMgr.lua:136  
+zid: 	1
+20200223 12:35:21 Debug../logic/GameMgr.lua:142  
+flag 3
+20200223 12:35:21 Debug../logic/GameMgr.lua:148  
+flag 4
+20200223 12:35:21 Debug../logic/GameMgr.lua:28  
+Send: 	nil
+20200223 12:35:44 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 12:35:44 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 12:35:44 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 12:35:46 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:51563]
+20200223 12:35:46 Debug../logic/GameMgr.lua:98  
+gateway connect to logic
+20200223 12:35:57 Debug../logic/GameMgr.lua:57  
+Player [ 1 ] come in
+20200223 12:35:57 Debug../logic/GameMgr.lua:28  
+Send: 	0
+20200223 12:36:06 Debug../logic/GameMgr.lua:110  
+flag 1
+20200223 12:36:06 Debug../logic/GameMgr.lua:124  
+flag 2
+20200223 12:36:06 Debug../logic/GameMgr.lua:136  
+zid: 	1
+20200223 12:36:06 Debug../logic/GameMgr.lua:142  
+flag 3
+20200223 12:36:06 Debug../logic/GameMgr.lua:148  
+flag 4
+20200223 12:36:06 Debug../logic/GameMgr.lua:28  
+Send: 	nil
+20200223 12:38:10 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 12:38:10 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 12:38:10 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 12:38:11 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:51589]
+20200223 12:38:11 Debug../logic/GameMgr.lua:98  
+gateway connect to logic
+20200223 12:38:19 Debug../logic/GameMgr.lua:57  
+Player [ 1 ] come in
+20200223 12:38:19 Debug../logic/GameMgr.lua:28  
+Send: 	0
+20200223 12:38:22 Debug../logic/GameMgr.lua:110  
+flag 1
+20200223 12:38:22 Debug../logic/GameMgr.lua:124  
+flag 2
+20200223 12:38:22 Debug../logic/GameMgr.lua:136  
+zid: 	1
+20200223 12:38:22 Debug../logic/GameMgr.lua:142  
+flag 3
+20200223 12:38:22 Debug../logic/GameMgr.lua:148  
+flag 4
+20200223 12:38:22 Debug../logic/GameMgr.lua:28  
+Send: 	0
+20200223 12:38:28 Debug../logic/GameMgr.lua:83  
+Player [ 1 ] leave
+20200223 19:27:49 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:27:49 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:28:15 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:28:15 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:28:36 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:28:36 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:29:18 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:29:18 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:5: '}' expected (to close '{' at line 2) near '<\239>'
+20200223 19:30:13 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:30:13 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:32:26 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:32:26 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:36:08 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:36:08 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:43:43 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:43:43 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:44:23 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:44:23 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:4: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:48:04 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:48:04 Errortrunk:0  
+error loading module 'logic/Const/RoomState' from file '../logic/Const/RoomState.lua':
+	../logic/Const/RoomState.lua:17: '}' expected (to close '{' at line 1) near '<\239>'
+20200223 19:49:07 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:49:07 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 19:49:07 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 19:49:20 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:53064]
+20200223 19:49:20 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 19:49:39 Error../datebase/redis_center.lua:55  
+redis is not connected yet
+20200223 19:51:42 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:51:42 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 19:51:42 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 19:51:43 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 19:51:46 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:53276]
+20200223 19:51:46 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 19:52:00 Debug../logic/GameMgr.lua:116  
+Player [ 1 ] come in
+20200223 19:52:24 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:34: attempt to call a table value (upvalue 'MatchMgr')
+20200223 19:52:29 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:34: attempt to call a table value (upvalue 'MatchMgr')
+20200223 19:52:34 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:34: attempt to call a table value (upvalue 'MatchMgr')
+20200223 19:52:39 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:34: attempt to call a table value (upvalue 'MatchMgr')
+20200223 19:58:59 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 19:58:59 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 19:58:59 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 19:59:04 Error../datebase/redis_center.lua:13  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200223 19:59:09 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 19:59:16 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:53880]
+20200223 19:59:16 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 20:05:38 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 20:05:38 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 20:05:38 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 20:05:38 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 20:05:41 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:54393]
+20200223 20:05:41 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 20:05:52 Debug../logic/GameMgr.lua:116  
+Player [ 1 ] come in
+20200223 20:05:59 Error../logic/GameMgr.lua:37  
+create room failed
+20200223 20:06:04 Error../logic/GameMgr.lua:37  
+create room failed
+20200223 20:06:09 Error../logic/GameMgr.lua:37  
+create room failed
+20200223 20:06:14 Error../logic/GameMgr.lua:37  
+create room failed
+20200223 20:06:19 Debug../logic/GameMgr.lua:142  
+Player [ 1 ] leave
+20200223 20:13:20 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 20:13:20 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 20:13:20 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 20:13:21 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 20:13:28 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:54840]
+20200223 20:13:28 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 20:13:41 Debug../logic/GameMgr.lua:116  
+Player [ 1 ] come in
+20200223 20:13:51 Error../logic/GameMgr.lua:37  
+create room failed
+20200223 20:13:56 Error../logic/GameMgr.lua:37  
+create room failed
+20200223 20:16:33 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 20:16:33 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 20:16:33 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 20:16:33 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 20:16:35 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:55029]
+20200223 20:16:35 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 20:16:51 Debug../logic/GameMgr.lua:116  
+Player [ 1 ] come in
+20200223 20:16:59 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/MatchMgr.lua:56: attempt to index a nil value (global 'p')
+20200223 20:17:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/MatchMgr.lua:56: attempt to index a nil value (global 'p')
+20200223 20:17:09 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/MatchMgr.lua:56: attempt to index a nil value (global 'p')
+20200223 20:17:11 Debug../logic/GameMgr.lua:142  
+Player [ 1 ] leave
+20200223 20:19:53 Debug../logic/GameMgr.lua:116  
+Player [ 1 ] come in
+20200223 20:19:59 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/MatchMgr.lua:56: attempt to index a nil value (global 'p')
+20200223 20:20:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/MatchMgr.lua:56: attempt to index a nil value (global 'p')
+20200223 20:20:19 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 20:20:19 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 20:20:19 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 20:20:19 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 20:20:20 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:55257]
+20200223 20:20:20 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 20:20:31 Debug../logic/GameMgr.lua:116  
+Player [ 1 ] come in
+20200223 20:20:35 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/Player.lua:61: attempt to index a nil value (global 'p')
+20200223 20:20:40 Error../logic/GameMgr.lua:62  
+player enter room error,player.state	1	room.state	1
+20200223 20:21:10 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 20:21:10 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 20:21:10 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 20:21:10 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 20:21:11 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:55298]
+20200223 20:21:11 Debug../logic/GameMgr.lua:157  
+gateway connect to logic
+20200223 20:21:20 Debug../logic/GameMgr.lua:116  
+Player [ 1 ] come in
+20200223 20:33:25 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200223 20:33:25 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200223 20:33:25 Debug../datebase/redis_center.lua:25  
+connect to redis [ 1 ] success
+20200223 20:33:25 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200223 20:33:28 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:55976]
+20200223 20:33:28 Debug../logic/GameMgr.lua:156  
+gateway connect to logic
+20200223 20:33:39 Debug../logic/GameMgr.lua:115  
+Player [ 1 ] come in
+20200223 20:34:38 Debug../logic/GameMgr.lua:141  
+Player [ 1 ] leave

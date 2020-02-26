@@ -1215,7 +1215,7 @@ namespace ProtoBuf.Meta
             return GetKey(ref type) >= 0;
         }
         /// <summary>
-        /// Provides the key that represents a given type in the current model.
+        /// Provides the tab that represents a given type in the current model.
         /// The type is also normalized for proxies at the same time.
         /// </summary>
         protected internal int GetKey(ref Type type)
@@ -1234,7 +1234,7 @@ namespace ProtoBuf.Meta
         }
 
         /// <summary>
-        /// Provides the key that represents a given type in the current model.
+        /// Provides the tab that represents a given type in the current model.
         /// </summary>
         protected abstract int GetKeyImpl(Type type);
         /// <summary>

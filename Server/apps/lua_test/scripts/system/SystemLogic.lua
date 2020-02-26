@@ -4,47 +4,11 @@ local responce = require("Respones");
 local mobaConfig = require("MobaConfig");
 
 local mysql = require("datebase/mysql_game");
-
-
-function Test( err ,uid)
-                    print("hander in UpdateLoginBonuesStatus");
-                    if err then
-                        Debug.LogError(err);
-                        local retMsg = {sType.System,cmdType.eRecvLoginBonuesRes,uid,
-                        { 
-                            status = responce.SystemError
-                        }};
-                        Session.SendPackage(s,retMsg);    
-                        return;                    
-                    end
-
-                    mysql.AddCoin1(uid,bonuesInfo.bonues,
-                        function ( err )
-                            
-                            if err then
-                                Debug.LogError(err);
-                                local retMsg = {sType.System,cmdType.eRecvLoginBonuesRes,uid,
-                                { 
-                                    status = responce.SystemError
-                                }};
-                                Session.SendPackage(s,retMsg);    
-                                return;                    
-                            end
-
-                            local retMsg = {sType.System,cmdType.eRecvLoginBonuesRes,uid,
-                            { 
-                                status = responce.OK,
-                            }};
-                            Session.SendPackage(s,retMsg);    
-                            return;   
-                        end);
-
-
-end
+local redis = require("datebase/redis_game");
 
 --检查每日登陆奖励
 --handler: err,bonuesInfo
-function check_login_bonues( uid,handler )
+local function check_login_bonues( uid,handler )
     mysql.GetBonuesInfo(uid,
         function( err,bonuesInfo )
             if err then
@@ -55,9 +19,9 @@ function check_login_bonues( uid,handler )
             if bonuesInfo==nil then
                 --插入数据
                 mysql.InsertBonuesInfo(uid,
-                    function ( err )
-                        if err then
-                            handler(err,nil);
+                    function ( e )
+                        if e then
+	                        handler(e,nil);
                             return;
                         end
 
@@ -72,7 +36,7 @@ function check_login_bonues( uid,handler )
             print("check_login_bonues");
 
             --更新发放奖励
-            if bonuesInfo.bonues_time<Utils.Today() then
+            if bonuesInfo.bonues_time < Utils.Today() then
                 --发放
                 --执行奖励逻辑
                 if bonuesInfo.bonues_time>Utils.Yesterday() then
@@ -111,7 +75,7 @@ function check_login_bonues( uid,handler )
 end
 
 --获取游戏信息
-function get_ugame_info( s,req )
+local function get_ugame_info( s,req )
     if nil==req then
         Debug.LogError("WTF??");
         return;
@@ -120,7 +84,7 @@ function get_ugame_info( s,req )
 
     --获取信息
 	mysql.GetUgameInfo(uid,
-		function ( err,uinfo )
+		function ( err,ginfo )
 
 			if err then
                 Debug.LogError(err);
@@ -133,7 +97,7 @@ function get_ugame_info( s,req )
     		end
 
 			--没有查到对应信息
-    		if uinfo==nil then
+    		if ginfo==nil then
     			--就添加进数据库
     			mysql.InsertUgameInfo(uid,function(err)
     				if err then
@@ -154,7 +118,7 @@ function get_ugame_info( s,req )
     		end
 
     		--找到对应游戏数据
-    		if uinfo.ustatus~=0 then
+    		if ginfo.ustatus~=0 then
     			--游客账号被查封
     			print("this key has been frozen");
     			local retMsg =   {sType.System,cmdType.eGetMobaInfoRes,uid,
@@ -165,7 +129,9 @@ function get_ugame_info( s,req )
     			return;
     		end
 
-            --print("Get info success");
+            --更新redis数据库
+--			print("update redis ugame info");
+			redis.SetUgameInfo(uid,ginfo);
 
             --检测登陆奖励
             check_login_bonues(uid,
@@ -185,13 +151,13 @@ function get_ugame_info( s,req )
                     local retMsg = {sType.System,cmdType.eGetMobaInfoRes,uid,
                         { 
                             status = responce.OK,
-                            uinfo = {
-                                ucoin_1=uinfo.ucoin_1,
-                                ucoin_2=uinfo.ucoin_2,
-                                uexp=uinfo.uexp,
-                                uvip=uinfo.uvip,
-                                uitem_1=uinfo.uitem_1,
-                                uitem_2=uinfo.uitem_2,
+	                        uinfo = {
+                                ucoin_1=ginfo.ucoin_1,
+                                ucoin_2=ginfo.ucoin_2,
+                                uexp=ginfo.uexp,
+                                uvip=ginfo.uvip,
+                                uitem_1=ginfo.uitem_1,
+                                uitem_2=ginfo.uitem_2,
                                 bonues_status=bonuesInfo.status,
                                 bonues=bonuesInfo.bonues,
                                 days=bonuesInfo.days,
@@ -204,13 +170,11 @@ function get_ugame_info( s,req )
 end
 
 --处理得到每日奖励的消息
-function recv_login_bonues( s,req )
+local function recv_login_bonues( s,req )
     local uid =req[3];
-    print("flag 1");
         --获取信息
     mysql.GetBonuesInfo(uid,
         function ( err,bonuesInfo )
-            print("flag 2");
             if err then
                 Debug.LogError(err);
                 local retMsg = {sType.System,cmdType.eRecvLoginBonuesRes,uid,
@@ -221,9 +185,7 @@ function recv_login_bonues( s,req )
                 return;
             end
 
-            print("flag 3");
             if nil==bonuesInfo or bonuesInfo.status~=0 then
-                print(bonuesInfo,bonuesInfo.status);
                 local retMsg = {sType.System,cmdType.eRecvLoginBonuesRes,uid,
                 { 
                     status = responce.InvalidOprate
@@ -232,7 +194,6 @@ function recv_login_bonues( s,req )
                 return;
             end
 
-            print("flag 4");
             --有奖励可以领取
             mysql.UpdateLoginBonuesStatus(uid,function ( err )
                     if err then
@@ -244,6 +205,9 @@ function recv_login_bonues( s,req )
                         Session.SendPackage(s,retMsg);    
                         return;                    
                     end
+
+
+                    redis.AddCoin1(uid,bonuesInfo.bonues);
 
                     mysql.AddCoin1(uid,bonuesInfo.bonues,
                         function ( err )
@@ -270,6 +234,7 @@ function recv_login_bonues( s,req )
 end
 
 mysql.Connect();
+redis.Connect();
 
 return{
 	GetUgameInfo=get_ugame_info,

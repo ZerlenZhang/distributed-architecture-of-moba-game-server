@@ -3,7 +3,12 @@ local mobaConfig = require("MobaConfig");
 local mysqlConn=nil;
 
 --链接数据库
-function mysql_connect_to_game_center()
+local function mysql_connect_to_game_center()
+
+	if mysqlConn then
+		return;
+	end
+
 	local gameConfig = config.game_mysql;
 	Mysql.Connect(
 		gameConfig.host,
@@ -24,7 +29,7 @@ end
 
 --获取游戏数据
 --handler: err,uinfo
-function get_ugame_info( uid,handler )
+local function get_ugame_info( uid,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -69,7 +74,7 @@ end
 
 --插入游戏数据
 --handler: err
-function insert_ugame_info( uid,handler )
+local function insert_ugame_info( uid,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -95,7 +100,7 @@ end
 
 --获取登陆奖励信息
 --handler: err,bonuesInfo
-function get_bonues_info( uid,handler )
+local function get_bonues_info( uid,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -137,7 +142,7 @@ end
 
 --插入登陆奖励
 --handler: err
-function insert_bonues_info( uid,handler )
+local function insert_bonues_info( uid,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -163,7 +168,7 @@ end
 
 --更新登陆信息
 --handler: err
-function set_bonues_info( uid,uinfo,handler )
+local function set_bonues_info( uid,uinfo,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -184,7 +189,8 @@ function set_bonues_info( uid,uinfo,handler )
 		end);
 end
 
-function add_coin( uid,coin_1,handler )
+--添加货币一
+local function add_coin( uid,coin_1,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -206,7 +212,9 @@ function add_coin( uid,coin_1,handler )
 		end);
 end
 
-function update_login_bonues_status( uid,handler )
+--修改登陆奖励信息
+--handle: err
+local function update_login_bonues_status( uid,handler )
 
 	if handler ==nil then
 		Debug.LogWarning("[update_login_bonues_status( uid,handler )]Handler is nil ??");
@@ -236,6 +244,59 @@ function update_login_bonues_status( uid,handler )
 		end);
 end
 
+--获取机器人信息
+--handle: err,ret
+local function get_robot_ugame_info(handler)
+	if mysqlConn==nil then
+		--数据库还没有联好
+		if handler then
+			handler("mysql is not connected",nil);
+		end
+		return;
+	end
+	local sql="select ucoin_1,ucoin_2,uexp,uvip,uitem_1,uitem_2,ustatus,uid from ugame where is_robot=1";
+	Mysql.Query(mysqlConn,sql,function( err,ret )
+		--出现错误
+		if err then
+			if handler then
+				handler(err,nil);
+			end
+			return;
+		end
+		--没有查到数据
+		if ret==nil or #ret <=0 then
+--			print("no data found");
+			if handler then
+				handler(nil,nil);
+			end
+			return;
+		end
+		--查到数据
+
+		local robots={};
+
+		for k, result in pairs(ret) do
+			local uinfo =
+			{
+				ucoin_1= tonumber(result[1]),
+				ucoin_2=tonumber(result[2]),
+				uexp=tonumber(result[3]),
+				uvip=tonumber(result[4]),
+				uitem_1=tonumber(result[5]),
+				uitem_2=tonumber(result[6]),
+				ustatus=tonumber(result[7]),
+				uid=tonumber(result[8]),
+			};
+			table.insert(robots,uinfo);
+		end
+
+		if handler then
+--			print("Get data :",#robots);
+			handler(nil,robots);
+		end
+	end);
+end
+
 return {
 	Connect=mysql_connect_to_game_center,
 	GetUgameInfo=get_ugame_info,
@@ -245,4 +306,6 @@ return {
 	InsertUgameInfo=insert_ugame_info,
 	UpdateLoginBonuesStatus=update_login_bonues_status,
 	AddCoin1=add_coin,
+	IsConnect=function() return mysqlConn~=nil end,
+	GetRobotUgameInfo=get_robot_ugame_info,
 }

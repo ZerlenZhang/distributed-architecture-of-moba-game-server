@@ -13,16 +13,16 @@ namespace ProtoBuf.ServiceModel
     public sealed class XmlProtoSerializer : XmlObjectSerializer
     {
         private readonly TypeModel model;
-        private readonly int key;
+        private readonly int tab;
         private readonly bool isList, isEnum;
         private readonly Type type;
-        internal XmlProtoSerializer(TypeModel model, int key, Type type, bool isList)
+        internal XmlProtoSerializer(TypeModel model, int tab, Type type, bool isList)
         {
             if (model == null) throw new ArgumentNullException("model");
-            if (key < 0) throw new ArgumentOutOfRangeException("key");
+            if (tab < 0) throw new ArgumentOutOfRangeException("tab");
             if (type == null) throw new ArgumentOutOfRangeException("type");
             this.model = model;
-            this.key = key;
+            this.tab = tab;
             this.isList = isList;
             this.type = type;
             this.isEnum = Helpers.IsEnum(type);
@@ -37,10 +37,10 @@ namespace ProtoBuf.ServiceModel
             if (type == null) throw new ArgumentNullException("type");
 
             bool isList;
-            int key = GetKey(model, ref type, out isList);
-            if (key >= 0)
+            int tab = GetKey(model, ref type, out isList);
+            if (tab >= 0)
             {
-                return new XmlProtoSerializer(model, key, type, isList);
+                return new XmlProtoSerializer(model, tab, type, isList);
             }
             return null;
         }
@@ -52,30 +52,30 @@ namespace ProtoBuf.ServiceModel
             if (model == null) throw new ArgumentNullException("model");
             if (type == null) throw new ArgumentNullException("type");
 
-            key = GetKey(model, ref type, out isList);
+            tab = GetKey(model, ref type, out isList);
             this.model = model;
             this.type = type;
             this.isEnum = Helpers.IsEnum(type);
-            if (key < 0) throw new ArgumentOutOfRangeException("type", "Type not recognised by the model: " + type.FullName);
+            if (tab < 0) throw new ArgumentOutOfRangeException("type", "Type not recognised by the model: " + type.FullName);
         }
         static int GetKey(TypeModel model, ref Type type, out bool isList)
         {
             if (model != null && type != null)
             {
-                int key = model.GetKey(ref type);
-                if (key >= 0)
+                int tab = model.GetKey(ref type);
+                if (tab >= 0)
                 {
                     isList = false;
-                    return key;
+                    return tab;
                 }
                 Type itemType = TypeModel.GetListItemType(model, type);
                 if (itemType != null)
                 {
-                    key = model.GetKey(ref itemType);
-                    if (key >= 0)
+                    tab = model.GetKey(ref itemType);
+                    if (tab >= 0)
                     {
                         isList = true;
-                        return key;
+                        return tab;
                     }
                 }
             }
@@ -123,7 +123,7 @@ namespace ProtoBuf.ServiceModel
                     {
                         using (ProtoWriter protoWriter = new ProtoWriter(ms, model, null))
                         {
-                            model.Serialize(key, graph, protoWriter);
+                            model.Serialize(tab, graph, protoWriter);
                         }
                     }
                     byte[] buffer = ms.GetBuffer();
@@ -168,7 +168,7 @@ namespace ProtoBuf.ServiceModel
                 try
                 {
                     protoReader = ProtoReader.Create(Stream.Null, model, null, ProtoReader.TO_EOF);
-                    return model.Deserialize(key, null, protoReader);
+                    return model.Deserialize(tab, null, protoReader);
                 }
                 finally
                 {
@@ -190,7 +190,7 @@ namespace ProtoBuf.ServiceModel
                     try
                     {
                         protoReader = ProtoReader.Create(ms, model, null, ProtoReader.TO_EOF);
-                        result = model.Deserialize(key, null, protoReader);
+                        result = model.Deserialize(tab, null, protoReader);
                     }
                     finally
                     {

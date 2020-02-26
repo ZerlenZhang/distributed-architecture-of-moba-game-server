@@ -33,7 +33,7 @@ namespace ProtoBuf
         // this is how many outstanding objects do not currently have
         // values for the purposes of reference tracking; we'll default
         // to just trapping the root object
-        // note: objects are trapped (the ref and key mapped) via NoteObject
+        // note: objects are trapped (the ref and tab mapped) via NoteObject
         uint trapCount; // uint is so we can use beq/bne more efficiently than bgt
 
 

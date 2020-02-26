@@ -1731,7 +1731,7 @@ namespace ProtoBuf.Meta
                 NewLine(builder, indent).Append('}');
             }
             else if (IsAutoTuple)
-            { // key-value-pair etc
+            { // tab-value-pair etc
                 MemberInfo[] mapping;
                 if(ResolveTupleConstructor(type, out mapping) != null)
                 {

@@ -30,5 +30,11 @@ namespace Moba.Const
 		/// 成功获取游戏信息
 		/// </summary>
 		public const string GetUgameInfoSuccess = "GetUgameInfoSuccess";
+
+
+		/// <summary>
+		/// 成功登陆逻辑服务器
+		/// </summary>
+		public const string LoginLogicServerSuccess = "LoginLogicServerSuccess";
 	}
 }

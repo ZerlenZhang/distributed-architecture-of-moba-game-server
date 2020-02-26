@@ -21,7 +21,6 @@ namespace Moba.View
 		private Slider expSlider;
 		private Text expText;
 
-		private LoginBonuesUi _loginBonuesUi;
 		partial void OnLoad()
 		{
 			//do any thing you want
@@ -32,9 +31,27 @@ namespace Moba.View
 			expSlider = view["Top/Uinfo/ExpSlider"].GetComponent<Slider>();
 			levelText = view["Top/Uinfo/LevelText"].GetComponent<Text>();
 			expText = view["Top/Uinfo/ExpText"].GetComponent<Text>();
-			_loginBonuesUi = view["LoginBonues"].GetComponent<LoginBonuesUi>();
-			
+
 			add_button_listener("Top/Uinfo/HeadIcon",OnClickIcon);
+			
+			add_button_listener("Pages/HomePage/Left/Top/Flag/LoginBonuesBtn", () =>
+			{
+				var _loginBonuesUi = ResourceMgr.InstantiateGameObject(UiName.LoginBonues,GlobalVar.G_Canvas.transform).GetComponent<LoginBonuesUi>();
+				_loginBonuesUi.ShowLoginBonues(NetInfo.gameInfo.days);
+			});
+			
+			add_button_listener("Pages/WarPage/Framework/Maps/SgydBtn", () =>
+			{
+				ResourceMgr.InstantiateGameObject(
+					UiName.MatchDlgUi, m_TransFrom);
+				NetInfo.SetZoneId(ZoneId.Sgyd);
+			});
+			add_button_listener("Pages/WarPage/Framework/Maps/AssyBtn", () =>
+			{
+				ResourceMgr.InstantiateGameObject(
+					UiName.MatchDlgUi, m_TransFrom);
+				NetInfo.SetZoneId(ZoneId.Assy);
+			});
 		}
 
 
@@ -51,12 +68,8 @@ namespace Moba.View
 			if (NetInfo.gameInfo.bonues_status == 0)
 			{
 				//有奖励
-				_loginBonuesUi.gameObject.SetActive(true);
+				var _loginBonuesUi = ResourceMgr.InstantiateGameObject(UiName.LoginBonues,GlobalVar.G_Canvas.transform).GetComponent<LoginBonuesUi>();
 				_loginBonuesUi.ShowLoginBonues(NetInfo.gameInfo.days);
-			}
-			else
-			{
-				_loginBonuesUi.gameObject.SetActive(false);
 			}
 		}
 		
@@ -66,13 +79,14 @@ namespace Moba.View
 			CEventCenter.AddListener(Message.SyncAuthInfo,OnSyncAuthInfo);
 			CEventCenter.AddListener(Message.SyncUgameInfo,OnSyncSystemInfo);
 		}
-
 		protected override void OnRemoveListener()
 		{
 			base.OnRemoveListener();			
 			CEventCenter.RemoveListener(Message.SyncAuthInfo,OnSyncAuthInfo);
 			CEventCenter.RemoveListener(Message.SyncUgameInfo,OnSyncSystemInfo);
+
 		} 
+
 
 		private void OnSyncAuthInfo()
 		{

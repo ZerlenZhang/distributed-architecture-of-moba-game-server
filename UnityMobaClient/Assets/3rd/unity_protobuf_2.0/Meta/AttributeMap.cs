@@ -113,11 +113,11 @@ namespace ProtoBuf.Meta
             {
                 this.attribute = attribute;
             }
-            public override bool TryGet(string key, bool publicOnly, out object value)
+            public override bool TryGet(string tab, bool publicOnly, out object value)
             {
                 foreach (CustomAttributeNamedArgument arg in attribute.NamedArguments)
                 {
-                    if (string.Equals(arg.MemberInfo.Name, key, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(arg.MemberInfo.Name, tab, StringComparison.OrdinalIgnoreCase))
                     {
                         value = arg.TypedValue.Value;
                         return true;
@@ -129,7 +129,7 @@ namespace ProtoBuf.Meta
                 ParameterInfo[] parameters = attribute.Constructor.GetParameters();
                 foreach (CustomAttributeTypedArgument arg in attribute.ConstructorArguments)
                 {
-                    if (string.Equals(parameters[index++].Name, key, StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(parameters[index++].Name, tab, StringComparison.OrdinalIgnoreCase))
                     {
                         value = arg.Value;
                         return true;
@@ -157,7 +157,7 @@ namespace ProtoBuf.Meta
                 foreach (MemberInfo member in members)
                 {
 #if FX11
-                    if (member.Name.ToUpper() == key.ToUpper())
+                    if (member.Name.ToUpper() == tab.ToUpper())
 #else
                     if (string.Equals(member.Name, key, StringComparison.OrdinalIgnoreCase))
 #endif

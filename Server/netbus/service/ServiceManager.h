@@ -13,5 +13,8 @@ public:
 	static bool OnRecvCmd(const AbstractSession* session, const RawPackage* package);
 	//客户端断开的回调
 	static void OnSessionDisconnected(const AbstractSession* session);
+
+	//客户端链接成功回调
+	static void OnSessionConnect(const AbstractSession* session);
 };
 

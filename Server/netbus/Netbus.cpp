@@ -175,6 +175,9 @@ extern "C"
 		//开始监听消息
 		uv_read_start((uv_stream_t*)pNewClient, tcp_str_alloc, tcp_after_read);
 #pragma endregion
+
+		//Session连接成功的回调
+		ServiceManager::OnSessionConnect(session);
 	}
 
 #pragma endregion

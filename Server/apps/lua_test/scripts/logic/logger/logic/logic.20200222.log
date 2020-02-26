@@ -1,0 +1,207 @@
+20200222 13:47:48 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 13:47:48 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 13:48:07 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:58591]
+20200222 15:38:32 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:38:32 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:38:52 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59299]
+20200222 15:39:16 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] ../logic/GameMgr.lua:33: attempt to index a boolean value (upvalue 'Player')
+20200222 15:40:42 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:40:42 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:40:42 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59313]
+20200222 15:43:06 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:43:06 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:43:07 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59328]
+20200222 15:43:15 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] ../logic/GameMgr.lua:17: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 15:47:07 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:47:07 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:47:07 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59357]
+20200222 15:47:36 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] ../logic/GameMgr.lua:17: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 15:51:44 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:51:44 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:51:47 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59383]
+20200222 15:51:57 Error../logic/Player.lua:27  
+mysql is not connected
+20200222 15:51:57 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] ../logic/GameMgr.lua:17: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 15:52:51 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:52:51 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:52:51 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 15:52:52 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59403]
+20200222 15:53:09 Debug../logic/GameMgr.lua:43  
+flag 1
+20200222 15:53:09 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:17: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 15:56:34 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:56:34 Errortrunk:0  
+error loading module 'logic/GameMgr' from file '../logic/GameMgr.lua':
+	../logic/GameMgr.lua:19: <name> expected near 'return'
+20200222 15:56:37 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59457]
+20200222 15:56:56 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:56:56 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:56:56 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 15:56:57 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59463]
+20200222 15:57:06 Debug../logic/GameMgr.lua:47  
+flag 1
+20200222 15:57:06 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:21: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 15:58:41 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 15:58:41 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 15:58:41 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 15:58:42 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59478]
+20200222 15:59:00 Debug../logic/GameMgr.lua:54  
+flag 1
+20200222 15:59:00 Debug../logic/GameMgr.lua:27  
+????
+20200222 15:59:00 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:28: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 16:00:07 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 16:00:07 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 16:00:07 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59497]
+20200222 16:00:07 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 16:00:16 Debug../logic/GameMgr.lua:59  
+flag 1
+20200222 16:00:16 Error../logic/GameMgr.lua:15  
+_status is nil ???
+20200222 16:02:49 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 16:02:49 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 16:02:49 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 16:02:52 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59531]
+20200222 16:03:01 Debug../logic/GameMgr.lua:57  
+Player [ 1 ] come in
+20200222 16:03:01 Error../logic/GameMgr.lua:15  
+_status is nil ???
+20200222 16:03:25 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\service_export_to_lua.cpp:108  
+[LUA ERROR] ../logic/GameMgr.lua:31: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 16:04:17 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 16:04:17 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 16:04:17 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 16:04:17 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59542]
+20200222 16:04:28 Debug../logic/GameMgr.lua:57  
+Player [ 1 ] come in
+20200222 16:04:28 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../logic/GameMgr.lua:31: bad argument #-1 to 'SendPackage' (number expected, got nil)
+20200222 16:06:48 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 16:06:48 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 16:06:48 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 16:06:51 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59561]
+20200222 16:07:02 Debug../logic/GameMgr.lua:61  
+Player [ 1 ] come in
+20200222 16:07:02 Error../logic/GameMgr.lua:15  
+_ctype is nil ???
+20200222 16:08:30 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 16:08:30 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 16:08:30 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 16:08:31 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59569]
+20200222 16:08:44 Debug../logic/GameMgr.lua:61  
+Player [ 1 ] come in
+20200222 16:35:05 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 16:35:05 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 16:35:05 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 16:35:08 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:59831]
+20200222 16:35:18 Debug../logic/GameMgr.lua:61  
+Player [ 1 ] come in
+20200222 16:43:36 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 16:43:36 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 16:43:36 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 16:43:40 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:60164]
+20200222 16:43:51 Debug../logic/GameMgr.lua:61  
+Player [ 1 ] come in
+20200222 16:43:54 Debug../logic/GameMgr.lua:73  
+Player [ 1 ] leave
+20200222 16:44:16 Debug../logic/LogicService.lua:24  
+client [127.0.0.1:60164] leave
+20200222 17:15:20 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 17:15:20 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 17:15:20 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 17:15:20 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:60355]
+20200222 17:15:20 Debug../logic/GameMgr.lua:89  
+gateway connect to logic
+20200222 17:16:57 Debug../logic/logic_server_main.lua:33  
+Logic server [tcp] listen at: 	8002
+20200222 17:16:57 Debug../logic/logic_server_main.lua:39  
+register Logic Service:[3] service success
+20200222 17:16:57 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200222 17:16:59 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:60377]
+20200222 17:16:59 Debug../logic/GameMgr.lua:89  
+gateway connect to logic
+20200222 17:17:04 Debug../logic/LogicService.lua:24  
+client [127.0.0.1:60377] leave
+20200222 17:17:09 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:60379]
+20200222 17:17:09 Debug../logic/GameMgr.lua:89  
+gateway connect to logic
+20200222 17:17:14 Debug../logic/LogicService.lua:24  
+client [127.0.0.1:60379] leave
+20200222 17:17:19 Debug../logic/logic_server_main.lua:30  
+new client come [127.0.0.1:60380]
+20200222 17:17:19 Debug../logic/GameMgr.lua:89  
+gateway connect to logic

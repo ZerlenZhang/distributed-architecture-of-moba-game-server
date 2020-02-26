@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 		protoFileDir = WinUtil::GetDirPath(argv[0]);
 		string searchPath = "../../apps/lua_test/scripts/";
 		lua_wrapper::AddSearchPath(searchPath);
-		lua_wrapper::DoFile(searchPath + "gateway/gateway_server_main.lua");
+		lua_wrapper::DoFile(searchPath + "logic/logic_server_main.lua");
 	}
 
 

@@ -1,0 +1,212 @@
+20200225 19:03:34 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:03:34 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:03:35 Error../datebase/mysql_game.lua:16  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200225 19:03:41 Error../datebase/mysql_game.lua:16  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200225 19:03:47 Error../datebase/mysql_game.lua:16  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200225 19:03:53 Error../datebase/mysql_game.lua:16  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200225 19:03:59 Error../datebase/mysql_game.lua:16  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200225 19:04:04 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:04:18 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:63174]
+20200225 19:04:32 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 19:06:31 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../system/SystemLogic.lua:209: attempt to call a nil value (field 'AddCoin1')
+20200225 19:07:24 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 19:09:33 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:09:33 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:09:33 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:09:36 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:63963]
+20200225 19:10:02 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 19:13:26 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:13:26 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:13:26 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:13:29 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:64529]
+20200225 19:13:40 Debug../system/SystemLogic.lua:133  
+update redis ugame info
+20200225 19:13:40 Debug../datebase/redis_game.lua:33  
+flag 1
+20200225 19:13:40 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 19:17:07 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:17:07 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:17:07 Debug../datebase/redis_game.lua:25  
+connect to redis [ 2 ] success
+20200225 19:17:07 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:17:09 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:65035]
+20200225 19:17:18 Debug../system/SystemLogic.lua:133  
+update redis ugame info
+20200225 19:17:18 Debug../datebase/redis_game.lua:33  
+flag 1
+20200225 19:17:18 Debug../datebase/redis_game.lua:49  
+[Redis]	OK
+20200225 19:17:18 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 19:18:07 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 19:41:00 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:41:00 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:41:00 Debug../datebase/redis_game.lua:25  
+connect to redis [ 2 ] success
+20200225 19:41:00 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:41:03 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:51930]
+20200225 19:41:17 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 19:41:38 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 19:44:42 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:44:42 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:44:42 Debug../datebase/redis_game.lua:25  
+connect to redis [ 2 ] success
+20200225 19:44:42 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:44:43 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:52460]
+20200225 19:46:03 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:46:03 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:46:03 Debug../datebase/redis_game.lua:25  
+connect to redis [ 2 ] success
+20200225 19:46:03 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:46:06 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:52650]
+20200225 19:47:27 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:47:27 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:47:27 Debug../datebase/redis_game.lua:25  
+connect to redis [ 2 ] success
+20200225 19:47:27 Debug../datebase/mysql_game.lua:20  
+connect to mysql [ moba_game ] success
+20200225 19:47:33 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:52844]
+20200225 19:48:11 Debug../system/SystemService.lua:26  
+client [127.0.0.1:52844] leave
+20200225 19:51:55 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 19:51:55 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 19:51:55 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 19:51:55 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:00:29 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 21:00:29 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 21:00:29 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:00:29 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:00:33 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:62631]
+20200225 21:00:54 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:06:29 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 21:06:29 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 21:06:29 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:06:29 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:06:32 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:63436]
+20200225 21:07:20 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:10:58 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 21:11:08 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:12:03 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 21:12:36 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 21:12:36 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 21:12:36 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:12:36 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:12:39 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:64335]
+20200225 21:12:50 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:13:19 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 21:15:53 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 21:15:53 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 21:15:53 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:15:53 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:15:55 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:64778]
+20200225 21:16:09 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:16:23 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 21:20:22 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:20:37 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 21:27:02 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 21:27:02 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 21:27:02 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:27:02 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:27:04 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:50098]
+20200225 21:27:21 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:28:41 Error../system/SystemService.lua:21  
+unregistered cmdType: 	0
+20200225 21:36:00 Debug../system/system_server_main.lua:32  
+System server [tcp] listen at: 	8001
+20200225 21:36:00 Debug../system/system_server_main.lua:38  
+register System Service:[2] service success
+20200225 21:36:00 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200225 21:36:00 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200225 21:36:30 Debug../system/system_server_main.lua:29  
+new client come [127.0.0.1:51793]
+20200225 21:36:45 Debug../system/SystemLogic.lua:36  
+check_login_bonues
+20200225 21:45:17 Debug../system/SystemService.lua:26  
+client [127.0.0.1:51793] leave

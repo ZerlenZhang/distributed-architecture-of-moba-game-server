@@ -29,14 +29,14 @@ namespace ProtoBuf
 
             if (key < 0 || key >= list.Count)
             {
-                Helpers.DebugWriteLine("Missing key: " + key);
-                throw new ProtoException("Internal error; a missing key occurred");
+                Helpers.DebugWriteLine("Missing tab: " + key);
+                throw new ProtoException("Internal error; a missing tab occurred");
             }
 
             object tmp = list[key];
             if (tmp == null)
             {
-                throw new ProtoException("A deferred key does not have a value yet");
+                throw new ProtoException("A deferred tab does not have a value yet");
             }
             return tmp;
         }
@@ -66,7 +66,7 @@ namespace ProtoBuf
                 }
                 else if (key != list.Add(value))
                 {
-                    throw new ProtoException("Internal error; a key mismatch occurred");
+                    throw new ProtoException("Internal error; a tab mismatch occurred");
                 }
             }
         }
@@ -197,13 +197,13 @@ namespace ProtoBuf
         private System.Collections.Hashtable stringKeys;
         private class ReferenceHashtable : System.Collections.Hashtable
         {
-            protected override int GetHash(object key)
+            protected override int GetHash(object tab)
             {
-                return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(key);
+                return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(tab);
             }
-            protected override bool KeyEquals(object item, object key)
+            protected override bool KeyEquals(object item, object tab)
             {
-                return item == key;
+                return item == tab;
             }
         }   
 #else

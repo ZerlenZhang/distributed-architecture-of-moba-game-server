@@ -1,11 +1,10 @@
-local sType=require("ServiceType");
 local cType=require("system/Const/CmdType");
 
-local gameLogic = require("system/SystemLogic");
+local systemLogic = require("system/SystemLogic");
 
 local cTypeToCallback = {};
-cTypeToCallback[cType.eGetMobaInfoReq]=gameLogic.GetUgameInfo;
-cTypeToCallback[cType.eRecvLoginBonuesReq]=gameLogic.RecvLoginBonues;
+cTypeToCallback[cType.eGetMobaInfoReq]=systemLogic.GetUgameInfo;
+cTypeToCallback[cType.eRecvLoginBonuesReq]=systemLogic.RecvLoginBonues;
 
 return   {
     OnSessionRecvCmd=function(s,msg)

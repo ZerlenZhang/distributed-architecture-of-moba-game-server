@@ -20,6 +20,9 @@ public:
 	
 	//Session断开某个服务的链接时调用关闭时调用
 	virtual bool OnSessionDisconnected(const AbstractSession* session,const int & serviceType)const;
+
+	//Session链接到否个服务的时候调用
+	virtual void OnSessionConnected(const AbstractSession* session, const int& serviceType)const;
 };
 
 

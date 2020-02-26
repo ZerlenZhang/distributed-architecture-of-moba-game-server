@@ -3,7 +3,7 @@ local redis = require("datebase/redis_center");
 local sType = require("ServiceType");
 local cmdType = require("auth/Const/CmdType");
 local responce = require("Respones");
-function OnGuestLogin( s,msg )
+local function OnGuestLogin( s,msg )
 		--{sType,cType,utag,body}
     	local key = msg[4].guest_key;
         local utag = msg[3];
@@ -95,7 +95,7 @@ function OnGuestLogin( s,msg )
     	end);
 end
 
-function DoEditProfile( s,req )
+local function DoEditProfile( s,req )
     local uid = req[3];
     local editProfileReq = req[4];
     --print(uid,editProfileReq.unick,editProfileReq.uface,editProfileReq.usex);
@@ -135,7 +135,7 @@ function DoEditProfile( s,req )
     redis.EditProfile(uid,editProfileReq.unick,editProfileReq.uface,editProfileReq.usex);
 end
 
-function _do_guest_account_upgrade(s,req,uid,uname,pwd )
+local function _do_guest_account_upgrade(s,req,uid,uname,pwd )
     mysql.GuestAccountUpgrade(uid,uname,pwd,
         function ( err )
             --发生错误
@@ -159,7 +159,7 @@ function _do_guest_account_upgrade(s,req,uid,uname,pwd )
         end)
 end
 
-function account_upgrade( s,req )
+local function account_upgrade( s,req )
     local uid = req[3];
     local preq = req[4];
 
@@ -232,7 +232,7 @@ function account_upgrade( s,req )
         end)
 end
 
-function user_login( s,req )
+local function user_login( s,req )
 
     local uid = req[3];
     local preq = req[4];
@@ -308,7 +308,7 @@ function user_login( s,req )
         end);
 end
 
-function user_unregister( s,req )
+local function user_unregister( s,req )
     local uid = req[3];
 
     local res = {sType.Auth,cmdType.eUserUnregisterRes,uid,

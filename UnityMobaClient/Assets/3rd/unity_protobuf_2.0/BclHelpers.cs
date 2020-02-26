@@ -474,7 +474,7 @@ namespace ProtoBuf
             }
             if(newObjectKey >= 0 && (options & NetObjectOptions.AsReference) == 0)
             {
-                throw new ProtoException("Object key in input stream, but reference-tracking was not expected");
+                throw new ProtoException("Object tab in input stream, but reference-tracking was not expected");
             }
             ProtoReader.EndSubItem(token, source);
 

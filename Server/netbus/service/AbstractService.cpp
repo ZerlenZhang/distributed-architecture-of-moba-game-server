@@ -22,3 +22,7 @@ bool AbstractService::OnSessionDisconnected(const AbstractSession* session, cons
 {
 	return false;
 }
+
+void AbstractService::OnSessionConnected(const AbstractSession* session, const int& serviceType) const
+{
+}
