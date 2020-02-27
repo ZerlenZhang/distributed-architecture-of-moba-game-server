@@ -9,6 +9,11 @@ enum LogicCmd{
 	eEnterRoom = 5;
 	ePlayerEnterRoom = 6;
 	ePlayerExitRoom = 7;
+
+	eExitRoomReq = 8;
+	eExitRoomRes = 9;
+
+	eGameStart = 10;
 } 
 
 message LoginLogicRes{
@@ -26,10 +31,30 @@ message EnterZoneRes{
 message EnterRoom{
 	required int32 zoneid = 1;
 	required int32 roomid = 2;
+	required int32 seatid = 3;
+	required int32 side = 4;
 }
 
 message PlayerEnterRoom{
 	required string unick = 1;
 	required int32 uface = 2;
 	required int32 usex = 3;
+	required int32 seatid = 4;
+	required int32 side = 5;
+}
+
+message PlayerExitRoom{
+	required int32 seatid = 1 ;
+}
+
+message EnterRoomRes{
+	required int32 status = 1;
+}
+
+message ExitRoomRes{
+	required int32 status = 1;
+}
+
+message GameStart{
+	repeated int32 heros = 1;
 }

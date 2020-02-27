@@ -80,6 +80,20 @@ namespace gprotocol
       get { return _roomid; }
       set { _roomid = value; }
     }
+    private int _seatid;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"seatid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatid
+    {
+      get { return _seatid; }
+      set { _seatid = value; }
+    }
+    private int _side;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"side", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int side
+    {
+      get { return _side; }
+      set { _side = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -111,6 +125,88 @@ namespace gprotocol
       get { return _usex; }
       set { _usex = value; }
     }
+    private int _seatid;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"seatid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatid
+    {
+      get { return _seatid; }
+      set { _seatid = value; }
+    }
+    private int _side;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"side", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int side
+    {
+      get { return _side; }
+      set { _side = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PlayerExitRoom")]
+  public partial class PlayerExitRoom : global::ProtoBuf.IExtensible
+  {
+    public PlayerExitRoom() {}
+    
+    private int _seatid;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"seatid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatid
+    {
+      get { return _seatid; }
+      set { _seatid = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EnterRoomRes")]
+  public partial class EnterRoomRes : global::ProtoBuf.IExtensible
+  {
+    public EnterRoomRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ExitRoomRes")]
+  public partial class ExitRoomRes : global::ProtoBuf.IExtensible
+  {
+    public ExitRoomRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameStart")]
+  public partial class GameStart : global::ProtoBuf.IExtensible
+  {
+    public GameStart() {}
+    
+    private readonly global::System.Collections.Generic.List<int> _heros = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"heros", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> heros
+    {
+      get { return _heros; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -142,7 +238,16 @@ namespace gprotocol
       ePlayerEnterRoom = 6,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ePlayerExitRoom", Value=7)]
-      ePlayerExitRoom = 7
+      ePlayerExitRoom = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eExitRoomReq", Value=8)]
+      eExitRoomReq = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eExitRoomRes", Value=9)]
+      eExitRoomRes = 9,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eGameStart", Value=10)]
+      eGameStart = 10
     }
   
 }

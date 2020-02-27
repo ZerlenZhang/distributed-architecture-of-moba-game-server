@@ -34,7 +34,7 @@ local function redis_connect_to_game()
 end
 
 --设置用户游戏信息
-local function set_ugame_info(uid,ugameinfo)
+local function set_ugame_info(uid,ugameinfo,handler)
 
 --	print("flag 1");
 	if conn==nil then
@@ -53,6 +53,9 @@ local function set_ugame_info(uid,ugameinfo)
 				return;
 			end
 --			print("[Redis]",ret);
+			if handler then
+				handler();
+			end
 		end);
 end
 

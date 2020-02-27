@@ -6,4 +6,8 @@ return {
 	eEnterZoneRes = 4,
 	eEnterRoom = 5,
 	ePlayerEnterRoom = 6,
+	ePlayerExitRoom = 7,
+	eExitRoomReq = 8,
+	eExitRoomRes = 9,
+	eGameStart = 10,
 };

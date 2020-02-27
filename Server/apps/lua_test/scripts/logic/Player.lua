@@ -1,6 +1,5 @@
 local mysql = require("datebase/mysql_game");
 local Respones = require("Respones");
-local Zone = require("logic/Const/Zone");
 local RoomState = require("logic/Const/RoomState");
 local Redis = require("datebase/redis_center");
 
@@ -29,6 +28,12 @@ function Player:Init(uid,s,handler)
 	self.state=RoomState.InView;
 	--默认不是机器人
 	self.isRobot=false;
+	--座位号
+	self.seatid=-1;
+	--那一边,0 左边，1 右边
+	self.side=-1;
+	--玩家英雄id
+	self.heroid=-1;
 
 	--从数据库读取玩家信息
 	mysql.GetUgameInfo(uid,
@@ -58,7 +63,6 @@ function Player:Init(uid,s,handler)
 				end
 			end);
 		end);
-
 end
 
 function Player:SetSession( s )
@@ -75,20 +79,37 @@ function Player:SendPackage(sType,cType,body)
 end
 
 function Player:GetInfo()
+	return {
+		unick = self.uinfo.unick,
+		uface = self.uinfo.uface,
+		usex = self.uinfo.usex,
+		seatid = self.seatid,
+		side=self.side,
+	};
+end
 
-	if self.isRobot then
-		return {
-			unick = "DefultUnick_"..self.uid,
-			uface = -1,
-			usex = -1,
-		}
+function Player:OnEnterRoom(roomid,seatid)
+	self.roomid=roomid;
+	self.seatid=seatid;
+	self.state=RoomState.InView;
+
+	--分边，是否是偶数
+	local num1,num2=math.modf(seatid/2)--返回整数和小数部分
+	if(num2==0)then
+		self.side=1;
 	else
-		return {
-			unick = self.uinfo.unick,
-			uface = self.uinfo.uface,
-			usex = self.uinfo.usex,
-		};
+		self.side=-1;
 	end
+
+end
+
+function Player:OnExitRoom()
+	self.roomid=-1;
+	self.zoneid=-1;
+	self.seatid=-1;
+	self.side=-1;
+	self.heroid=-1;
+	self.state=RoomState.InView;
 end
 
 return Player;

@@ -156,10 +156,13 @@
           </e>
           <e p="View" t="Include">
             <e p="Auto" t="Include">
+              <e p="BattlePanel.cs" t="Include" />
               <e p="ChatPanel.cs" t="Include" />
               <e p="HomePanel.cs" t="Include" />
+              <e p="LoadingPanel.cs" t="Include" />
               <e p="LoginPanel.cs" t="Include" />
             </e>
+            <e p="BattlePanel.cs" t="Include" />
             <e p="ChatPanel.cs" t="Include" />
             <e p="Dlgs" t="Include">
               <e p="LoginBonuesUi.cs" t="Include" />
@@ -167,6 +170,7 @@
               <e p="UserInfoDlg.cs" t="Include" />
             </e>
             <e p="HomePanel.cs" t="Include" />
+            <e p="LoadingPanel.cs" t="Include" />
             <e p="LoginPanel.cs" t="Include" />
           </e>
         </e>
@@ -310,6 +314,7 @@
               <e p="TabBarEditor.cs" t="Include" />
               <e p="TabPairDrawer.cs" t="Include" />
             </e>
+            <e p="Joystick.cs" t="Include" />
             <e p="MainLoop.cs" t="Include" />
             <e p="TabBar.cs" t="Include" />
             <e p="TriggerContainer3D.cs" t="Include" />

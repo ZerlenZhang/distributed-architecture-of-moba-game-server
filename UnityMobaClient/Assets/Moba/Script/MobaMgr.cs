@@ -20,8 +20,14 @@ namespace Moba.Script
 			
 			CEventCenter.AddListener(Message.LoginLogicServerSuccess,OnLoginLogicServerSuccess);
 			CEventCenter.AddListener(Message.GetUgameInfoSuccess,OnGetUgaemInfoSuccess);
+			CEventCenter.AddListener(Message.GameStart, OnGameStart);
 			//do any thing you want
 			PanelMgr.PushPanel(startPanel.StringValue);
+		}
+
+		private void OnGameStart()
+		{
+            Debug.Log("GameStart");
 		}
 
 		private void OnLoginLogicServerSuccess()

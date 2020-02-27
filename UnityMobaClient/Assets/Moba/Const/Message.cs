@@ -36,5 +36,29 @@ namespace Moba.Const
 		/// 成功登陆逻辑服务器
 		/// </summary>
 		public const string LoginLogicServerSuccess = "LoginLogicServerSuccess";
+
+
+		/// <summary>
+		/// 有其他玩家进入游戏
+		/// <PlayerEnter>res</PlayerEnter>
+		/// </summary>
+		public const string PlayerEnterRoom = "PlayerArriveRoom";
+
+		/// <summary>
+		/// 有其他玩家进入游戏
+		/// </summary>
+		public const string PlayerExitRoom = "PlayerLeaveRoom";
+
+
+		/// <summary>
+		/// 玩家成功离开房间
+		/// </summary>
+		public const string LeaveRoomSuccess = "LeaveRoomSuccess";
+
+
+		/// <summary>
+		/// 游戏开始
+		/// </summary>
+		public const string GameStart = "GameStart";
 	}
 }

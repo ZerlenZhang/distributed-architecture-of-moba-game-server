@@ -27,6 +27,9 @@ local zoneRoomList = {};
 zoneRoomList[Zone.Sgyd]={};
 zoneRoomList[Zone.Assy]={};
 
+local _robot_game_infos_={};
+local _robot_load_index_=1;
+
 --实例化机器人对象
 local function _do_new_robotplayers(robots)
 	local halfLen = math.floor(#robots * 0.5);
@@ -54,9 +57,17 @@ local function _do_load_robot_uinfo(uid)
 				Debug.LogError(err);
 				return;
 			end
+
 			--设置到Redis中去
-			CenterRedis.SetUinfo(uid,uinfo);
-			print("Robot[ "..uid.." ] info enter redis");
+			CenterRedis.SetUinfo(uid,uinfo,
+				function()
+					--加载完最后一个的时候开始实例化机器人对象
+					if _robot_load_index_ == #_robot_game_infos_ then
+						_do_new_robotplayers(_robot_game_infos_);
+						_robot_game_infos_=nil;
+					end
+					_robot_load_index_ = _robot_load_index_ + 1;
+				end);
 		end);
 end
 
@@ -74,12 +85,15 @@ local function _do_load_robot_ugame_info()
 			return;
 		end
 
-		_do_new_robotplayers(robots);
+		--保存到全局变量
+		_robot_game_infos_=robots;
 
+		--写入Redis
 		for k, robot in pairs(robots) do
-			--写入Redis
-			GameRedis.SetUgameInfo(robot.uid,robot);
-			_do_load_robot_uinfo(robot.uid);
+			GameRedis.SetUgameInfo(robot.uid,robot,
+				function()
+					_do_load_robot_uinfo(robot.uid);
+				end);
 		end
 	end
 	);
@@ -102,7 +116,7 @@ end
 --获取空闲机器人
 local function _search_idle_robot(zid)
 	for k, robot in pairs(zoneRobotList[zid]) do
-		if robot.state==RoomState.InView then
+		if robot.roomid==-1 then
 			return robot;
 		end
 	end
@@ -118,12 +132,14 @@ local function _do_push_robots_to_room()
 			if room.state==RoomState.InView then
 
 --				print("find room",room.roomid,roomid);
-
 				--找一个空闲机器人
 				local robot=_search_idle_robot(zid);
 				if robot then
-					print("add robot: "..robot.uid);
 					room:AddPlayer(robot);
+--					test
+--					Timer.Once(function()
+--						room:RemovePlayer(robot)
+--					end,5000);
 				end
 			end
 		end
@@ -203,8 +219,6 @@ local function _send_status( s,stype,ctype,uid,_status)
 	}};
 	Session.SendPackage(s,msg);
 end
-
-
 
 
 --玩家登陆请求
@@ -299,7 +313,6 @@ local function enter_zone( s,req )
 	end
 
 
-
 	local zid = req[4].zoneid;
 	if not _check_zoneid(zid) then
 		_send_status(s,stype,CmdType.eEnterZoneRes,uid,Respones.InvalidParams);
@@ -317,6 +330,26 @@ local function enter_zone( s,req )
 	return;
 end
 
+--离开房间
+local function on_player_exit_room(s,req)
+	local uid = req[3];
+	local player = onlinePlayers[uid];
+	if not player or player.roomid==-1 or player.zoneid==-1 or player.seatid==-1 or player.state~=RoomState.InView
+		then
+		_send_status(s,req[1],CmdType.eExitRoomRes,Respones.InvalidOprate);
+		return;
+	end
+
+	local room = zoneRoomList[player.zoneid][player.roomid];
+	if not room or room.state~=RoomState.InView then
+		_send_status(s,req[1],CmdType.eExitRoomRes,Respones.InvalidOprate);
+		return;
+	end
+
+	room:RemovePlayer(player);
+
+end
+
 GameRedis.Connect();
 GameMysql.Connect();
 CenterRedis.Connect();
@@ -331,9 +364,10 @@ Timer.Repeat(_do_match_players,1000,-1,5000);
 Timer.Repeat(_do_push_robots_to_room,1000,-1,2000);
 
 return{
-	OnLoginLogicReq=on_login_logic_req,
-	OnPlayerLostConn=on_player_lost_conn,
-	OnGatewayLostConn=on_gateway_disconnect,
-	OnGatewayConn=on_gateway_connect,
-	EnterZone=enter_zone,
+	OnLoginLogicReq     =on_login_logic_req,
+	OnPlayerLostConn    =on_player_lost_conn,
+	OnGatewayLostConn   =on_gateway_disconnect,
+	OnGatewayConn       =on_gateway_connect,
+	EnterZone           =enter_zone,
+	OnPlayerExitRoom    =on_player_exit_room,
 };

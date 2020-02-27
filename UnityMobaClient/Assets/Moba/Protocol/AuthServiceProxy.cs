@@ -195,7 +195,7 @@ namespace Moba.Protocol
 		{
 			Debug.Log("尝试游客登陆");
 
-			var key = PlayerPrefs.GetString(PrefKey.GuestKey);
+			var key = ""; //PlayerPrefs.GetString(PrefKey.GuestKey);
 
 			if (string.IsNullOrEmpty(key))
 			{

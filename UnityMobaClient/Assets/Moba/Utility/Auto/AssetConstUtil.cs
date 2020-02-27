@@ -7,8 +7,10 @@ namespace Moba.Utility
 	{
 		private System.Collections.Generic.Dictionary<string,string> nameToPath 
 			= new System.Collections.Generic.Dictionary<string,string>{
+					{ @"BattlePanel" , @"ClassPanel\BattlePanel" },
 					{ @"ChatPanel" , @"ClassPanel\ChatPanel" },
 					{ @"HomePanel" , @"ClassPanel\HomePanel" },
+					{ @"LoadingPanel" , @"ClassPanel\LoadingPanel" },
 					{ @"LoginPanel" , @"ClassPanel\LoginPanel" },
 					{ @"Avator_0" , @"ClassSprite\roundheader\Avator_0" },
 					{ @"Avator_1" , @"ClassSprite\roundheader\Avator_1" },

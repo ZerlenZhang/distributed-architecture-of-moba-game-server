@@ -1,5 +1,6 @@
 using gprotocol;
 using Moba.Const;
+using Moba.Global;
 using Moba.Network;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Network;
@@ -34,7 +35,61 @@ namespace Moba.Protocol
                     OnPlayerEnterRoom(pkg);
                     break;
                 case LogicCmd.ePlayerExitRoom:
+                    OnPlayerExitRoom(pkg);
                     break;
+                case LogicCmd.eExitRoomRes:
+                    OnExitRoomReturn(pkg);
+                    break;
+                case LogicCmd.eGameStart:
+                    OnGameStart(pkg);
+                    break;
+            }
+        }
+
+        private void OnGameStart(CmdPackageProtocol.CmdPackage pkg)
+        {
+            var res = CmdPackageProtocol.ProtobufDeserialize<GameStart>(pkg.body);
+            if (null == res)
+                return;
+
+            foreach (var hero in res.heros)
+            {
+                Debug.Log("HeroID: " + hero);
+            }
+            
+            CEventCenter.BroadMessage(Message.GameStart);
+        }
+
+        private void OnPlayerExitRoom(CmdPackageProtocol.CmdPackage pkg)
+        {
+            var res = CmdPackageProtocol.ProtobufDeserialize<PlayerExitRoom>(pkg.body);
+            if (null == res)
+                return;
+
+            Debug.Log("player leave " + res.seatid);
+            
+            for (int i = 0; i < NetInfo.otherPlayers.Count; i++)
+            {
+                if (NetInfo.otherPlayers[i].seatid == res.seatid)
+                {
+                    CEventCenter.BroadMessage(Message.PlayerExitRoom,i);
+                    NetInfo.otherPlayers.RemoveAt(i);
+                    return;
+                }
+            }
+            
+        }
+
+        private void OnExitRoomReturn(CmdPackageProtocol.CmdPackage pkg)
+        {
+            var res = CmdPackageProtocol.ProtobufDeserialize<ExitRoomRes>(pkg.body);
+            if (null == res)
+                return;
+            Debug.Log("exit room States: " + res.status);
+            if (res.status == Responce.Ok)
+            {
+                NetInfo.SetZoneId(-1);
+                CEventCenter.BroadMessage(Message.LeaveRoomSuccess);
             }
         }
 
@@ -43,7 +98,12 @@ namespace Moba.Protocol
             var res = CmdPackageProtocol.ProtobufDeserialize<PlayerEnterRoom>(pkg.body);
             if (null == res)
                 return;
+            
             Debug.Log("other player come: " + res.unick);
+            //添加其他玩家信息
+            NetInfo.otherPlayers.Add(res);
+            //广播消息
+            CEventCenter.BroadMessage(Message.PlayerEnterRoom, res);
         }
 
         private void OnEnterRoom(CmdPackageProtocol.CmdPackage pkg)
@@ -51,6 +111,7 @@ namespace Moba.Protocol
             var res = CmdPackageProtocol.ProtobufDeserialize<EnterRoom>(pkg.body);
             if (null == res)
                 return;
+            
 
             Debug.Log("Enter room: [" + res.zoneid + " : " + res.roomid+"]");
         }
@@ -105,7 +166,12 @@ namespace Moba.Protocol
                 req);
             Debug.Log("Send zondId: " + zoneId);
         }
-        
-        
+
+        public void ExitRoom()
+        {
+            NetworkMgr.Instance.SendProtobufCmd(
+                (int) ServiceType.Logic,
+                (int) LogicCmd.eExitRoomReq);
+        }
     }
 }

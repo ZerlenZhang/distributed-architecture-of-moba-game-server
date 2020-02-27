@@ -152,10 +152,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPanel:
     values:
+    - BattlePanel
     - ChatPanel
     - HomePanel
+    - LoadingPanel
     - LoginPanel
-    selectedIndex: 2
+    selectedIndex: 0
 --- !u!4 &998261768
 Transform:
   m_ObjectHideFlags: 0
@@ -468,6 +470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175339316311835860, guid: e6c98cb8fc7d4ed4baff4bd370c324d6,
+        type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 768
       objectReference: {fileID: 0}
     - target: {fileID: 1175339316311835862, guid: e6c98cb8fc7d4ed4baff4bd370c324d6,
         type: 3}

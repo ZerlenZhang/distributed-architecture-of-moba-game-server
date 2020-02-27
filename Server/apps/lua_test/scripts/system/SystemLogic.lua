@@ -111,7 +111,7 @@ local function get_ugame_info( s,req )
     					return;
     				end
     				--重新登陆
-    				get_ugame_info(s,msg);
+    				get_ugame_info(s,req);
     				return;
     			end)
     			return;

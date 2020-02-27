@@ -5,4 +5,8 @@ return {
 	"EnterZoneRes" ,
 	"EnterRoom" ,
 	"PlayerEnterRoom" ,
+	"PlayerExitRoom" ,
+	"ExitRoomReq" ,
+	"ExitRoomRes" ,
+	"GameStart" ,
 };

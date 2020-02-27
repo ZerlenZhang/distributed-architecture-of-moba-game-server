@@ -33,7 +33,7 @@ local function redis_connect_to_center()
 		end);
 end
 
-local function set_uinfo( uid,uinfo )
+local function set_uinfo( uid,uinfo,handler )
 	if nil==conn then
 		Debug.LogError("redis is not connected yet");
 		return;
@@ -52,6 +52,9 @@ local function set_uinfo( uid,uinfo )
 				return;
 			end
 			--print("[Redis]",ret);
+			if handler then
+				handler();
+			end
 		end);
 end
 

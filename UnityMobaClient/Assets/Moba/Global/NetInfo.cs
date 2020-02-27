@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using gprotocol;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -72,5 +73,8 @@ namespace Moba.Global
         {
             zoneId = id;
         }
+
+        public static List<PlayerEnterRoom> otherPlayers = new List<PlayerEnterRoom>();
+
     }
 }

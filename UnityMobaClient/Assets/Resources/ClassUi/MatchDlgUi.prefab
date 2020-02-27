@@ -585,6 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef31d25849664dd4846b9802b22af9b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollRect: {fileID: 1453115416113445463}
 --- !u!1 &1453115416597322164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,7 +1288,7 @@ PrefabInstance:
     - target: {fileID: 3245924073955079132, guid: 6d55ec7dbcbbed846bfc428665737b47,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 217.59998
+      value: 232.45
       objectReference: {fileID: 0}
     - target: {fileID: 3245924073955079132, guid: 6d55ec7dbcbbed846bfc428665737b47,
         type: 3}
@@ -1297,7 +1298,7 @@ PrefabInstance:
     - target: {fileID: 3245924073955079132, guid: 6d55ec7dbcbbed846bfc428665737b47,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 168.8
+      value: 196.65
       objectReference: {fileID: 0}
     - target: {fileID: 3245924073955079132, guid: 6d55ec7dbcbbed846bfc428665737b47,
         type: 3}
@@ -1373,12 +1374,12 @@ PrefabInstance:
     - target: {fileID: 5636940194762801731, guid: 6d55ec7dbcbbed846bfc428665737b47,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
+      value: -14.85
       objectReference: {fileID: 0}
     - target: {fileID: 5636940194762801731, guid: 6d55ec7dbcbbed846bfc428665737b47,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -29.7
       objectReference: {fileID: 0}
     - target: {fileID: 6483234652472728900, guid: 6d55ec7dbcbbed846bfc428665737b47,
         type: 3}
