@@ -16,7 +16,7 @@ local function redis_connect_to_game()
 		function( err,redisConn )
 			--链接错误，重连
 			if err~=nil then
-				Debug.LogError(err);
+				Debug.LogError("Redis Connect Error",err);
 				Timer.Once(redis_connect_to_game,5000);
 				return;
 			end

@@ -46,7 +46,6 @@ int main(int argc, char** argv)
 		}
 		lua_wrapper::AddSearchPath(argv[1]);
 		lua_wrapper::DoFile(searchPath + argv[2]);
-
 	}
 	else {
 		protoFileDir = WinUtil::GetDirPath(argv[0]);

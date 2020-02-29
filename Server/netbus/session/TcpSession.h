@@ -31,12 +31,15 @@ public:
 
 	// 通过 AbstractSession 继承
 	virtual void SendRawPackage(RawPackage* pkg) override;
-	#pragma endregion
-
 
 	//用于对象池
 	virtual void Enable()override;
 	virtual void Disable()override;
+	#pragma endregion
+
+
+	void* operator new(size_t size);
+	void operator delete(void* mem);
 
 public:
 	uv_shutdown_t shutdown;

@@ -2,6 +2,7 @@ using System;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.View;
 using UnityEngine.SceneManagement;
 
 namespace ReadyGamerOne.Script
@@ -49,6 +50,7 @@ namespace ReadyGamerOne.Script
         protected virtual void OnAnySceneUnload(Scene scene)
         {
             MainLoop.Instance.Clear();
+            PanelMgr.Clear();
         }
         
         private void OnDrawGizmos()

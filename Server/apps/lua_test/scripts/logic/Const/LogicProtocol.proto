@@ -14,7 +14,13 @@ enum LogicCmd{
 	eExitRoomRes = 9;
 
 	eGameStart = 10;
-} 
+
+	eUdpTest = 11;
+}
+
+message UdpTest{
+	required int32 content = 1;
+}
 
 message LoginLogicRes{
 	required int32 status = 1;

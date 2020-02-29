@@ -74,6 +74,15 @@ local function get_uinfo( uid,handler )
 				end
 				return;
 			end
+
+			if nil==ret or #ret < 10 then
+				Debug.LogError("get ret error");
+				if handler then
+					handler("get ret error",nil);
+				end
+				return;
+			end
+
 			local uinfo = {};
 			uinfo.uid=uid;
 			uinfo.unick=ret[2];

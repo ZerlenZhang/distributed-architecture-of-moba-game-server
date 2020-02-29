@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include <fcntl.h>
 #include <time.h>
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <string>
 using namespace std;
 

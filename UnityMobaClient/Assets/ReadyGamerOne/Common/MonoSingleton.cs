@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 namespace ReadyGamerOne.Common
 {
     /// <summary>
@@ -8,20 +9,27 @@ namespace ReadyGamerOne.Common
     public class MonoSingleton<T> : MonoBehaviour
         where T : MonoSingleton<T>
     {
-        protected static T _instance = null;
+        protected static T _instance { get; private set; } = null;
         public static T Instance {
             get {
-                if (_instance == null) {
-                    _instance = FindObjectOfType(typeof(T)) as T;
-                    if (_instance == null) {
-//                        Debug.Log("新建："+typeof(T).Name);
-                        GameObject obj = new GameObject();
-                        _instance = (T)obj.AddComponent(typeof(T));
-                        obj.hideFlags = HideFlags.DontSave;
-                        // obj.hideFlags = HideFlags.HideAndDontSave;
-                        obj.name = typeof(T).Name;
-                    }
-                }
+                if (_instance) return _instance;
+                _instance = FindObjectOfType(typeof(T)) as T;
+                if (_instance) return _instance;
+                
+//                Debug.Log("新建："+typeof(T).Name);
+
+                var obj = new GameObject()
+                {
+                    name = typeof(T).Name,
+                    hideFlags = HideFlags.DontSave
+                };
+                
+                _instance = (T)obj.AddComponent(typeof(T));
+
+                if (!_instance)
+                    throw new Exception("怎么还是空？"+typeof(T).Name);
+                        
+                DontDestroyOnLoad(obj);
                 return _instance;
             }
         }
@@ -35,8 +43,13 @@ namespace ReadyGamerOne.Common
             }
             else if(_instance!=this)
             {
-//                Debug.Log(this.GetType().Name+"重复生成，销毁当前物体："+ GetHashCode());
+                Debug.LogWarning(this.GetType().Name+"重复生成，销毁当前物体："+ GetHashCode());
                 GameObject.Destroy(this.gameObject);
+            }
+            else
+            {
+                //print("instance is this, do nothing");
+                DontDestroyOnLoad(this.gameObject);
             }
         }
     }

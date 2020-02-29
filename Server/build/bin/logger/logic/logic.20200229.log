@@ -1,0 +1,594 @@
+20200229 09:29:33 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200229 09:29:34 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200229 09:32:10 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200229 09:32:10 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200229 09:37:37 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200229 09:39:03 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200229 09:39:03 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200229 09:39:03 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 09:39:03 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 09:39:08 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 09:39:08 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 09:39:18 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 09:39:18 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:16 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 15:12:16 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 15:12:16 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 15:12:16 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 15:12:21 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:21 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:31 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:31 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:41 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:41 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:49 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:60660]
+20200229 15:12:49 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 15:12:51 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:12:51 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:13:01 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:13:01 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:13:11 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:13:11 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:13:19 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0 nread = 11
+20200229 15:13:19 ErrorF:\Projects\unity\Moba\Server\netbus\protocol\CmdPackageProtocol.cpp:186  
+消息反序列化失败
+20200229 15:40:38 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 15:40:38 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 15:40:39 Error../../apps/lua_test/scripts/datebase/mysql_game.lua:21  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:40:39 Error../../apps/lua_test/scripts/datebase/mysql_center.lua:20  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:40:44 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:40:44 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:40:45 Error../../apps/lua_test/scripts/datebase/mysql_game.lua:21  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:40:45 Error../../apps/lua_test/scripts/datebase/mysql_center.lua:20  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:40:48 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:52683]
+20200229 15:40:48 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 15:40:51 Error../../apps/lua_test/scripts/datebase/mysql_game.lua:21  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:40:51 Error../../apps/lua_test/scripts/datebase/mysql_center.lua:20  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:40:54 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:40:54 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:40:57 Error../../apps/lua_test/scripts/datebase/mysql_game.lua:21  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:40:57 Error../../apps/lua_test/scripts/datebase/mysql_center.lua:20  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:41:03 Error../../apps/lua_test/scripts/datebase/mysql_game.lua:21  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:41:03 Error../../apps/lua_test/scripts/datebase/mysql_center.lua:20  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:41:04 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:41:04 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:41:09 Error../../apps/lua_test/scripts/datebase/mysql_game.lua:21  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:41:09 Error../../apps/lua_test/scripts/datebase/mysql_center.lua:20  
+Can't connect to MySQL server on '127.0.0.1' (10061)
+20200229 15:41:14 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 15:41:14 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+p鼴瀕
+20200229 15:45:24 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 15:45:29 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 15:45:29 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 15:45:29 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 15:45:29 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 15:45:29 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 15:45:51 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0 nread = 11
+20200229 15:46:52 ErrorF:\Projects\unity\Moba\Server\netbus\protocol\CmdPackageProtocol.cpp:186  
+消息反序列化失败
+20200229 16:11:24 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:11:30 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:11:30 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 16:11:30 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 16:11:30 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 16:11:30 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 16:11:43 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:54888]
+20200229 16:11:43 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 16:12:51 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 16:14:09 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:14:09 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:14:09 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 16:14:09 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 16:14:09 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 16:14:09 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 16:14:09 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:55072]
+20200229 16:14:09 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 16:14:37 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 16:16:11 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:16:11 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:16:11 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 16:16:11 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 16:16:11 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 16:16:11 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 16:16:13 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:55253]
+20200229 16:16:13 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:16:16 Error../../apps/lua_test/scripts/datebase/redis_game.lua:52  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200229 16:17:11 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:17:11 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:17:11 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 16:17:11 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 16:17:11 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 16:17:11 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 16:17:11 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:55329]
+20200229 16:17:11 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 16:17:20 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 16:17:27 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:355  
+get conent: 	999
+20200229 16:19:56 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:19:56 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:19:56 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 16:19:56 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 16:19:56 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 16:19:56 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 16:19:57 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:55569]
+20200229 16:19:57 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 16:22:00 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:22:00 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:34:58 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:34:58 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:38:04 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:38:04 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:39:24 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:39:24 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:39:24 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 16:39:24 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 16:41:47 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:41:47 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:45:48 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 16:46:35 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 16:48:18 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 19:45:49 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 19:49:50 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 19:49:50 ErrorF:\Projects\unity\Moba\Server\database\mysqlwarpper.cpp:64  
+mysql_init(NULL) 返回 NULL, 链接数据库失败
+20200229 19:49:51 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 19:50:27 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 19:50:31 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 19:50:42 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 19:50:42 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 19:55:23 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 19:55:23 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 19:56:02 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 19:56:02 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:01:26 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:01:26 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:15:35 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:15:35 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:15:35 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:16:09 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:16:09 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:16:30 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:16:30 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:16:30 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:16:30 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:18:23 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:18:23 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:22:38 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:22:38 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:22:38 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:22:38 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:22:38 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:22:38 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:25:15 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:25:15 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:25:15 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:25:15 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:25:15 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:25:15 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:25:22 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:51130]
+20200229 20:25:22 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 20:26:20 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 20:26:20 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:355  
+get conent: 	999
+20200229 20:26:55 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:26:55 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:26:55 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:26:55 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:26:55 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:26:55 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:26:57 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:51281]
+20200229 20:26:57 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 20:27:05 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 20:27:05 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:355  
+get conent: 	999
+20200229 20:29:59 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:29:59 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:29:59 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:29:59 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:29:59 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:29:59 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:30:02 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:51555]
+20200229 20:30:02 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:30:04 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:99  
+[LUA ERROR] ../../apps/lua_test/scripts/datebase/redis_center.lua:79: attempt to index a nil value (local 'ret')
+20200229 20:32:59 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:32:59 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:32:59 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:32:59 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:32:59 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:32:59 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:33:47 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 20:36:41 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:355  
+get conent: 	999
+20200229 20:41:25 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:41:25 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:41:25 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:41:25 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:41:25 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:41:25 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:41:59 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 20:44:10 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:44:10 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:44:10 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:44:10 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:44:10 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:44:10 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:45:37 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 20:48:56 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:48:56 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:48:56 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:48:56 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:48:56 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:48:56 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:54:26 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:54:26 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:54:26 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:54:26 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:54:26 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:54:26 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 20:56:23 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:224  
+ip: 127.0.0.1:0， nread = 11
+20200229 20:58:34 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 20:58:34 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 20:58:34 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 20:58:34 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 20:58:34 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 20:58:34 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 21:02:42 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:225  
+ip: 127.0.0.1:0， nread = 11
+20200229 21:04:10 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 21:04:10 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 21:04:10 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 21:04:10 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 21:04:15 Error../../apps/lua_test/scripts/datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 21:04:15 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+p陗〗
+20200229 21:04:18 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:32  
+new client come [127.0.0.1:53294]
+20200229 21:04:18 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:290  
+gateway connect to logic
+20200229 21:04:25 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 21:04:25 ErrorF:\Projects\unity\Moba\Server\lua_wrapper\lua_wrapper.cpp:63  
+没有注册过这个函数句柄：14
+20200229 21:04:35 Error../../apps/lua_test/scripts/datebase/redis_game.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200229 21:06:05 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 21:06:05 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 21:06:05 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 21:06:05 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 21:06:05 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 21:06:05 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 21:12:35 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 21:12:35 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 21:12:35 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 21:12:35 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 21:12:35 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 21:12:35 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 21:15:06 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 21:15:06 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 21:15:06 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 21:15:06 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 21:15:06 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 21:15:06 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 21:15:20 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:225  
+ip: 127.0.0.1:8888， nread = 11
+20200229 21:15:21 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:355  
+get conent: 	999
+20200229 21:19:21 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 21:19:21 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 21:19:21 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 21:19:21 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 21:19:21 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 21:19:21 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200229 21:19:45 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:225  
+ip: 127.0.0.1:8888， nread = 11
+20200229 21:19:45 Debug../../apps/lua_test/scripts/logic/GameMgr.lua:355  
+get conent: 	999
+20200229 21:19:49 DebugF:\Projects\unity\Moba\Server\netbus\session\UdpSession.cpp:14  
+udp send success
+20200229 21:20:59 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:36  
+Logic server [tcp] listen at: 	8002
+20200229 21:20:59 Debug../../apps/lua_test/scripts/logic/logic_server_main.lua:42  
+register Logic Service:[3] service success
+20200229 21:20:59 Debug../../apps/lua_test/scripts/datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200229 21:20:59 Debug../../apps/lua_test/scripts/datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200229 21:20:59 Debug../../apps/lua_test/scripts/datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200229 21:20:59 Debug../../apps/lua_test/scripts/datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success

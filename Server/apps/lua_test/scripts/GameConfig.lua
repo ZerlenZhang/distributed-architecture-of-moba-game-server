@@ -56,14 +56,18 @@ return {
         host="127.0.0.1",
         port=7999,
         db_index=1,
-        auth="Zzl5201314..."
+        auth="Zzl5201314...",
     },
 
     game_redis={
         host="127.0.0.1",
         port=7999,
         db_index=2,
-        auth="Zzl5201314..."
+        auth="Zzl5201314...",
     },
-
+    
+    logic_udp={
+        host="127.0.0.1",
+        port=8800,
+    },
 };

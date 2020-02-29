@@ -28,7 +28,7 @@
 #include "internal.h"
 #include "handle-inl.h"
 #include "req-inl.h"
-
+#define _CRT_SECURE_NO_WARNINGS
 
 const unsigned int uv_directory_watcher_buffer_size = 4096;
 

@@ -59,6 +59,41 @@ static void connect_work(uv_work_t* req)
 
 	pInfo->context->pConn = mysql_init(NULL);
 
+	if (!pInfo->context->pConn)
+	{
+		log_error("mysql_init(NULL) 返回 NULL, 链接数据库失败");
+
+		#pragma region 释放内存
+		pInfo->error = my_strdup("链接数据库失败——mysql_init(NULL) 返回 NULL, ");
+		if (pInfo->open_cb)
+			pInfo->open_cb(pInfo->error, pInfo->context);
+		if (pInfo->ip)
+			free_strdup(pInfo->ip);
+		if (pInfo->dbName)
+			free_strdup(pInfo->dbName);
+		if (pInfo->uName)
+			free_strdup(pInfo->uName);
+		if (pInfo->password)
+			free_strdup(pInfo->password);
+		if (pInfo->error)
+			free_strdup(pInfo->error);
+		auto context = pInfo->context;
+		if (context)
+		{
+			if (context->udata && context->autoFreeUserData)
+				free(context->udata);
+			uv_mutex_unlock(&pInfo->context->lock);
+			my_free(context);
+		}
+
+		my_free(pInfo);
+		my_free(req);
+
+		#pragma endregion
+
+		return;
+	}
+
 	auto result = mysql_real_connect(
 		pInfo->context->pConn,
 		pInfo->ip,
@@ -76,6 +111,7 @@ static void connect_work(uv_work_t* req)
 
 	//log_debug("connect 释放");
 	uv_mutex_unlock(&pInfo->context->lock);
+	//my_free(req);
 }
 
 static void on_connect_complete(uv_work_t* req, int status)
@@ -103,7 +139,6 @@ static void on_connect_complete(uv_work_t* req, int status)
 
 
 	my_free(req);
-
 }
 
 static void close_work(uv_work_t* req)
@@ -150,7 +185,7 @@ static void query_work(uv_work_t* req)
 
 	if (ret != 0)
 	{
-		pInfo->error = strdup(mysql_error(pInfo->context->pConn));
+		pInfo->error = my_strdup(mysql_error(pInfo->context->pConn));
 		//释放线程锁
 		//log_debug("query 释放");
 		uv_mutex_unlock(&pInfo->context->lock);
@@ -201,14 +236,11 @@ void mysql_wrapper::connect(char* ip, int port, char* dbName, char* uName, char*
 	auto w = (uv_work_t * )my_alloc(sizeof(uv_work_t));
 	memset(w, 0, sizeof(uv_work_t));
 
+	#pragma region info(connect_req)
+
 	auto info = (connect_req*)my_alloc(sizeof(connect_req));
 	memset(info, 0, sizeof(connect_req)); 
 
-	auto lockContext = (MysqlContext*)my_alloc(sizeof(MysqlContext));
-	memset(lockContext, 0, sizeof(MysqlContext));
-	uv_mutex_init(&lockContext->lock);//初始化信号量
-
-	lockContext->autoFreeUserData = autoFreeUdata;
 
 	info->ip = my_strdup(ip);
 	info->port = port;
@@ -216,9 +248,21 @@ void mysql_wrapper::connect(char* ip, int port, char* dbName, char* uName, char*
 	info->uName = my_strdup(uName);
 	info->password = my_strdup(password);
 	info->open_cb = open_cb; 
+
+	#pragma region lockContext(MysqlContext)
+
+	auto lockContext = (MysqlContext*)my_alloc(sizeof(MysqlContext));
+	memset(lockContext, 0, sizeof(MysqlContext));
+	lockContext->autoFreeUserData = autoFreeUdata;
+	lockContext->udata = udata;
+
+	uv_mutex_init(&lockContext->lock);//初始化信号量
+
+	#pragma endregion
+
 	info->context = lockContext;
 
-	info->context->udata = udata;
+	#pragma endregion
 
 	w->data = info;
 

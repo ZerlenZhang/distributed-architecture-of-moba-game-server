@@ -19,6 +19,7 @@
  * IN THE SOFTWARE.
  */
 
+#define _CRT_SECURE_NO_WARNINGS
 #include "uv-common.h"
 
 #if !defined(_WIN32)

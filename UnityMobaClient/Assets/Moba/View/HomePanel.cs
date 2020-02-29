@@ -24,13 +24,13 @@ namespace Moba.View
 		partial void OnLoad()
 		{
 			//do any thing you want
-			unick = view["Top/Uinfo/NickText"].GetComponent<Text>();
-			uface = view["Top/Uinfo/HeadIcon"].GetComponent<Image>();
-			coinText = view["Top/Center/CoinInfo/Text"].GetComponent<Text>();
-			diamondText = view["Top/Center/DamdInfo/Text"].GetComponent<Text>();
-			expSlider = view["Top/Uinfo/ExpSlider"].GetComponent<Slider>();
-			levelText = view["Top/Uinfo/LevelText"].GetComponent<Text>();
-			expText = view["Top/Uinfo/ExpText"].GetComponent<Text>();
+			unick = GetComponent<Text>("Top/Uinfo/NickText");
+			uface = GetComponent<Image>("Top/Uinfo/HeadIcon");
+			coinText = GetComponent<Text>("Top/Center/CoinInfo/Text");
+			diamondText = GetComponent<Text>("Top/Center/DamdInfo/Text");
+			expSlider = GetComponent<Slider>("Top/Uinfo/ExpSlider");
+			levelText = GetComponent<Text>("Top/Uinfo/LevelText");
+			expText = GetComponent<Text>("Top/Uinfo/ExpText");
 
 			add_button_listener("Top/Uinfo/HeadIcon",OnClickIcon);
 			

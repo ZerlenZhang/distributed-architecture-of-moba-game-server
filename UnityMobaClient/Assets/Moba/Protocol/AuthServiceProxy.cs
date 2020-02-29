@@ -182,7 +182,7 @@ namespace Moba.Protocol
 				uname = uName,
 				upwd_md5 = upwdMd5,
 			};
-			NetworkMgr.Instance.SendProtobufCmd(
+			NetworkMgr.Instance.TcpSendProtobufCmd(
 				(int) ServiceType.Auth,
 				(int) LoginCmd.eAccountUpgradeReq,
 				req);
@@ -210,7 +210,7 @@ namespace Moba.Protocol
 				guest_key = key,
 			};
 
-			NetworkMgr.Instance.SendProtobufCmd(
+			NetworkMgr.Instance.TcpSendProtobufCmd(
 				(int) ServiceType.Auth,
 				(int) LoginCmd.eGuestLoginReq,
 				req);
@@ -224,14 +224,14 @@ namespace Moba.Protocol
 		public void UserLogin(string uname, string upwd)
 		{
 			var md5 = SecurityUtil.Md5(upwd);
-			Debug.Log(uname + "  " + upwd);
+//			Debug.Log(uname + "  " + upwd);
 
 			var req = new UserLoginReq
 			{
 				uname = uname,
 				upwd_md5 = md5,
 			};
-			NetworkMgr.Instance.SendProtobufCmd(
+			NetworkMgr.Instance.TcpSendProtobufCmd(
 				(int) ServiceType.Auth,
 				(int) LoginCmd.eUserLoginReq,
 				req);
@@ -257,7 +257,7 @@ namespace Moba.Protocol
 				usex = usex, uface = uface, unick = unick
 			};
 
-			NetworkMgr.Instance.SendProtobufCmd(
+			NetworkMgr.Instance.TcpSendProtobufCmd(
 				(int)ServiceType.Auth,
 				(int)LoginCmd.eEditProfileReq,
 				_editProfileReq);
@@ -271,7 +271,7 @@ namespace Moba.Protocol
 		public void Unregister()
 		{
 			Debug.Log("注销");
-			NetworkMgr.Instance.SendProtobufCmd(
+			NetworkMgr.Instance.TcpSendProtobufCmd(
 				(int)ServiceType.Auth,
 				(int)LoginCmd.eUserUnregisterReq,
 				null);

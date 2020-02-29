@@ -10,4 +10,5 @@ return {
 	eExitRoomReq = 8,
 	eExitRoomRes = 9,
 	eGameStart = 10,
+	eUdpTest=11,
 };

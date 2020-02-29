@@ -97,9 +97,9 @@ namespace ReadyGamerOne.View
             load_all_object(m_TransFrom.gameObject,"");
         }
 
-        public Dictionary<string, GameObject> view = new Dictionary<string, GameObject>();
+        private Dictionary<string, GameObject> view = new Dictionary<string, GameObject>();
 
-        void load_all_object(GameObject root, string path) {
+        private void load_all_object(GameObject root, string path) {
             foreach (Transform tf in root.transform) {
                 if (this.view.ContainsKey(path + tf.gameObject.name)) {
                     Debug.LogWarning("发现同名UI节点:" + path + tf.gameObject.name + "!");
@@ -111,7 +111,20 @@ namespace ReadyGamerOne.View
                 load_all_object(tf.gameObject, path + tf.gameObject.name + "/");
             }
 
-        }        
+        }
+
+        protected Transform GetTransform(string path)
+        {
+            if (!view.ContainsKey(path))
+                throw new Exception("不包含这个路径：" + path);
+            return view[path].transform;
+        }
+        protected T GetComponent<T>(string path) where T : Component
+        {
+            if (!view.ContainsKey(path))
+                throw new Exception("不包含这个路径：" + path);
+            return view[path].GetComponent<T>();
+        }
 
         #endregion
 

@@ -31,6 +31,7 @@ Netbus.TcpListen(servers[sType.Logic].port
         local ip,port = Session.GetAddress(s);
         print("new client come ["..ip..":"..port.."]");
     end);
+Netbus.UdpListen(config.logic_udp.port);
 
 print("Logic server [tcp] listen at: ",servers[sType.Logic].port);
 

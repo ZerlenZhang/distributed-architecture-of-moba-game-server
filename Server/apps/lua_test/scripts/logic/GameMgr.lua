@@ -350,6 +350,12 @@ local function on_player_exit_room(s,req)
 
 end
 
+--Udp测试消息处理
+local function on_udp_test(s,req)
+	print("get conent: ", req[4].content);
+	Session.SendPackage(s,req);
+end
+
 GameRedis.Connect();
 GameMysql.Connect();
 CenterRedis.Connect();
@@ -364,10 +370,11 @@ Timer.Repeat(_do_match_players,1000,-1,5000);
 Timer.Repeat(_do_push_robots_to_room,1000,-1,2000);
 
 return{
-	OnLoginLogicReq     =on_login_logic_req,
-	OnPlayerLostConn    =on_player_lost_conn,
-	OnGatewayLostConn   =on_gateway_disconnect,
-	OnGatewayConn       =on_gateway_connect,
-	EnterZone           =enter_zone,
-	OnPlayerExitRoom    =on_player_exit_room,
+	OnLoginLogicReq     =   on_login_logic_req,
+	OnPlayerLostConn    =   on_player_lost_conn,
+	OnGatewayLostConn   =   on_gateway_disconnect,
+	OnGatewayConn       =   on_gateway_connect,
+	EnterZone           =   enter_zone,
+	OnPlayerExitRoom    =   on_player_exit_room,
+	OnUdpTest           =   on_udp_test,
 };

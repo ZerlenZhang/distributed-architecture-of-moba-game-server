@@ -23,6 +23,8 @@ public:
 
 	//Session链接到否个服务的时候调用
 	virtual void OnSessionConnected(const AbstractSession* session, const int& serviceType)const;
+
+	virtual ~AbstractService() {}
 };
 
 

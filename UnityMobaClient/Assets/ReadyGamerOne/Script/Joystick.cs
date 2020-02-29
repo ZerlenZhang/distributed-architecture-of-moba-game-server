@@ -35,8 +35,8 @@ namespace ReadyGamerOne.Script
                 pos = pos.normalized * maxR;
             }
 
-            this.touchDir.x = pos.x / len;
-            this.touchDir.y = pos.y / len;
+            this.touchDir.x = pos.x / maxR;
+            this.touchDir.y = pos.y / maxR;
             
             this.stick.localPosition = pos;
         }

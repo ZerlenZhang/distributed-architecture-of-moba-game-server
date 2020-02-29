@@ -1,47 +1,40 @@
-using Moba.Const;
+using System;
+using System.Net.Sockets;
 using Moba.Data;
-using Moba.Global;
 using Moba.Protocol;
-using ReadyGamerOne.Common;
-using ReadyGamerOne.EditorExtension;
-using ReadyGamerOne.View;
-using UnityEngine;
+using ReadyGamerOne.Script;
+using UnityEngine.Assertions;
 
 namespace Moba.Script
 {
 	public partial class MobaMgr
 	{
-		public StringChooser startPanel = new StringChooser(typeof(PanelName));
+
+		public bool debug_UdpSocket = false;
 		
 		partial void OnSafeAwake()
 		{
 			//初始化等级数据
 			UlevelMgr.Instance.Init();
-			
-			CEventCenter.AddListener(Message.LoginLogicServerSuccess,OnLoginLogicServerSuccess);
-			CEventCenter.AddListener(Message.GetUgameInfoSuccess,OnGetUgaemInfoSuccess);
-			CEventCenter.AddListener(Message.GameStart, OnGameStart);
-			//do any thing you want
-			PanelMgr.PushPanel(startPanel.StringValue);
 		}
 
-		private void OnGameStart()
+		private void Start()
 		{
-            Debug.Log("GameStart");
-		}
+			MainLoop.Instance.ExecuteLater(
+				() => LogicServiceProxy.Instance.TestUdp(999),  
+				3);
 
-		private void OnLoginLogicServerSuccess()
-		{
-			CEventCenter.RemoveListener(Message.LoginLogicServerSuccess,OnLoginLogicServerSuccess);
-			Debug.Log("登陆逻辑服务器成功");
-			PanelMgr.PushPanel(PanelName.HomePanel);
+			if (debug_UdpSocket)
+			{
+				var s = new Socket(
+					AddressFamily.InterNetwork,
+					SocketType.Stream,
+					ProtocolType.Udp);
+				Assert.IsNotNull(s);
+			}
 		}
-
-		private void OnGetUgaemInfoSuccess()
-		{
-			CEventCenter.RemoveListener(Message.GetUgameInfoSuccess, OnGetUgaemInfoSuccess);
-			Debug.Log("获取Moba信息成功，开始正在登陆逻辑服务器");
-			LogicServiceProxy.Instance.LoginLogicServer();
-		}
+		
+		
+		
 	}
 }

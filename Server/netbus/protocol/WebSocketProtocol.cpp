@@ -11,7 +11,7 @@
 #include "../../utils/logger/logger.h"
 
 #include "../../netbus/session/AbstractSession.h"
-
+#define _CRT_SECURE_NO_WARNINGS
 
 #pragma region 全局常量
 

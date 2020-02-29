@@ -8,57 +8,63 @@ namespace Moba.Const
 		/// <summary>
 		/// 同步网络信息
 		/// </summary>
-		public const string SyncAuthInfo = "SyncAuthInfo";
+		public static readonly string SyncAuthInfo = "SyncAuthInfo";
 
 		/// <summary>
 		/// 升级游客账号
 		/// </summary>
-		public const string UpgradeGuest = "UpgradeGuest";
+		public static readonly string UpgradeGuest = "UpgradeGuest";
 
 
 		/// <summary>
 		/// 注销账号
 		/// </summary>
-		public const string Unregister = "Unregister";
+		public static readonly string Unregister = "Unregister";
 		
 		/// <summary>
 		/// 同步游戏数据
 		/// </summary>
-		public const string SyncUgameInfo = "SyncUgameInfo";
+		public static readonly string SyncUgameInfo = "SyncUgameInfo";
 
 		/// <summary>
 		/// 成功获取游戏信息
 		/// </summary>
-		public const string GetUgameInfoSuccess = "GetUgameInfoSuccess";
+		public static readonly string GetUgameInfoSuccess = "GetUgameInfoSuccess";
 
 
 		/// <summary>
 		/// 成功登陆逻辑服务器
 		/// </summary>
-		public const string LoginLogicServerSuccess = "LoginLogicServerSuccess";
+		public static readonly string LoginLogicServerSuccess = "LoginLogicServerSuccess";
 
 
 		/// <summary>
 		/// 有其他玩家进入游戏
 		/// <PlayerEnter>res</PlayerEnter>
 		/// </summary>
-		public const string PlayerEnterRoom = "PlayerArriveRoom";
+		public static readonly string PlayerEnterRoom = "PlayerArriveRoom";
 
 		/// <summary>
 		/// 有其他玩家进入游戏
 		/// </summary>
-		public const string PlayerExitRoom = "PlayerLeaveRoom";
+		public static readonly string PlayerExitRoom = "PlayerLeaveRoom";
 
 
 		/// <summary>
 		/// 玩家成功离开房间
 		/// </summary>
-		public const string LeaveRoomSuccess = "LeaveRoomSuccess";
+		public static readonly string LeaveRoomSuccess = "LeaveRoomSuccess";
 
 
 		/// <summary>
 		/// 游戏开始
 		/// </summary>
-		public const string GameStart = "GameStart";
+		public static readonly string GameStart = "GameStart";
+
+		/// <summary>
+		/// 异步加载场景
+		/// <string>sceneName</string>
+		/// </summary>
+		public static readonly string LoadSceneAsync = "LoadSceneAsync";
 	}
 }

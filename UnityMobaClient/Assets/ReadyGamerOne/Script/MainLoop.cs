@@ -105,12 +105,14 @@ namespace ReadyGamerOne.Script
         /// <summary>
         /// 清空所有辅助调用的事件
         /// </summary>
-        public void Clear()
+        public void Clear(bool stopCourtune=false)
         {
             updateEvent = null;
             startEvent = null;
             fixedUpdateEvent = null;
             guiEvent = null;
+            if(stopCourtune)
+                StopAllCoroutines();
         }
 
         #endregion

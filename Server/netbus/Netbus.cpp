@@ -189,7 +189,7 @@ extern "C"
 		size_t suggested_size,
 		uv_buf_t* buf)
 	{
-		suggested_size = (suggested_size < 8192) ? 8192 : suggested_size;
+		suggested_size = (suggested_size < 4096) ? 4096 : suggested_size;
 
 		auto pBuf = (UdpRecvBuf*)handle->data;
 		if (pBuf->maxRecvLen < suggested_size)
@@ -216,14 +216,15 @@ extern "C"
 		unsigned flags)
 	{
 		UdpSession us;
-		us.udp_handler = (uv_udp_t*)handle;
+		us.udp_handler = handle;
 		us.addr = addr;
 		us.clientPort = ntohs(((struct sockaddr_in*)addr)->sin_port);
-		uv_ip4_name((struct sockaddr_in*)addr, us.clientAddress, 128);
 
-		log_debug("ip: %s:%d nread = %d", us.clientAddress, us.clientPort, nread);
+		uv_ip4_name((struct sockaddr_in*)addr, us.clientAddress, sizeof(us.clientAddress));
 
-		OnRecvCommond(&us, (unsigned char*)buf->base, buf->len);
+		log_debug("ip: %s:%d， nread = %d", us.clientAddress, us.clientPort, nread);
+
+		OnRecvCommond(&us, (unsigned char*)buf->base, nread);
 	}
 
 #pragma endregion
@@ -331,6 +332,13 @@ static void OnTcpRecvData(TcpSession* session)
 			log_debug("读取包头失败");
 			break;
 		}
+
+		if (pkgSize < headSize) {
+			session->Close();
+			log_warning("非法包【包体大小小于包头】，session已关闭");
+			break;
+		}
+
 		if (session->recved < pkgSize)
 		{// 没有收完数据
 			log_debug("没有收完数据");
@@ -416,7 +424,7 @@ void Netbus::TcpListen(int port, TcpListenCallback callback, void* udata)const
 	auto ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
 	if (0 != ret)
 	{
-		log_debug("bind error");
+		log_debug("Tcp 绑定失败");
 		free(listen);
 		listen = NULL;
 		return;
@@ -446,7 +454,7 @@ void Netbus::WebSocketListen(int port, TcpListenCallback callback, void* udata)c
 	auto ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
 	if (0 != ret)
 	{
-		log_debug("bind error");
+		log_debug("Tcp 绑定失败");
 		free(listen);
 		listen = NULL;
 		return;
@@ -477,6 +485,19 @@ void Netbus::UdpListen(int port) const
 	sockaddr_in addr;
 	uv_ip4_addr("0.0.0.0", port, &addr);
 	auto ret = uv_udp_bind(server, (const sockaddr*)&addr, 0);
+
+	if (ret)
+	{
+		log_debug("Tcp 绑定失败");
+		if (server)
+		{
+			if (server->data)
+				free(server->data);
+			free(server);
+			server = NULL;
+			return;
+		}
+	}
 
 	uv_udp_recv_start(server, udp_str_alloc, udp_after_recv);
 }

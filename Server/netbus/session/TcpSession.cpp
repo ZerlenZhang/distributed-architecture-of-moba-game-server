@@ -77,9 +77,7 @@ extern "C"
 
 TcpSession* TcpSession::Create()
 {
-	//返強更夛
-	auto temp = (TcpSession*)cache_alloc(sessionAllocer, sizeof(TcpSession));
-	temp->TcpSession::TcpSession();
+	auto temp = new TcpSession();
 	temp->Enable();
 	return temp;
 }
@@ -87,16 +85,20 @@ TcpSession* TcpSession::Create()
 void TcpSession::Destory(TcpSession*& session)
 {
 	session->Disable();
-	//返強裂更
-	session->TcpSession::~TcpSession();
-	cache_free(sessionAllocer, session);
-
+	delete session;
 	session = NULL;
-
 }
 
 #pragma endregion
+void* TcpSession::operator new(size_t size)
+{
+	return cache_alloc(sessionAllocer, sizeof(TcpSession));
+}
 
+void TcpSession::operator delete(void* mem)
+{
+	cache_free(sessionAllocer, mem);
+}
 
 #pragma region Implement
 
@@ -112,7 +114,12 @@ void TcpSession::Close()
 
 	this->isShutDown = true;
 	memset(&this->shutdown, 0, sizeof(uv_shutdown_t));
-	uv_shutdown(&this->shutdown, (uv_stream_t*)&this->tcpHandle, shutdown_cb);
+	auto ret = uv_shutdown(&this->shutdown, (uv_stream_t*)&this->tcpHandle, shutdown_cb);
+
+	if (ret)
+	{
+		uv_close((uv_handle_t*)&this->tcpHandle, close_cb);
+	}
 }
 
 void TcpSession::SendData(unsigned char* body, int len)
@@ -184,6 +191,8 @@ void TcpSession::SendCmdPackage(CmdPackage* msg)
 #pragma endregion
 
 
+
+
 #pragma region Override
 
 void TcpSession::Enable()
@@ -204,6 +213,8 @@ void TcpSession::Disable()
 {
 	AbstractSession::Disable();
 }
+
+
 
 void TcpSession::SendRawPackage(RawPackage* pkg)
 {

@@ -10,6 +10,23 @@
 // Generated from: LogicProtocol.proto
 namespace gprotocol
 {
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UdpTest")]
+  public partial class UdpTest : global::ProtoBuf.IExtensible
+  {
+    public UdpTest() {}
+    
+    private int _content;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"content", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int content
+    {
+      get { return _content; }
+      set { _content = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginLogicRes")]
   public partial class LoginLogicRes : global::ProtoBuf.IExtensible
   {
@@ -247,7 +264,10 @@ namespace gprotocol
       eExitRoomRes = 9,
             
       [global::ProtoBuf.ProtoEnum(Name=@"eGameStart", Value=10)]
-      eGameStart = 10
+      eGameStart = 10,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eUdpTest", Value=11)]
+      eUdpTest = 11
     }
   
 }

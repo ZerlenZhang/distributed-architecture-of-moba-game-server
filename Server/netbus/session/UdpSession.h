@@ -8,7 +8,7 @@ class UdpSession :
 {
 public:
 	uv_udp_t* udp_handler;
-	char clientAddress[32];
+	char clientAddress[64];
 	int clientPort;
 	const struct sockaddr* addr;
 

@@ -1,0 +1,120 @@
+20200228 09:10:33 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 09:10:33 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 09:10:33 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 09:10:33 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 09:10:36 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:61593]
+20200228 09:11:01 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:11:30 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 09:18:53 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:18:53 Error../datebase/redis_center.lua:51  
+MISCONF Redis is configured to save RDB snapshots, but is currently not able to persist on disk. Commands that may modify the data set are disabled. Please check Redis logs for details about the error.
+20200228 09:19:27 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 09:19:27 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 09:19:27 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 09:19:27 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 09:19:29 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:62074]
+20200228 09:19:46 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:20:14 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 09:29:31 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 09:29:31 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 09:29:31 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 09:29:31 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 09:29:33 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:62619]
+20200228 09:29:43 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:34:56 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 09:44:56 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 09:44:56 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 09:44:56 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 09:44:56 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 09:44:58 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:63577]
+20200228 09:45:05 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:46:12 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 09:46:25 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:47:37 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 09:47:59 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 09:47:59 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 09:47:59 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 09:47:59 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 09:48:01 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:63772]
+20200228 09:48:42 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:49:04 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 09:49:16 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 09:49:16 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 09:49:16 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 09:49:16 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 09:49:18 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:63856]
+20200228 09:49:27 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 09:50:53 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 16:05:39 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 16:05:39 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 16:05:39 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 16:05:39 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 16:05:44 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:61043]
+20200228 16:06:34 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 16:07:46 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0
+20200228 17:13:46 Debug../auth/auth_server_main.lua:33  
+Auth server [tcp] listen at: 	8000
+20200228 17:13:46 Debug../auth/auth_server_main.lua:39  
+register Auth Service:[1] service success
+20200228 17:13:46 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200228 17:13:46 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200228 17:13:50 Debug../auth/auth_server_main.lua:30  
+new client come [127.0.0.1:52423]
+20200228 17:14:03 Debug../auth/Guest.lua:290  
+1 sdfa login
+20200228 17:14:43 Error../auth/AuthService.lua:21  
+unregistered cmdType: 	0

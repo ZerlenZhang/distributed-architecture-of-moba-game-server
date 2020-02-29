@@ -6,6 +6,7 @@ cTypeToCallback[cType.eLoginLogicReq]=gameMgr.OnLoginLogicReq;
 cTypeToCallback[cType.eEnterZoneReq]=gameMgr.EnterZone;
 cTypeToCallback[cType.eUserLostConn]=gameMgr.OnPlayerLostConn;
 cTypeToCallback[cType.eExitRoomReq]=gameMgr.OnPlayerExitRoom;
+cTypeToCallback[cType.eUdpTest]=gameMgr.OnUdpTest;
 
 
 return   {

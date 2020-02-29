@@ -74,7 +74,13 @@ namespace ReadyGamerOne.Network
             private Action<byte[], int, int> onRecvCmd;
             private Action<Exception> onException;
             
-            
+            /// <summary>
+            /// Tcp消息接收者
+            /// </summary>
+            /// <param name="client"></param>
+            /// <param name="onRecvCmd">byte元数据，数据包起始索引，数据包长度</param>
+            /// <param name="maxTcpPackageSize"></param>
+            /// <param name="onException">异常处理函数</param>
             public TcpReceiver(Socket client, Action<byte[],int,int> onRecvCmd, int maxTcpPackageSize=4096, Action<Exception> onException=null)
             {
                 Assert.IsNotNull(client);
@@ -185,6 +191,7 @@ namespace ReadyGamerOne.Network
                 _recvBuf = null;
                 if (null != recvThread)
                 {
+                    recvThread.Interrupt();
                     recvThread.Abort();
                     recvThread = null;
                 }

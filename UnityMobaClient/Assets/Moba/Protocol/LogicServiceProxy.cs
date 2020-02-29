@@ -43,7 +43,18 @@ namespace Moba.Protocol
                 case LogicCmd.eGameStart:
                     OnGameStart(pkg);
                     break;
+                case LogicCmd.eUdpTest:
+                    this.OnUdpTest(pkg);
+                    break;
             }
+        }
+
+        private void OnUdpTest(CmdPackageProtocol.CmdPackage pkg)
+        {
+            var res = CmdPackageProtocol.ProtobufDeserialize<UdpTest>(pkg.body);
+            if (null == res)
+                return;
+            Debug.Log("recv udptest: " + res.content);
         }
 
         private void OnGameStart(CmdPackageProtocol.CmdPackage pkg)
@@ -52,11 +63,11 @@ namespace Moba.Protocol
             if (null == res)
                 return;
 
-            foreach (var hero in res.heros)
-            {
-                Debug.Log("HeroID: " + hero);
-            }
-            
+//            foreach (var hero in res.heros)
+//            {
+//                Debug.Log("HeroID: " + hero);
+//            }
+//            
             CEventCenter.BroadMessage(Message.GameStart);
         }
 
@@ -147,7 +158,7 @@ namespace Moba.Protocol
         
         public void LoginLogicServer()
         {
-            NetworkMgr.Instance.SendProtobufCmd(
+            NetworkMgr.Instance.TcpSendProtobufCmd(
                 (int)ServiceType.Logic,
                 (int)LogicCmd.eLoginLogicReq);
         }
@@ -160,16 +171,28 @@ namespace Moba.Protocol
             {
                 zoneid = zoneId,
             };
-            NetworkMgr.Instance.SendProtobufCmd(
+            NetworkMgr.Instance.TcpSendProtobufCmd(
                 (int) ServiceType.Logic,
                 (int) LogicCmd.eEnterZoneReq,
                 req);
             Debug.Log("Send zondId: " + zoneId);
         }
 
+        public void TestUdp(int content)
+        {
+            var req = new UdpTest
+            {
+                content = content,
+            };
+            NetworkMgr.Instance.UdpSendProtobufCmd(
+                (int)ServiceType.Logic,
+                (int)LogicCmd.eUdpTest,
+                req);
+        }
+
         public void ExitRoom()
         {
-            NetworkMgr.Instance.SendProtobufCmd(
+            NetworkMgr.Instance.TcpSendProtobufCmd(
                 (int) ServiceType.Logic,
                 (int) LogicCmd.eExitRoomReq);
         }

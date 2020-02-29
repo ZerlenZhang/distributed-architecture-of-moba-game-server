@@ -9,4 +9,5 @@ return {
 	"ExitRoomReq" ,
 	"ExitRoomRes" ,
 	"GameStart" ,
+	"UdpTest",
 };

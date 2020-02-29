@@ -105,9 +105,17 @@
             <e p="WireType.cs" t="Include" />
           </e>
         </e>
+        <e p="Media" t="Include">
+          <e p="Shader" t="Include">
+            <e p="Additive Turbulence.shader" t="Include" />
+            <e p="Trail Additive Turbulence.shader" t="Include" />
+          </e>
+        </e>
         <e p="Moba" t="Include">
           <e p="Const" t="Include">
             <e p="Auto" t="Include">
+              <e p="EffectName.cs" t="Include" />
+              <e p="MasterName.cs" t="Include" />
               <e p="OtherResName.cs" t="Include" />
               <e p="OtherResPath.cs" t="Include" />
               <e p="PanelName.cs" t="Include" />
@@ -147,7 +155,7 @@
               <e p="MobaMgr.cs" t="Include" />
             </e>
             <e p="MobaMgr.cs" t="Include" />
-            <e p="TestScript.cs" t="Include" />
+            <e p="SceneHelper.cs" t="Include" />
           </e>
           <e p="Utility" t="Include">
             <e p="Auto" t="Include">
@@ -164,11 +172,6 @@
             </e>
             <e p="BattlePanel.cs" t="Include" />
             <e p="ChatPanel.cs" t="Include" />
-            <e p="Dlgs" t="Include">
-              <e p="LoginBonuesUi.cs" t="Include" />
-              <e p="MatchUi.cs" t="Include" />
-              <e p="UserInfoDlg.cs" t="Include" />
-            </e>
             <e p="HomePanel.cs" t="Include" />
             <e p="LoadingPanel.cs" t="Include" />
             <e p="LoginPanel.cs" t="Include" />
@@ -337,12 +340,14 @@
               <e p="BoxCollider2DExtension.cs" t="Include" />
               <e p="ByteArrayExtension.cs" t="Include" />
               <e p="CameraExtension.cs" t="Include" />
+              <e p="ComponentExtension.cs" t="Include" />
               <e p="DirectoryInfoExtension.cs" t="Include" />
               <e p="GameObjectExtension.cs" t="Include" />
               <e p="IntExtension.cs" t="Include" />
               <e p="RectExtension.cs" t="Include" />
               <e p="StringExtension.cs" t="Include" />
               <e p="TransformExtension.cs" t="Include" />
+              <e p="Vector2Extension.cs" t="Include" />
             </e>
             <e p="IDrawGizmo.cs" t="Include" />
             <e p="Utils" t="Include">
@@ -380,6 +385,23 @@
               </e>
               <e p="IStackPanel.cs" t="Include" />
               <e p="PanelMgr.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="BattleScene" t="Include">
+            <e p="BattleScene.cs" t="Include" />
+            <e p="CharacterCtrl.cs" t="Include" />
+            <e p="GameZygote.cs" t="Include" />
+          </e>
+          <e p="LoginScene" t="Include">
+            <e p="LoginScene.cs" t="Include" />
+            <e p="ui" t="Include">
+              <e p="Dlgs" t="Include">
+                <e p="LoginBonuesUi.cs" t="Include" />
+                <e p="MatchUi.cs" t="Include" />
+                <e p="UserInfoDlg.cs" t="Include" />
+              </e>
             </e>
           </e>
         </e>

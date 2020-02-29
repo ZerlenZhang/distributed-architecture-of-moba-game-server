@@ -21,8 +21,8 @@ namespace Moba.View
 			add_button_listener("TitleBar/LoginBtn", OnLogin);
 			add_button_listener("TextBar/SendBtn", OnSend);
 
-			_inputField = view["TextBar/InputField"].GetComponent<InputField>();
-			scrollRect = view["ScrollView"].GetComponent<ScrollRect>();
+			_inputField = GetComponent<InputField>("TextBar/InputField");
+			scrollRect = GetComponent<ScrollRect>("ScrollView");
 			
 		}
 
@@ -104,14 +104,14 @@ namespace Moba.View
 		private void OnExit()
 		{
 			Debug.Log("on_exit");
-			NetworkMgr.Instance.SendProtobufCmd(2,(int)ChatCmd.eExitReq,null);
+			NetworkMgr.Instance.TcpSendProtobufCmd(2,(int)ChatCmd.eExitReq,null);
 
 		}
 
 		private void OnLogin()
 		{
 			Debug.Log("on_login");
-			NetworkMgr.Instance.SendProtobufCmd(2,(int)ChatCmd.eLoginReq,null);
+			NetworkMgr.Instance.TcpSendProtobufCmd(2,(int)ChatCmd.eLoginReq,null);
 		}
 
 		private void OnSend()
@@ -126,7 +126,7 @@ namespace Moba.View
 
 			this.talkContent = _inputField.text;
 			
-			NetworkMgr.Instance.SendProtobufCmd(2,(int)ChatCmd.eSendMsgReq,req);
+			NetworkMgr.Instance.TcpSendProtobufCmd(2,(int)ChatCmd.eSendMsgReq,req);
 			
 		}		
 

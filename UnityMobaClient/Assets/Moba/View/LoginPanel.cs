@@ -12,8 +12,8 @@ namespace Moba.View
 		{
 			//do any thing you want
 
-			userName = view["LoginUi/Dlg/UserKey"].GetComponent<InputField>();
-			pwdName = view["LoginUi/Dlg/Pwd"].GetComponent<InputField>();
+			userName = GetComponent<InputField>("LoginUi/Dlg/UserKey");
+			pwdName = GetComponent<InputField>("LoginUi/Dlg/Pwd");
 
 			userName.text = "zerlen";
 			pwdName.text = "123";

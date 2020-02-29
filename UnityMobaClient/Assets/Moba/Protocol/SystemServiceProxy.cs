@@ -19,7 +19,7 @@ namespace Moba.Protocol
 
         private void OnServerCmdCallback(CmdPackageProtocol.CmdPackage pkg)
         {
-            Debug.Log("???");
+//            Debug.Log("???");
             switch ((MobaCmd)pkg.cmdType)
             {
                 case MobaCmd.eGetMobaInfoRes:
@@ -71,7 +71,7 @@ namespace Moba.Protocol
 
         public void RecvLoginBonues()
         {
-            NetworkMgr.Instance.SendProtobufCmd(
+            NetworkMgr.Instance.TcpSendProtobufCmd(
                 (int)ServiceType.System,
                 (int)MobaCmd.eRecvLoginBonuesReq);
         }
@@ -82,7 +82,7 @@ namespace Moba.Protocol
         /// </summary>
         public void LoadMobaInfo()
         {
-            NetworkMgr.Instance.SendProtobufCmd(
+            NetworkMgr.Instance.TcpSendProtobufCmd(
                 (int)ServiceType.System,
                 (int)MobaCmd.eGetMobaInfoReq);
         }
