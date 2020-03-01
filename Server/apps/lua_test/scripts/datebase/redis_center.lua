@@ -76,7 +76,7 @@ local function get_uinfo( uid,handler )
 			end
 
 			if nil==ret or #ret < 10 then
-				Debug.LogError("get ret error");
+				Debug.LogError("get ret error, wrong uid: ",uid,err);
 				if handler then
 					handler("get ret error",nil);
 				end

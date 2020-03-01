@@ -20,7 +20,7 @@ extern cache_allocer* writeBufAllocer;
 #pragma region 全局变量
 
 static ProtoType g_protoType;
-static map<int, string> g_pb_cmd_map;
+static map<int, map<int, string>*> g_cmdMaps;
 static DynamicMessageFactory* factory;
 static Importer* importer;
 
@@ -34,13 +34,13 @@ class ErrorCollector:public MultiFileErrorCollector
 	// 通过 MultiFileErrorCollector 继承
 	virtual void AddError(const string& filename, int line, int column, const string& message) override
 	{
-		logger::log((protoFileDir + "\\" + filename).c_str(), line, (int)tag_ERROR, message.c_str());
+		logger::log((filename).c_str(), line, (int)tag_ERROR, message.c_str());
 	}
 
 	virtual void AddWarning(const string& filename, int line, int column,
 		const string& message)override 
 	{
-		logger::log((protoFileDir + "\\" + filename).c_str(), line, (int)tag_WARNING, message.c_str());
+		logger::log((filename).c_str(), line, (int)tag_WARNING, message.c_str());
 	}
 
 };
@@ -68,11 +68,11 @@ void CmdPackageProtocol::Init(::ProtoType proto_type,const string& protoFileDir)
 		static ErrorCollector ec;
 		sourceTree.MapPath("", protoFileDir);
 		importer = new Importer(&sourceTree, &ec);
+		auto size = protoFileDir.size();
 
 		WinUtil::SearchFromDir(protoFileDir, "*.proto", -1, SearchType::ENUM_FILE,
 			[=](const string& dirPath, const string& fileName)
 			{
-				//log_debug("加载：%s", fileName.c_str());
 				importer->Import(fileName);
 				//表示加载完这个，继续加载后面的
 				return true;
@@ -83,27 +83,48 @@ void CmdPackageProtocol::Init(::ProtoType proto_type,const string& protoFileDir)
 }
 
 
-void CmdPackageProtocol::RegisterProtobufCmdMap(map<int, string>& map)
+void CmdPackageProtocol::RegisterProtobufCmdMap(map<int, map<int,string>*>& src)
 {
 	if (error)
 		return;
 	auto index = 0;
-	for (auto x : map)
+	for (auto sType_cmdMap : src)
 	{
+		auto stype = sType_cmdMap.first;
+		auto cmdMaps = src[stype];
+		if (cmdMaps == NULL)
+			continue;
 		//log_debug("注册CmdNameMap: %d : %s", index++, x.second.c_str());
-		g_pb_cmd_map.insert(x);
+		for (auto ctype_key : *cmdMaps)
+		{
+			auto ctype = ctype_key.first;
+			//添加到本地
+			if (g_cmdMaps.find(stype) == g_cmdMaps.end())
+			{// 如果没有这个key
+				auto pCmdMap = new std::map<int, string>;
+				g_cmdMaps[stype] = pCmdMap;
+			}
+
+			(*g_cmdMaps[stype])[ctype] = ctype_key.second;
+		}
+
+		delete cmdMaps;
 	}
 }
 
-const char* CmdPackageProtocol::ProtoCmdTypeToName(int cmdType)
+const char* CmdPackageProtocol::ProtoCmdTypeToName(int stype, int ctype)
 {
 	if (error)
 		return nullptr;
-	if (g_pb_cmd_map.find(cmdType) == g_pb_cmd_map.end())
-	{
-		return NULL;
-	}
-	return g_pb_cmd_map[cmdType].c_str();
+
+	if (g_cmdMaps.find(stype) == g_cmdMaps.end())
+		return nullptr;
+
+	auto s_cmdMap = g_cmdMaps[stype];
+	if (s_cmdMap->find(ctype) == s_cmdMap->end())
+		return nullptr;
+
+	return (*s_cmdMap)[ctype].c_str();
 }
 
 ProtoType CmdPackageProtocol::ProtoType()
@@ -172,10 +193,19 @@ bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int c
 		break;
 	case ProtoType::Protobuf:
 		//没有这个protobuf协议
-		tempMessagePointer = CreateMessage(g_pb_cmd_map[out_msg->cmdType].c_str());
+		auto msgName = CmdPackageProtocol::ProtoCmdTypeToName(out_msg->serviceType, out_msg->cmdType);
+		if (nullptr == msgName)
+		{
+			log_error("获取Message名失败为空, serviceType: %d, cmdType: %d", out_msg->serviceType, out_msg->cmdType);
+			out_msg = NULL;
+			return false;
+		}
+
+
+		tempMessagePointer = CreateMessage(msgName);
 		if (tempMessagePointer == NULL)
 		{
-			log_error("获取Message类型为空, cmdType: %d, messageName: %s", out_msg->cmdType, g_pb_cmd_map[out_msg->cmdType].c_str());
+			log_error("获取Message类型为空, serviceType: %d, cmdType: %d, messageName: %s", out_msg->serviceType, out_msg->cmdType, msgName);
 			my_free(tempMessagePointer);
 			out_msg = NULL;
 			return false;

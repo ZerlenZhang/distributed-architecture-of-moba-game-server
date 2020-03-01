@@ -26,7 +26,7 @@ namespace ReadyGamerOne.Script
 
         private void Awake()
         {
-            Application.targetFrameRate = this.targetFps;
+            //Application.targetFrameRate = this.targetFps;
         }
 
         private void Start()

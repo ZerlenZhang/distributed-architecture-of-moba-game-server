@@ -11,4 +11,5 @@ return {
 	eExitRoomRes = 9,
 	eGameStart = 10,
 	eUdpTest=11,
+	eLogicFrame = 12,
 };

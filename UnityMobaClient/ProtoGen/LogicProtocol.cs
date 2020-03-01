@@ -10,6 +10,23 @@
 // Generated from: LogicProtocol.proto
 namespace gprotocol
 {
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LogicFrame")]
+  public partial class LogicFrame : global::ProtoBuf.IExtensible
+  {
+    public LogicFrame() {}
+    
+    private int _frameid;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"frameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int frameid
+    {
+      get { return _frameid; }
+      set { _frameid = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UdpTest")]
   public partial class UdpTest : global::ProtoBuf.IExtensible
   {
@@ -21,6 +38,30 @@ namespace gprotocol
     {
       get { return _content; }
       set { _content = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginLogicReq")]
+  public partial class LoginLogicReq : global::ProtoBuf.IExtensible
+  {
+    public LoginLogicReq() {}
+    
+    private string _ip;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string ip
+    {
+      get { return _ip; }
+      set { _ip = value; }
+    }
+    private int _udp_port;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"udp_port", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int udp_port
+    {
+      get { return _udp_port; }
+      set { _udp_port = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -267,7 +308,10 @@ namespace gprotocol
       eGameStart = 10,
             
       [global::ProtoBuf.ProtoEnum(Name=@"eUdpTest", Value=11)]
-      eUdpTest = 11
+      eUdpTest = 11,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"eLogicFrame", Value=12)]
+      eLogicFrame = 12
     }
   
 }

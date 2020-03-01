@@ -6,7 +6,6 @@ local ProtoType={
     Protobuf=1,
 };
 
-
 ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\apps\\lua_test\\scripts\\logic\\Const");
 --如果是Protobuf协议，还需要注册映射表
 if ProtoManager.ProtoType()==ProtoType.Protobuf then

@@ -66,6 +66,7 @@ static int lua_prototype(lua_State* lua)
 	lua_pushinteger(lua, (int)CmdPackageProtocol::ProtoType());
 	return 1;
 }
+
 static int lua_register_protobuf(lua_State* lua)
 {
 	if(1!=lua_gettop(lua))
@@ -73,7 +74,8 @@ static int lua_register_protobuf(lua_State* lua)
 		log_error("ProtoManager.RegisterCmdMap_函数调用错误");
 		return 0;
 	}
-	map<int, string> cmdMap;
+	map<int, map<int,string>*> cmdMap;
+
 	auto n = luaL_len(lua, 1);
 	if (n < 0)
 	{
@@ -81,18 +83,76 @@ static int lua_register_protobuf(lua_State* lua)
 		return 0;
 
 	}
-	for (auto i = 1; i <= n; i++)
+
+	auto len = luaL_len(lua, 1);
+
+	lua_pushnil(lua);
+	// 现在的栈：-1 => nil; index => table
+	//index = index - 1;
+	while (lua_next(lua, 1))
 	{
-		lua_pushnumber(lua, i);
-		lua_gettable(lua, 1);
-		auto name = luaL_checkstring(lua, -1);
-		if (name)
-		{
-			cmdMap[i] = name;
-		}
+		// 现在的栈：-1 => value; -2 => key; index => table
+		// 拷贝一份 key 到栈顶，然后对它做 lua_tostring 就不会改变原始的 key 值了
+		lua_pushvalue(lua, -2);
+		// 现在的栈：-1 => key; -2 => value; -3 => key; index => table
+
+		#pragma region 获取serviceType
+
+		int stype = lua_tointeger(lua, -1);
 		lua_pop(lua, 1);
-		
+
+		#pragma endregion
+
+
+		#pragma region 获取CmdMaps
+
+		if (!lua_istable(lua, 3))
+		{
+			log_error("有一项不是table，key: %d", stype);
+			continue;
+		}
+
+		lua_pushnil(lua);
+		// 现在的栈：-1 => nil; index => table
+		//index = index - 1;
+		while (lua_next(lua, 3))
+		{
+			// 现在的栈：-1 => value; -2 => key; index => table
+			// 拷贝一份 key 到栈顶，然后对它做 lua_tostring 就不会改变原始的 key 值了
+			lua_pushvalue(lua, -2);
+			// 现在的栈：-1 => key; -2 => value; -3 => key; index => table
+			const char* key = lua_tostring(lua, -1);
+			int ctype = lua_tointeger(lua, -2);
+
+
+#pragma region 添加到字典中
+
+			if (cmdMap.find(stype) == cmdMap.end())
+			{
+				auto newCmdMap = new map<int, string>;
+				cmdMap[stype] = newCmdMap;
+			}
+			(*cmdMap[stype])[ctype] = key;
+
+#pragma endregion
+
+
+
+			// 弹出 value 和拷贝的 key，留下原始的 key 作为下一次 lua_next 的参数
+			lua_pop(lua, 2);
+			// 现在的栈：-1 => key; index => table
+		}
+
+
+
+
+
+		lua_pop(lua,1);
+
+		#pragma endregion
+
 	}
+
 	CmdPackageProtocol::RegisterProtobufCmdMap(cmdMap);
 	return 0;
 }

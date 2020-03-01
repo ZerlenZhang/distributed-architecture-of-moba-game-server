@@ -34,6 +34,11 @@ function Player:Init(uid,s,handler)
 	self.side=-1;
 	--玩家英雄id
 	self.heroid=-1;
+	--玩家客户端ip
+	self.clientIp=-1;
+	--玩家udpPort
+	self.clientPort=-1;
+
 
 	--从数据库读取玩家信息
 	mysql.GetUgameInfo(uid,
@@ -78,6 +83,19 @@ function Player:SendPackage(sType,cType,body)
 	Session.SendPackage(self.session,package);
 end
 
+function Player:UdpSendPackage(sType,cType,body)
+	--玩家已经断线或是机器人
+	if not self.session or self.isRobot then
+		return;
+	end
+
+	if self.clientPort==-1 or self.clientIp==-1 then
+		return;
+	end
+
+	local msg= {sType,cType,0,body};
+	Session.UdpSendPackage(self.clientIp,self.clientPort,msg);
+end
 function Player:GetInfo()
 	return {
 		unick = self.uinfo.unick,
@@ -111,5 +129,11 @@ function Player:OnExitRoom()
 	self.heroid=-1;
 	self.state=RoomState.InView;
 end
+
+function Player:SetAddr(ip,port)
+	self.clientIp=ip;
+	self.clientPort=port;
+end
+
 
 return Player;

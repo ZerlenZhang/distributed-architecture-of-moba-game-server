@@ -40,6 +40,7 @@ static void on_lua_repeat_func(void* udata)
 }
 
 
+// handler,delay,times,delta
 static int lua_timer_repeat(lua_State* lua)
 {
 	if (4 != lua_gettop(lua))

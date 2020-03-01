@@ -11,6 +11,7 @@
 
 #include "../utils/cache_alloc/small_alloc.h"
 
+#define _CRT_SECURE_NO_WARNINGS
 #define my_alloc small_alloc
 #define my_free small_free
 
@@ -215,6 +216,8 @@ extern "C"
 		const struct sockaddr* addr,
 		unsigned flags)
 	{
+		if (nread <= 0)
+			return;
 		UdpSession us;
 		us.udp_handler = handle;
 		us.addr = addr;
@@ -229,7 +232,14 @@ extern "C"
 
 #pragma endregion
 
-
+	void AfterUdpSend(uv_udp_send_t* req, int status)
+	{
+		if (status == 0)
+		{
+			log_debug("udp send success");
+		}
+		my_free(req);
+	}
 }
 
 #pragma endregion
@@ -407,9 +417,14 @@ static void after_connect(uv_connect_t* handle, int status)
 
 
 static Netbus g_instance;
-const Netbus* Netbus::Instance()
+Netbus* Netbus::Instance()
 {
 	return &g_instance;
+}
+
+Netbus::Netbus()
+{
+	this->udpHandle = NULL;
 }
 
 void Netbus::TcpListen(int port, TcpListenCallback callback, void* udata)const
@@ -472,8 +487,13 @@ void Netbus::WebSocketListen(int port, TcpListenCallback callback, void* udata)c
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
 }
 
-void Netbus::UdpListen(int port) const
+void Netbus::UdpListen(int port)
 {
+	if (this->udpHandle)
+	{
+		log_warning("暂时不支持同时监听多个udp");
+		return;
+	}
 	auto server = (uv_udp_t*)malloc(sizeof(uv_udp_t));
 	memset(server, 0, sizeof(uv_udp_t));
 
@@ -498,6 +518,8 @@ void Netbus::UdpListen(int port) const
 			return;
 		}
 	}
+
+	this->udpHandle = server;
 
 	uv_udp_recv_start(server, udp_str_alloc, udp_after_recv);
 }
@@ -544,3 +566,17 @@ void Netbus::TcpConnect(const char* serverIp, int port, TcpConnectedCallback cal
 
 	ret = uv_tcp_connect(req, client, (struct sockaddr*) & addr, after_connect);
 }
+
+void Netbus::UdpSendTo(char* ip, int port, unsigned char* body, int len)
+{
+	auto wbuf = uv_buf_init((char*)body, len);
+	auto req = (uv_udp_send_t*)my_alloc(sizeof(uv_udp_send_t));
+
+	SOCKADDR_IN addr;
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(port);
+	addr.sin_addr.S_un.S_addr = inet_addr(ip);
+
+	uv_udp_send(req, (uv_udp_t*)this->udpHandle, &wbuf, 1,(const SOCKADDR*) &addr, AfterUdpSend);
+}
+ 

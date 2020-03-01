@@ -45,10 +45,10 @@ public:
 	static void Init(::ProtoType proto_type);
 	static void Init(::ProtoType proto_type, const string& protoFileDir);
 	
-	static void RegisterProtobufCmdMap(map<int, string>& map);
+	static void RegisterProtobufCmdMap(map<int, map<int, string>*>& map);
 
 
-	static const char* ProtoCmdTypeToName(int cmdType);
+	static const char* ProtoCmdTypeToName(int stype, int ctype);
 	static ProtoType ProtoType();
 
 	//½âÂëCmdPackage°üÍ·

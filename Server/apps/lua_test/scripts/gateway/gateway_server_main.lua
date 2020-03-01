@@ -6,10 +6,10 @@ local ProtoType={
     Protobuf=1,
 };
 
-ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\apps\\lua_test\\scripts\\auth\\Const");
+ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\apps\\lua_test\\scripts\\gateway\\Const");
 --如果是Protobuf协议，还需要注册映射表
 if ProtoManager.ProtoType()==ProtoType.Protobuf then
-    local cmdNameMap=require("auth/Const/CmdNameMap");
+    local cmdNameMap=require("gateway/Const/CmdNameMap");
     if cmdNameMap then
         ProtoManager.RegisterCmdMap(cmdNameMap);
     else

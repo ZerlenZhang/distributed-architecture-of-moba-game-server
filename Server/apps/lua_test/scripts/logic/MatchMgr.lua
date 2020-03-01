@@ -35,6 +35,8 @@ function roomMgr:Init(zoneid)
 	self.leftPlayers={};
 	self.rightPlayers={};
 
+	self.frameid=0;
+
 	print("room init ",self.roomid,self.zoneid);
 end
 
@@ -146,10 +148,10 @@ end
 function roomMgr:StartGame()
 
 	--房间进入Ready状态
-	self.state=RoomState.Ready;
+	self.state=RoomState.Start ;
 	--更新玩家状态
 	for i,p in ipairs(self.inviewPlayers) do
-		p.state=RoomState.Ready;
+		p.state=RoomState.Start;
 	end
 
 
@@ -167,6 +169,24 @@ function roomMgr:StartGame()
 		ServiceType.Logic,
 		CmdType.eGameStart,
 		{heros=heros});
+
+	--5 秒以后开始第一个逻辑帧
+	self.frameid=0;
+	self.frameTimer=Timer.Repeat(
+	function()
+		self:on_frame_synce();
+		self.frameid=self.frameid+1;
+	end,5000,-1,50);
+end
+
+--帧同步函数
+function roomMgr:on_frame_synce()
+	for k, player in pairs(self.inviewPlayers) do
+		if not player then
+			local body={frameid=self.frameid};
+			player:UdpSendPackage(ServiceType.Logic,CmdType.eLogicFrame,body);
+		end
+	end
 end
 
 return roomMgr;

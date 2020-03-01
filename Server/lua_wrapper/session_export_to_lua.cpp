@@ -14,6 +14,7 @@ extern "C" {
 
 #include "tolua_fix.h"
 #include "../utils/logger/logger.h"
+#include "../netbus/Netbus.h"
 
 Message* lua_table_to_protobuf(lua_State* L, int stack_index, const char* msg_name) {
 	if (!lua_istable(L, stack_index)) {
@@ -447,7 +448,7 @@ static int lua_session_sendpackage(lua_State* lua)
 		{// protobuf message table
 			msg.body =
 			lua_table_to_protobuf(lua, lua_gettop(lua),
-				CmdPackageProtocol::ProtoCmdTypeToName(msg.cmdType));
+				CmdPackageProtocol::ProtoCmdTypeToName(msg.serviceType, msg.cmdType));
 		}
 		session->SendCmdPackage(&msg);
 		CmdPackageProtocol::ReleaseMessage((Message*)msg.body);
@@ -458,6 +459,101 @@ static int lua_session_sendpackage(lua_State* lua)
 }
 
 
+static void udp_send_package(char* ip, int port, CmdPackage* msg)
+{
+	int pkgLen;
+	unsigned char* pkg = CmdPackageProtocol::EncodeCmdPackageToBytes(msg, &pkgLen);
+	if (pkg)
+	{
+		Netbus::Instance()->UdpSendTo(ip, port, pkg, pkgLen);
+		CmdPackageProtocol::FreeCmdPackageBytes(pkg);
+	}
+}
+ 
+// ip, port, {stype,ctype,utag,body}
+static int lua_session_udpsendpackage(lua_State* lua)
+{
+	if (3 != lua_gettop(lua))
+	{
+		log_error("函数调用错误");
+		return 0;
+	}
+	// 1
+	const char* ip = tolua_tostring(lua, 1,NULL);
+	if (NULL == ip)
+	{
+		log_error("Session.UdpSendPackage(ip,port,pkg)");
+		return 0;
+	}
+	// 2
+	int port = (int)tolua_tonumber(lua, 2, NULL);
+	if (!port || port==-1)
+	{
+		log_error("Session.UdpSendPackage: 获取port失败，port: %d", port);
+		return 0;
+	}
+
+	if (!lua_istable(lua, 3))
+	{
+		return 0;
+	}
+
+	CmdPackage msg;
+
+	auto num = luaL_len(lua, 3);
+	if (num != 4 && num != 3)
+	{
+		log_error("Session.SendPackage参数错误")
+			return 0;
+	}
+
+	lua_pushnumber(lua, 1);
+	lua_gettable(lua, 3);
+	msg.serviceType = luaL_checkinteger(lua, -1);
+	lua_pop(lua, 1);
+
+	lua_pushnumber(lua, 2);
+	lua_gettable(lua, 3);
+	msg.cmdType = luaL_checkinteger(lua, -1);
+	lua_pop(lua, 1);
+
+	lua_pushnumber(lua, 3);
+	lua_gettable(lua, 3);
+	msg.userTag = luaL_checkinteger(lua, -1);
+	lua_pop(lua, 1);
+
+	if (num == 3)
+	{
+		msg.body = NULL;
+		udp_send_package((char*)ip, port, &msg);
+		return 0;
+	}
+
+	lua_pushnumber(lua, 4);
+	lua_gettable(lua, 2);
+	switch (CmdPackageProtocol::ProtoType())
+	{
+	case ProtoType::Json:
+		msg.body = (char*)lua_tostring(lua, -1);
+		udp_send_package((char*)ip, port, &msg);
+		break;
+	case ProtoType::Protobuf:
+		if (!lua_istable(lua, -1))
+		{
+			msg.body = NULL;
+		}
+		else
+		{// protobuf message table 
+			msg.body =
+				lua_table_to_protobuf(lua, lua_gettop(lua),
+					CmdPackageProtocol::ProtoCmdTypeToName(msg.serviceType, msg.cmdType));
+		}
+		CmdPackageProtocol::ReleaseMessage((Message*)msg.body);
+		break;
+	}
+	lua_pop(lua, 1);
+	return 0;
+}
 
 
 void register_session_export(lua_State* tolua_S)
@@ -472,6 +568,8 @@ void register_session_export(lua_State* tolua_S)
 		tolua_function(tolua_S, "GetAddress", lua_session_getaddress);
 		tolua_function(tolua_S, "SendPackage", lua_session_sendpackage);
 		tolua_function(tolua_S, "SendRawPackage", lua_session_sendrawpackage);
+		tolua_function(tolua_S, "UdpSendPackage", lua_session_udpsendpackage);
+		
 		tolua_function(tolua_S, "SetUTag", lua_session_setutag);
 		tolua_function(tolua_S, "GetUTag", lua_session_getutag);
 		tolua_function(tolua_S, "SetUId", lua_session_setuid);

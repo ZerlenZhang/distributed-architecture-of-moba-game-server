@@ -46,7 +46,18 @@ namespace Moba.Protocol
                 case LogicCmd.eUdpTest:
                     this.OnUdpTest(pkg);
                     break;
+                case LogicCmd.eLogicFrame:
+                    this.OnLogicFrame(pkg);
+                    break;
             }
+        }
+
+        private void OnLogicFrame(CmdPackageProtocol.CmdPackage pkg)
+        {
+            var res = CmdPackageProtocol.ProtobufDeserialize<LogicFrame>(pkg.body);
+            if (null == res)
+                return;
+            Debug.Log("FrameId: " + res.frameid);
         }
 
         private void OnUdpTest(CmdPackageProtocol.CmdPackage pkg)
@@ -160,7 +171,12 @@ namespace Moba.Protocol
         {
             NetworkMgr.Instance.TcpSendProtobufCmd(
                 (int)ServiceType.Logic,
-                (int)LogicCmd.eLoginLogicReq);
+                (int)LogicCmd.eLoginLogicReq,
+                new LoginLogicReq
+                {
+                    ip = NetworkMgr.Instance.localIp,
+                    udp_port = NetworkMgr.Instance.localPort
+                });
         }
 
         public void EnterZone(int zoneId)

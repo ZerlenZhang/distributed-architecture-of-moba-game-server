@@ -1,8 +1,11 @@
 using System;
 using System.Net.Sockets;
+using Moba.Const;
 using Moba.Data;
 using Moba.Protocol;
 using ReadyGamerOne.Script;
+using ReadyGamerOne.View;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Moba.Script
@@ -10,8 +13,8 @@ namespace Moba.Script
 	public partial class MobaMgr
 	{
 
-		public bool debug_UdpSocket = false;
-		
+		public bool udpTest = false;
+		public bool c_test_load_scene = true;
 		partial void OnSafeAwake()
 		{
 			//初始化等级数据
@@ -20,21 +23,19 @@ namespace Moba.Script
 
 		private void Start()
 		{
-			MainLoop.Instance.ExecuteLater(
-				() => LogicServiceProxy.Instance.TestUdp(999),  
-				3);
+			if(udpTest)
+				MainLoop.Instance.ExecuteLater(
+					() => LogicServiceProxy.Instance.TestUdp(999), 
+					3);
 
-			if (debug_UdpSocket)
-			{
-				var s = new Socket(
-					AddressFamily.InterNetwork,
-					SocketType.Stream,
-					ProtocolType.Udp);
-				Assert.IsNotNull(s);
-			}
 		}
-		
-		
-		
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.C))
+			{
+				PanelMgr.PushPanelWithMessage(PanelName.LoadingPanel,Message.LoadSceneAsync,SceneName.Battle);
+			}			
+		}
 	}
 }

@@ -16,10 +16,21 @@ enum LogicCmd{
 	eGameStart = 10;
 
 	eUdpTest = 11;
+	eLogicFrame = 12;
 }
+
+message LogicFrame{
+	required int32 frameid = 1;
+}
+
 
 message UdpTest{
 	required int32 content = 1;
+}
+
+message LoginLogicReq{
+	required string ip = 1;
+	required int32 udp_port = 2;
 }
 
 message LoginLogicRes{

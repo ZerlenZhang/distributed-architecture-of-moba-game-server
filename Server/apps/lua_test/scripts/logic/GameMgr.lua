@@ -226,11 +226,13 @@ local function on_login_logic_req( s,req )
 	local uid = req[3];
 	local stype = req[1];
 	local p = onlinePlayers[uid];
+	local msg=req[4];
 
 	--玩家已经存在
 	if p then
 		--更新session
 		p:SetSession(s);
+		p:SetAddr(msg.ip,msg.udp_port);
 		_send_status(s,stype,CmdType.eLoginLogicRes,uid,Respones.OK);
 		return;
 	end
@@ -248,6 +250,7 @@ local function on_login_logic_req( s,req )
 		onlinePlayerCount=onlinePlayerCount+1;
 		print("Player [ "..uid.." ] come in");
 		_send_status(s,stype,CmdType.eLoginLogicRes,uid,Respones.OK);
+		p:SetAddr(msg.ip,msg.udp_port);
 	end);
 end
 
@@ -260,6 +263,8 @@ local function on_player_lost_conn( s,req )
 		return;
 	end
 
+	p:SetSession(nil);
+	p:SetAddr(-1,-1);
 	--游戏中的玩家
 	if p.zoneid~=-1 then
 		--是否在地区中

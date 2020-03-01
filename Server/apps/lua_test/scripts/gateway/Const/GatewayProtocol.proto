@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+message GuestLoginReq{
+	required string guest_key = 1;
+}
+message UserCenterInfo{
+	 required string unick = 1;
+	 required int32 uface = 2;
+	 required int32 usex = 3;
+	 required int32 uvip = 4;
+	 required int32 uid = 5;
+}
+message GuestLoginRes{
+	required int32 status = 1;
+	optional UserCenterInfo uinfo = 2;
+}
+message UserLoginReq{
+	required string uname = 1;
+	required string upwd_md5 = 2;
+}
+
+message UserLoginRes{
+	required int32 status = 1;
+	optional UserCenterInfo uinfo = 2;
+}
+
+message LoginLogicReq{
+	required string ip = 1;
+	required int32 udp_port = 2;
+}
