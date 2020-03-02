@@ -61,8 +61,6 @@ static void connect_work(uv_work_t* req)
 
 	if (!pInfo->context->pConn)
 	{
-		log_error("mysql_init(NULL) 返回 NULL, 链接数据库失败");
-
 		#pragma region 释放内存
 		pInfo->error = my_strdup("链接数据库失败——mysql_init(NULL) 返回 NULL, ");
 		if (pInfo->open_cb)
@@ -82,10 +80,12 @@ static void connect_work(uv_work_t* req)
 		{
 			if (context->udata && context->autoFreeUserData)
 				free(context->udata);
-			uv_mutex_unlock(&pInfo->context->lock);
+			log_debug("1");
+			uv_mutex_unlock(&context->lock);
 			my_free(context);
 		}
 
+		log_debug("2");
 		my_free(pInfo);
 		my_free(req);
 

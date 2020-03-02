@@ -66,5 +66,12 @@ namespace Moba.Const
 		/// <string>sceneName</string>
 		/// </summary>
 		public static readonly string LoadSceneAsync = "LoadSceneAsync";
+
+
+		/// <summary>
+		/// 逻辑帧事件
+		/// <LogicFrame></LogicFrame>
+		/// </summary>
+		public static readonly string OnLogicFrame = "OnLogicFrame";
 	}
 }

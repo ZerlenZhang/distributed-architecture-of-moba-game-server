@@ -57,7 +57,7 @@ namespace Moba.Protocol
             var res = CmdPackageProtocol.ProtobufDeserialize<LogicFrame>(pkg.body);
             if (null == res)
                 return;
-            Debug.Log("FrameId: " + res.frameid);
+            CEventCenter.BroadMessage(Message.OnLogicFrame,res);
         }
 
         private void OnUdpTest(CmdPackageProtocol.CmdPackage pkg)
@@ -73,12 +73,7 @@ namespace Moba.Protocol
             var res = CmdPackageProtocol.ProtobufDeserialize<GameStart>(pkg.body);
             if (null == res)
                 return;
-
-//            foreach (var hero in res.heros)
-//            {
-//                Debug.Log("HeroID: " + hero);
-//            }
-//            
+            NetInfo.playerMatchInfos = res.players;
             CEventCenter.BroadMessage(Message.GameStart);
         }
 
@@ -90,12 +85,12 @@ namespace Moba.Protocol
 
             Debug.Log("player leave " + res.seatid);
             
-            for (int i = 0; i < NetInfo.otherPlayers.Count; i++)
+            for (int i = 0; i < NetInfo.playerAuthInfos.Count; i++)
             {
-                if (NetInfo.otherPlayers[i].seatid == res.seatid)
+                if (NetInfo.playerAuthInfos[i].seatid == res.seatid)
                 {
                     CEventCenter.BroadMessage(Message.PlayerExitRoom,i);
-                    NetInfo.otherPlayers.RemoveAt(i);
+                    NetInfo.playerAuthInfos.RemoveAt(i);
                     return;
                 }
             }
@@ -123,7 +118,7 @@ namespace Moba.Protocol
             
             Debug.Log("other player come: " + res.unick);
             //添加其他玩家信息
-            NetInfo.otherPlayers.Add(res);
+            NetInfo.playerAuthInfos.Add(res);
             //广播消息
             CEventCenter.BroadMessage(Message.PlayerEnterRoom, res);
         }
@@ -136,6 +131,10 @@ namespace Moba.Protocol
             
 
             Debug.Log("Enter room: [" + res.zoneid + " : " + res.roomid+"]");
+            NetInfo.SetRoom(res.roomid);
+            NetInfo.SetZoneId(res.zoneid);
+            NetInfo.SetSeat(res.seatid);
+            NetInfo.SetSide(res.side);
         }
 
         private void OnEnterZoneReturn(CmdPackageProtocol.CmdPackage pkg)
@@ -211,6 +210,14 @@ namespace Moba.Protocol
             NetworkMgr.Instance.TcpSendProtobufCmd(
                 (int) ServiceType.Logic,
                 (int) LogicCmd.eExitRoomReq);
+        }
+
+        public void SendNextFrameOpts(NextFrameOpts nfo)
+        {
+            NetworkMgr.Instance.UdpSendProtobufCmd(
+                (int)ServiceType.Logic,
+                (int)LogicCmd.eNextFrameOpts,
+                nfo);
         }
     }
 }

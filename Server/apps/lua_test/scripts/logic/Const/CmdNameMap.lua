@@ -17,6 +17,7 @@ cmdNameMap[ServiceType.Logic]={
 	GameStart = 10,
 	UdpTest=11,
 	LogicFrame = 12,
+	NextFrameOpts = 13,
 };
 
 return cmdNameMap;

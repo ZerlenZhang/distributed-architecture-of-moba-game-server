@@ -361,6 +361,30 @@ local function on_udp_test(s,req)
 	Session.SendPackage(s,req);
 end
 
+local function on_next_frame_opts(s,req)
+	local stype = req[1];
+	local uid = req[3];
+	local body = req[4];
+
+	local zone = zoneRoomList[body.zoneid];
+	if not zone then
+		Debug.LogError("zone is invalid: ",body.zoneid);
+		return;
+	end
+	local room =zone[body.roomid];
+	if not room then
+		Debug.LogError("room is invalid: ",body.zoneid.." : "..body.roomid);
+		return;
+	end
+
+	if room.state~=RoomState.Playing then
+		Debug.LogError("room state wrong: "..room.state);
+		return;
+	end
+
+	room:OnNextFrame(body);
+end
+
 GameRedis.Connect();
 GameMysql.Connect();
 CenterRedis.Connect();
@@ -382,4 +406,5 @@ return{
 	EnterZone           =   enter_zone,
 	OnPlayerExitRoom    =   on_player_exit_room,
 	OnUdpTest           =   on_udp_test,
+	OnNextFrameOpts		=	on_next_frame_opts,
 };

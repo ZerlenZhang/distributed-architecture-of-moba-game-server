@@ -225,7 +225,7 @@ extern "C"
 
 		uv_ip4_name((struct sockaddr_in*)addr, us.clientAddress, sizeof(us.clientAddress));
 
-		log_debug("ip: %s:%d£¬ nread = %d", us.clientAddress, us.clientPort, nread);
+		//log_debug("ip: %s:%d£¬ nread = %d", us.clientAddress, us.clientPort, nread);
 
 		OnRecvCommond(&us, (unsigned char*)buf->base, nread);
 	}
@@ -234,9 +234,9 @@ extern "C"
 
 	void AfterUdpSend(uv_udp_send_t* req, int status)
 	{
-		if (status == 0)
+		if (status)
 		{
-			log_debug("udp send success");
+			log_debug("udp·¢ËÍÊ§°Ü");
 		}
 		my_free(req);
 	}

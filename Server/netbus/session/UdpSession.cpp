@@ -9,9 +9,9 @@
 
 void AfterUdpSend(uv_udp_send_t* req, int status)
 {
-	if (status == 0)
+	if (status)
 	{
-		log_debug("udp send success");
+		log_debug("udp ·¢ËÍÊ§°Ü");
 	}
 	my_free(req);
 }

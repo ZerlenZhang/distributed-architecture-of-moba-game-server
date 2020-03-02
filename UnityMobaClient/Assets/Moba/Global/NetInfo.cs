@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using gprotocol;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -74,7 +75,30 @@ namespace Moba.Global
             zoneId = id;
         }
 
-        public static List<PlayerEnterRoom> otherPlayers = new List<PlayerEnterRoom>();
+        public static int roomid { get; private set; } = -1;
+
+        public static void SetRoom(int roomid)
+        {
+            NetInfo.roomid = roomid;
+        }
+
+        public static int seatid { get; private set; } = -1;
+
+        public static void SetSeat(int seatid)
+        {
+            NetInfo.seatid = seatid;
+        }
+
+        public static int side { get; private set; } = -1;
+
+        public static void SetSide(int side)
+        {
+            NetInfo.side = side;
+        }
+
+        public static List<PlayerEnterRoom> playerAuthInfos = new List<PlayerEnterRoom>();
+        
+        public static List<PlayerMatchInfo> playerMatchInfos = new List<PlayerMatchInfo>();
 
     }
 }

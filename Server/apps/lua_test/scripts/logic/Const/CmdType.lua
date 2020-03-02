@@ -12,4 +12,5 @@ return {
 	eGameStart = 10,
 	eUdpTest=11,
 	eLogicFrame = 12,
+	eNextFrameOpts = 13,
 };

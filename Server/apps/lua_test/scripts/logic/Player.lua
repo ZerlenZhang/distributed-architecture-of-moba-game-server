@@ -39,6 +39,9 @@ function Player:Init(uid,s,handler)
 	--玩家udpPort
 	self.clientPort=-1;
 
+	--玩家同步到哪一帧
+	self.sync_frame=0;
+
 
 	--从数据库读取玩家信息
 	mysql.GetUgameInfo(uid,
@@ -127,6 +130,7 @@ function Player:OnExitRoom()
 	self.seatid=-1;
 	self.side=-1;
 	self.heroid=-1;
+	self.sync_frame=0;
 	self.state=RoomState.InView;
 end
 

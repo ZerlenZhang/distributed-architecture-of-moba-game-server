@@ -35,11 +35,49 @@ function roomMgr:Init(zoneid)
 	self.leftPlayers={};
 	self.rightPlayers={};
 
-	self.frameid=0;
+	--当前帧id
+	self.frameid=1;
+	--所有帧操作
+	self.allframes={};
+	--当前帧操作
+	self.nextframe={
+		frameid = self.frameid,
+		opts = {},
+	};
 
 	print("room init ",self.roomid,self.zoneid);
 end
 
+function roomMgr:send_unsync_frames( player )
+	local frames = {};
+
+	for i = (player.sync_frame+1), #self.allframes do
+		table.insert(frames,self.allframes[i]);
+	end
+--	print("player.frame:"..player.sync_frame.."self.frameid"..self.frameid.."#self.allframes:"..#self.allframes);
+	local body = {frameid=self.frameid,unsync_frames=frames}
+	player:UdpSendPackage(ServiceType.Logic,CmdType.eLogicFrame,body);
+end
+
+--帧同步函数
+function roomMgr:on_frame_synce()
+
+	table.insert(self.allframes,self.nextframe);
+	self.frameid=#self.allframes;
+--	print("self.frameid "..self.frameid.." #self.allframe: "..#self.allframes);
+
+	for k, player in pairs(self.inviewPlayers) do
+		self:send_unsync_frames(player);
+	end
+
+	self.frameid=self.frameid+1;
+	--当前帧操作
+	self.nextframe={
+		frameid = self.frameid,
+		opts = {},
+	};
+end
+--广播TCP消息
 function roomMgr:BroadcastInviewPlayers(stype,ctype,body,except)
 	for i,player in ipairs(self.inviewPlayers) do
 		if not player.isRobot and player~=except then
@@ -47,7 +85,7 @@ function roomMgr:BroadcastInviewPlayers(stype,ctype,body,except)
 		end
 	end
 end
-
+--添加玩家
 function roomMgr:AddPlayer( player )
 
 	if not player then
@@ -119,7 +157,7 @@ function roomMgr:AddPlayer( player )
 
 	return true;
 end
-
+--移除玩家
 function roomMgr:RemovePlayer(player)
 	if not player then
 		Debug.LogError("player is nil");
@@ -144,14 +182,14 @@ function roomMgr:RemovePlayer(player)
 
 	player:OnExitRoom();
 end
-
+--开始游戏
 function roomMgr:StartGame()
 
 	--房间进入Ready状态
-	self.state=RoomState.Start ;
+	self.state=RoomState.Playing ;
 	--更新玩家状态
 	for i,p in ipairs(self.inviewPlayers) do
-		p.state=RoomState.Start;
+		p.state=RoomState.Playing;
 	end
 
 
@@ -159,34 +197,60 @@ function roomMgr:StartGame()
 	--我们随机选择【大乱斗】
 	local heros={};
 	for k, player in pairs(self.inviewPlayers) do
-		local heroid=math.floor(math.random()*5+1);
-		player.heroid=heroid;
-		table.insert(heros,heroid);
+		local randomHeroId=math.floor(math.random()*5+1);
+		local info = 
+		{
+			heroid = randomHeroId,
+			seatid = player.seatid,
+			side   = player.side,
+		}
+		table.insert(heros,info);
 	end
 
 	--广播消息游戏开始
 	self:BroadcastInviewPlayers(
 		ServiceType.Logic,
 		CmdType.eGameStart,
-		{heros=heros});
+		{players=heros});
 
 	--5 秒以后开始第一个逻辑帧
 	self.frameid=0;
 	self.frameTimer=Timer.Repeat(
 	function()
 		self:on_frame_synce();
-		self.frameid=self.frameid+1;
 	end,5000,-1,50);
 end
-
---帧同步函数
-function roomMgr:on_frame_synce()
-	for k, player in pairs(self.inviewPlayers) do
-		if not player then
-			local body={frameid=self.frameid};
-			player:UdpSendPackage(ServiceType.Logic,CmdType.eLogicFrame,body);
-		end
+--收到客户端下一帧消息
+function roomMgr:OnNextFrame(nextFrameOpts)
+	--是否过时
+	if nextFrameOpts.frameid~=self.frameid then
+		return;
 	end
+	--是否内容无效
+	if #nextFrameOpts.opts <= 0 then
+		Debug.LogError("get empty NextFrameOpts");
+		return;
+	end
+	--是否不对应玩家
+	local player = self.inviewPlayers[nextFrameOpts.seatid];
+	if not player then
+		Debug.LogError("OnNextFrame_get player nil, seatid:",nextFrameOpts.seatid);
+		return;
+	end
+
+	--更新客户端同步到帧数
+	if player.sync_frame< nextFrameOpts.frameid-1 then
+		player.sync_frame=nextFrameOpts.frameid-1;
+	end
+
+
+	--加入到当前帧操作
+	for k, opt in pairs(nextFrameOpts.opts) do
+		table.insert(self.nextframe.opts,opt);
+	end
+
+--	print("player.frame: "..player.sync_frame.."nextframe.opts:"..#self.nextframe.opts.."self.frameid"..self.frameid.."#self.allframes:"..#self.allframes);
 end
+
 
 return roomMgr;

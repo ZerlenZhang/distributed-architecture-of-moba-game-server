@@ -281,10 +281,8 @@ namespace Moba.Network
 
         void UdpInit()
         {
-            print(1);
             this.udpRemotePoint = new IPEndPoint(
                 IPAddress.Parse(this.udpServerIp), udpPort);
-            print(2);
             //创建udpSocket
             try
             {
@@ -292,12 +290,10 @@ namespace Moba.Network
                     AddressFamily.InterNetwork,
                     SocketType.Dgram,
                     ProtocolType.Udp);
-                print(3);
                 //绑定本地端口
                 var localPoint = new IPEndPoint(IPAddress.Parse(localIp), localPort);
                 this.udpSocket.Bind(localPoint);
                 
-                print(4);
                 //启动线程收取Udp数据
                 this.udpRecvThread = new Thread(UdpRecvThead);
                 this.udpRecvThread.Start();
@@ -316,10 +312,8 @@ namespace Moba.Network
         {
             while (true)
             {
-                print("waiting...");
                 EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
                 var recvd = this.udpSocket.ReceiveFrom(this.udpRecvBuff,ref remote);
-                print("Udp recv len: " + recvd);
                 this.OnRecvCmd(this.udpRecvBuff, 0, recvd);
             }
         }        

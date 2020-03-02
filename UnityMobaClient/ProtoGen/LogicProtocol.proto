@@ -17,12 +17,40 @@ enum LogicCmd{
 
 	eUdpTest = 11;
 	eLogicFrame = 12;
+	eNextFrameOpts = 13;
 }
 
-message LogicFrame{
+
+//每帧某个客户端操作合集
+message OptionEvent{
+	required int32 seatid = 1;
+	required int32 optype = 2;
+	optional int32 x = 3;
+	optional int32 y = 4;
+}
+
+//每帧所有客户端操作合集
+message FrameOptionEvent{
 	required int32 frameid = 1;
+	repeated OptionEvent opts = 2;
 }
 
+//每帧服务器广播的消息
+message LogicFrame{
+	//当前frameid
+	required int32 frameid = 1;
+	//客户端所有还没有同步的帧
+	repeated FrameOptionEvent unsync_frames = 2;
+}
+
+//下一帧的操作
+message NextFrameOpts{
+	required int32 frameid = 1;
+	repeated OptionEvent opts = 2;
+	required int32 seatid = 3;
+	required int32 zoneid = 4;
+	required int32 roomid = 5;
+}
 
 message UdpTest{
 	required int32 content = 1;
@@ -72,6 +100,12 @@ message ExitRoomRes{
 	required int32 status = 1;
 }
 
+message PlayerMatchInfo{
+	required int32 heroid = 1;
+	required int32 seatid = 2;
+	required int32 side = 3;
+}
+
 message GameStart{
-	repeated int32 heros = 1;
+	repeated PlayerMatchInfo players = 1; 
 }

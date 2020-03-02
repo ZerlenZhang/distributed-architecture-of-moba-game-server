@@ -473,6 +473,10 @@ static void udp_send_package(char* ip, int port, CmdPackage* msg)
 // ip, port, {stype,ctype,utag,body}
 static int lua_session_udpsendpackage(lua_State* lua)
 {
+	auto x = 1;
+	x++;
+
+
 	if (3 != lua_gettop(lua))
 	{
 		log_error("º¯Êýµ÷ÓÃ´íÎó");
@@ -530,7 +534,7 @@ static int lua_session_udpsendpackage(lua_State* lua)
 	}
 
 	lua_pushnumber(lua, 4);
-	lua_gettable(lua, 2);
+	lua_gettable(lua, 3);
 	switch (CmdPackageProtocol::ProtoType())
 	{
 	case ProtoType::Json:
@@ -548,6 +552,7 @@ static int lua_session_udpsendpackage(lua_State* lua)
 				lua_table_to_protobuf(lua, lua_gettop(lua),
 					CmdPackageProtocol::ProtoCmdTypeToName(msg.serviceType, msg.cmdType));
 		}
+		udp_send_package((char*)ip, port, &msg);
 		CmdPackageProtocol::ReleaseMessage((Message*)msg.body);
 		break;
 	}

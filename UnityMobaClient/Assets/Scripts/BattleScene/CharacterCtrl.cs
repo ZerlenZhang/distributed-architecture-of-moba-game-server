@@ -39,7 +39,8 @@ namespace Moba.Script
 
         private CharacterState state = CharacterState.Idle;
 
-        private Joystick _joystick;
+        [HideInInspector]
+        public Joystick _joystick;
 
         private Animation anim;
 
@@ -56,8 +57,6 @@ namespace Moba.Script
             {// 如果是主角，就生成光环
                 var ring = ResourceMgr.InstantiateGameObject(
                     EffectName.LightRing,transform);
-
-                _joystick = FindObjectOfType<Joystick>();
 
                 anim = GetComponent<Animation>();
                 Assert.IsTrue(_joystick&&anim);
