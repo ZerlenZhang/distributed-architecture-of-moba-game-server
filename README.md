@@ -1,4 +1,7 @@
-# 学习高并发，高CPU利用率服务器架构
+# 探索高并发，高CPU利用率的分布式服务器架构
+![Image text](https://github.com/ZerlenZhang/Moba/blob/master/Images/architest.png)
+
+采用C，C++开发底层，使用Lua写服务器逻辑，使用Unity制作客户端，结合MySql和Redis数据库，目前实现了登陆，编辑个人信息，游客账号升级，每日签到的逻辑，正在继续深入使用udp进一步开发帧同步框架
 
 ## 核心原理
 1、采用libuv处理各种各样的异步操作，文件io，tcp，udp，工作队列，计时器等
