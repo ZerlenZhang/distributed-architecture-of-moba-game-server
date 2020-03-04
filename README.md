@@ -25,14 +25,15 @@
 
 ~~~
 【添加Lua搜索路径，Lua启动脚本相对路径（相对搜索路径）】
-MobaServer.exe ../ Main.lua
+MobaServer.exe ./ Main.lua
 ~~~
-2、然后在Main.lua加入以下代码
+2、然后在同目录创建Main.lua并加入以下代码
 ~~~
 Debug.LogInit("logs","test",true);
 print("hello from print");
 Debug.Log("hello from Debug.Log");
 ~~~
+3、运行bat脚本即可
 
 
 ## 导出的LuaAPI
