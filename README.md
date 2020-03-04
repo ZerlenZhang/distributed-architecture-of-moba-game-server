@@ -20,13 +20,28 @@
 ## 优化
 1、大量使用对象池，避免内存碎片化
 
+## 快速启动
+1、写一个.bat脚本，放在MobaServer.exe同目录
+
+~~~
+【添加Lua搜索路径，Lua启动脚本相对路径（相对搜索路径）】
+MobaServer.exe ../ Main.lua
+~~~
+2、然后在Main.lua加入以下代码
+~~~
+Debug.LogInit("logs","test",true);
+print("hello from print");
+Debug.Log("hello from Debug.Log");
+~~~
+
+
 ## 导出的LuaAPI
 1、日志模块
 ~~~
 //初始化日志模块，先初始化，使用才会有效
-//【"相对路径","创建的文件前缀",是否打印到控制台】
+//【"日志目录相对路径","创建的文件前缀",是否打印到控制台】
 eg:
-Debug.LogInit("logger/gateway","gateway",true); //现在需要logger目录事先存在
+Debug.LogInit("logger","gateway",true);
 //日常使用
 //【不定参数】
 Debug.Log(arg1,arg2,...); // 等同于print
