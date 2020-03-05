@@ -6,6 +6,20 @@ using UnityEngine.Assertions;
 
 namespace Moba.Global
 {
+
+    public enum SideType
+    {
+        Blue=-1,
+        Red=1,
+    }
+    public class PlayerInfo
+    {
+        public string unick;
+        public int usex;
+        public int uface;
+    }
+    
+    
     public static class NetInfo
     {
         public static string unick { get; private set; }="Guest";
@@ -100,5 +114,53 @@ namespace Moba.Global
         
         public static List<PlayerMatchInfo> playerMatchInfos = new List<PlayerMatchInfo>();
 
+        /// <summary>
+        /// 获取玩家信息根据座位号
+        /// </summary>
+        /// <param name="seatid"></param>
+        /// <returns></returns>
+        public static PlayerInfo GetPlayerInfo(int seatid)
+        {
+            if (NetInfo.seatid == seatid)
+            {
+                return new PlayerInfo
+                {
+                    uface = uface,
+                    usex = usex,
+                    unick = unick,
+                };
+            }
+
+            foreach (var playerEnterRoom in playerAuthInfos)
+            {
+                if (playerEnterRoom.seatid == seatid)
+                {
+                    return new PlayerInfo
+                    {
+                        uface = playerEnterRoom.uface,
+                        usex = playerEnterRoom.usex,
+                        unick = playerEnterRoom.unick,
+                    };
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 获取比赛信息根据座位号
+        /// </summary>
+        /// <param name="seatid"></param>
+        /// <returns></returns>
+        public static PlayerMatchInfo GetMatchInfo(int seatid)
+        {
+            foreach (var VARIABLE in playerMatchInfos)
+            {
+                if (VARIABLE.seatid == seatid)
+                    return VARIABLE;
+            }
+
+            return null;
+        }
     }
 }

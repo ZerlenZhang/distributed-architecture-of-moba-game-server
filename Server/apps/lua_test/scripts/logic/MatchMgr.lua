@@ -7,6 +7,7 @@ local RoomState = require("logic/Const/RoomState");
 
 local g_roomId = 1;
 local PlayerNum = 3;
+local LOGIC_FRAME_TIME = 50; -- 15 FPS
 
 local roomMgr={};
 
@@ -63,7 +64,6 @@ end
 function roomMgr:on_frame_synce()
 
 	table.insert(self.allframes,self.nextframe);
-	self.frameid=#self.allframes;
 --	print("self.frameid "..self.frameid.." #self.allframe: "..#self.allframes);
 
 	for k, player in pairs(self.inviewPlayers) do
@@ -214,11 +214,10 @@ function roomMgr:StartGame()
 		{players=heros});
 
 	--5 秒以后开始第一个逻辑帧
-	self.frameid=0;
 	self.frameTimer=Timer.Repeat(
 	function()
 		self:on_frame_synce();
-	end,5000,-1,50);
+	end,5000,-1,LOGIC_FRAME_TIME);
 end
 --收到客户端下一帧消息
 function roomMgr:OnNextFrame(nextFrameOpts)

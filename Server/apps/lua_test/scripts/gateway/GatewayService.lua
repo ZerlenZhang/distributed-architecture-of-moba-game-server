@@ -15,9 +15,9 @@ local uid_sessionDic={};
 local function ConnectToServer(stype,ip,port)
 	Netbus.TcpConnect(ip,port,
 		--链接成功的回调
-		function(err,session)
+		function(session)
 			connectingSession[stype]=false;
-			if err~=0 then
+			if not session then
 				Debug.LogError("connect to server ["..config.servers[stype].descrip.."]"..ip..port.." failed, reconnecting...");
 				return;
 			end

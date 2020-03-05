@@ -388,10 +388,6 @@ int register_service_export(lua_State* tolua_S)
 
 
 #pragma region LuaService
-
-#pragma endregion
-
-
 bool LuaService::OnSessionRecvRawPackage(const AbstractSession* session, const RawPackage* package) const
 {
 	auto lua = lua_wrapper::lua_state();
@@ -469,3 +465,7 @@ void LuaService::OnSessionConnected(const AbstractSession* session, const int& s
 	if(this->luaConnFuncHandle)
 		execute_service_function(this->luaConnFuncHandle, 2);
 }
+
+#pragma endregion
+
+

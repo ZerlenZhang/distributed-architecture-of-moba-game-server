@@ -5,7 +5,7 @@ local ProtoType={
     Json=0,
     Protobuf=1,
 };
-
+Debug.Log("hello");
 ProtoManager.Init(ProtoType.Protobuf,"F:\\Projects\\unity\\Moba\\Server\\apps\\lua_test\\scripts\\gateway\\Const");
 --如果是Protobuf协议，还需要注册映射表
 if ProtoManager.ProtoType()==ProtoType.Protobuf then

@@ -42,6 +42,17 @@ void InitAllocers()
 #pragma region 回调函数
 extern "C"
 {
+
+	static void ws_after_write(uv_write_t* req, int status)
+	{
+		//如果写请求成功
+		if (status != 0)
+		{
+			log_error("websocket write failed");
+		}
+		WebSocketProtocol::ReleasePackage((unsigned char*)req->write_buffer.base);
+		cache_free(wrAllocer, req);
+	}
 	//关闭链接回调
 	static void close_cb(uv_handle_t* handle) {
 		//log_debug("用户断开链接");
@@ -60,13 +71,14 @@ extern "C"
 	}
 
 	//完成写请求的回调
-	static void after_write(uv_write_t* req, int status)
+	static void tcp_after_write(uv_write_t* req, int status)
 	{
 		//如果写请求成功
 		if (status != 0)
 		{
 			log_error("tcp write failed");
 		}
+		TcpProtocol::ReleasePackage((unsigned char*)req->write_buffer.base);
 		cache_free(wrAllocer, req);
 	}
 }
@@ -137,13 +149,16 @@ void TcpSession::SendData(unsigned char* body, int len)
 			int pkgSize;
 			auto wsPkg = WebSocketProtocol::Package(body, len, &pkgSize);
 			w_buf = uv_buf_init((char*)wsPkg, pkgSize);
-			uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
-			WebSocketProtocol::ReleasePackage(wsPkg);
+			w_req->write_buffer.base = (char*)wsPkg;
+			w_req->write_buffer.len = pkgSize;
+			uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, ws_after_write);
 		}
 		else
 		{// 没有握过手
-			w_buf = uv_buf_init((char*)body, len);
-			uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
+			static char respones[512];
+			memcpy(respones, body, len);
+			w_buf = uv_buf_init((char*)respones, len);
+			uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, NULL);
 		}
 		break;
 	#pragma endregion
@@ -153,14 +168,13 @@ void TcpSession::SendData(unsigned char* body, int len)
 		int pkgSize;
 		auto tcpPkg = TcpProtocol::Package(body, len, &pkgSize);
 		w_buf = uv_buf_init((char*)tcpPkg, pkgSize);
-		uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, after_write);
-		TcpProtocol::ReleasePackage(tcpPkg);
+		w_req->write_buffer.base = (char*)tcpPkg;
+		w_req->write_buffer.len = pkgSize;
+		uv_write(w_req, (uv_stream_t*)&this->tcpHandle, &w_buf, 1, tcp_after_write);
 		break;
 	#pragma endregion
 
 	}
-
-
 }
 
 const char* TcpSession::GetAddress(int& clientPort) const

@@ -1,12 +1,9 @@
-using System;
-using System.Net.Sockets;
 using Moba.Const;
 using Moba.Data;
 using Moba.Protocol;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.View;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Moba.Script
 {
@@ -27,7 +24,6 @@ namespace Moba.Script
 				MainLoop.Instance.ExecuteLater(
 					() => LogicServiceProxy.Instance.TestUdp(999), 
 					3);
-
 		}
 
 		private void Update()
@@ -35,7 +31,7 @@ namespace Moba.Script
 			if (Input.GetKeyDown(KeyCode.C))
 			{
 				PanelMgr.PushPanelWithMessage(PanelName.LoadingPanel,Message.LoadSceneAsync,SceneName.Battle);
-			}			
+			}
 		}
 	}
 }

@@ -1,57 +1,149 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using gprotocol;
 using Moba.Const;
+using Moba.Data;
 using Moba.Global;
 using Moba.Protocol;
+using Moba.Script.Building;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Script;
+using ReadyGamerOne.Utility;
 using UnityEngine;
 
 namespace Moba.Script
 {
-    public class GameZygote : UnityEngine.MonoBehaviour
+    public class GameZygote : MonoSingleton<GameZygote>
     {
         public GameObject[] characters;
         public Transform playerEntry;
+        public Transform enemyEntry;
+        public float spreadRadis = 4f;
+
+        //main,left,right,front
+        public GameObject[] redTowers;
+        public List<AbstractTower> _redTowers=new List<AbstractTower>();
+        public GameObject[] blueTowers;
+        public List<AbstractTower> _blueTowers = new List<AbstractTower>();
+
+        public GameObject mainBulletPrefab;
+        public GameObject normalBulletPrefab;
+        
         /// <summary>
         /// 已经同步过的id
         /// </summary>
-        private int sync_frame = 1;
+        private int sync_frameid = 1;
 
         /// <summary>
         /// 上一帧所有用户操作
         /// </summary>
-//        private FrameOptionEvent lastOptionEvent;
+        private FrameOptionEvent lastOptionEvent;
+
 
         private Joystick _joystick;
 
+        private List<Hero> heros = new List<Hero>();
+
+        #region 初始化
+
+
+
+        private void PlaceTowers()
+        {
+            for (var i = 0; i < redTowers.Length; i++)
+            {
+                var tower = i == 0
+                    ? (AbstractTower) redTowers[i].AddComponent<MainTower>()
+                    : redTowers[i].AddComponent<NormalTower>();
+                tower.Init(SideType.Red);
+                _redTowers.Add(tower);
+                
+                tower  = i == 0
+                    ? (AbstractTower) blueTowers[i].AddComponent<MainTower>()
+                    : blueTowers[i].AddComponent<NormalTower>();
+                tower.Init(SideType.Blue);
+                _blueTowers.Add(tower);
+            }
+        }
+
+        private Hero PlaceHeroAt(PlayerMatchInfo info)
+        {
+            var uinfo = NetInfo.GetPlayerInfo(info.seatid);
+            
+            var player = Instantiate(characters[uinfo.usex]);
+            player.name = uinfo.unick;
+
+            var center = info.side == -1
+                ? playerEntry    // 蓝色方
+                : enemyEntry;    // 红色方
+
+            var degree = 180.0f / (LogicConfig.PlayerCount + 1);
+            var index = info.seatid / 2;
+            var temp = Vector2.right;
+            temp = temp.RotateAngle((index + 1) * degree);
+            player.transform.position
+                = center.position
+                  + spreadRadis * temp.x * center.right
+                  + spreadRadis * temp.y * center.forward;
+            
+            var hero = player.AddComponent<Hero>();
+            hero.isGhost = NetInfo.seatid != info.seatid;
+            hero.side = (SideType)info.side;
+            hero.seatid = info.seatid;
+            //逻辑初始化
+            hero.LogicInit(player.transform.position);
+            return hero;
+
+        }
+
+        private Hero GetHero(int seatid)
+        {
+            foreach (var hero in heros)
+            {
+                if (hero.seatid == seatid)
+                    return hero;
+            }
+
+            return null;
+        }
+                
+
+        #endregion
+
+        #region Monobehavior
+        
         private void Start()
         {
             CEventCenter.AddListener<LogicFrame>(Message.OnLogicFrame,OnLogicFrame);
-            
-            //实例化角色
-            var player = Instantiate(characters[NetInfo.usex]);
-            player.transform.position = playerEntry.position;
-            
-            //添加角色控制
-            var ctrl = player.AddComponent<CharacterCtrl>();
-            ctrl.isGhost = false;
-            this._joystick=FindObjectOfType<Joystick>();
-            ctrl._joystick = this._joystick;
+
+            _joystick = FindObjectOfType<Joystick>();
+
+            PlaceTowers();
+
+            foreach (var matchInfo in NetInfo.playerMatchInfos)
+            {
+                var hero = PlaceHeroAt(matchInfo);
+                heros.Add(hero);
+            }
         }
 
         private void OnDestroy()
         {
             CEventCenter.RemoveListener<LogicFrame>(Message.OnLogicFrame, OnLogicFrame);
-        }
+        }        
+
+        #endregion
+        
+        #region 帧同步核心
 
         private void OnLogicFrame(LogicFrame obj)
-        {
-            if (obj.frameid < this.sync_frame)
+        {            
+            if (obj.frameid < this.sync_frameid)
                 return;
 
-            print("未同步的帧：" + obj.unsync_frames.Count);
+            /*print("未同步的帧：" + obj.unsync_frames.Count);
             var temp = "";
             foreach (var frameOptionEvent in obj.unsync_frames)
             {
@@ -61,28 +153,127 @@ namespace Moba.Script
                 }
             }
 
-            print(temp);
-            // 同步前一帧状态 
-            //同步客户端上一帧逻辑操作，调整位置，调整后，客户端同步到的就是sync_frame
+            print(temp);*/
+
+            // 同步之前收到的最后一帧的处理结果，据此保证所有客户端的处理结果都是一样的
+            // 同步客户端上一帧逻辑操作，调整位置，调整后，客户端同步到的就是sync_frame
+            if (null != lastOptionEvent)
+            {
+                this.OnAsyncLastLogicFrame(lastOptionEvent);
+            }
             
-            // 同步收到的帧
+            // 同步丢掉的帧
             // 从sync_frame 同步到 obj.frameid-1
+            foreach (var frame in obj.unsync_frames)
+            {
+                if (this.sync_frameid >= frame.frameid)
+                {// 已经同步
+                    continue;
+                }
+                if (frame.frameid >= obj.frameid)
+                {// 无需同步
+                    break;
+                }
+                
+                //跳帧
+                this.OnJumpToNextFrame(frame);
+            }
             
-            //获取最后一部操作，根据这一步操作播放动画
             
             //记录下当前帧操作
-            this.sync_frame = obj.frameid;
-//            this.lastOptionEvent = obj.unsync_frames.Last();
-            
+            this.sync_frameid = obj.frameid;
+            if (obj.unsync_frames.Count > 0)
+            {
+                //保留最新帧信息
+                this.lastOptionEvent = obj.unsync_frames.Last();
+                //获取最新帧信息，处理逻辑
+                this.OnHandlerCurrentLogicFrame(this.lastOptionEvent);                
+            }
+            else
+            {
+                this.lastOptionEvent = null;
+            }
+
             //采集下一帧事件发布给服务器 
             CollectNextFrameOpts();
+            
+            
         }
 
+        /// <summary>
+        /// 跳帧
+        /// 不用播放动画
+        /// </summary>
+        /// <param name="frameOpts"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void OnJumpToNextFrame(FrameOptionEvent optionEvent)
+        {
+            foreach (var opt in optionEvent.opts)
+            {
+                var hero = GetHero(opt.seatid);
+                if(!hero)
+                {
+                    Debug.LogError("找不到这个seatid: "+opt.seatid);
+                    continue;
+                }
+                hero.OnJumpToNextFrame(opt);
+            }
+            
+            
+            OnTowerLogicFrameUpdate();
+        }
+
+        /// <summary>
+        /// 同步之前收到的最后一帧的处理结果
+        /// </summary>
+        /// <param name="optionEvent"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void OnAsyncLastLogicFrame(FrameOptionEvent optionEvent)
+        {
+            //把所有英雄的输入进行数据同步，同步的时间间隔就是帧的时间间隔
+            foreach (var opt in optionEvent.opts)
+            {
+                var hero = GetHero(opt.seatid);
+                if(!hero)
+                {
+                    Debug.LogError("找不到这个seatid: "+opt.seatid);
+                    continue;
+                }
+                hero.OnAsyncLastLogicFrame(opt);
+
+            }
+        }
+
+        /// <summary>
+        /// 处理最新帧逻辑
+        /// </summary>
+        /// <param name="frameOptionEvent"></param>
+        private void OnHandlerCurrentLogicFrame(FrameOptionEvent optionEvent)
+        {
+            //把所有英雄输入代入进去，更新数据，进而控制表现
+            foreach (var opt in optionEvent.opts)
+            {
+                var hero = GetHero(opt.seatid);
+                if (!hero)
+                {
+                    Debug.LogError("找不到这个seatid: "+opt.seatid);
+                    continue;
+                }
+                hero.OnHandlerCurrentLogicFrame(opt);
+            }
+            
+            //怪物AI，根据我们处理，进一步处理
+            OnTowerLogicFrameUpdate();
+        }
+        
+        /// <summary>
+        /// 收集下一帧操作并发送到服务器
+        /// </summary>
         private void CollectNextFrameOpts()
         {
             var nfo = new NextFrameOpts
             {
-                frameid = this.sync_frame + 1,
+                frameid = this.sync_frameid + 1,
                 zoneid = NetInfo.zoneId,
                 roomid = NetInfo.roomid,
                 seatid = NetInfo.seatid,
@@ -109,5 +300,45 @@ namespace Moba.Script
 
             LogicServiceProxy.Instance.SendNextFrameOpts(nfo);
         }
+
+
+        private void OnTowerLogicFrameUpdate()
+        {
+            foreach (var tower in _redTowers)
+            {
+                tower.OnLogicFrameUpdate(LogicConfig.LogicFrameTime);
+            }
+            foreach (var tower in _blueTowers)
+            {
+                tower.OnLogicFrameUpdate(LogicConfig.LogicFrameTime);
+            }
+        }
+
+        #endregion
+
+
+        public List<Hero> GetHeros()
+        {
+            return this.heros;
+        }
+
+        public T CreateBullet<T>(SideType side)
+            where T:AbstractBullet
+        {
+            var prefab = typeof(T) == typeof(MainBullet)
+                ? mainBulletPrefab
+                : normalBulletPrefab;
+            var obj = Instantiate(prefab);
+            var bullet = obj.AddComponent<T>();
+            bullet.Init(side);
+            return bullet;
+        }
+
+        public void RemoveBullet(AbstractBullet bullet)
+        {
+            Destroy(bullet.gameObject);
+        }
+        
+        
     }
 }

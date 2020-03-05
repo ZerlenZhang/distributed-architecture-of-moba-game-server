@@ -117,9 +117,9 @@ function Player:OnEnterRoom(roomid,seatid)
 	--分边，是否是偶数
 	local num1,num2=math.modf(seatid/2)--返回整数和小数部分
 	if(num2==0)then
-		self.side=1;
-	else
 		self.side=-1;
+	else
+		self.side=1;
 	end
 
 end

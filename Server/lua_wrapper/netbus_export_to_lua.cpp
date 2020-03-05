@@ -17,7 +17,6 @@ extern "C" {
 static void on_tcp_connect(int err, AbstractSession* s, void* udata)
 {
 	auto lua = lua_wrapper::lua_state();
-	lua_pushinteger(lua, err);
 	if (err)
 	{
 		lua_pushnil(lua);
@@ -25,7 +24,7 @@ static void on_tcp_connect(int err, AbstractSession* s, void* udata)
 	else {
 		tolua_pushuserdata(lua, s);
 	}
-	lua_wrapper::ExeScriptHandle((int)udata, 2);
+	lua_wrapper::ExeScriptHandle((int)udata, 1);
 	lua_wrapper::RemoveScriptHandle((int)udata);
 }
 

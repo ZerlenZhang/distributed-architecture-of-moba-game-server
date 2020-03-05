@@ -1,6 +1,7 @@
 --初始化日志模块
-Debug.LogInit("logger/Debug","Debug",true);
+Debug.LogInit("Test","Debug",true);
 
+Debug.Log("hello","???");
 
 local Player={
 	name="Player"

@@ -129,6 +129,7 @@
             <e p="ZoneId.cs" t="Include" />
           </e>
           <e p="Data" t="Include">
+            <e p="LogicConfig.cs" t="Include" />
             <e p="Protocol" t="Include">
               <e p="ChatProtocol.cs" t="Include" />
               <e p="LogicProtocol.cs" t="Include" />
@@ -392,8 +393,18 @@
         <e p="Scripts" t="Include">
           <e p="BattleScene" t="Include">
             <e p="BattleScene.cs" t="Include" />
-            <e p="CharacterCtrl.cs" t="Include" />
+            <e p="Building" t="Include">
+              <e p="AbstractTower.cs" t="Include" />
+              <e p="MainTower.cs" t="Include" />
+              <e p="NormalTower.cs" t="Include" />
+            </e>
             <e p="GameZygote.cs" t="Include" />
+            <e p="Hero.cs" t="Include" />
+            <e p="Model" t="Include">
+              <e p="AbstractBullet.cs" t="Include" />
+              <e p="MainBullet.cs" t="Include" />
+              <e p="NormalBullet.cs" t="Include" />
+            </e>
           </e>
           <e p="LoginScene" t="Include">
             <e p="LoginScene.cs" t="Include" />

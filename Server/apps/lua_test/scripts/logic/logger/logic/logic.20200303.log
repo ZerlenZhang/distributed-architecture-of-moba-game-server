@@ -1,0 +1,540 @@
+20200303 08:40:58 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 08:40:58 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 08:40:58 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 08:40:58 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 08:40:58 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 08:40:58 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 08:41:01 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:53882]
+20200303 08:41:01 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 08:41:15 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 08:41:29 Debug../logic/MatchMgr.lua:48  
+room init 	1	1
+20200303 08:41:29 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:01:01 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:01:01 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:01:01 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:01:01 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:01:01 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:01:01 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:01:05 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:55686]
+20200303 10:01:05 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:01:16 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 10:01:21 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 10:01:22 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:02:12 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 10:08:36 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:08:36 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:08:36 Error../datebase/mysql_center.lua:20  
+链接数据库失败——mysql_init(NULL) 返回 NULL, 
+20200303 10:08:36 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:08:36 DebugF:\Projects\unity\Moba\Server\database\mysqlwarpper.cpp:83  
+1
+20200303 10:08:36 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:08:36 DebugF:\Projects\unity\Moba\Server\database\mysqlwarpper.cpp:88  
+2
+20200303 10:08:38 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:08:38 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:08:38 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:08:38 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:08:38 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:08:38 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:08:39 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:55857]
+20200303 10:08:39 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:08:52 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 10:08:59 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 10:08:59 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:09:23 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 10:10:40 Debug../logic/LogicService.lua:23  
+client [127.0.0.1:55857] leave
+20200303 10:17:28 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:17:28 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:17:28 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:17:28 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:17:28 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:17:28 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:17:30 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:56067]
+20200303 10:17:30 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:17:38 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 10:17:44 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 10:17:44 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:18:12 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 10:18:45 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:18:45 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:18:45 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:18:45 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:18:45 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:18:45 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:18:47 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:56117]
+20200303 10:18:47 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:18:53 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 10:19:01 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 10:19:01 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:19:46 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 10:23:50 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:23:50 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:23:50 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:23:50 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:23:50 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:23:50 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:23:52 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:56240]
+20200303 10:23:52 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:24:00 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 10:24:06 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 10:24:06 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:25:04 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 10:30:29 DebugF:\Projects\unity\Moba\Server\netbus\Netbus.cpp:511  
+Tcp 绑定失败
+20200303 10:30:29 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:30:29 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:30:29 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:30:29 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:30:29 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:30:29 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:30:31 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:56442]
+20200303 10:30:31 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:30:40 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:30:40 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:30:40 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:30:40 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:30:40 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:30:40 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:30:42 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:56455]
+20200303 10:30:42 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:30:53 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 10:30:56 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 10:30:56 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:32:49 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 10:39:53 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 10:39:53 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 10:39:53 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 10:39:53 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 10:39:53 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 10:39:53 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 10:39:54 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:57017]
+20200303 10:39:54 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 10:40:06 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 10:40:09 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 10:40:09 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 10:41:27 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 11:08:21 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 11:08:21 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 11:08:21 Error../datebase/mysql_center.lua:20  
+链接数据库失败——mysql_init(NULL) 返回 NULL, 
+20200303 11:08:21 DebugF:\Projects\unity\Moba\Server\database\mysqlwarpper.cpp:83  
+1
+20200303 11:08:21 DebugF:\Projects\unity\Moba\Server\database\mysqlwarpper.cpp:88  
+2
+20200303 11:08:29 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 11:08:29 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 11:08:29 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 11:08:29 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 11:08:29 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 11:08:29 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 11:08:33 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:59427]
+20200303 11:08:33 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 11:08:43 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 11:08:45 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 11:08:45 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 11:11:11 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 11:37:33 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 11:37:34 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 11:37:34 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 11:37:34 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 11:37:34 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 11:37:34 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 11:37:35 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:60643]
+20200303 11:37:35 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 11:37:43 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 11:37:49 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 11:37:49 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 11:39:23 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 11:47:54 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 11:47:54 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 11:47:54 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 11:47:54 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 11:47:54 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 11:47:54 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 11:47:56 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:60932]
+20200303 11:47:56 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 11:48:09 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 11:48:15 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 11:48:15 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 11:50:38 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 12:38:25 Debug../logic/LogicService.lua:23  
+client [127.0.0.1:60932] leave
+20200303 17:21:59 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 17:21:59 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 17:21:59 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 17:21:59 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 17:21:59 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 17:21:59 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 17:22:02 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:55607]
+20200303 17:22:02 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 17:22:17 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 17:22:25 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 17:22:25 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 17:25:27 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 17:26:28 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 17:26:28 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 17:26:28 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 17:26:28 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 17:26:28 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 17:26:28 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 17:26:29 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:55732]
+20200303 17:26:29 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 17:26:38 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 17:26:44 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 17:26:44 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 17:34:40 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 17:39:21 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 17:39:21 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 17:39:21 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 17:39:21 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 17:39:21 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 17:39:21 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 17:39:24 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:56263]
+20200303 17:39:24 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 17:39:35 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 17:39:42 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 17:39:42 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 17:41:29 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 19:34:23 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 19:34:23 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 19:34:23 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 19:34:23 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 19:34:23 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 19:34:23 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 19:34:26 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:63428]
+20200303 19:34:26 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 19:34:43 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 19:34:54 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 19:34:54 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 19:36:06 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 19:38:55 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 19:38:55 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 19:38:55 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 19:38:55 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 19:38:55 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 19:38:55 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 19:38:57 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:63772]
+20200303 19:38:57 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 19:39:05 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 19:39:11 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 19:39:11 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 19:40:16 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 19:44:26 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 19:44:26 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 19:44:26 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 19:44:26 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 19:44:26 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 19:44:26 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 19:44:28 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:64167]
+20200303 19:44:28 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 19:44:35 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 19:44:41 Error../logic/GameMgr.lua:315  
+player has entered zone: 	1
+20200303 19:44:42 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 19:44:42 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 19:45:09 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 19:46:13 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 19:46:13 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 19:46:13 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 19:46:13 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 19:46:13 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 19:46:13 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 19:46:14 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:64301]
+20200303 19:46:14 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 19:46:21 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 19:46:29 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 19:46:29 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 19:47:35 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 20:08:18 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 20:08:18 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 20:08:18 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 20:08:18 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 20:08:23 Error../datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200303 20:08:23 Error../datebase/redis_game.lua:19  
+Redis Connect Error	系统试图将驱动器合并到合并驱动器上的目录。
+20200303 20:08:33 Error../datebase/redis_center.lua:19  
+系统试图将驱动器合并到合并驱动器上的目录。
+20200303 20:26:41 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 20:26:41 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 20:26:41 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 20:26:41 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 20:26:41 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 20:26:41 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 20:26:43 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:50459]
+20200303 20:26:43 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 20:26:52 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 20:26:57 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 20:26:57 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 20:28:44 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave
+20200303 20:29:51 Debug../logic/logic_server_main.lua:35  
+Logic server [tcp] listen at: 	8002
+20200303 20:29:51 Debug../logic/logic_server_main.lua:41  
+register Logic Service:[3] service success
+20200303 20:29:51 Debug../datebase/redis_game.lua:31  
+connect to redis [ 2 ] success
+20200303 20:29:51 Debug../datebase/redis_center.lua:31  
+connect to redis [ 1 ] success
+20200303 20:29:51 Debug../datebase/mysql_center.lua:24  
+connect to mysql [ auth_center_db ] success
+20200303 20:29:51 Debug../datebase/mysql_game.lua:25  
+connect to mysql [ moba_game ] success
+20200303 20:29:53 Debug../logic/logic_server_main.lua:31  
+new client come [127.0.0.1:50734]
+20200303 20:29:53 Debug../logic/GameMgr.lua:295  
+gateway connect to logic
+20200303 20:30:13 Debug../logic/GameMgr.lua:251  
+Player [ 1 ] come in
+20200303 20:30:17 Debug../logic/MatchMgr.lua:49  
+room init 	1	1
+20200303 20:30:17 Debug../logic/GameMgr.lua:173  
+create room	1
+20200303 20:31:20 Debug../logic/GameMgr.lua:280  
+Player [ 1 ] leave

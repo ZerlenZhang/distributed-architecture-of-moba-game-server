@@ -19,7 +19,7 @@ namespace Moba.Protocol
 
         private void OnLogicServerReturn(CmdPackageProtocol.CmdPackage pkg)
         {
-            Debug.Log("Callback");
+//            Debug.Log("Callback");
             switch ((LogicCmd)pkg.cmdType)
             {
                 case LogicCmd.eLoginLogicRes:
@@ -74,6 +74,10 @@ namespace Moba.Protocol
             if (null == res)
                 return;
             NetInfo.playerMatchInfos = res.players;
+            foreach (var VARIABLE in res.players)
+            {
+                Debug.Log($"PlayerInfo side[{VARIABLE.side}], seatid[{VARIABLE.seatid}], heroid[{VARIABLE.heroid}]");
+            }
             CEventCenter.BroadMessage(Message.GameStart);
         }
 
@@ -83,7 +87,7 @@ namespace Moba.Protocol
             if (null == res)
                 return;
 
-            Debug.Log("player leave " + res.seatid);
+//            Debug.Log("player leave " + res.seatid);
             
             for (int i = 0; i < NetInfo.playerAuthInfos.Count; i++)
             {
@@ -116,7 +120,7 @@ namespace Moba.Protocol
             if (null == res)
                 return;
             
-            Debug.Log("other player come: " + res.unick);
+//            Debug.Log("other player come: " + res.unick);
             //添加其他玩家信息
             NetInfo.playerAuthInfos.Add(res);
             //广播消息
@@ -130,7 +134,7 @@ namespace Moba.Protocol
                 return;
             
 
-            Debug.Log("Enter room: [" + res.zoneid + " : " + res.roomid+"]");
+//            Debug.Log("Enter room: [" + res.zoneid + " : " + res.roomid+"]");
             NetInfo.SetRoom(res.roomid);
             NetInfo.SetZoneId(res.zoneid);
             NetInfo.SetSeat(res.seatid);
@@ -148,7 +152,7 @@ namespace Moba.Protocol
                 return;
             }
 
-            Debug.Log("Enter zone success");
+//            Debug.Log("Enter zone success");
         }
 
         private void OnLoginLogicReturn(CmdPackageProtocol.CmdPackage pkg)
@@ -190,7 +194,7 @@ namespace Moba.Protocol
                 (int) ServiceType.Logic,
                 (int) LogicCmd.eEnterZoneReq,
                 req);
-            Debug.Log("Send zondId: " + zoneId);
+//            Debug.Log("Send zondId: " + zoneId);
         }
 
         public void TestUdp(int content)
