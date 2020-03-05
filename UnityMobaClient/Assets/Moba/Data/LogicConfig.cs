@@ -13,11 +13,48 @@ namespace Moba.Data
         public int maxDis;
         public int attack;
     }
+
+    public class HeroConfig
+    {
+        public int defence;
+        public int attack;
+        public int maxHp;
+        public int addHp;
+        public int maxExp;
+    }
     
     public static class LogicConfig
     {
-        public static readonly float LogicFrameTime = 0.050f;
+        public static readonly int LogicFrameTime = 50;
         public static readonly int PlayerCount = 3;
+
+        public static readonly HeroConfig[] NormalHero =
+        {
+            new HeroConfig
+            {
+                defence = 1,
+                attack = 10,
+                maxHp = 100,
+                maxExp = 100,
+                addHp = 10,
+            },
+            new HeroConfig
+            {
+                defence = 1,
+                attack = 10,
+                maxHp = 100,
+                maxExp = 100,
+                addHp = 10,
+            },
+            new HeroConfig
+            {
+                defence = 1,
+                attack = 10,
+                maxHp = 100,
+                maxExp = 100,
+                addHp = 10,
+            },
+        };
 
         public static readonly TowerConfig MainTower
             = new TowerConfig

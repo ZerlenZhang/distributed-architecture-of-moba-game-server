@@ -24,7 +24,7 @@ namespace Moba.Script.Building
                 ? LogicConfig.MainTower
                 : LogicConfig.NormalTower;
         }
-        public virtual void OnLogicFrameUpdate(float deltaTime) 
+        public virtual void OnLogicFrameUpdate(int deltaTime) 
         {
             this.nowFps++;
             if (this.nowFps >= config.shoot_logic_fps)
@@ -52,15 +52,19 @@ namespace Moba.Script.Building
 
             if(target && len < config.attackRadis)
             {
-                
+                var cc = target.GetComponent<CharacterController>();
+                var targetPos = target.transform.position +
+                                new Vector3(0,0.6f * cc.height, 0);
+                ShotAt(targetPos);
             }
             
         }
 
         private void ShotAt(Vector3 targetPos)
         {
-            
-//            var bullet=GameZygote.Instance.CreateBullet<>()
+            var bullet = GameZygote.Instance.CreateBullet(this.side, GetType());
+            bullet.transform.position = transform.Find("point").transform.position;
+            bullet.ShotTo(targetPos);
         }
     }
 }

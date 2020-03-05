@@ -12,9 +12,18 @@ using ReadyGamerOne.Common;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Moba.Script
 {
+
+    public enum ObjType
+    {
+        Bullet = 12,
+        Hero,
+        Tower,
+    }
+    
     public class GameZygote : MonoSingleton<GameZygote>
     {
         public GameObject[] characters;
@@ -30,6 +39,8 @@ namespace Moba.Script
 
         public GameObject mainBulletPrefab;
         public GameObject normalBulletPrefab;
+        
+        private List<AbstractBullet> bullets=new List<AbstractBullet>();
         
         /// <summary>
         /// 已经同步过的id
@@ -219,6 +230,7 @@ namespace Moba.Script
                 hero.OnJumpToNextFrame(opt);
             }
             
+            OnBulletLogicFrameUpdate();
             
             OnTowerLogicFrameUpdate();
         }
@@ -262,7 +274,10 @@ namespace Moba.Script
                 hero.OnHandlerCurrentLogicFrame(opt);
             }
             
-            //怪物AI，根据我们处理，进一步处理
+            //子弹先走
+            OnBulletLogicFrameUpdate();
+            
+            //塔AI，根据我们处理，进一步处理
             OnTowerLogicFrameUpdate();
         }
         
@@ -314,6 +329,15 @@ namespace Moba.Script
             }
         }
 
+
+        private void OnBulletLogicFrameUpdate()
+        {
+            for (var i = 0; i < bullets.Count; i++)
+            {
+                var bullet = bullets[i];
+                bullet.OnLogicFrameUpdate(LogicConfig.LogicFrameTime);
+            }
+        }
         #endregion
 
 
@@ -322,20 +346,27 @@ namespace Moba.Script
             return this.heros;
         }
 
-        public T CreateBullet<T>(SideType side)
-            where T:AbstractBullet
+        public AbstractBullet CreateBullet(SideType side,Type type)
         {
-            var prefab = typeof(T) == typeof(MainBullet)
+            var isMain = type == typeof(MainTower);
+            var prefab = isMain
                 ? mainBulletPrefab
                 : normalBulletPrefab;
             var obj = Instantiate(prefab);
-            var bullet = obj.AddComponent<T>();
+            obj.transform.SetParent(transform, false);
+            var bullet = isMain
+                ? (AbstractBullet)obj.AddComponent<MainBullet>()
+                : obj.AddComponent<NormalBullet>();
+            Assert.IsTrue(bullet);
             bullet.Init(side);
+            bullets.Add(bullet);
             return bullet;
         }
 
         public void RemoveBullet(AbstractBullet bullet)
         {
+            if (bullet)
+                bullets.Remove(bullet);
             Destroy(bullet.gameObject);
         }
         

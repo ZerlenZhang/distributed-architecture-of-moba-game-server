@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Moba.Script
 {
+
 	public partial class MobaMgr
 	{
 

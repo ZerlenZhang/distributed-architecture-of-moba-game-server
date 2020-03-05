@@ -259,7 +259,7 @@ namespace Moba.Script
                     this.stick_y = opt.y;
                     var before = this.logicPosition;
                     this.transform.position = this.logicPosition;
-                    DoJoystick(LogicConfig.LogicFrameTime);
+                    DoJoystick(LogicConfig.LogicFrameTime/1000f);
                     this.logicPosition = this.transform.position;
                     print("前进：" + (this.logicPosition - before).magnitude);
                     break;
@@ -273,6 +273,11 @@ namespace Moba.Script
         public void OnJumpToNextFrame(OptionEvent opt)
         {
             OnAsyncLastLogicFrame(opt);
+        }
+
+        public void TakeDamage(int configAttack)
+        {
+            print(gameObject.name + " take damage " + configAttack);
         }
     }
 }

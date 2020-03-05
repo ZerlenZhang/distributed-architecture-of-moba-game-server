@@ -9,7 +9,7 @@ namespace Moba.Script.Building
             base.Init(side);
         }
 
-        public override void OnLogicFrameUpdate(float deltaTime)
+        public override void OnLogicFrameUpdate(int deltaTime)
         {
             base.OnLogicFrameUpdate(deltaTime);
         }

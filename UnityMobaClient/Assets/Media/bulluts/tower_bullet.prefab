@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 472026}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: tower_bullet
   m_TagString: trail
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 472028}
   - component: {fileID: 19872040}
   - component: {fileID: 19972040}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: ray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4743,7 +4743,7 @@ GameObject:
   - component: {fileID: 472030}
   - component: {fileID: 19872042}
   - component: {fileID: 19972042}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
