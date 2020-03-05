@@ -65,5 +65,5 @@ MobaServer.exe ./ Client.lua
 
 
 ## 导出的LuaAPI
-[详见Wiki](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/wiki)
+[详见Wiki](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/wiki/Lua%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%BC%95)
 
