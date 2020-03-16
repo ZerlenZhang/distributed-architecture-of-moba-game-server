@@ -102,6 +102,34 @@ void TcpSession::Destory(TcpSession*& session)
 }
 
 #pragma endregion
+
+void TcpSession::Init(SocketType socketType)
+{
+	this->socketType = socketType;
+
+	#pragma region 获取接入者IP和端口
+	
+	sockaddr_in addr;
+	int len = sizeof(addr);
+	uv_tcp_getpeername(&this->tcpHandle, (sockaddr*)&addr, &len);
+	uv_ip4_name(&addr, this->clientAddress, sizeof(this->clientAddress));
+	this->clientPort = ntohs(addr.sin_port);
+
+	#pragma endregion
+
+	//加入事件循环
+	uv_tcp_init(uv_default_loop(), &this->tcpHandle);
+}
+void TcpSession::Init(SocketType socketType, const char* ip, int port, bool isClient)
+{
+	this->isClient = isClient;
+	this->socketType = socketType;
+	strcpy(this->clientAddress, ip);
+	this->clientPort = port;
+
+	//加入事件循环
+	uv_tcp_init(uv_default_loop(), &this->tcpHandle);
+}
 void* TcpSession::operator new(size_t size)
 {
 	return cache_alloc(sessionAllocer, sizeof(TcpSession));
@@ -221,6 +249,8 @@ void TcpSession::Enable()
 	this->isWebSocketShakeHand = 0;
 	this->long_pkg = NULL;
 	this->long_pkg_size = 0;
+
+	this->tcpHandle.data = this;
 }
 
 void TcpSession::Disable()
@@ -232,7 +262,7 @@ void TcpSession::Disable()
 
 void TcpSession::SendRawPackage(RawPackage* pkg)
 {
-	this->SendData(pkg->rawCmd, pkg->rawLen);
+	this->SendData(pkg->body, pkg->rawLen);
 }
 
 #pragma endregion

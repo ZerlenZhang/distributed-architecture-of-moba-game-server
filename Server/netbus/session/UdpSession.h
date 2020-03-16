@@ -6,11 +6,16 @@
 class UdpSession :
 	public AbstractSession
 {
-public:
+private:
 	uv_udp_t* udp_handler;
+	const sockaddr* addr;
+
+public:
 	char clientAddress[64];
 	int clientPort;
-	const struct sockaddr* addr;
+
+
+	void Init(uv_udp_t* udpHandle,const sockaddr* addr);
 
 	virtual void Close() override;
 	//·¢ËÍÊı¾İ

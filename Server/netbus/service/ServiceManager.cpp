@@ -4,90 +4,83 @@
 #include "../../netbus/session/AbstractSession.h"
 #include "ServiceManager.h"
 #include "../../utils/logger/logger.h"
-#define MAX_SERVICE_COUNT 64
+#include <map>
+using std::map;
 
-static AbstractService* g_serviceSet[MAX_SERVICE_COUNT];
+static map<int, AbstractService*> serviceMap;
 
 void ServiceManager::Init()
 {
-	memset(g_serviceSet, 0, sizeof(g_serviceSet));
+	//memset(g_serviceSet, 0, sizeof(g_serviceSet));
 }
 
 bool ServiceManager::RegisterService(int serviceType, AbstractService* service)
 {
-	if (serviceType<0 || serviceType>MAX_SERVICE_COUNT)
-	{// 越界
-		log_warning("服务注册失败——越界：%d", serviceType);
-		return false;
-	}
-
-	if (g_serviceSet[serviceType] != NULL)
+	if (serviceMap.find(serviceType)!=serviceMap.end())
 	{// 注册过
 		log_warning("服务注册失败——重复：%d", serviceType);
 		return false;
 	}
-
-	g_serviceSet[serviceType] = service;
-
+	serviceMap[serviceType] = service;
 	return true;
 }
 
-bool ServiceManager::OnRecvCmd(const AbstractSession* session, const RawPackage* raw)
+bool ServiceManager::OnRecvRawPackage(AbstractSession* session, const RawPackage* raw)
 {
 	if (NULL == raw)
 	{
-		log_warning("CmdRaw 包为空");
+		log_warning("RawPackage包为空");
 		return false;
 	}
-	if (g_serviceSet[raw->serviceType] == NULL)
+	if (serviceMap.find(raw->serviceType)==serviceMap.end())
 	{// 没有注册过
 		log_warning("未注册的serviceType: %d", raw->serviceType);
 		return false;
 	}
 
-	//是否使用原始数据
-	if (g_serviceSet[raw->serviceType]->useRawPackage)
+	//是否使用RawPackage
+	if (serviceMap[raw->serviceType]->useRawPackage)
 	{
-		return g_serviceSet[raw->serviceType]->OnSessionRecvRawPackage(session, raw);
+		return serviceMap[raw->serviceType]->OnSessionRecvRawPackage(session, raw);
 	}
 
-	//使用包数据
-	CmdPackage* pk;
-	if (CmdPackageProtocol::DecodeBytesToCmdPackage(raw->rawCmd, raw->rawLen, pk))
+	//使用CmdPackage
+	CmdPackage* cmdPackage;
+
+	//从字符串中解析出CmdPackage
+	if (CmdPackageProtocol::DecodeBytesToCmdPackage(raw->body, raw->rawLen, cmdPackage))
 	{
-		auto ret = g_serviceSet[raw->serviceType]->OnSessionRecvCmdPackage(session, pk);
-		CmdPackageProtocol::FreeCmdPackage(pk);
+		//根据包的serviceType调用对应的服务去处理这个包
+		auto ret = serviceMap[raw->serviceType]->OnSessionRecvCmdPackage(session, cmdPackage);
+		if (!ret)
+		{// 如果有服务返回false，就关闭session
+			session->Close();
+		}
+
+		CmdPackageProtocol::FreeCmdPackage(cmdPackage);
 		return ret;
 	}
 
-
+	//解析失败
 	return false;
 }
 
 void ServiceManager::OnSessionDisconnected(const AbstractSession* session)
 {
-	auto index = -1;
-	for (auto service : g_serviceSet)
+	for (auto kv : serviceMap)
 	{
-		index++;
-		if (service == NULL)
-		{
+		if (kv.second == NULL)
 			continue;
-		}
-		service->OnSessionDisconnected(session,index);
+		kv.second->OnSessionDisconnected(session, kv.first);
 	}
 }
 
 void ServiceManager::OnSessionConnect(const AbstractSession* session)
 {
-	auto index = -1;
-	for (auto service : g_serviceSet)
+	for (auto kv : serviceMap)
 	{
-		index++;
-		if (service == NULL)
-		{
+		if (kv.second == NULL)
 			continue;
-		}
-		service->OnSessionConnected(session, index);
+		kv.second->OnSessionConnected(session,kv.first);
 	}
 }

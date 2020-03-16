@@ -107,18 +107,11 @@ extern "C"
 
 		switch (session->socketType)
 		{
-
-#pragma region Tcp协议
-
 		case SocketType::TcpSocket:
 			OnTcpRecvData(session);
 			break;
-
-#pragma endregion
-
-#pragma region WebSocket协议	
 		case SocketType::WebSocket:
-
+			#pragma region WebSocket协议	
 			if (session->isWebSocketShakeHand == 0)
 			{	//	shakeHand
 				if (WebSocketProtocol::ShakeHand(session, session->recvBuf, session->recved))
@@ -132,8 +125,8 @@ extern "C"
 			{
 				OnWebSocketRecvData(session);
 			}
+			#pragma endregion
 			break;
-#pragma endregion
 
 		default:
 			break;
@@ -143,42 +136,25 @@ extern "C"
 	//TCP有用户链接进来
 	static void TcpOnConnect(uv_stream_t* server, int status)
 	{
-#pragma region 接入客户端
-
 		auto info = (TcpListenInfo*)server->data;
 		auto session = TcpSession::Create();
 
-		//赋值
-		session->socketType = info->socketType;
-
-		auto pNewClient = &session->tcpHandle;
-		pNewClient->data = session;
-
-		//将新客户端TCP句柄也加入到事件循环中
-		uv_tcp_init(uv_default_loop(), pNewClient);
+		//初始化session的信息——socket类型，ip，端口，并加入libuv事件循环
+		session->Init(info->socketType);
+		
 		//客户端接入服务器 
-		uv_accept(server, (uv_stream_t*)pNewClient);
-
-#pragma region 获取接入者IP和端口
-
-		sockaddr_in addr;
-		int len = sizeof(addr);
-		uv_tcp_getpeername(pNewClient, (sockaddr*)&addr, &len);
-		uv_ip4_name(&addr, session->clientAddress, 64);
-		session->clientPort = ntohs(addr.sin_port);
-
-#pragma endregion
+		uv_accept(server, (uv_stream_t*)&session->tcpHandle);
 
 		//回调
 		if(info->cb)
 			info->cb(session, info->data);
 
-		//开始监听消息
-		uv_read_start((uv_stream_t*)pNewClient, tcp_str_alloc, tcp_after_read);
-#pragma endregion
-
 		//Session连接成功的回调
 		ServiceManager::OnSessionConnect(session);
+
+		//开始监听消息
+		uv_read_start((uv_stream_t*)&session->tcpHandle, tcp_str_alloc, tcp_after_read);
+		
 	}
 
 #pragma endregion
@@ -219,13 +195,8 @@ extern "C"
 		if (nread <= 0)
 			return;
 		UdpSession us;
-		us.udp_handler = handle;
-		us.addr = addr;
-		us.clientPort = ntohs(((struct sockaddr_in*)addr)->sin_port);
 
-		uv_ip4_name((struct sockaddr_in*)addr, us.clientAddress, sizeof(us.clientAddress));
-
-		//log_debug("ip: %s:%d， nread = %d", us.clientAddress, us.clientPort, nread);
+		us.Init(handle, addr);
 
 		OnRecvCommond(&us, (unsigned char*)buf->base, nread);
 	}
@@ -236,7 +207,7 @@ extern "C"
 	{
 		if (status)
 		{
-			log_debug("udp发送失败");
+			log_error("udp发送失败");
 		}
 		my_free(req);
 	}
@@ -245,23 +216,22 @@ extern "C"
 #pragma endregion
 
 
-static void OnRecvCommond(AbstractSession* session, unsigned char* body, const int len)
+static void OnRecvCommond(AbstractSession* session, unsigned char* body, const int bodyLen)
 {
-	//test
-	//log_debug("client command!!");
-
-
 	RawPackage raw;
-	if (CmdPackageProtocol::DecodeBytesToRawPackage(body, len, &raw))
+	if (CmdPackageProtocol::DecodeBytesToRawPackage(body, bodyLen, &raw))
 	{
-		if (!ServiceManager::OnRecvCmd(session, &raw))
+		//调用服务管理器处理各种命令
+		if (!ServiceManager::OnRecvRawPackage(session, &raw))
 		{
 			session->Close();
 		}		
 	}
 	else
 	{
-		log_debug("解码失败");
+		int port;
+		auto ip = session->GetAddress(port);
+		log_error("[%s:%d]发来的包解码失败",ip,port);
 	}
 }
 
@@ -331,43 +301,47 @@ static void OnWebSocketRecvData(TcpSession* session)
 
 static void OnTcpRecvData(TcpSession* session)
 {
-	auto pkgData = (unsigned char*)(session->long_pkg != NULL ? session->long_pkg : session->recvBuf);
+	auto tcpPkgData = (unsigned char*)(session->long_pkg != NULL ? session->long_pkg : session->recvBuf);
 
 	while (session->recved > 0)
 	{
-		int pkgSize;
-		int headSize;
-		if (!TcpProtocol::ReadHeader(pkgData, session->recved, &pkgSize, &headSize))
+		int tcpPkgSize;
+		int tcpHeadSize;
+		if (!TcpProtocol::ReadHeader(tcpPkgData, session->recved, &tcpPkgSize, &tcpHeadSize))
 		{// 读取包头失败
-			log_debug("读取包头失败");
+			int port;
+			auto ip = session->GetAddress(port);
+			log_error("TCP读取包头失败,包体来自：[%s:%d]",ip,port);
 			break;
 		}
 
-		if (pkgSize < headSize) {
+		if (tcpPkgSize < tcpHeadSize) {
 			session->Close();
-			log_warning("非法包【包体大小小于包头】，session已关闭");
+			int port;
+			auto ip = session->GetAddress(port);
+			log_warning("收到[%s:%d]发来的非法包【包体大小小于包头】，session已关闭",ip,port);
 			break;
 		}
 
-		if (session->recved < pkgSize)
+		if (session->recved < tcpPkgSize)
 		{// 没有收完数据
 			log_debug("没有收完数据");
 			break;
 		}
 
 		//body位置在掩码之后
-		unsigned char* body = pkgData + headSize;
+		unsigned char* body = tcpPkgData + tcpHeadSize;
 
 		//处理收到的完整数据包
-		OnRecvCommond(session, body, pkgSize - headSize);
+		OnRecvCommond(session, body, tcpPkgSize - tcpHeadSize);
 
-		if (session->recved > pkgSize)
+		if (session->recved > tcpPkgSize)
 		{
-			memmove(pkgData, pkgData + pkgSize, session->recved - pkgSize);
+			memmove(tcpPkgData, tcpPkgData + tcpPkgSize, session->recved - tcpPkgSize);
 		}
 
 		//每次减去读取到的长度
-		session->recved -= pkgSize;
+		session->recved -= tcpPkgSize;
 
 		//如果长包处理完了
 		if (session->recved == 0 && session->long_pkg != NULL)
@@ -385,8 +359,9 @@ static void OnTcpRecvData(TcpSession* session)
 static void after_connect(uv_connect_t* handle, int status)
 {
 	auto session = (AbstractSession*)handle->handle->data;
-	auto testS = (TcpSession*)session;
 	auto info = (TcpConnectInfo*)handle->data;
+
+	//如果有异常情况
 	if (status) 
 	{
 		if (info)
@@ -401,6 +376,8 @@ static void after_connect(uv_connect_t* handle, int status)
 		my_free(handle);
 		return;
 	}
+
+	//如果一切正常
 	if (info)
 	{
 		if (info->cb)
@@ -434,25 +411,34 @@ void Netbus::TcpListen(int port, TcpListenCallback callback, void* udata)const
 	memset(listen, 0, sizeof(uv_tcp_t));
 
 	sockaddr_in addr;
-	uv_ip4_addr("0.0.0.0", port, &addr);
-	uv_tcp_init(uv_default_loop(), listen);
-	auto ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
-	if (0 != ret)
+	auto ret = uv_ip4_addr("0.0.0.0", port, &addr);
+	if (ret)
 	{
-		log_debug("Tcp 绑定失败");
+		log_error("uv_ip4_addr error：%d", port);
+		free(listen);
+		listen = NULL;
+		return;
+
+	}
+
+	uv_tcp_init(uv_default_loop(), listen);
+	ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
+	if (ret)
+	{
+		log_error("Tcp 端口绑定失败：%d",port);
 		free(listen);
 		listen = NULL;
 		return;
 	}
 
-	static TcpListenInfo info;
-	memset(&info, 0, sizeof(TcpListenInfo));
-	info.cb = callback;
-	info.data = udata;
-	info.socketType = SocketType::TcpSocket;
+	
+	auto pInfo = new TcpListenInfo();
+	pInfo->cb = callback;
+	pInfo->data = udata;
+	pInfo->socketType = SocketType::TcpSocket;
 
 	//强转记录TcpListenInfo类型
-	listen->data = (void*)&info;
+	listen->data = (void*)pInfo;
 
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
 }
@@ -464,25 +450,34 @@ void Netbus::WebSocketListen(int port, TcpListenCallback callback, void* udata)c
 	memset(listen, 0, sizeof(uv_tcp_t));
 
 	sockaddr_in addr;
-	uv_ip4_addr("0.0.0.0", port, &addr);
+	auto ret = uv_ip4_addr("0.0.0.0", port, &addr);
+	if (ret)
+	{
+		log_error("uv_ip4_addr error：%d", port);
+		free(listen);
+		listen = NULL;
+		return;
+
+	}
+
 	uv_tcp_init(uv_default_loop(), listen);
-	auto ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
+	ret = uv_tcp_bind(listen, (const sockaddr*)&addr, 0);
 	if (0 != ret)
 	{
-		log_debug("Tcp 绑定失败");
+		log_error("WebSocket 端口绑定失败：%d",port);
 		free(listen);
 		listen = NULL;
 		return;
 	}
 
-	static TcpListenInfo info;
-	memset(&info, 0, sizeof(TcpListenInfo));
-	info.cb = callback;
-	info.data = udata;
-	info.socketType = SocketType::WebSocket;
+
+	auto pInfo = new TcpListenInfo();
+	pInfo->cb = callback;
+	pInfo->data = udata;
+	pInfo->socketType = SocketType::WebSocket;
 
 	//强转记录TcpListenInfo类型
-	listen->data = (void*)&info;
+	listen->data = (void*)pInfo;
 
 	uv_listen((uv_stream_t*)listen, SOMAXCONN, TcpOnConnect);
 }
@@ -494,6 +489,14 @@ void Netbus::UdpListen(int port)
 		log_warning("暂时不支持同时监听多个udp");
 		return;
 	}
+
+	sockaddr_in addr;
+	auto ret = uv_ip4_addr("0.0.0.0", port, &addr);
+	if (ret)
+	{
+		log_error("uv_ip4_addr error：%d", port);
+		return;
+	}
 	auto server = (uv_udp_t*)malloc(sizeof(uv_udp_t));
 	memset(server, 0, sizeof(uv_udp_t));
 
@@ -501,14 +504,11 @@ void Netbus::UdpListen(int port)
 
 	server->data = malloc(sizeof(UdpRecvBuf));
 	memset(server->data, 0, sizeof(UdpRecvBuf));
-
-	sockaddr_in addr;
-	uv_ip4_addr("0.0.0.0", port, &addr);
-	auto ret = uv_udp_bind(server, (const sockaddr*)&addr, 0);
+	ret = uv_udp_bind(server, (const sockaddr*)&addr, 0);
 
 	if (ret)
 	{
-		log_debug("Tcp 绑定失败");
+		log_error("Udp 绑定失败");
 		if (server)
 		{
 			if (server->data)
@@ -540,19 +540,15 @@ void Netbus::TcpConnect(const char* serverIp, int port, TcpConnectedCallback cal
 	sockaddr_in addr;
 	auto ret = uv_ip4_addr(serverIp, port, &addr);
 	if (ret)
+	{
+		log_error("uv_ip4_addr error：%s:%d", serverIp,port);
 		return;
 
+	}
+
+	//创建Session并初始化相关值——socketType,ip,port,isCliet，并加入libuv事件循环
 	auto s = TcpSession::Create();
-	s->isClient = true; 
-	s->socketType = SocketType::TcpSocket;
-	strcpy(s->clientAddress, serverIp);
-	s->clientPort = port;
-
-	auto client = &s->tcpHandle;
-
-	uv_tcp_init(uv_default_loop(), client);
-	client->data = s;
-
+	s->Init(SocketType::TcpSocket, serverIp, port, true);
 
 	auto req = (uv_connect_t*)my_alloc(sizeof(uv_connect_t));
 	memset(req, 0, sizeof(uv_connect_t));
@@ -564,7 +560,7 @@ void Netbus::TcpConnect(const char* serverIp, int port, TcpConnectedCallback cal
 	info->data = udata;
 	req->data = info;
 
-	ret = uv_tcp_connect(req, client, (struct sockaddr*) & addr, after_connect);
+	ret = uv_tcp_connect(req, &s->tcpHandle, (struct sockaddr*) & addr, after_connect);
 }
 
 void Netbus::UdpSendTo(char* ip, int port, unsigned char* body, int len)

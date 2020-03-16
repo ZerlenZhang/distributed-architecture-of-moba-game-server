@@ -32,7 +32,7 @@ struct RawPackage
 	int cmdType;		//命令号
 	unsigned int userTag;//用户标识
 
-	unsigned char* rawCmd;
+	unsigned char* body;
 	int rawLen;
 };
 
@@ -48,7 +48,7 @@ public:
 	static void RegisterProtobufCmdMap(map<int, map<int, string>*>& map);
 
 
-	static const char* ProtoCmdTypeToName(int stype, int ctype);
+	static const char* GetMessageName(int stype, int ctype);
 	static ProtoType ProtoType();
 
 	//解码CmdPackage包头

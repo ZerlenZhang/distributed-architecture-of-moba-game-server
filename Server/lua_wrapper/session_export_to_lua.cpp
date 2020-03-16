@@ -448,7 +448,7 @@ static int lua_session_sendpackage(lua_State* lua)
 		{// protobuf message table
 			msg.body =
 			lua_table_to_protobuf(lua, lua_gettop(lua),
-				CmdPackageProtocol::ProtoCmdTypeToName(msg.serviceType, msg.cmdType));
+				CmdPackageProtocol::GetMessageName(msg.serviceType, msg.cmdType));
 		}
 		session->SendCmdPackage(&msg);
 		CmdPackageProtocol::ReleaseMessage((Message*)msg.body);
@@ -550,7 +550,7 @@ static int lua_session_udpsendpackage(lua_State* lua)
 		{// protobuf message table 
 			msg.body =
 				lua_table_to_protobuf(lua, lua_gettop(lua),
-					CmdPackageProtocol::ProtoCmdTypeToName(msg.serviceType, msg.cmdType));
+					CmdPackageProtocol::GetMessageName(msg.serviceType, msg.cmdType));
 		}
 		udp_send_package((char*)ip, port, &msg);
 		CmdPackageProtocol::ReleaseMessage((Message*)msg.body);

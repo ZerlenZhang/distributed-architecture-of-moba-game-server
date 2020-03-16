@@ -37,6 +37,8 @@ public:
 	virtual void Disable()override;
 	#pragma endregion
 
+	void Init(SocketType socketType);
+	void Init(SocketType socketType, const char* ip, int port, bool isClient);
 
 	void* operator new(size_t size);
 	void operator delete(void* mem);

@@ -112,7 +112,7 @@ void CmdPackageProtocol::RegisterProtobufCmdMap(map<int, map<int,string>*>& src)
 	}
 }
 
-const char* CmdPackageProtocol::ProtoCmdTypeToName(int stype, int ctype)
+const char* CmdPackageProtocol::GetMessageName(int stype, int ctype)
 {
 	if (error)
 		return nullptr;
@@ -140,13 +140,13 @@ bool CmdPackageProtocol::DecodeBytesToRawPackage(unsigned char* cmd, const int c
 	// serviceType (2 bytes) | cmdType (2 bytes) | userTag (4 bytes) | body
 	if (cmd_len < CMD_HEADER_SIZE)
 	{// 数据太短
-		log_debug("数据太短");
+		log_error("包体数据太短，无法解析出RawPackage包头信息");
 		return false;
 	}
 	out_msg->serviceType = cmd[0] | (cmd[1] << 8);
 	out_msg->cmdType = cmd[2] | (cmd[3] << 8);
 	out_msg->userTag = cmd[4] | (cmd[5] << 8) | (cmd[6] << 16) | (cmd[7] << 24);
-	out_msg->rawCmd = cmd;
+	out_msg->body = cmd;
 	out_msg->rawLen = cmd_len;
 
 	return true;
@@ -179,21 +179,27 @@ bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int c
 
 
 	// 解密
+	// end
 
 	auto dataLen = cmd_len - CMD_HEADER_SIZE;
 	char* tempCharPointer;
 	google::protobuf::Message* tempMessagePointer;
 	switch (g_protoType)
 	{
+		#pragma region Json
 	case ProtoType::Json:
 		tempCharPointer = (char*)cache_alloc(writeBufAllocer, dataLen + 1);
 		memcpy(tempCharPointer, cmd + CMD_HEADER_SIZE, dataLen);
 		tempCharPointer[dataLen] = 0;
 		out_msg->body = tempCharPointer;
 		break;
+		#pragma endregion
+
+		#pragma region Protobuf
+
 	case ProtoType::Protobuf:
-		//没有这个protobuf协议
-		auto msgName = CmdPackageProtocol::ProtoCmdTypeToName(out_msg->serviceType, out_msg->cmdType);
+		//获取Message名字
+		auto msgName = CmdPackageProtocol::GetMessageName(out_msg->serviceType, out_msg->cmdType);
 		if (nullptr == msgName)
 		{
 			log_error("获取Message名失败为空, serviceType: %d, cmdType: %d", out_msg->serviceType, out_msg->cmdType);
@@ -201,19 +207,20 @@ bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int c
 			return false;
 		}
 
-
+		//创建Message对象
 		tempMessagePointer = CreateMessage(msgName);
 		if (tempMessagePointer == NULL)
 		{
-			log_error("获取Message类型为空, serviceType: %d, cmdType: %d, messageName: %s", out_msg->serviceType, out_msg->cmdType, msgName);
+			log_error("创建Message对象失败, serviceType: %d, cmdType: %d, messageName: %s", out_msg->serviceType, out_msg->cmdType, msgName);
 			my_free(tempMessagePointer);
 			out_msg = NULL;
 			return false;
 		}
 
+		//解析Message内容
 		if (!tempMessagePointer->ParseFromArray(cmd + CMD_HEADER_SIZE, cmd_len - CMD_HEADER_SIZE))
 		{
-			log_error("消息反序列化失败");
+			log_error("解析Message内容失败, serviceType: %d, cmdType: %d, messageName: %s", out_msg->serviceType, out_msg->cmdType, msgName);
 			my_free(out_msg);
 			out_msg = NULL;
 			ReleaseMessage(tempMessagePointer);
@@ -222,10 +229,10 @@ bool CmdPackageProtocol::DecodeBytesToCmdPackage(unsigned char* cmd, const int c
 
 		out_msg->body = tempMessagePointer;
 
-
 		break;
-	}
 
+		#pragma endregion
+	}
 	return true;
 }
 

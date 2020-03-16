@@ -127,8 +127,13 @@ namespace Moba.Script
         
         private void Start()
         {
+            
+            
             CEventCenter.AddListener<LogicFrame>(Message.OnLogicFrame,OnLogicFrame);
 
+            
+            
+            
             _joystick = FindObjectOfType<Joystick>();
 
             PlaceTowers();

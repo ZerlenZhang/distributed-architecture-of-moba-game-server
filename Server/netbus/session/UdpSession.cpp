@@ -16,6 +16,15 @@ void AfterUdpSend(uv_udp_send_t* req, int status)
 	my_free(req);
 }
 
+void UdpSession::Init(uv_udp_t* udpHandle,const sockaddr* addr)
+{
+	this->udp_handler = udpHandle;
+	this->addr = addr;
+	uv_ip4_name((struct sockaddr_in*)addr, this->clientAddress, sizeof(this->clientAddress));
+	this->clientPort = ntohs(((struct sockaddr_in*)addr)->sin_port);
+
+}
+
 void UdpSession::Close()
 {
 }
@@ -54,5 +63,5 @@ void UdpSession::SendCmdPackage(CmdPackage* msg)
 
 void UdpSession::SendRawPackage(RawPackage* pkg)
 {
-	this->SendData(pkg->rawCmd, pkg->rawLen);
+	this->SendData(pkg->body, pkg->rawLen);
 }

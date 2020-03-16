@@ -189,7 +189,7 @@ static int lua_raw_readbody(lua_State* lua)
 		return 0;
 	}
 	CmdPackage* pkg;
-	if (CmdPackageProtocol::DecodeBytesToCmdPackage(raw->rawCmd, raw->rawLen, pkg))
+	if (CmdPackageProtocol::DecodeBytesToCmdPackage(raw->body, raw->rawLen, pkg))
 	{
 		if (pkg->body)
 		{
@@ -249,7 +249,7 @@ static int lua_set_utag(lua_State* lua)
 		raw->userTag = utag;
 
 		//设置元数据
-		auto utagPointer = raw->rawCmd + 4;
+		auto utagPointer = raw->body + 4;
 		utagPointer[0] = utag & 0xff;
 		utagPointer[1] = (utag & 0xff00) >> 8;
 		utagPointer[2] = (utag & 0xff0000) >> 16;

@@ -1,5 +1,10 @@
+using ReadyGamerOne.Script;
+using UnityEngine;
+
 namespace Moba.Data
 {
+  
+    
     public class TowerConfig
     {
         public int hp;
