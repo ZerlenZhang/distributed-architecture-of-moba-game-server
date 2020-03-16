@@ -1,7 +1,13 @@
 # 探索高并发，高CPU利用率的分布式服务器架构
 ![Image text](https://github.com/ZerlenZhang/Moba/blob/master/Images/architest.png)
 
-采用C，C++开发底层，使用Lua写服务器逻辑，使用Unity制作客户端，结合MySql和Redis数据库，目前实现了登陆，编辑个人信息，游客账号升级，每日签到的逻辑，正在继续深入使用udp进一步开发帧同步框架
+
+## [分布式帧同步的纯Lua游戏服务器](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Server/apps/lua_test/scripts)
+采用C，C++开发底层，使用Lua写服务器逻辑，使用Unity制作客户端，结合MySql和Redis数据库，目前实现的功能：
+
+1、基础：登陆、编辑用户信息、游客登陆、游客账号升级、每日签到
+2、Moba：玩家匹配、房间的各种功能、机器人玩家快速组队
+3、帧同步：帧同步下的角色移动控制，塔的攻击，子弹的飞行和伤害
 
 ## 核心原理
 1、采用libuv处理各种各样的异步操作，文件io，tcp，udp，工作队列，计时器等
