@@ -1,5 +1,4 @@
 # 探索高并发，高CPU利用率的分布式服务器架构
-![Image text](https://github.com/ZerlenZhang/Moba/blob/master/Images/architest.png)
 
 采用C，C++开发底层逻辑，从底层支持Mysql，Redis数据库，支持分布式设计，
 
@@ -26,6 +25,7 @@
 ## 优化
 1、大量使用对象池，避免内存碎片化
 ## 样板工程：[分布式帧同步的纯Lua游戏服务器](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Server/apps/lua_test/scripts)
+![Image text](https://github.com/ZerlenZhang/Moba/blob/master/Images/architest.png)
 目前实现的功能：
 
 1、基础：登陆、编辑用户信息、游客登陆、游客账号升级、每日签到
