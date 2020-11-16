@@ -284,15 +284,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\Projects\unity\Moba\Server\3rd\tolua;F:\Projects\unity\Moba\Server\3rd\lua_5.3.5\src;F:\Projects\unity\Moba\Server\3rd\hiredis\include;F:\Projects\unity\Moba\Server\3rd\mysqlclient\include;F:\Projects\unity\Moba\Server\3rd\protobuf;F:\Projects\unity\Moba\Server\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\3rd\tolua;$(SolutionDir)..\..\3rd\lua_5.3.5\src;$(SolutionDir)..\..\3rd\hiredis\include;$(SolutionDir)..\..\3rd\mysqlclient\include;$(SolutionDir)..\..\3rd\protobuf;$(SolutionDir)..\..\3rd\libuv\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <BrowseInformation>true</BrowseInformation>
-      <PreprocessorDefinitions>_CRTSECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalOptions>ws2_32.lib Iphlpapi.lib Psapi.lib Userenv.lib libprotobufd.lib libprotocd.lib libmysql.lib  HiredisWrapper.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>F:\Projects\unity\Moba\Server\3rd\hiredis\lib;F:\Projects\unity\Moba\Server\3rd\mysqlclient\lib;F:\Projects\unity\Moba\Server\3rd\protobuf\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\3rd\hiredis\lib;$(SolutionDir)..\..\3rd\mysqlclient\lib;$(SolutionDir)..\..\3rd\protobuf\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

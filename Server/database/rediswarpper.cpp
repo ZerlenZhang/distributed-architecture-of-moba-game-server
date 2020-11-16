@@ -57,7 +57,7 @@ struct query_req
 static void connect_work(uv_work_t* req) 
 {
 	auto pInfo = (connect_req*)req->data;
-	timeval timeout = { 5.0};
+	timeval timeout = {5};
 	pInfo->context->pConn = RedisConnectWithTimeout(pInfo->ip, pInfo->port, timeout);
 	if (pInfo->context->pConn->err)
 	{

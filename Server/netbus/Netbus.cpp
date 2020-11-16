@@ -11,7 +11,6 @@
 
 #include "../utils/cache_alloc/small_alloc.h"
 
-#define _CRT_SECURE_NO_WARNINGS
 #define my_alloc small_alloc
 #define my_free small_free
 

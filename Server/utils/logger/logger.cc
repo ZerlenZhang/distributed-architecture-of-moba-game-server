@@ -4,7 +4,6 @@
 #include <stdarg.h>
 #include <fcntl.h>
 #include <time.h>
-#define _CRT_SECURE_NO_WARNINGS
 #include <string>
 using namespace std;
 
@@ -115,12 +114,12 @@ logger::log(const char* file_name,
 
 	sprintf(msg_meta_info, "%s:%u  ", file_name, line_num);
 	uv_buf_t buf[6]; // time level content fileandline newline
-	buf[0] = uv_buf_init(g_format_time, strlen(g_format_time));
-	buf[1] = uv_buf_init(g_log_level[level], strlen(g_log_level[level]));
-	buf[2] = uv_buf_init(msg_meta_info, strlen(msg_meta_info));
-	buf[3] = uv_buf_init(&new_line, 1);
-	buf[4] = uv_buf_init(msg_content, strlen(msg_content));
-	buf[5] = uv_buf_init(&new_line, 1);
+	buf[0] = uv_buf_init(g_format_time, static_cast<unsigned int>(strlen(g_format_time)));
+	buf[1] = uv_buf_init(g_log_level[level], static_cast<unsigned int>(strlen(g_log_level[level])));
+	buf[2] = uv_buf_init(msg_meta_info, static_cast<unsigned int>(strlen(msg_meta_info)));
+	buf[3] = uv_buf_init(&new_line, static_cast<unsigned int>(1));
+	buf[4] = uv_buf_init(msg_content, static_cast<unsigned int>(strlen(msg_content)));
+	buf[5] = uv_buf_init(&new_line, static_cast<unsigned int>(1));
 
 	uv_fs_t writeReq;
 	int result = uv_fs_write(NULL, &writeReq, g_file_handle.result, buf, sizeof(buf) / sizeof(buf[0]), -1, NULL);

@@ -157,31 +157,31 @@ Message* lua_table_to_protobuf(lua_State* L, int stack_index, const char* msg_na
 			switch (fd->cpp_type()) {
 			case FieldDescriptor::CPPTYPE_DOUBLE:
 			{
-				double value = luaL_checknumber(L, -1);
+				double value = (double)luaL_checknumber(L, -1);
 				reflection->SetDouble(message, fd, value);
 			}
 			break;
 			case FieldDescriptor::CPPTYPE_FLOAT:
 			{
-				float value = luaL_checknumber(L, -1);
+				float value = (float)luaL_checknumber(L, -1);
 				reflection->SetFloat(message, fd, value);
 			}
 			break;
 			case FieldDescriptor::CPPTYPE_INT64:
 			{
-				int64_t value = luaL_checknumber(L, -1);
+				int64_t value = (int64_t)luaL_checknumber(L, -1);
 				reflection->SetInt64(message, fd, value);
 			}
 			break;
 			case FieldDescriptor::CPPTYPE_UINT64:
 			{
-				uint64_t value = luaL_checknumber(L, -1);
+				uint64_t value = (uint64_t)luaL_checknumber(L, -1);
 				reflection->SetUInt64(message, fd, value);
 			}
 			break;
 			case FieldDescriptor::CPPTYPE_ENUM: // 与int32一样处理
 			{
-				int32_t value = luaL_checknumber(L, -1);
+				int32_t value = (int32_t)luaL_checknumber(L, -1);
 				const EnumDescriptor* enumDescriptor = fd->enum_type();
 				const EnumValueDescriptor* valueDescriptor = enumDescriptor->FindValueByNumber(value);
 				reflection->SetEnum(message, fd, valueDescriptor);
@@ -189,13 +189,13 @@ Message* lua_table_to_protobuf(lua_State* L, int stack_index, const char* msg_na
 			break;
 			case FieldDescriptor::CPPTYPE_INT32:
 			{
-				int32_t value = luaL_checknumber(L, -1);
+				int32_t value = (int32_t)luaL_checknumber(L, -1);
 				reflection->SetInt32(message, fd, value);
 			}
 			break;
 			case FieldDescriptor::CPPTYPE_UINT32:
 			{
-				uint32_t value = luaL_checknumber(L, -1);
+				uint32_t value = (uint32_t)luaL_checknumber(L, -1);
 				reflection->SetUInt32(message, fd, value);
 			}
 			break;
