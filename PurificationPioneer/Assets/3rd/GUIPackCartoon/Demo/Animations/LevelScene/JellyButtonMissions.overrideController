@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: JellyButtonMissions
+  m_Controller: {fileID: 9100000, guid: b3df38065ce3b446f9f0e59afb75a11a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0951837dba7744a76a7cd61e18485992, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0951837dba7744a76a7cd61e18485992, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ef604fabe4f6144298832a7d8e083bd0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bb19bce9a1b2e4f0aa571f5afe97a75a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 034488410274749058db38ff0cb758bf, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2942927b252e8404f950d835e076e1c8, type: 2}

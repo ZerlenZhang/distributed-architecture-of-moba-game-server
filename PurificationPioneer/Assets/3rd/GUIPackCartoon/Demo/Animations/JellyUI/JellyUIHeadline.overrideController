@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: JellyUIHeadline
+  m_Controller: {fileID: 9100000, guid: 19a9baadfa90848cc9b06dfa2eee5ce1, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 38fd58d8e0e9e479986453a1dfed0d20, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2ffb0e65ee6c84c2ba34af12a7b3a2cd, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2e4ce242f6d2e445aae0b7424b21809a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 06775f05876eb4188bf41b50c38f0068, type: 2}
