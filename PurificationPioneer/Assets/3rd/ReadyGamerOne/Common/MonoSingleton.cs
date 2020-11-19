@@ -74,5 +74,11 @@ namespace ReadyGamerOne.Common
             
         }
 
+
+        protected virtual void Update()
+        {
+            
+        }
+
     }
 }

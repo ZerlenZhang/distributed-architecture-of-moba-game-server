@@ -7,6 +7,7 @@ namespace PurificationPioneer.Utility
 	{
 		private System.Collections.Generic.Dictionary<string,string> nameToPath 
 			= new System.Collections.Generic.Dictionary<string,string>{
+					{ @"HomePanel" , @"ClassPanel\HomePanel" },
 					{ @"WelcomePanel" , @"ClassPanel\WelcomePanel" },
 				};
 		public override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;
