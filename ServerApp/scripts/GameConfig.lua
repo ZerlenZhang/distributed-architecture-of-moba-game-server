@@ -1,38 +1,39 @@
-local sType = require("ServiceType");
+local ServiceType = require("ServiceType");
+local ProtoType=require("ProtoType");
 
 
 local remote_servers={};
 
 --注册服务所部署的IP地址和端口
-remote_servers[sType.Auth]={
-    serviceType = sType.Auth,
+remote_servers[ServiceType.Auth]={
+    serviceType = ServiceType.Auth,
     ip = "127.0.0.1",
-    port = 8000,
+    port = 6081,
     descrip = "Auth Server",
 };
 
-remote_servers[sType.System]={
-    serviceType = sType.System,
-    ip = "127.0.0.1",
-    port = 8001,
-    descrip = "System Server",
-};
+-- remote_servers[ServiceType.System]={
+--     serviceType = ServiceType.System,
+--     ip = "127.0.0.1",
+--     port = 8001,
+--     descrip = "System Server",
+-- };
 
-remote_servers[sType.Logic]={
-    serviceType = sType.Logic,
-    ip = "127.0.0.1",
-    port = 8002,
-    descrip = "Logic Server",
-};
+-- remote_servers[ServiceType.Logic]={
+--     serviceType = ServiceType.Logic,
+--     ip = "127.0.0.1",
+--     port = 8002,
+--     descrip = "Logic Server",
+-- };
 
 
 
 return {
+
+    protoType=ProtoType.Protobuf;
+
     gateway_tcp_ip = "121.196.178.141",
     gateway_tcp_port = 6080,
-
-    gateway_ws_ip = "121.196.178.141",
-    gateway_ws_port = 6081,
 
     servers = remote_servers,
 

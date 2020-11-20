@@ -5,17 +5,13 @@ local ServiceType = require("ServiceType");
 local cmdNameMap={};
 cmdNameMap[ServiceType.Auth]={
 	UserLostConn = 0,
-	GuestLoginReq = 1,
-	GuestLoginRes = 2,
-	ReLogin = 3,
-	EditProfileReq = 5,
-	EditProfileRes = 6,
-	AccountUpgradeReq = 7,
-	AccountUpgradeRes = 8,
-	UserLoginReq = 9,
-	UserLoginRes = 10,
-	UserUnregisterReq = 11,
-	UserUnregisterRes = 12,
+	ReLogin = 1,
+	UserLoginReq = 2,
+	UserLoginRes = 3,
+	UserUnregisterRes = 4,
+	UserUnregisterReq = 5,
+	EditProfileReq = 6,
+	EditProfileRes = 7,
 };
 
 return cmdNameMap;

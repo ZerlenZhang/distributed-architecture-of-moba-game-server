@@ -1,0 +1,1 @@
+..\..\bin\MobaServer.exe ../ auth/auth_main.lua

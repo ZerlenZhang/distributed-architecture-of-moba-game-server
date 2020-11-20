@@ -4,11 +4,10 @@ local cType=require("auth/Const/CmdType");
 local guestLogic = require("auth/Guest");
 
 local cTypeToCallback = {};
-cTypeToCallback[cType.eGuestLoginReq]=guestLogic.GuestLogin;
-cTypeToCallback[cType.eEditProfileReq]=guestLogic.EditProfile;
-cTypeToCallback[cType.eAccountUpgradeReq]=guestLogic.AccountUpgrade;
-cTypeToCallback[cType.eUserLoginReq]=guestLogic.UserLogin;
-cTypeToCallback[cType.eUserUnregisterReq]=guestLogic.UserUnregister;
+cTypeToCallback[cType.UserLostConn]=guestLogic.UserLostConn;
+cTypeToCallback[cType.EditProfileReq]=guestLogic.EditProfile;
+cTypeToCallback[cType.UserLoginReq]=guestLogic.UserLogin;
+cTypeToCallback[cType.UserUnregisterReq]=guestLogic.UserUnregister;
 
 
 

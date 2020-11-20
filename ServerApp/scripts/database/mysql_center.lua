@@ -200,41 +200,6 @@ function check_uname_exist(	uname,handler )
 		end);
 end
 
---升级游客账户
---handler:err
-function guest_account_upgrade( uid,uname,upwd,handler )
-	if mysqlConn==nil then
-		--数据库还没有联好
-		if handler then
-			handler("mysql is not connected");
-		end
-		return;
-	end
-
-	local sql = 'update uinfo set uname="%s",upwd="%s",is_guest=0 where uid=%d';
-	sql=string.format(sql,uname,upwd,uid);
-	Mysql.Query(mysqlConn,sql,
-		function( err,ret )
-			if err then
-				if handler then
-					handler(err);
-				end
-				return;
-			end
-
-			if ret==nil or #ret<=0 then
-				if handler then
-					handler(err);
-				end
-				return;
-			end
-
-			if handler then
-				handler(nil);
-			end
-		end);
-end
-
 
 --根据用户名密码查找用户信息
 --handler:err,uinfo
@@ -247,7 +212,7 @@ function get_uinfo_by_uname_pwd( uname,upwd,handler )
 		return;
 	end
 
-	local sql="select uid,unick,usex,uface,uvip,status,is_guest from uinfo where uname=\"%s\" and upwd=\"%s\" limit 1";
+	local sql="select uid,uname,pwd,unick,ulevel,uexp,urank,ucoin,udiamond,usignature,uintegrity,status from usertable where uname=\"%s\" and pwd=\"%s\" limit 1";
 	sql=string.format(sql,uname,upwd);
 	--print(sql);
 	Mysql.Query(mysqlConn,sql,function( err,ret )
@@ -270,12 +235,17 @@ function get_uinfo_by_uname_pwd( uname,upwd,handler )
 		local uinfo =
 		{
 			uid= tonumber(result[1]),
-			unick=result[2],
-			usex=tonumber(result[3]),
-			uface=tonumber(result[4]),
-			uvip=tonumber(result[5]),
-			status=tonumber(result[6]),
-			is_guest=tonumber(result[7]),
+			uname=result[2],
+			pwd=result[3],
+			unick=result[4],
+			ulevel=tonumber(result[5]),
+			uexp=tonumber(result[6]),
+			urank=tonumber(result[7]),
+			ucoin=tonumber(result[8]),
+			udiamond=tonumber(result[9]),
+			usignature=result[10],
+			uintegrity=tonumber(result[11]),
+			status=tonumber(result[12]),
 		};
 		if handler then
 			handler(nil,uinfo);
@@ -288,9 +258,7 @@ return {
 	GetUinfoByKey=get_uinfo_by_key,
 	GetUinfoByUid=get_uinfo_by_uid,
 	GetUinfoByUnamePwd=get_uinfo_by_uname_pwd,
-	InsertGuestUser=insert_guest_user,
 	EditProfile=edit_profile,
 	CheckUnameExist=check_uname_exist,
-	GuestAccountUpgrade =guest_account_upgrade,
 	IsConnect=function() return mysqlConn~=nil end
 };
