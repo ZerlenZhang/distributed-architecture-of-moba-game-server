@@ -44,8 +44,10 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private bool closeSocketOnAnyExpection = true;
         public bool CloseSocketOnAnyExpection => closeSocketOnAnyExpection;
         [SerializeField] private bool enableSocketLog = true;
-
         public bool EnableSocketLog => enableSocketLog;
+        [SerializeField] private bool enableProtoLog = true;
+
+        public bool EnableProtoLog => enableProtoLog;
         
         
         [Header("作弊模式")]

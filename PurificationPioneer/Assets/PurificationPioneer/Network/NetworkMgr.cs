@@ -145,7 +145,10 @@ namespace PurificationPioneer.Network
         
         protected virtual void OnDestroy()
         {
-            Debug.Log("OnDestroy_关闭链接");
+            if (GameSettings.Instance.EnableSocketLog)
+            {
+                Debug.Log("OnDestroy_关闭链接");
+            }
             this.CloseSocket();
         }
 

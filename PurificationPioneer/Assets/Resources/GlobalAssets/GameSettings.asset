@@ -16,10 +16,13 @@ MonoBehaviour:
   gatewayPort: 6080
   udpServerIp: 121.196.178.141
   udpServerPort: 6090
-  udpLocalIp: 127.0.0.1
   udpLocalPort: 10000
+  maxTcpPackageSize: 4096
+  maxUdpPackageSize: 4096
+  maxWaitTime: 5000
+  closeSocketOnAnyExpection: 1
+  enableSocketLog: 1
+  enableProtoLog: 1
   debugMode: 1
   debugAccount: developer
   debugPassword: developer_password
-  maxTcpPackageSize: 4096
-  maxWaitTime: 5000
