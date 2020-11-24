@@ -1,6 +1,6 @@
 using PurificationPioneer.Const;
+using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
-using PurificationPioneer.ProtoGen;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.View;

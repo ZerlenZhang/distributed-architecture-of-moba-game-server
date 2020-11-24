@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Network;
+using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Network
 {
@@ -74,18 +75,32 @@ namespace PurificationPioneer.Network
 
         #region 发送数据
 
+        public void SetupUdp()
+        {
+            udp=new UdpHelper(
+                OnError,
+                OnRecvCmd,
+                GameSettings.Instance.MaxUdpPackageSize,
+                ()=>GameSettings.Instance.EnableSocketLog);
+            GameSettings.Instance.SetUdpLocalPort(udp.LocalUdpPort);
+        }
+
         public void UdpSendProtobuf(int serviceType, int cmdType, ProtoBuf.IExtensible body = null)
         {
-            if (udp == null || !udp.IsValid)
+            if (udp == null)
             {
-                Debug.LogError("Udp 状态异常，无法使用");
+                Debug.LogError("Udp is null");
+                return;
+            }else if (!udp.IsValid)
+            {
+                Debug.LogError($"Udp状态异常");
                 return;
             }
             var cmdPackage = CmdPackageProtocol.PackageProtobuf(serviceType, cmdType, body);
             if (cmdPackage == null)
                 return;
 
-            this.udp.Send(cmdPackage);
+            this.udp.Send(GameSettings.Instance.UdpServerIp,GameSettings.Instance.UdpServerPort, cmdPackage);
         }
         
         public void TcpSendJson(int serviceType, int cmdType, string jsonStr)
@@ -152,17 +167,6 @@ namespace PurificationPioneer.Network
             this.CloseSocket();
         }
 
-        private void LaunchUdp()
-        {
-            udp=new UdpHelper(
-                GameSettings.Instance.UdpServerIp,
-                GameSettings.Instance.UdpServerPort,
-                OnError,
-                OnRecvCmd,
-                GameSettings.Instance.MaxUdpPackageSize,
-                GameSettings.Instance.UdpLocalPort,
-                ()=>GameSettings.Instance.EnableSocketLog);
-        }
         
         /// <summary>
         /// 断开链接
@@ -185,7 +189,7 @@ namespace PurificationPioneer.Network
             Debug.Log(o);
             if(GameSettings.Instance.CloseSocketOnAnyExpection)
                 CloseSocket();
-        }       
+        }
 
         /// <summary>
         /// 接收到命令
@@ -203,6 +207,13 @@ namespace PurificationPioneer.Network
 
             if (null == msg)
                 return;
+
+#if UNITY_EDITOR
+            if (GameSettings.Instance.EnableSocketLog)
+            {
+                Debug.Log($"收到CmdPackage:{{sType-{msg.serviceType},cType-{msg.cmdType}}}");
+            }
+#endif
 
             //将收到消息放到事件队列
             lock (queueLock)

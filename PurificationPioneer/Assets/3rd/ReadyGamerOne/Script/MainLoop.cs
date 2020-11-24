@@ -391,13 +391,15 @@ namespace ReadyGamerOne.Script
 
         #region MonoBehavior
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             startEvent?.Invoke();
         }
 
-        void Update()
+        protected override void Update()
         {
+            base.Update();
             updateEvent?.Invoke();
             foreach (var pair in callBackPairs)
             {

@@ -1,3 +1,5 @@
+using PurificationPioneer.Network.Proxy;
+
 namespace PurificationPioneer.View
 {
 	public partial class HomePanel
@@ -7,6 +9,8 @@ namespace PurificationPioneer.View
 		{
 			//do any thing you want
 			script = m_TransFrom.GetComponent<HomePanelScript>();
+			
+			LogicProxy.Instance.Login();
 		}
 	}
 }

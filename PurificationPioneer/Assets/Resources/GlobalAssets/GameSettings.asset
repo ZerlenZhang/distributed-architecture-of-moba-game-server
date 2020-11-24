@@ -15,8 +15,8 @@ MonoBehaviour:
   gatewayIp: 121.196.178.141
   gatewayPort: 6080
   udpServerIp: 121.196.178.141
-  udpServerPort: 6090
-  udpLocalPort: 10000
+  udpServerPort: 10000
+  udpLocalPort: 8000
   maxTcpPackageSize: 4096
   maxUdpPackageSize: 4096
   maxWaitTime: 5000

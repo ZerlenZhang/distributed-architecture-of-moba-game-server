@@ -1,6 +1,6 @@
 ﻿using PurificationPioneer.Const;
 using PurificationPioneer.Network.Const;
-using PurificationPioneer.ProtoGen;
+using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using UnityEngine;
@@ -28,7 +28,7 @@ namespace PurificationPioneer.Network.Proxy
 #if UNITY_EDITOR
                             if (GameSettings.Instance.EnableProtoLog)
                             {
-                                Debug.Log($"用户登陆成功——[{loginRes.uinfo.unick} 上线啦]");
+                                Debug.Log($"[UserLoginRes]-{loginRes.uinfo.unick} 上线啦");
                             }
 #endif
                             CEventCenter.BroadMessage(Message.OnUserLogin,loginRes.uinfo);

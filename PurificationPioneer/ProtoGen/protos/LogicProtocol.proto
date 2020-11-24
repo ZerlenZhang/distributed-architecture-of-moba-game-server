@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+message LoginLogicReq{
+	required string ip = 1;
+	required int32 udp_port = 2;
+}
+
+message LoginLogicRes{
+    required int32 status = 1;
+}
+
+message UdpTestReq{
+    required string content = 1;
+}
+
+message UdpTestRes{
+    required string content = 1;
+}

@@ -25,10 +25,14 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private int udpServerPort = 6091;
         public int UdpServerPort => udpServerPort;
 
-        [SerializeField] private int udpLocalPort = 6091;
-        public int UdpLocalPort => udpLocalPort;
-        
+        [SerializeField] private string udpLocalIp = "58.214.225.21";
 
+        public string UdpLocalIp => udpLocalIp;
+
+        [SerializeField] private int udpLocalPort = 0;
+
+        public int UdpLocalPort => udpLocalPort;
+        public void SetUdpLocalPort(int port) => udpLocalPort = port;
         
         [Header("全局变量")]
         [SerializeField] private int maxTcpPackageSize = 4096;

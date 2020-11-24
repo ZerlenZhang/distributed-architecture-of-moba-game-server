@@ -106,6 +106,7 @@ logger::log(const char* file_name,
 	static char msg_meta_info[1024] = { 0 };
 	static char msg_content[1024 * 10] = { 0 };
 	static char new_line = '\n';
+	static char tabKey = '\t';
 
 	va_list args;
 	va_start(args, msg);
@@ -117,7 +118,7 @@ logger::log(const char* file_name,
 	buf[0] = uv_buf_init(g_format_time, static_cast<unsigned int>(strlen(g_format_time)));
 	buf[1] = uv_buf_init(g_log_level[level], static_cast<unsigned int>(strlen(g_log_level[level])));
 	buf[2] = uv_buf_init(msg_meta_info, static_cast<unsigned int>(strlen(msg_meta_info)));
-	buf[3] = uv_buf_init(&new_line, static_cast<unsigned int>(1));
+	buf[3] = uv_buf_init(&tabKey, static_cast<unsigned int>(1));
 	buf[4] = uv_buf_init(msg_content, static_cast<unsigned int>(strlen(msg_content)));
 	buf[5] = uv_buf_init(&new_line, static_cast<unsigned int>(1));
 
@@ -130,19 +131,7 @@ logger::log(const char* file_name,
 	uv_fs_req_cleanup(&writeReq);
 
 	if (g_std_out) {
-		switch (level)
-		{
-		case 0:
-			printf("\033[1;32m[%s]\t %s\n\033[0m", g_log_level[level], msg_content);
-			break;
-		case 1:
-			printf("\033[1;33m[%s]%s\n\033[0m", g_log_level[level], msg_content);
-			break;
-		case 2:
-			printf("\033[1;31m[%s]\t %s\n\033[0m", g_log_level[level], msg_content);
-			break;
-		}
-		printf("\t\033[37m%s:%u\n\033[0m", file_name, line_num);
+		printf("[%s]\t %s\t\t<%s:%u>\n", g_log_level[level], msg_content, file_name, line_num);	
 	}
 }
 								   

@@ -7,8 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from: LoginProtocol.proto
-namespace PurificationPioneer.ProtoGen
+// Generated from: protos/LoginProtocol.proto
+namespace PurificationPioneer.Network.ProtoGen
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserUnregisterRes")]
   public partial class UserUnregisterRes : global::ProtoBuf.IExtensible
@@ -217,34 +217,5 @@ namespace PurificationPioneer.ProtoGen
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
-  
-    [global::ProtoBuf.ProtoContract(Name=@"LoginCmd")]
-    public enum LoginCmd
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eUserLostConn", Value=0)]
-      eUserLostConn = 0,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eReLogin", Value=1)]
-      eReLogin = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eUserLoginReq", Value=2)]
-      eUserLoginReq = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eUserLoginRes", Value=3)]
-      eUserLoginRes = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eUserUnregisterRes", Value=4)]
-      eUserUnregisterRes = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eUserUnregisterReq", Value=5)]
-      eUserUnregisterReq = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eEditProfileReq", Value=6)]
-      eEditProfileReq = 6,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"eEditProfileRes", Value=7)]
-      eEditProfileRes = 7
-    }
   
 }

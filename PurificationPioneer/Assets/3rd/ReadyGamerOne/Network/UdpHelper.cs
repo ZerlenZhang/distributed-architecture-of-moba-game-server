@@ -2,6 +2,8 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using PurificationPioneer.Scriptable;
+using ReadyGamerOne.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -9,15 +11,12 @@ namespace ReadyGamerOne.Network
 {
     public class UdpHelper
     {
-        public string Ip { get; }
-        public int Port { get; }
-        
-        public bool IsValid => clientSocket != null && clientSocket.Connected;
+        public bool IsValid => clientSocket != null;
+        public int LocalUdpPort { get; }
 
         #region private
 
         private Socket clientSocket;
-        private IPEndPoint udpRemotePoint;
         private Thread recvThread;
         private byte[] udpRecvBuff;
         
@@ -30,26 +29,19 @@ namespace ReadyGamerOne.Network
         #endregion
 
         
-        public UdpHelper(string udpServerIp, int udpServerPort, 
-            Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
-            int maxUdpPackageSize, int localUdpPort=10000, Func<bool> enableSocketLog=null)
+        public UdpHelper(Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
+            int maxUdpPackageSize, Func<bool> enableSocketLog=null)
         {
-            Assert.IsFalse(string.IsNullOrEmpty(udpServerIp));
-            Assert.IsTrue(0 != udpServerPort);
             Assert.IsNotNull(onException);
             Assert.IsNotNull(onRecvCmd);
 
-            this.Ip = udpServerIp;
-            this.Port = udpServerPort;
             if (null != enableSocketLog)
                 this.ifEnableSocketLog = enableSocketLog;
                 
             this.onException = onException;
             this.onRecvCmd = onRecvCmd;
             this.udpRecvBuff=new byte[maxUdpPackageSize];
-            
-            this.udpRemotePoint = new IPEndPoint(
-                IPAddress.Parse(udpServerIp), udpServerPort);
+            this.LocalUdpPort = NetUtil.GetUdpPort();
             //创建udpSocket
             try
             {
@@ -58,7 +50,7 @@ namespace ReadyGamerOne.Network
                     SocketType.Dgram,
                     ProtocolType.Udp);
                 //绑定本地端口
-                var localPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), localUdpPort);
+                var localPoint = new IPEndPoint(IPAddress.Parse(GameSettings.Instance.UdpLocalIp), LocalUdpPort);
                 this.clientSocket.Bind(localPoint);
                 
                 this.recvThread=new Thread(RecvThread);
@@ -66,7 +58,7 @@ namespace ReadyGamerOne.Network
                 
 #if UNITY_EDITOR
                 if(ifEnableSocketLog())
-                    Debug.Log($"Udp[{Ip}:{Port}] 开始接收");
+                    Debug.Log($"Udp[local-{LocalUdpPort}] 开始接收");
 #endif
             }
             catch (Exception e)
@@ -98,7 +90,7 @@ namespace ReadyGamerOne.Network
             
 #if UNITY_EDITOR
             if(ifEnableSocketLog())
-                Debug.Log($"Udp[{Ip}:{Port}] 关闭连接");
+                Debug.Log($"Udp[local-{LocalUdpPort}] 关闭连接");
 #endif
         }
 
@@ -107,7 +99,7 @@ namespace ReadyGamerOne.Network
         /// 发送内容
         /// </summary>
         /// <param name="content"></param>
-        public void Send(byte[] content)
+        public void Send(string ip, int port, byte[] content)
         {
             try
             {
@@ -116,13 +108,13 @@ namespace ReadyGamerOne.Network
                     0,
                     content.Length,
                     SocketFlags.None,
-                    this.udpRemotePoint,
+                    new IPEndPoint(IPAddress.Parse(ip),port), 
                     OnUdpSend,
                     this.clientSocket);
                 
 #if UNITY_EDITOR
                 if(ifEnableSocketLog())
-                    Debug.Log($"Udp[{Ip}:{Port}] 发送数据[{content.Length}]");
+                    Debug.Log($"Udp[Local:{LocalUdpPort}->{ip}:{port}] 发送数据[{content.Length}]");
 #endif
             }
             catch (Exception e)
@@ -148,7 +140,7 @@ namespace ReadyGamerOne.Network
                     
 #if UNITY_EDITOR
                     if(ifEnableSocketLog())
-                        Debug.Log($"Udp[{Ip}:{Port}] 收到数据[{receivedLength}]");
+                        Debug.Log($"Udp[local-{LocalUdpPort}] 收到数据[{receivedLength}]");
 #endif
                     
                     this.onRecvCmd(this.udpRecvBuff, 0, receivedLength);
@@ -169,6 +161,7 @@ namespace ReadyGamerOne.Network
             try
             {
                 var client = ar.AsyncState as Socket;
+                Assert.IsNotNull(client);
                 client.EndSendTo(ar);
             }
             catch (Exception e)
