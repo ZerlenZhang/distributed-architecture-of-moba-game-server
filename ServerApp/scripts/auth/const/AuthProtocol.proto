@@ -28,6 +28,7 @@ message UserAccountInfo{
 	 required string usignature = 10;
 	 required int32 uintegrity = 11;
 	 required int32 status = 12;
+	 required int32 uface = 13;
 }
 message UserLoginReq{
 	required string uname = 1;

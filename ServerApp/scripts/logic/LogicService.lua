@@ -4,8 +4,10 @@ local cType=require("logic/const/CmdType");
 local logicMessageHandler = require("logic/MessageHandler");
 
 local cTypeToCallback = {};
+cTypeToCallback[cType.UserLostConn] = logicMessageHandler.OnUserLostConn;
 cTypeToCallback[cType.LoginLogicReq] = logicMessageHandler.OnPlayerLoginLogic;
 cTypeToCallback[cType.UdpTestReq] = logicMessageHandler.OnUdpTest;
+cTypeToCallback[cType.StartMatchReq] = logicMessageHandler.OnStartMatch;
 
 
 

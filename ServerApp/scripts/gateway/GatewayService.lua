@@ -201,12 +201,8 @@ local function _client_send_to_server(s,raw)
 			return;
 		end
 
-		local ip,port=Session.GetAddress(s);
-		local body=RawCmd.ReadBody(raw);
-		body.ip=ip;
-
 		if config.enable_gateway_log then
-			Debug.Log("c-s:LoginLoginReq "..utag.." [Ip-"..ip.."][port-"..body.udp_port.."]");
+			Debug.Log("c-s:LoginLoginReq");
 		end
 	else
 		utag = Session.GetUId(s);

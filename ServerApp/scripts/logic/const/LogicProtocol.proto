@@ -1,12 +1,9 @@
 syntax = "proto2";
 
-message LoginLogicReq{
-	required string ip = 1;
-	required int32 udp_port = 2;
-}
 
 message LoginLogicRes{
-    required int32 status = 1;
+    required string udp_ip = 1;
+    required int32 udp_port = 2;
 }
 
 message UdpTestReq{
@@ -15,4 +12,17 @@ message UdpTestReq{
 
 message UdpTestRes{
     required string content = 1;
+}
+
+message StartMatchReq{
+    required string uname = 1;
+}
+
+message MatchInfo{
+    required string unick = 1;
+    required int32 uface = 2;
+}
+
+message FinishMatchTick{
+    repeated MatchInfo matchers = 1;
 }

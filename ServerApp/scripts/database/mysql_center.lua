@@ -212,7 +212,7 @@ function get_uinfo_by_uname_pwd( uname,upwd,handler )
 		return;
 	end
 
-	local sql="select uid,uname,pwd,unick,ulevel,uexp,urank,ucoin,udiamond,usignature,uintegrity,status from usertable where uname=\"%s\" and pwd=\"%s\" limit 1";
+	local sql="select uid,uname,pwd,unick,ulevel,uexp,urank,ucoin,udiamond,usignature,uintegrity,status,uface from usertable where uname=\"%s\" and pwd=\"%s\" limit 1";
 	sql=string.format(sql,uname,upwd);
 	--print(sql);
 	Mysql.Query(mysqlConn,sql,function( err,ret )
@@ -246,6 +246,7 @@ function get_uinfo_by_uname_pwd( uname,upwd,handler )
 			usignature=result[10],
 			uintegrity=tonumber(result[11]),
 			status=tonumber(result[12]),
+			uface=tonumber(result[13]),
 		};
 		if handler then
 			handler(nil,uinfo);

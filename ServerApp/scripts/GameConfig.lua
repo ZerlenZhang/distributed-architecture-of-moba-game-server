@@ -24,6 +24,7 @@ remote_servers[ServiceType.Logic]={
     ip = "127.0.0.1",
     port = 6082,
     descrip = "Logic Server",
+    udp_ip="121.196.178.141",
     udp_port=10000,
 };
 
@@ -36,7 +37,8 @@ return {
     gateway_tcp_ip = "121.196.178.141",
     gateway_tcp_port = 6080,
 
-    enable_gateway_log=true;
+    enable_gateway_log=false;
+    enable_proto_log=true;
 
 
     servers = remote_servers,

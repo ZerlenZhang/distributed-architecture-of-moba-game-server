@@ -27,11 +27,9 @@ Netbus.TcpListen(logicServerConfig.port
         print("new client come ["..ip..":"..port.."]");
     end);
 
-Debug.Log("Logic server [tcp] listen at: ", logicServerConfig.port);
+print("Logic server [tcp] listen at: ", logicServerConfig.port);
 
 Netbus.UdpListen(logicServerConfig.udp_port);
-Debug.Log("Logic server [udp] listen at: ", logicServerConfig.udp_port);
-
 
 
 --注册服务
