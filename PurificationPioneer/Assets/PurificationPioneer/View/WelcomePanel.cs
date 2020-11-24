@@ -1,5 +1,4 @@
 using PurificationPioneer.Const;
-using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
@@ -34,18 +33,18 @@ namespace PurificationPioneer.View
 		protected override void OnAddListener()
 		{
 			base.OnAddListener();
-			CEventCenter.AddListener<UserAccountInfo>(Message.OnUserLogin, OnUserLogin);
+			CEventCenter.AddListener(Message.OnUserLogin, OnUserLogin);
 		}
 
 
 		protected override void OnRemoveListener()
 		{
 			base.OnRemoveListener();
-			CEventCenter.RemoveListener<UserAccountInfo>(Message.OnUserLogin,OnUserLogin);
+			CEventCenter.RemoveListener(Message.OnUserLogin,OnUserLogin);
 		}
 		
 		
-		private void OnUserLogin(UserAccountInfo obj)
+		private void OnUserLogin()
 		{
 			PanelMgr.PushPanel(PanelName.HomePanel);
 		}

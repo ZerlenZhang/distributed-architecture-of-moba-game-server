@@ -1,4 +1,5 @@
-﻿using PurificationPioneer.Network.Const;
+﻿using PurificationPioneer.Const;
+using PurificationPioneer.Network.Const;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
@@ -18,22 +19,34 @@ namespace PurificationPioneer.Network.Proxy
         {
             switch (package.cmdType)
             {
+                case LogicCmd.StartMatchRes:
+#if UNITY_EDITOR
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[StartMatchRes]开始匹配");
+#endif
+                    CEventCenter.BroadMessage(Message.OnStartMatch);
+                    break;
                 case LogicCmd.LoginLogicRes:
                     var loginLogicRes = CmdPackageProtocol.ProtobufDeserialize<LoginLogicRes>(package.body);
                     if (loginLogicRes == null)
                     {
                         Debug.LogError($"loginLogicRes is null");
                         return;
-                    }else if (loginLogicRes.status != Response.Ok)
-                    {
-                        Debug.LogError($"LoginLogicRes.Status is: {loginLogicRes.status}");
-                        return;
                     }
 #if UNITY_EDITOR
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[LoginLogicRes]登陆逻辑服务器成功");
 #endif
-                    logicServerConnected = true;
+                    
+                    //开启Udp接收
+                    GameSettings.Instance.SetUdpServerIp(loginLogicRes.udp_ip);
+                    GameSettings.Instance.SetUdpServerPort(loginLogicRes.udp_port);
+                    NetworkMgr.Instance.SetupUdp(
+                        ()=>
+                        {
+                            logicServerConnected = true;
+                            Debug.Log("Udp服务建立成功");
+                        });
                     break;
                 case LogicCmd.UdpTestRes:
                     var udpTestRes = CmdPackageProtocol.ProtobufDeserialize<UdpTestRes>(package.body);
@@ -42,7 +55,10 @@ namespace PurificationPioneer.Network.Proxy
                         Debug.LogError($"UdpTestRes is null");
                         return;
                     }
-                    Debug.Log($"[UdpTestRes]{udpTestRes.content}");
+#if UNITY_EDITOR
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[UdpTestRes]{udpTestRes.content}");
+#endif
                     break;
             }
         }
@@ -51,16 +67,9 @@ namespace PurificationPioneer.Network.Proxy
         {
             if (logicServerConnected)
                 return;
-            NetworkMgr.Instance.SetupUdp();
-            var loginLogicReq = new LoginLogicReq
-            {
-                ip = "hello",
-                udp_port = GameSettings.Instance.UdpLocalPort,
-            };
             NetworkMgr.Instance.TcpSendProtobuf(
                 ServiceType.Logic,
-                LogicCmd.LoginLogicReq,
-                loginLogicReq);
+                LogicCmd.LoginLogicReq);     
         }
 
         public void TestUdp(string content)
@@ -76,6 +85,21 @@ namespace PurificationPioneer.Network.Proxy
                 ServiceType.Logic,
                 LogicCmd.UdpTestReq,
                 udpTestReq);
+        }
+
+        public void StartMatch(string uname)
+        {
+            if(!logicServerConnected)
+                Debug.LogError($"尚未登陆逻辑服务器");
+            
+            var startMatchReq = new StartMatchReq
+            {
+                uname = uname
+            };
+            NetworkMgr.Instance.TcpSendProtobuf(
+                ServiceType.Logic,
+                LogicCmd.StartMatchReq,
+                startMatchReq);
         }
     }
 }

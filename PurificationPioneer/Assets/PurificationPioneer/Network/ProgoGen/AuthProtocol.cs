@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from: protos/LoginProtocol.proto
+// Generated from: protos/AuthProtocol.proto
 namespace PurificationPioneer.Network.ProtoGen
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserUnregisterRes")]
@@ -163,6 +163,13 @@ namespace PurificationPioneer.Network.ProtoGen
     {
       get { return _status; }
       set { _status = value; }
+    }
+    private int _uface;
+    [global::ProtoBuf.ProtoMember(13, IsRequired = true, Name=@"uface", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int uface
+    {
+      get { return _uface; }
+      set { _uface = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

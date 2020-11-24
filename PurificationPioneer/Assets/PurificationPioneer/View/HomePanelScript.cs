@@ -7,9 +7,10 @@ namespace PurificationPioneer.View
     public class HomePanelScript:MonoBehaviour
     {
         public UserInfoRect userInfoRect;
+        public MatchUi matchUi;
         public ItemBar coinBarInfo;
         public ItemBar diamondBarInfo;
-        public Button matchBtn;
+        public Button playBtn;
         public Button settingBtn;
         public Button friendBtn;
         public Button mailBtn;

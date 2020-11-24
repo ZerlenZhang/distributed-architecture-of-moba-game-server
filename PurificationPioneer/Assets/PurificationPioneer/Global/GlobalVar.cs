@@ -1,3 +1,5 @@
+using PurificationPioneer.Network.ProtoGen;
+
 namespace PurificationPioneer.Global
 {
 	/// <summary>
@@ -5,5 +7,25 @@ namespace PurificationPioneer.Global
 	/// </summary>
 	public class GlobalVar : ReadyGamerOne.Global.GlobalVar
 	{
+		public static string uname;
+		public static string unick;
+		public static int ucoin;
+		public static int uface;
+		public static int ulevel;
+		public static int urank;
+		public static int udiamond;
+		public static string usignature;
+
+		public static void SaveInfo(UserAccountInfo uinfo)
+		{
+			uname = uinfo.uname;
+			unick = uinfo.unick;
+			ucoin = uinfo.ucoin;
+			uface = uinfo.uface;
+			ulevel = uinfo.ulevel;
+			urank = uinfo.urank;
+			udiamond = uinfo.udiamond;
+			usignature = uinfo.usignature;
+		}
 	}
 }

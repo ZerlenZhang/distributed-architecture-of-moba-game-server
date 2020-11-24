@@ -1,4 +1,5 @@
 ﻿using PurificationPioneer.Const;
+using PurificationPioneer.Global;
 using PurificationPioneer.Network.Const;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Scriptable;
@@ -31,7 +32,9 @@ namespace PurificationPioneer.Network.Proxy
                                 Debug.Log($"[UserLoginRes]-{loginRes.uinfo.unick} 上线啦");
                             }
 #endif
-                            CEventCenter.BroadMessage(Message.OnUserLogin,loginRes.uinfo);
+                            //保存信息并广播
+                            GlobalVar.SaveInfo(loginRes.uinfo);
+                            CEventCenter.BroadMessage(Message.OnUserLogin);
                         }
                         else
                         {

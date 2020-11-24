@@ -10,17 +10,17 @@
 // Generated from: protos/LogicProtocol.proto
 namespace PurificationPioneer.Network.ProtoGen
 {
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginLogicReq")]
-  public partial class LoginLogicReq : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginLogicRes")]
+  public partial class LoginLogicRes : global::ProtoBuf.IExtensible
   {
-    public LoginLogicReq() {}
+    public LoginLogicRes() {}
     
-    private string _ip;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public string ip
+    private string _udp_ip;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"udp_ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string udp_ip
     {
-      get { return _ip; }
-      set { _ip = value; }
+      get { return _udp_ip; }
+      set { _udp_ip = value; }
     }
     private int _udp_port;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"udp_port", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -28,23 +28,6 @@ namespace PurificationPioneer.Network.ProtoGen
     {
       get { return _udp_port; }
       set { _udp_port = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginLogicRes")]
-  public partial class LoginLogicRes : global::ProtoBuf.IExtensible
-  {
-    public LoginLogicRes() {}
-    
-    private int _status;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int status
-    {
-      get { return _status; }
-      set { _status = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -80,6 +63,64 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _content; }
       set { _content = value; }
     }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StartMatchReq")]
+  public partial class StartMatchReq : global::ProtoBuf.IExtensible
+  {
+    public StartMatchReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MatchInfo")]
+  public partial class MatchInfo : global::ProtoBuf.IExtensible
+  {
+    public MatchInfo() {}
+    
+    private string _unick;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"unick", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string unick
+    {
+      get { return _unick; }
+      set { _unick = value; }
+    }
+    private int _uface;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"uface", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int uface
+    {
+      get { return _uface; }
+      set { _uface = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FinishMatchTick")]
+  public partial class FinishMatchTick : global::ProtoBuf.IExtensible
+  {
+    public FinishMatchTick() {}
+    
+    private readonly global::System.Collections.Generic.List<MatchInfo> _matchers = new global::System.Collections.Generic.List<MatchInfo>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"matchers", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<MatchInfo> matchers
+    {
+      get { return _matchers; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

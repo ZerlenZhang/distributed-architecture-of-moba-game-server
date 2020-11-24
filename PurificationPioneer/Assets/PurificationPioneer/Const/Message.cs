@@ -5,6 +5,7 @@ namespace PurificationPioneer.Const
 	/// </summary>
 	public static class Message
 	{
-		public const string OnUserLogin = "OnUserLogin";// UserAccountInfo
+		public const string OnUserLogin = "OnUserLogin";
+		public const string OnStartMatch = "OnStartMatch";
 	}
 }

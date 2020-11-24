@@ -1,4 +1,5 @@
 ﻿using ReadyGamerOne.Common;
+using ReadyGamerOne.Utility;
 using UnityEngine;
 
 namespace PurificationPioneer.Scriptable
@@ -11,6 +12,11 @@ namespace PurificationPioneer.Scriptable
         {
             UnityEditor.Selection.activeInstanceID = Instance.GetInstanceID();
         }
+        public void LogIp()
+        {
+            NetUtil.GetCurrentIpv4Async(ip => Debug.Log(ip));
+            Debug.Log("Test");
+        }
 #endif
         [Header("IP和端口配置")]
         [SerializeField] private string gatewayIp = "121.196.178.141";
@@ -18,21 +24,39 @@ namespace PurificationPioneer.Scriptable
 
         [SerializeField] private int gatewayPort = 6080;
         public int GatewayPort => gatewayPort;
-        
-        [SerializeField] private string udpServerIp = "121.196.178.141";
+
+        #region UdpServerIp
+
+        private string udpServerIp;
         public string UdpServerIp => udpServerIp;
-        
-        [SerializeField] private int udpServerPort = 6091;
+        public void SetUdpServerIp(string ip) => udpServerIp = ip;        
+
+        #endregion
+
+        #region UdpServerPort
+
+        private int udpServerPort;
         public int UdpServerPort => udpServerPort;
+        public void SetUdpServerPort(int port) => udpServerPort = port;        
 
-        [SerializeField] private string udpLocalIp = "58.214.225.21";
+        #endregion
 
+        #region UdpLocalIp
+
+        private string udpLocalIp;
         public string UdpLocalIp => udpLocalIp;
+        public void SetUdpLocalIp(string ip) => udpLocalIp = ip;        
 
-        [SerializeField] private int udpLocalPort = 0;
+        #endregion
+        
+        #region UdpLocalPort
 
+        private int udpLocalPort;
         public int UdpLocalPort => udpLocalPort;
-        public void SetUdpLocalPort(int port) => udpLocalPort = port;
+        public void SetUdpLocalPort(int port) => udpLocalPort = port;        
+
+        #endregion
+
         
         [Header("全局变量")]
         [SerializeField] private int maxTcpPackageSize = 4096;
@@ -63,5 +87,6 @@ namespace PurificationPioneer.Scriptable
         
         [SerializeField] private string debugPassword = "developer_password";
         public string DebugPassword => debugPassword;
+        
     }
 }

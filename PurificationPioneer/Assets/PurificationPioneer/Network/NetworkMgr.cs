@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Network;
-using UnityEngine.Assertions;
+using ReadyGamerOne.Utility;
 
 namespace PurificationPioneer.Network
 {
@@ -72,17 +73,28 @@ namespace PurificationPioneer.Network
         private TcpHelper tcp;
         
         private UdpHelper udp;
+        private string udpServerIp;
+        private int udpServerPort;
 
         #region 发送数据
 
-        public void SetupUdp()
+        public void SetupUdp(Action onFinishSetup=null)
         {
-            udp=new UdpHelper(
-                OnError,
-                OnRecvCmd,
-                GameSettings.Instance.MaxUdpPackageSize,
-                ()=>GameSettings.Instance.EnableSocketLog);
-            GameSettings.Instance.SetUdpLocalPort(udp.LocalUdpPort);
+            NetUtil.GetCurrentIpv4Async(
+                currentIp =>
+                {
+                    var localPort = NetUtil.GetUdpPort();
+                    GameSettings.Instance.SetUdpLocalPort(localPort);
+                    GameSettings.Instance.SetUdpLocalIp(currentIp);
+                    udp=new UdpHelper(
+                        currentIp,
+                        localPort,
+                        OnError,
+                        OnRecvCmd,
+                        GameSettings.Instance.MaxUdpPackageSize,
+                        ()=>GameSettings.Instance.EnableSocketLog);
+                    onFinishSetup?.Invoke();
+                });
         }
 
         public void UdpSendProtobuf(int serviceType, int cmdType, ProtoBuf.IExtensible body = null)
@@ -91,7 +103,8 @@ namespace PurificationPioneer.Network
             {
                 Debug.LogError("Udp is null");
                 return;
-            }else if (!udp.IsValid)
+            }
+            if (!udp.IsValid)
             {
                 Debug.LogError($"Udp状态异常");
                 return;
@@ -100,7 +113,10 @@ namespace PurificationPioneer.Network
             if (cmdPackage == null)
                 return;
 
-            this.udp.Send(GameSettings.Instance.UdpServerIp,GameSettings.Instance.UdpServerPort, cmdPackage);
+            this.udp.Send(
+                GameSettings.Instance.UdpServerIp,
+                GameSettings.Instance.UdpServerPort, 
+                cmdPackage);
         }
         
         public void TcpSendJson(int serviceType, int cmdType, string jsonStr)

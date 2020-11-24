@@ -29,7 +29,7 @@ namespace ReadyGamerOne.Network
         #endregion
 
         
-        public UdpHelper(Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
+        public UdpHelper(string localIp,int localPort, Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
             int maxUdpPackageSize, Func<bool> enableSocketLog=null)
         {
             Assert.IsNotNull(onException);
@@ -41,7 +41,7 @@ namespace ReadyGamerOne.Network
             this.onException = onException;
             this.onRecvCmd = onRecvCmd;
             this.udpRecvBuff=new byte[maxUdpPackageSize];
-            this.LocalUdpPort = NetUtil.GetUdpPort();
+            this.LocalUdpPort = localPort;
             //创建udpSocket
             try
             {
@@ -50,7 +50,7 @@ namespace ReadyGamerOne.Network
                     SocketType.Dgram,
                     ProtocolType.Udp);
                 //绑定本地端口
-                var localPoint = new IPEndPoint(IPAddress.Parse(GameSettings.Instance.UdpLocalIp), LocalUdpPort);
+                var localPoint = new IPEndPoint(IPAddress.Parse(localIp), LocalUdpPort);
                 this.clientSocket.Bind(localPoint);
                 
                 this.recvThread=new Thread(RecvThread);
@@ -63,6 +63,7 @@ namespace ReadyGamerOne.Network
             }
             catch (Exception e)
             {
+                Debug.Log($"Udp[Ip-{GameSettings.Instance.UdpLocalIp}:Port-{LocalUdpPort}");
                 this.onException(e);
             }
         }
