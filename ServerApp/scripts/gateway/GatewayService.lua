@@ -1,5 +1,5 @@
 local config = require("GameConfig");
-local CmdType = require("gateway/Const/CmdType");
+local CmdType = require("gateway/const/CmdType");
 local ServiceType = require("ServiceType");
 local Responce = require("Respones");
 
@@ -83,26 +83,31 @@ end
 local function _server_send_to_client(s,raw)
 
 	local stype,ctype,utag = RawCmd.ReadHeader(raw);
+
 	--print("from server tag: ",utag);
 	local clientSession = nil;
 	--如果是登陆命令的回复
 	if _IsLoginAuthRes(stype, ctype) then
-		--print("AAA");
+
+
 		--取消tag_sessionDIc中的引用
 		clientSession=tag_sessionDic[utag];
 		tag_sessionDic[utag]=nil;
 
 		if clientSession==nil then
-			print("clientSession is null, uTag:", utag);
+			Debug.LogWarning("clientSession is null, uTag:", utag);
 			return;
 		end
 
 		local body = RawCmd.ReadBody(raw);
 
+		if config.enable_gateway_log then
+			Debug.Log("s-c:LoginAuthRes "..body.status);
+		end
+
 		--如果返回结果不正常，直接返回
-		--print("status: ",body.status,"Responce.Ok",Responce.OK);
-		if body.status~=Responce.OK then
-			print("Responce is not ok",body.status);
+		if body.status~=Responce.Ok then
+			Debug.LogWarning("Responce is not ok",body.status);
 			RawCmd.SetUTag(raw,0);
 			Session.SendRawPackage(clientSession,raw);
 			return;
@@ -113,12 +118,14 @@ local function _server_send_to_client(s,raw)
 		--判断是否有session已经用这个id登陆
 		if uid_sessionDic[uid] and uid_sessionDic[uid]~=clientSession then
 			--说明重复登陆
-			print("somebody relogin");
+			Debug.LogWarning("somebody relogin");
 			local reloginMsg = {ServiceType.Auth,CmdType.ReLogin,0,nil};
 			Session.SendPackage(uid_sessionDic[uid],reloginMsg);
 			Session.Close(uid_sessionDic[uid]);
 			-- uid_sessionDic[uid]=nil;
 		end
+
+
 
 		--记录uid
 		--print("remember uid: ",uid);
@@ -131,6 +138,10 @@ local function _server_send_to_client(s,raw)
 		local loginRes={stype,ctype,0,body};
 		Session.SendPackage(clientSession,loginRes);
 		return;
+	else
+		if config.enable_gateway_log then
+			Debug.Log("s-c:Normal "..ctype);
+		end
 	end
 
 	--print("BBB");
@@ -174,27 +185,40 @@ local function _client_send_to_server(s,raw)
 			Session.SetUTag(s,utag);
 		end
 		tag_sessionDic[utag]=s;
+
+
+		if config.enable_gateway_log then
+			Debug.Log("c-s:LoginAuthReq "..utag);
+		end
+
 		--print("get utag: ",utag);
 	elseif _IsLoginLogicReq(stype,ctype) then
 		--如果是登陆逻辑服务器请求
 		utag = Session.GetUId(s);
 		if uid==0 then
 			--该操作需要先登陆
-			print("you need to login first");
+			Debug.LogError("you need to login first");
 			return;
 		end
 
 		local ip,port=Session.GetAddress(s);
 		local body=RawCmd.ReadBody(raw);
 		body.ip=ip;
+
+		if config.enable_gateway_log then
+			Debug.Log("c-s:LoginLoginReq "..utag.." [Ip-"..ip.."][port-"..body.udp_port.."]");
+		end
 	else
 		utag = Session.GetUId(s);
 		if utag==0 then
 			--该操作需要先登陆
-			print("you need to login first");
+			Debug.LogWarning("you need to login first");
 			return;
 		end
 		--uid_sessionDic[uid]=s;
+		if config.enable_gateway_log then
+			Debug.Log("c-s:Normal CmdType-"..ctype);
+		end
 	end
 
 	--打上utag然后发给我们的服务器

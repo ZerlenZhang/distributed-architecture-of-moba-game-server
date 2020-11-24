@@ -5,9 +5,9 @@ Debug.LogInit("../logs/gateway","gateway",true);
 local config = require("GameConfig");
 
 --初始化协议
-ProtoManager.Init(config.protoType,"C:\\Users\\Administrator\\Documents\\GitHub\\distributed-architecture-of-moba-game-server\\ServerApp\\scripts\\gateway\\Const");
+ProtoManager.Init(config.protoType,"C:\\Users\\Administrator\\Documents\\GitHub\\distributed-architecture-of-moba-game-server\\ServerApp\\scripts\\gateway\\const");
 
-local cmdNameMap=require("gateway/Const/CmdNameMap");
+local cmdNameMap=require("gateway/const/CmdNameMap");
 if cmdNameMap then
     ProtoManager.RegisterCmdMap(cmdNameMap);
 else
@@ -23,7 +23,7 @@ Netbus.TcpListen(config.gateway_tcp_port
             print("new client come ["..ip..":"..port.."]");
     end);
 
-print("Gateway Server [tcp] listen at: ",config.gateway_tcp_port);
+Debug.Log("Gateway Server [tcp] listen at: ",config.gateway_tcp_port);
 
 --注册服务
 local gatewayService = require("gateway/GatewayService");

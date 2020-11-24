@@ -1,0 +1,1 @@
+..\..\bin\MobaServer.exe ../ logic/logic_main.lua

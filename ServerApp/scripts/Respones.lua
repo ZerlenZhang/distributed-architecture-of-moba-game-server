@@ -1,5 +1,5 @@
 return {
-	OK = 0,
+	Ok = 0,
 	SystemError = -100,
 	UserIsFreeze = -101,
 	InvalidParams = -103,

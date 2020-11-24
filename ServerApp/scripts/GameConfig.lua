@@ -19,12 +19,13 @@ remote_servers[ServiceType.Auth]={
 --     descrip = "System Server",
 -- };
 
--- remote_servers[ServiceType.Logic]={
---     serviceType = ServiceType.Logic,
---     ip = "127.0.0.1",
---     port = 8002,
---     descrip = "Logic Server",
--- };
+remote_servers[ServiceType.Logic]={
+    serviceType = ServiceType.Logic,
+    ip = "127.0.0.1",
+    port = 6082,
+    descrip = "Logic Server",
+    udp_port=10000,
+};
 
 
 
@@ -34,6 +35,9 @@ return {
 
     gateway_tcp_ip = "121.196.178.141",
     gateway_tcp_port = 6080,
+
+    enable_gateway_log=true;
+
 
     servers = remote_servers,
 

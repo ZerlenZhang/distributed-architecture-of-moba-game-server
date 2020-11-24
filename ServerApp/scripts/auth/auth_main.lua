@@ -6,10 +6,10 @@ local sType = require("ServiceType");
 local config = require("GameConfig");
 
 --初始化协议
-ProtoManager.Init(config.protoType,"C:\\Users\\Administrator\\Documents\\GitHub\\distributed-architecture-of-moba-game-server\\ServerApp\\scripts\\auth\\Const");
+ProtoManager.Init(config.protoType,"C:\\Users\\Administrator\\Documents\\GitHub\\distributed-architecture-of-moba-game-server\\ServerApp\\scripts\\auth\\const");
 
 --如果是Protobuf协议，还需要注册映射表
-local cmdNameMap=require("auth/Const/CmdNameMap");
+local cmdNameMap=require("auth/const/CmdNameMap");
 if cmdNameMap then
     ProtoManager.RegisterCmdMap(cmdNameMap);
 else
@@ -27,7 +27,7 @@ Netbus.TcpListen(authServerConfig.port
         print("new client come ["..ip..":"..port.."]");
     end);
 
-print("Auth server [tcp] listen at: ", authServerConfig.port);
+Debug.Log("Auth server [tcp] listen at: ", authServerConfig.port);
 
 --注册服务
 local authService = require("auth/AuthService");
