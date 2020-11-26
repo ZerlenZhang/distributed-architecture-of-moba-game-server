@@ -11,5 +11,7 @@
         public const int AddMatcherTick = 7;
         public const int RemoveMatcherTick = 8;
         public const int FinishMatchTick = 9;
+        public const int StopMatchReq = 10;
+        public const int StopMatchRes = 11;
     }
 }

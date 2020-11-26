@@ -1,4 +1,6 @@
-﻿using ReadyGamerOne.Common;
+﻿using System.Net;
+using System.Net.Sockets;
+using ReadyGamerOne.Common;
 using ReadyGamerOne.Utility;
 using UnityEngine;
 
@@ -14,8 +16,15 @@ namespace PurificationPioneer.Scriptable
         }
         public void LogIp()
         {
+            Debug.Log("Part_1");
+            foreach (var ip in NetUtil.GetLocalIpAddress(AddressFamily.InterNetwork))
+            {
+                Debug.Log($"LocalIp: {ip}");
+            }
+
+            Debug.Log("Part_2");
             NetUtil.GetCurrentIpv4Async(ip => Debug.Log(ip));
-            Debug.Log("Test");
+                        
         }
 #endif
         [Header("IP和端口配置")]
@@ -69,18 +78,39 @@ namespace PurificationPioneer.Scriptable
         public int MaxWaitTime => maxWaitTime;
 
         [Header("调试开关")]
-        [SerializeField] private bool closeSocketOnAnyExpection = true;
-        public bool CloseSocketOnAnyExpection => closeSocketOnAnyExpection;
+        
+        #region CloseSocketOnAnyException
+        [SerializeField] private bool closeSocketOnAnyException = true;
+        public bool CloseSocketOnAnyException => closeSocketOnAnyException;
+        public void SetCloseSocketOnAnyException(bool value) => closeSocketOnAnyException = value;
+        #endregion
+
+        #region EnableSocketLog
+
         [SerializeField] private bool enableSocketLog = true;
         public bool EnableSocketLog => enableSocketLog;
-        [SerializeField] private bool enableProtoLog = true;
+        public void SetEnableSocketLog(bool value) => enableSocketLog = value;        
 
+        #endregion
+
+        #region EnableProtoLog
+
+        [SerializeField] private bool enableProtoLog = true;
         public bool EnableProtoLog => enableProtoLog;
-        
-        
+        public void SetEnableProtoLog(bool value) => enableProtoLog = value;        
+
+        #endregion
+
+
         [Header("作弊模式")]
+        
+        #region DebugMode
+
         [SerializeField] private bool debugMode = true;
         public bool DebugMode => debugMode;
+        public void SetDebugMode(bool value) => debugMode = value;        
+
+        #endregion
         
         [SerializeField] private string debugAccount = "developer";
         public string DebugAccount => debugAccount;

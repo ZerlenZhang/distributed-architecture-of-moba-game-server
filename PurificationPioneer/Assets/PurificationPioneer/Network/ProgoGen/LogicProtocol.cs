@@ -85,6 +85,64 @@ namespace PurificationPioneer.Network.ProtoGen
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StartMatchRes")]
+  public partial class StartMatchRes : global::ProtoBuf.IExtensible
+  {
+    public StartMatchRes() {}
+    
+    private int _current;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"current", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int current
+    {
+      get { return _current; }
+      set { _current = value; }
+    }
+    private int _max;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"max", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int max
+    {
+      get { return _max; }
+      set { _max = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StopMatchReq")]
+  public partial class StopMatchReq : global::ProtoBuf.IExtensible
+  {
+    public StopMatchReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StopMatchRes")]
+  public partial class StopMatchRes : global::ProtoBuf.IExtensible
+  {
+    public StopMatchRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MatchInfo")]
   public partial class MatchInfo : global::ProtoBuf.IExtensible
   {

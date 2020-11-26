@@ -76,25 +76,40 @@ namespace PurificationPioneer.Network
         private string udpServerIp;
         private int udpServerPort;
 
+        private bool errorInside = false;
+
         #region 发送数据
 
-        public void SetupUdp(Action onFinishSetup=null)
+        public void SetupUdp(Action<bool> onFinishSetup=null)
         {
-            NetUtil.GetCurrentIpv4Async(
-                currentIp =>
+
+            var localPort = NetUtil.GetUdpPort();
+            GameSettings.Instance.SetUdpLocalPort(localPort);
+            
+
+
+
+            udp = new UdpHelper(
+                GameSettings.Instance.UdpServerIp,
+                GameSettings.Instance.UdpServerPort,
+                GameSettings.Instance.UdpLocalPort,
+                OnError,
+                OnRecvCmd,
+                GameSettings.Instance.MaxUdpPackageSize,
+                () => GameSettings.Instance.EnableSocketLog,
+                () =>
                 {
-                    var localPort = NetUtil.GetUdpPort();
-                    GameSettings.Instance.SetUdpLocalPort(localPort);
-                    GameSettings.Instance.SetUdpLocalIp(currentIp);
-                    udp=new UdpHelper(
-                        currentIp,
-                        localPort,
-                        OnError,
-                        OnRecvCmd,
-                        GameSettings.Instance.MaxUdpPackageSize,
-                        ()=>GameSettings.Instance.EnableSocketLog);
-                    onFinishSetup?.Invoke();
+                    GameSettings.Instance.SetUdpLocalIp(udp.LocalIp);
+#if DebugMode
+                    if (GameSettings.Instance.EnableProtoLog)
+                    {
+                        Debug.Log($"UdpServer[{GameSettings.Instance.UdpServerIp}:{GameSettings.Instance.UdpServerPort}, " +
+                                  $"Local[{GameSettings.Instance.UdpLocalIp}:{GameSettings.Instance.UdpLocalPort}]");
+                    }
+#endif                    
+                    onFinishSetup?.Invoke(!errorInside);
                 });
+
         }
 
         public void UdpSendProtobuf(int serviceType, int cmdType, ProtoBuf.IExtensible body = null)
@@ -113,10 +128,7 @@ namespace PurificationPioneer.Network
             if (cmdPackage == null)
                 return;
 
-            this.udp.Send(
-                GameSettings.Instance.UdpServerIp,
-                GameSettings.Instance.UdpServerPort, 
-                cmdPackage);
+            this.udp.Send(cmdPackage);
         }
         
         public void TcpSendJson(int serviceType, int cmdType, string jsonStr)
@@ -202,9 +214,12 @@ namespace PurificationPioneer.Network
         /// <param name="o"></param>
         private void OnError(object o)
         {
+            this.errorInside = true;
             Debug.Log(o);
-            if(GameSettings.Instance.CloseSocketOnAnyExpection)
+            if (GameSettings.Instance.CloseSocketOnAnyException)
+            {
                 CloseSocket();
+            }
         }
 
         /// <summary>
@@ -224,7 +239,7 @@ namespace PurificationPioneer.Network
             if (null == msg)
                 return;
 
-#if UNITY_EDITOR
+#if DebugMode
             if (GameSettings.Instance.EnableSocketLog)
             {
                 Debug.Log($"收到CmdPackage:{{sType-{msg.serviceType},cType-{msg.cmdType}}}");

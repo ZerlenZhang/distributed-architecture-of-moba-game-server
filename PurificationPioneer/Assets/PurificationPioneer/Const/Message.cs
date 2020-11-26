@@ -7,5 +7,8 @@ namespace PurificationPioneer.Const
 	{
 		public const string OnUserLogin = "OnUserLogin";
 		public const string OnStartMatch = "OnStartMatch";
+		public const string OnAddPlayer = "OnAddPlayer";
+		public const string OnRemovePlayer = "OnRemovePlayer";
+		public const string OnStopMatch = "OnStopMatch";
 	}
 }

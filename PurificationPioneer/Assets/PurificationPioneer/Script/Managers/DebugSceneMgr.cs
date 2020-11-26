@@ -6,12 +6,15 @@ namespace PurificationPioneer.Script
 {
     public class DebugSceneMgr:BaseSceneMgr<DebugSceneMgr>
     {
-        public StringChooser firstPanel=new StringChooser(typeof(PanelName));
-
         protected override void Start()
         {
             base.Start();
-            PanelMgr.PushPanel(firstPanel.StringValue);
+
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR
+            PanelMgr.PushPanel(PanelName.WelcomePanel);
+#elif UNITY_ANDROID
+            PanelMgr.PushPanel(PanelName.DebugPanel);
+#endif
         }
     }
 }

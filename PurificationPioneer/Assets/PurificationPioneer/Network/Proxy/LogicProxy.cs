@@ -19,12 +19,50 @@ namespace PurificationPioneer.Network.Proxy
         {
             switch (package.cmdType)
             {
+                case LogicCmd.StopMatchRes:
+                    var stopMatchRes = CmdPackageProtocol.ProtobufDeserialize<StopMatchRes>(package.body);
+                    if (stopMatchRes == null)
+                    {
+                        Debug.LogError($"stopMatchRes is null");
+                        return;
+                    }
+                    if (stopMatchRes.status == Response.Ok)
+                    {
+#if DebugMode
+                        if(GameSettings.Instance.EnableProtoLog)
+                            Debug.Log($"[StopMatchRes]取消匹配");
+#endif
+                        CEventCenter.BroadMessage(Message.OnStopMatch);
+                    }
+                    
+                    break;
+                case LogicCmd.RemoveMatcherTick:
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[RemoveMatcherTick]有玩家走了");
+#endif
+                    CEventCenter.BroadMessage(Message.OnRemovePlayer);
+                    break;
+                case LogicCmd.AddMatcherTick:
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[AddMatcherTick]新玩家来了");
+#endif
+                    CEventCenter.BroadMessage(Message.OnAddPlayer);
+                    break;
+                    
                 case LogicCmd.StartMatchRes:
-#if UNITY_EDITOR
+                    var startMatchRes = CmdPackageProtocol.ProtobufDeserialize<StartMatchRes>(package.body);
+                    if (startMatchRes == null)
+                    {
+                        Debug.LogError($"startMatchRes is null");
+                        return;
+                    }
+#if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[StartMatchRes]开始匹配");
 #endif
-                    CEventCenter.BroadMessage(Message.OnStartMatch);
+                    CEventCenter.BroadMessage(Message.OnStartMatch,startMatchRes);
                     break;
                 case LogicCmd.LoginLogicRes:
                     var loginLogicRes = CmdPackageProtocol.ProtobufDeserialize<LoginLogicRes>(package.body);
@@ -33,19 +71,21 @@ namespace PurificationPioneer.Network.Proxy
                         Debug.LogError($"loginLogicRes is null");
                         return;
                     }
-#if UNITY_EDITOR
+#if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[LoginLogicRes]登陆逻辑服务器成功");
 #endif
-                    
                     //开启Udp接收
                     GameSettings.Instance.SetUdpServerIp(loginLogicRes.udp_ip);
                     GameSettings.Instance.SetUdpServerPort(loginLogicRes.udp_port);
                     NetworkMgr.Instance.SetupUdp(
-                        ()=>
+                        (status)=>
                         {
-                            logicServerConnected = true;
-                            Debug.Log("Udp服务建立成功");
+                            logicServerConnected = status;
+                            if(logicServerConnected)
+                                Debug.Log("Udp服务建立成功");
+                            else 
+                                Debug.LogWarning("Udp服务建立失败");
                         });
                     break;
                 case LogicCmd.UdpTestRes:
@@ -55,7 +95,7 @@ namespace PurificationPioneer.Network.Proxy
                         Debug.LogError($"UdpTestRes is null");
                         return;
                     }
-#if UNITY_EDITOR
+#if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[UdpTestRes]{udpTestRes.content}");
 #endif
@@ -63,15 +103,20 @@ namespace PurificationPioneer.Network.Proxy
             }
         }
         
+        /// <summary>
+        /// 登陆逻辑服务器
+        /// </summary>
         public void Login()
         {
-            if (logicServerConnected)
-                return;
             NetworkMgr.Instance.TcpSendProtobuf(
                 ServiceType.Logic,
                 LogicCmd.LoginLogicReq);     
         }
 
+        /// <summary>
+        /// 测试Udp
+        /// </summary>
+        /// <param name="content"></param>
         public void TestUdp(string content)
         {
             if(!logicServerConnected)
@@ -87,6 +132,10 @@ namespace PurificationPioneer.Network.Proxy
                 udpTestReq);
         }
 
+        /// <summary>
+        /// 开始匹配
+        /// </summary>
+        /// <param name="uname"></param>
         public void StartMatch(string uname)
         {
             if(!logicServerConnected)
@@ -100,6 +149,20 @@ namespace PurificationPioneer.Network.Proxy
                 ServiceType.Logic,
                 LogicCmd.StartMatchReq,
                 startMatchReq);
+        }
+
+        public void TryStopMatch(string uname)
+        {
+            if(!logicServerConnected)
+                Debug.LogError($"尚未登陆逻辑服务器");
+            var stopMatchReq = new StopMatchReq
+            {
+                uname = uname,
+            };
+            NetworkMgr.Instance.TcpSendProtobuf(
+                ServiceType.Logic,
+                LogicCmd.StopMatchReq,
+                stopMatchReq);
         }
     }
 }

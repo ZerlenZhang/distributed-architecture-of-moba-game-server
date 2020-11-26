@@ -91,7 +91,7 @@ namespace ReadyGamerOne.Network
                     this.clientSocket.Close();
                 }
                 this.clientSocket = null;
-#if UNITY_EDITOR
+#if DebugMode
                 if(ifEnableSocketLog())
                     Debug.Log($"Tcp[{Ip}:{Port}] 关闭连接");
 #endif
@@ -112,7 +112,7 @@ namespace ReadyGamerOne.Network
                         content.Length,
                         SocketFlags.None,
                         OnTcpSend, this.clientSocket);
-#if UNITY_EDITOR
+#if DebugMode
                     if(ifEnableSocketLog())
                         Debug.Log($"Tcp[{Ip}:{Port}] 发送数据[{content.Length}]");
 #endif
@@ -148,7 +148,7 @@ namespace ReadyGamerOne.Network
                 this._recvBuf=new byte[this.maxPackageSize];
                 this.recvThread=new Thread(RecvThread);
                 this.recvThread.Start();
-#if UNITY_EDITOR
+#if DebugMode
                 if(ifEnableSocketLog())
                     Debug.Log($"Tcp[{Ip}:{Port}] 开始接收");
 #endif
@@ -166,7 +166,7 @@ namespace ReadyGamerOne.Network
                     var socket = ar.AsyncState as Socket;
                     Assert.IsNotNull(socket);
                     socket.EndConnect(ar);
-#if UNITY_EDITOR
+#if DebugMode
                     if(ifEnableSocketLog())
                         Debug.Log($"Tcp[{Ip}:{Port}] 建立连接");
 #endif
@@ -195,7 +195,7 @@ namespace ReadyGamerOne.Network
                     var rawDataLen = pkgSize - headerSize;
 //                    Debug.Log("Tcp包长：" + pkgSize + "包头："+headerSize);
                     
-#if UNITY_EDITOR
+#if DebugMode
                     if(ifEnableSocketLog())
                         Debug.Log($"Tcp[{Ip}:{Port}] 接收到数据包，[{pkgSize}]");
 #endif
@@ -223,7 +223,7 @@ namespace ReadyGamerOne.Network
                 {
                     if (!this.clientSocket.Connected)
                     {
-#if UNITY_EDITOR
+#if DebugMode
                         if(ifEnableSocketLog())
                             Debug.Log($"Tcp[{Ip}:{Port}] 连接断开，退出接收");
 #endif

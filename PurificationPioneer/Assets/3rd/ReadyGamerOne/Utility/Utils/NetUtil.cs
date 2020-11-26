@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using ReadyGamerOne.Network;
+using UnityEngine.Assertions;
+using Debug = UnityEngine.Debug;
 
 namespace ReadyGamerOne.Utility
 {
@@ -42,34 +47,27 @@ namespace ReadyGamerOne.Utility
             bool result = false;
             try
             {
-                Process p = new Process();
-                p.StartInfo = new ProcessStartInfo("netstat", "-an");
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                p.StartInfo.RedirectStandardOutput = true;
+                var p = new Process
+                {
+                    StartInfo = new ProcessStartInfo("netstat", "-an")
+                    {
+                        CreateNoWindow = true,
+                        UseShellExecute = false,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        RedirectStandardOutput = true
+                    }
+                };
                 p.Start();
                 string output = p.StandardOutput.ReadToEnd().ToLower();
                 string ip1 = "127.0.0.1";
                 string ip2 = "0.0.0.0";
-                System.Net.IPAddress[] addressList = Dns.GetHostByName(Dns.GetHostName()).AddressList;
-                List<string> ipList = new List<string>();
-                ipList.Add(ip1);
-                ipList.Add(ip2);
-                for (int i = 0; i < addressList.Length; i++)
+                System.Net.IPAddress[] addressList = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
+                var ipList = new List<string> {ip1, ip2};
+                ipList.AddRange(addressList.Select(t => t.ToString()));
+                
+                if (ipList.Any(t => output.IndexOf(t + ":" + port.ToString(), StringComparison.Ordinal) >= 0))
                 {
-                    ipList.Add(addressList[i].ToString());
-                }
-                for (int i = 0; i < ipList.Count; i++)
-                {
-                    //报告指定 Unicode 字符或字符串在此实例中的第一个匹配项的从零开始的索引。 如果未在此实例中找到该字符或字符串，则此方法返回 -1。
-                    //if (output.IndexOf("tcp " + ipList[i] + ":" + port.ToString()) >= 0)
-                    //if (output.IndexOf(port.ToString()) >= 0)
-                    if (output.IndexOf(ipList[i] + ":" + port.ToString()) >= 0)
-                    {
-                        result = true;
-                        break;
-                    }
+                    result = true;
                 }
             }
             catch (Exception ex)
@@ -141,32 +139,106 @@ namespace ReadyGamerOne.Utility
         /// </summary>
         /// <param name="netType">"InterNetwork":ipv4地址，"InterNetworkV6":ipv6地址</param>
         /// <returns>ip地址集合</returns>
-        public static List<string> GetLocalIpAddress(string netType)
+        public static List<string> GetLocalIpAddress(AddressFamily netType)
         {
             string hostName = Dns.GetHostName();     //获取主机名称 
             IPAddress[] addresses = Dns.GetHostAddresses(hostName); //解析主机IP地址 
  
             List<string> IPList = new List<string>();
-            if (netType==string.Empty)
+
+            for (int i = 0; i < addresses.Length; i++)
             {
-                for (int i = 0; i < addresses.Length; i++)
+                if (addresses[i].AddressFamily == netType)
                 {
                     IPList.Add(addresses[i].ToString());
                 }
             }
-            else
-            {
-                //AddressFamily.InterNetwork表示此IP为IPv4,
-                //AddressFamily.InterNetworkV6表示此地址为IPv6类型
-                for (int i = 0; i < addresses.Length; i++)
-                {
-                    if (addresses[i].AddressFamily.ToString() == netType)
-                    {
-                        IPList.Add(addresses[i].ToString());
-                    }
-                }
-            }
             return IPList;
         }
-    }
+
+        
+        private class IpWorker
+        {
+            private int curIndex = 0;
+            private List<string> ipList;
+            private Socket socket;
+            private string targetIp;
+            private int targetPort;
+
+            public bool IsFinished { get; private set; } = false;
+            public IpWorker(string targetIp,int targetPort)
+            {
+                this.targetIp = targetIp;
+                this.targetPort = targetPort;
+                ipList=NetUtil.GetLocalIpAddress(AddressFamily.InterNetwork);
+            }
+
+            public void Start(Action<string> onGetSuitableIp)
+            {
+                if (curIndex >= ipList.Count)
+                {
+                     IsFinished = true;
+                     onGetSuitableIp(null);
+                     return;
+                }
+
+                var curIp = ipList[curIndex++];
+                var curPort = NetUtil.GetUdpPort();
+                Assert.IsNull(this.socket);
+
+                this.socket=new Socket(
+                 AddressFamily.InterNetwork,
+                 SocketType.Dgram,
+                 ProtocolType.Udp);
+                //绑定本地端口
+                var localPoint = new IPEndPoint(IPAddress.Parse(curIp), curPort);
+                this.socket.Bind(localPoint);
+
+                try
+                {
+                 this.socket.BeginSendTo(new byte[0], 0, 0, SocketFlags.None,
+                     new IPEndPoint(IPAddress.Parse(this.targetIp), this.targetPort),
+                     (iar) =>
+                     {
+                         bool error = false;
+                         try
+                         {
+                             this.socket.EndSendTo(iar);
+                         }
+                         catch (Exception e)
+                         {
+                             // Debug.Log($"[CallBack][CurIndex:{curIndex-1}][{curIp}:{curPort}]{e}");
+                             error = true;
+                         }
+                         finally
+                         {
+                             socket.Dispose();
+                             socket.Close();
+                             socket = null;
+                             
+                             if (!error)
+                             {
+                                 IsFinished = true;
+                                 onGetSuitableIp(curIp);
+                             }
+                             else
+                             {
+                                 Start(onGetSuitableIp);
+                             }
+                         }
+                     }, null);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning($"[BeginSendTo][CurIndex:{curIndex-1}][{curIp}:{curPort}]{e}");
+                    Start(onGetSuitableIp);
+                }
+            }
+        }
+        public static void GetSuitableIp(string targetIp, int targetPort, Action<string> onGetIp)
+        {
+            new IpWorker(targetIp, targetPort).Start(onGetIp);
+        }
+        
+    }     
 }

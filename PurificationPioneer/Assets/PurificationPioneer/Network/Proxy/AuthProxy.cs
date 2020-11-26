@@ -26,7 +26,7 @@ namespace PurificationPioneer.Network.Proxy
                         if (loginRes.status == Response.Ok)
                         {
                             //登陆成功
-#if UNITY_EDITOR
+#if DebugMode
                             if (GameSettings.Instance.EnableProtoLog)
                             {
                                 Debug.Log($"[UserLoginRes]-{loginRes.uinfo.unick} 上线啦");

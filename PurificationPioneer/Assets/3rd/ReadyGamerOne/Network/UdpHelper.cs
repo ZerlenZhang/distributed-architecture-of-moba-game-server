@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,8 +11,11 @@ namespace ReadyGamerOne.Network
     public class UdpHelper
     {
         public bool IsValid => clientSocket != null;
-        public int LocalUdpPort { get; }
-
+        public int LocalUdpPort { get; private set; }
+        public string LocalIp { get; private set; }
+        public string TargetIp { get; private set; }
+        public int TargetPort { get; private set; }
+        
         #region private
 
         private Socket clientSocket;
@@ -29,8 +31,8 @@ namespace ReadyGamerOne.Network
         #endregion
 
         
-        public UdpHelper(string localIp,int localPort, Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
-            int maxUdpPackageSize, Func<bool> enableSocketLog=null)
+        public UdpHelper(string targetIp,int targetPort, int localPort, Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
+            int maxUdpPackageSize, Func<bool> enableSocketLog=null, Action onFinishedSetup=null)
         {
             Assert.IsNotNull(onException);
             Assert.IsNotNull(onRecvCmd);
@@ -42,33 +44,44 @@ namespace ReadyGamerOne.Network
             this.onRecvCmd = onRecvCmd;
             this.udpRecvBuff=new byte[maxUdpPackageSize];
             this.LocalUdpPort = localPort;
-            //创建udpSocket
-            try
-            {
-                this.clientSocket=new Socket(
-                    AddressFamily.InterNetwork,
-                    SocketType.Dgram,
-                    ProtocolType.Udp);
-                //绑定本地端口
-                var localPoint = new IPEndPoint(IPAddress.Parse(localIp), LocalUdpPort);
-                this.clientSocket.Bind(localPoint);
-                
-                this.recvThread=new Thread(RecvThread);
-                this.recvThread.Start();
-                
-#if UNITY_EDITOR
-                if(ifEnableSocketLog())
-                    Debug.Log($"Udp[local-{LocalUdpPort}] 开始接收");
-#endif
-            }
-            catch (Exception e)
-            {
-                Debug.Log($"Udp[Ip-{GameSettings.Instance.UdpLocalIp}:Port-{LocalUdpPort}");
-                this.onException(e);
-            }
+            this.TargetIp = targetIp;
+            this.TargetPort = targetPort;
+            NetUtil.GetSuitableIp(
+                targetIp,
+                targetPort,
+                suitableIp =>
+                {
+                    this.LocalIp = suitableIp;
+                    
+                    //创建udpSocket
+                    try
+                    {
+                        this.clientSocket=new Socket(
+                            AddressFamily.InterNetwork,
+                            SocketType.Dgram,
+                            ProtocolType.Udp);
+                        //绑定本地端口
+                        var localPoint = new IPEndPoint(IPAddress.Parse(this.LocalIp), LocalUdpPort);
+                        this.clientSocket.Bind(localPoint);
+                        
+                        this.recvThread=new Thread(RecvThread);
+                        this.recvThread.Start();
+                        
+        #if DebugMode
+                        if(ifEnableSocketLog())
+                            Debug.Log($"Udp[local-{this.LocalIp}:{LocalUdpPort}] 开始接收");
+        #endif
+                        onFinishedSetup?.Invoke();
+                    }
+                    catch (Exception e)
+                    {
+                        this.onException(e);
+                    }                    
+                });
+            
+
         }
-        
-        
+
         /// <summary>
         /// 关闭接收器
         /// </summary>
@@ -89,9 +102,9 @@ namespace ReadyGamerOne.Network
             }
             this.clientSocket = null;
             
-#if UNITY_EDITOR
+#if DebugMode
             if(ifEnableSocketLog())
-                Debug.Log($"Udp[local-{LocalUdpPort}] 关闭连接");
+                Debug.Log($"Udp[local-{this.LocalIp}:{LocalUdpPort}] 关闭连接");
 #endif
         }
 
@@ -100,7 +113,7 @@ namespace ReadyGamerOne.Network
         /// 发送内容
         /// </summary>
         /// <param name="content"></param>
-        public void Send(string ip, int port, byte[] content)
+        public void Send(byte[] content)
         {
             try
             {
@@ -109,13 +122,13 @@ namespace ReadyGamerOne.Network
                     0,
                     content.Length,
                     SocketFlags.None,
-                    new IPEndPoint(IPAddress.Parse(ip),port), 
+                    new IPEndPoint(IPAddress.Parse(TargetIp), TargetPort), 
                     OnUdpSend,
                     this.clientSocket);
                 
-#if UNITY_EDITOR
+#if DebugMode
                 if(ifEnableSocketLog())
-                    Debug.Log($"Udp[Local:{LocalUdpPort}->{ip}:{port}] 发送数据[{content.Length}]");
+                    Debug.Log($"Udp[Local:{this.LocalIp}:{LocalUdpPort}->{TargetIp}:{TargetPort}] 发送数据[{content.Length}]");
 #endif
             }
             catch (Exception e)
@@ -139,9 +152,9 @@ namespace ReadyGamerOne.Network
                 {
                     var receivedLength = this.clientSocket.ReceiveFrom(this.udpRecvBuff,ref remote);
                     
-#if UNITY_EDITOR
+#if DebugMode
                     if(ifEnableSocketLog())
-                        Debug.Log($"Udp[local-{LocalUdpPort}] 收到数据[{receivedLength}]");
+                        Debug.Log($"Udp[local-{this.LocalIp}:{LocalUdpPort}] 收到数据[{receivedLength}]");
 #endif
                     
                     this.onRecvCmd(this.udpRecvBuff, 0, receivedLength);

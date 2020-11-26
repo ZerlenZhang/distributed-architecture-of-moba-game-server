@@ -1,4 +1,5 @@
 using PurificationPioneer.Const;
+using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
@@ -17,7 +18,11 @@ namespace PurificationPioneer.View
 			
 			script.loginBtn.onClick.AddListener(() =>
 			{
-				AuthProxy.Instance.Login(script.account.text,script.password.text);
+				var account = script.account.text;
+				var pwd = script.password.text;
+				GlobalPref.Account = account;
+				GlobalPref.Pwd = pwd;
+				AuthProxy.Instance.Login(account,pwd);
 			});
 
 
@@ -27,6 +32,9 @@ namespace PurificationPioneer.View
 				script.account.text = GameSettings.Instance.DebugAccount;
 				script.password.text = GameSettings.Instance.DebugPassword;
 			}
+#else
+			script.account.text = GlobalPref.Account;
+			script.password.text = GlobalPref.Pwd;
 #endif
 		}
 

@@ -1,5 +1,6 @@
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
+using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
 using ReadyGamerOne.Common;
 
@@ -26,18 +27,39 @@ namespace PurificationPioneer.View
 		protected override void OnAddListener()
 		{
 			base.OnAddListener();
-			CEventCenter.AddListener(Message.OnStartMatch,OnStartMatch);
+			CEventCenter.AddListener<StartMatchRes>(Message.OnStartMatch,OnStartMatch);
+			CEventCenter.AddListener(Message.OnAddPlayer,OnAddPlayer);
+			CEventCenter.AddListener(Message.OnRemovePlayer,OnRemovePlayer);
+			CEventCenter.AddListener(Message.OnStopMatch, OnStopMatch);
 		}
 
 		protected override void OnRemoveListener()
 		{
 			base.OnRemoveListener();
-			CEventCenter.RemoveListener(Message.OnStartMatch,OnStartMatch);
+			CEventCenter.RemoveListener<StartMatchRes>(Message.OnStartMatch,OnStartMatch);
+			CEventCenter.RemoveListener(Message.OnAddPlayer,OnAddPlayer);
+			CEventCenter.RemoveListener(Message.OnRemovePlayer,OnRemovePlayer);
+			CEventCenter.RemoveListener(Message.OnStopMatch, OnStopMatch);
 		}
 
-		private void OnStartMatch()
+		private void OnStopMatch()
 		{
-			script.matchUi.StartMatch();
+			script.matchUi.StopMatch();
+		}
+
+		private void OnRemovePlayer()
+		{
+			script.matchUi.RemovePlayer();
+		}
+
+		private void OnAddPlayer()
+		{
+			script.matchUi.AddPlayer();
+		}
+
+		private void OnStartMatch(StartMatchRes res)
+		{
+			script.matchUi.StartMatch(res.current,res.max);
 		}
 	}
 }
