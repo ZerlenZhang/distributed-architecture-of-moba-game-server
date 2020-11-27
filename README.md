@@ -24,7 +24,7 @@
 
 ## 优化
 1、大量使用对象池，避免内存碎片化
-## 样板工程：[分布式帧同步的纯Lua游戏服务器](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Server/apps/lua_test/scripts)
+## 示例项目1：[分布式帧同步的纯Lua游戏服务器](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Server/apps/lua_test/scripts)
 ![Image text](https://github.com/ZerlenZhang/Moba/blob/master/Images/architest.png)
 目前实现的功能：
 
@@ -33,7 +33,14 @@
 2、Moba：玩家匹配、房间的各种功能、机器人玩家快速组队
 
 3、帧同步：帧同步下的角色移动控制，塔的攻击，子弹的飞行和伤害
+## 示例项目2：[帧同步的模仿喷射战士玩法的游戏]，客户端代码在PurficationPioneer分支，服务端代码在ServerApp分支，开发正在进行中……
+1、比示例项目1具有更少的bug
 
+2、租了一台云服务器进行部署，更具有实战意义
+
+3、客户端代码更规范，模块化更清晰
+
+4、打算做成PC，安卓互通，方便调试和联机
 ## 快速启动
 1、在MobaServer.exe 同目录下
 2、创建Server.lua,添加如下代码
