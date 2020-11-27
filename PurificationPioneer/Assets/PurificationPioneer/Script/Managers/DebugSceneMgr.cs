@@ -1,5 +1,4 @@
 ﻿using PurificationPioneer.Const;
-using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.View;
 
 namespace PurificationPioneer.Script
