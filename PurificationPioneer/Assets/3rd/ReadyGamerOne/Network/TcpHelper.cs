@@ -11,17 +11,17 @@ namespace ReadyGamerOne.Network
     {
             #region Private
 
-            private readonly int maxPackageSize;
+            private readonly int MaxBufferSize;
 
             private Socket clientSocket;
             
-            private int recved;
+            private int usedBufferLength;
             private byte[] longPkg;
             private int longPkgSize;
             
             
             private Thread recvThread;
-            private byte[] _recvBuf;
+            private byte[] receiveBuffer;
 
             private Action<byte[], int, int> onRecvCmd;
             private Action<Exception> onException;
@@ -34,7 +34,7 @@ namespace ReadyGamerOne.Network
 
             public bool IsValid => clientSocket != null && clientSocket.Connected;
             
-            public TcpHelper(string tcpServerIp, int tcpPort, Action<Exception> onException, Action<byte[],int,int> onRecvCmd, int maxTcpPackageSize, int maxWaitTime, Func<bool> enableSocketLog=null)
+            public TcpHelper(string tcpServerIp, int tcpPort, Action<Exception> onException, Action<byte[],int,int> onRecvCmd, int maxTcpBufferSize, int maxWaitTime, Func<bool> enableSocketLog=null)
             {
                 Assert.IsFalse(string.IsNullOrEmpty(tcpServerIp));
                 Assert.IsTrue(0 != tcpPort);
@@ -49,7 +49,7 @@ namespace ReadyGamerOne.Network
                 
                 this.onException = onException;
                 this.onRecvCmd = onRecvCmd;
-                this.maxPackageSize = maxTcpPackageSize;
+                this.MaxBufferSize = maxTcpBufferSize;
 
                 
                 clientSocket = new Socket(
@@ -71,14 +71,13 @@ namespace ReadyGamerOne.Network
             }
             
 
-
             /// <summary>
             /// 关闭接收器
             /// </summary>
             public void CloseReceiver()
             {
                 longPkg = null;
-                _recvBuf = null;
+                receiveBuffer = null;
                 if (null != recvThread)
                 {
                     recvThread.Interrupt();
@@ -121,8 +120,6 @@ namespace ReadyGamerOne.Network
                 {
                     onException(e);
                 }
-
-                
             }
             
             
@@ -145,7 +142,7 @@ namespace ReadyGamerOne.Network
 
             private void BeginReceive()
             {
-                this._recvBuf=new byte[this.maxPackageSize];
+                this.receiveBuffer=new byte[this.MaxBufferSize];
                 this.recvThread=new Thread(RecvThread);
                 this.recvThread.Start();
 #if DebugMode
@@ -180,36 +177,38 @@ namespace ReadyGamerOne.Network
             
             private void OnRecvTcpData()
             {
-                var pkgData = this.longPkg ?? this._recvBuf;
-
-                while (this.recved > 0)
+                var dataBuffer = this.longPkg ?? this.receiveBuffer;
+                
+                while (this.usedBufferLength > 0)
                 {
-                    int pkgSize;
-                    int headerSize;
-                    if (!TcpProtocol.ReadHeader(pkgData, pkgData.Length, out pkgSize, out headerSize))
+                    if (!TcpProtocol.ReadHeader(dataBuffer, dataBuffer.Length,
+                        out var pkgSize, 
+                        out var headerSize))
+                    {
                         break;
-                    if (this.recved < pkgSize)
+                    }
+                    
+                    if (this.usedBufferLength < pkgSize)
+                    {
                         break;
+                    }
 
                     var rawDataStart = headerSize;
                     var rawDataLen = pkgSize - headerSize;
-//                    Debug.Log("Tcp包长：" + pkgSize + "包头："+headerSize);
-                    
 #if DebugMode
                     if(ifEnableSocketLog())
                         Debug.Log($"Tcp[{Ip}:{Port}] 接收到数据包，[{pkgSize}]");
 #endif
-                    this.onRecvCmd(pkgData, rawDataStart, rawDataLen);
+                    this.onRecvCmd(dataBuffer, rawDataStart, rawDataLen);
 
-                    if (this.recved > pkgSize)
-                    {
-                        this._recvBuf=new byte[maxPackageSize];
-                        Array.Copy(pkgData, pkgSize, this._recvBuf, 0, this.recved - pkgSize);
+                    if (this.usedBufferLength > pkgSize)
+                    {//粘包
+                        Array.Copy(dataBuffer, pkgSize, dataBuffer, 0, this.usedBufferLength - pkgSize);
                     }
-
-                    this.recved -= pkgSize;
-
-                    if (this.recved == 0 && this.longPkg != null)
+                    
+                    this.usedBufferLength -= pkgSize;
+                    
+                    if (this.usedBufferLength == 0 && this.longPkg != null)
                     {
                         this.longPkg = null;
                         this.longPkgSize = 0;
@@ -233,29 +232,28 @@ namespace ReadyGamerOne.Network
                     try
                     {
                         var recvLen = 0;
-                        if (this.recved < maxPackageSize)
+                        if (this.usedBufferLength < MaxBufferSize)
                         {
-                            recvLen = this.clientSocket.Receive(this._recvBuf,this.recved, maxPackageSize-this.recved,SocketFlags.None);
+                            recvLen = this.clientSocket.Receive(this.receiveBuffer,this.usedBufferLength, MaxBufferSize-this.usedBufferLength,SocketFlags.None);
                         }
                         else
                         {// 大包
+                            Debug.LogWarning($"出现大包！");
                             if (this.longPkg == null)
                             {// 尚未分配内存
-                                int pkgSize;
-                                int headSize;
-                                TcpProtocol.ReadHeader(this._recvBuf, this.recved, out pkgSize, out headSize);
+                                TcpProtocol.ReadHeader(this.receiveBuffer, this.usedBufferLength, out var pkgSize, out var headSize);
                                 this.longPkgSize = pkgSize;
                                 this.longPkg = new byte[longPkgSize];
-                                Array.Copy(this._recvBuf, 0, this.longPkg, 0, this.recved); 
+                                Array.Copy(this.receiveBuffer, 0, this.longPkg, 0, this.usedBufferLength); 
                             }
 
-                            recvLen = this.clientSocket.Receive(this.longPkg, this.recved, this.longPkgSize - this.recved,
+                            recvLen = this.clientSocket.Receive(this.longPkg, this.usedBufferLength, this.longPkgSize - this.usedBufferLength,
                                 SocketFlags.None);
                         }
                     
                         if (recvLen > 0)
                         {// 收到数据长度
-                            this.recved += recvLen;
+                            this.usedBufferLength += recvLen;
                             OnRecvTcpData();
                         }
                     }
@@ -270,8 +268,8 @@ namespace ReadyGamerOne.Network
                 }
 
                 Debug.LogWarning("退出接收线程");
-            }            
-
+            }
+        
             #endregion
     }
 }

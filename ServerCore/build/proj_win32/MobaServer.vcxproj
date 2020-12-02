@@ -119,6 +119,7 @@
     <ClCompile Include="..\..\netbus\session\UdpSession.cpp" />
     <ClCompile Include="..\..\utils\cache_alloc\cache_alloc.cpp" />
     <ClCompile Include="..\..\utils\cache_alloc\small_alloc.cpp" />
+    <ClCompile Include="..\..\utils\debug\DebugUtil.cpp" />
     <ClCompile Include="..\..\utils\Encoding.cpp" />
     <ClCompile Include="..\..\utils\logger\logger.cc" />
     <ClCompile Include="..\..\utils\timer\time_list.c" />
@@ -209,6 +210,7 @@
     <ClInclude Include="..\..\netbus\session\UdpSession.h" />
     <ClInclude Include="..\..\utils\cache_alloc\cache_alloc.h" />
     <ClInclude Include="..\..\utils\cache_alloc\small_alloc.h" />
+    <ClInclude Include="..\..\utils\debug\DebugUtil.h" />
     <ClInclude Include="..\..\utils\Encoding.h" />
     <ClInclude Include="..\..\utils\logger\logger.h" />
     <ClInclude Include="..\..\utils\timer\time_list.h" />
@@ -266,7 +268,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)..\bin</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>

@@ -29,7 +29,7 @@ namespace PurificationPioneer.Network.Proxy
 #if DebugMode
                             if (GameSettings.Instance.EnableProtoLog)
                             {
-                                Debug.Log($"[UserLoginRes]-{loginRes.uinfo.unick} 上线啦");
+                                Debug.Log($"[UserLoginRes]-{loginRes.uinfo.unick} 上线啦, heros:{loginRes.uinfo.heros}");
                             }
 #endif
                             //保存信息并广播

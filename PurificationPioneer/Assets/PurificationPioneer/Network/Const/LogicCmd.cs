@@ -13,5 +13,12 @@
         public const int FinishMatchTick = 9;
         public const int StopMatchReq = 10;
         public const int StopMatchRes = 11;
+        public const int SelectHeroReq = 12;
+        public const int SelectHeroRes = 13;
+        public const int SubmitHeroReq = 14;
+        public const int SubmitHeroRes = 15;
+        public const int UpdateSelectTimer = 16;
+        public const int ForceSelect = 17;
+        public const int StartLoadGame = 18;
     }
 }

@@ -47,6 +47,7 @@ namespace PurificationPioneer.Network
             cmdPackage.WriteUShortLe((ushort) cmdType, 2);
             if (body != null)
                 cmdPackage.WriteBytes(body, HeadSize);
+            
             return cmdPackage;
         }
 

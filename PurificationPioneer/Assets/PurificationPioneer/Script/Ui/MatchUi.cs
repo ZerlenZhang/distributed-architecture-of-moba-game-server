@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace PurificationPioneer.Script
 {
+    /// <summary>
+    /// Home界面点击开始游戏按钮后显示匹配状态的Ui
+    /// </summary>
     public class MatchUi:MonoBehaviour
     {
         public Button cancelBtn;
@@ -17,7 +20,7 @@ namespace PurificationPioneer.Script
         private int max;
         public void OnCancel()
         {
-            LogicProxy.Instance.TryStopMatch(GlobalVar.uname);
+            LogicProxy.Instance.TryStopMatch(GlobalVar.Uname);
         }
         
         public void StartMatch(int cur,int max)

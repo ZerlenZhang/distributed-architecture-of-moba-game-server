@@ -155,12 +155,19 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _unick; }
       set { _unick = value; }
     }
-    private int _uface;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"uface", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int uface
+    private int _urank;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"urank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int urank
     {
-      get { return _uface; }
-      set { _uface = value; }
+      get { return _urank; }
+      set { _urank = value; }
+    }
+    private int _seatId;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"seatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatId
+    {
+      get { return _seatId; }
+      set { _seatId = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -177,6 +184,129 @@ namespace PurificationPioneer.Network.ProtoGen
     public global::System.Collections.Generic.List<MatchInfo> matchers
     {
       get { return _matchers; }
+    }
+  
+    private int _heroSelectTime;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"heroSelectTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int heroSelectTime
+    {
+      get { return _heroSelectTime; }
+      set { _heroSelectTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SelectHeroReq")]
+  public partial class SelectHeroReq : global::ProtoBuf.IExtensible
+  {
+    public SelectHeroReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private int _hero_id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"hero_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int hero_id
+    {
+      get { return _hero_id; }
+      set { _hero_id = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SelectHeroRes")]
+  public partial class SelectHeroRes : global::ProtoBuf.IExtensible
+  {
+    public SelectHeroRes() {}
+    
+    private int _seatId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"seatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatId
+    {
+      get { return _seatId; }
+      set { _seatId = value; }
+    }
+    private int _hero_id;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"hero_id", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int hero_id
+    {
+      get { return _hero_id; }
+      set { _hero_id = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SubmitHeroReq")]
+  public partial class SubmitHeroReq : global::ProtoBuf.IExtensible
+  {
+    public SubmitHeroReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SubmitHeroRes")]
+  public partial class SubmitHeroRes : global::ProtoBuf.IExtensible
+  {
+    public SubmitHeroRes() {}
+    
+    private int _seatId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"seatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatId
+    {
+      get { return _seatId; }
+      set { _seatId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UpdateSelectTimer")]
+  public partial class UpdateSelectTimer : global::ProtoBuf.IExtensible
+  {
+    public UpdateSelectTimer() {}
+    
+    private int _current;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"current", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int current
+    {
+      get { return _current; }
+      set { _current = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ForceSelect")]
+  public partial class ForceSelect : global::ProtoBuf.IExtensible
+  {
+    public ForceSelect() {}
+    
+    private readonly global::System.Collections.Generic.List<SelectHeroRes> _selectResults = new global::System.Collections.Generic.List<SelectHeroRes>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"selectResults", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<SelectHeroRes> selectResults
+    {
+      get { return _selectResults; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

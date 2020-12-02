@@ -205,7 +205,7 @@ namespace ReadyGamerOne.Utility
                          {
                              this.socket.EndSendTo(iar);
                          }
-                         catch (Exception e)
+                         catch
                          {
                              // Debug.Log($"[CallBack][CurIndex:{curIndex-1}][{curIp}:{curPort}]{e}");
                              error = true;

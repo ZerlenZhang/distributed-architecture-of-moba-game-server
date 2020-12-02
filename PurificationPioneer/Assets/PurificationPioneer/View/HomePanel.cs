@@ -1,8 +1,8 @@
 using PurificationPioneer.Const;
-using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
 using ReadyGamerOne.Common;
+using ReadyGamerOne.View;
 
 namespace PurificationPioneer.View
 {
@@ -14,14 +14,10 @@ namespace PurificationPioneer.View
 			//do any thing you want
 			script = m_TransFrom.GetComponent<HomePanelScript>();
 			
+			script.UpdateUserInfo();
+			
 			//登陆逻辑服务器
 			LogicProxy.Instance.Login();
-			
-			script.playBtn.onClick.AddListener(() =>
-			{
-				LogicProxy.Instance.StartMatch(
-					GlobalVar.uname);
-			});
 		}
 
 		protected override void OnAddListener()
@@ -31,6 +27,7 @@ namespace PurificationPioneer.View
 			CEventCenter.AddListener(Message.OnAddPlayer,OnAddPlayer);
 			CEventCenter.AddListener(Message.OnRemovePlayer,OnRemovePlayer);
 			CEventCenter.AddListener(Message.OnStopMatch, OnStopMatch);
+			CEventCenter.AddListener(Message.OnFinishMatch,OnFinishMatch);
 		}
 
 		protected override void OnRemoveListener()
@@ -40,6 +37,13 @@ namespace PurificationPioneer.View
 			CEventCenter.RemoveListener(Message.OnAddPlayer,OnAddPlayer);
 			CEventCenter.RemoveListener(Message.OnRemovePlayer,OnRemovePlayer);
 			CEventCenter.RemoveListener(Message.OnStopMatch, OnStopMatch);
+			CEventCenter.RemoveListener(Message.OnFinishMatch,OnFinishMatch);
+		}
+
+		private void OnFinishMatch()
+		{
+			script.matchUi.StopMatch();
+			PanelMgr.PushPanel(PanelName.MatchPanel);
 		}
 
 		private void OnStopMatch()

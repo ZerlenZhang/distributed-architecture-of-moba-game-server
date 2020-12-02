@@ -1,4 +1,6 @@
 ﻿using ReadyGamerOne.Utility;
+using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace ReadyGamerOne.Network
 {
@@ -14,8 +16,8 @@ namespace ReadyGamerOne.Network
         public static byte[] Pack(byte[] data)
         {
             var len = data.Length;
-            if (len > 65535 - 2)
-                return null;
+
+            Assert.IsTrue(len <= 65535 - 2);
 
             var cmdLen = len + HeadSize;
             var cmd = new byte[cmdLen];
@@ -33,14 +35,14 @@ namespace ReadyGamerOne.Network
         /// <param name="pkgSize"></param>
         /// <param name="headSize"></param>
         /// <returns></returns>
-        public static bool ReadHeader(byte[] data, int dataLen, out int pkgSize, out int headSize)
+        public static bool ReadHeader(byte[] data, int dataLen, out int pkgSize, out int headSize, int offset=0)
         {
             pkgSize = 0;
             headSize = 0;
             if (dataLen < 2)
                 return false;
 
-            pkgSize = data.ReadUShortLe();
+            pkgSize = data.ReadUShortLe(offset);
             headSize = 2;
             return true;
         }

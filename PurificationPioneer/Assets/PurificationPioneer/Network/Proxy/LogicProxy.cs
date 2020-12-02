@@ -1,4 +1,5 @@
 ﻿using PurificationPioneer.Const;
+using PurificationPioneer.Global;
 using PurificationPioneer.Network.Const;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Scriptable;
@@ -19,6 +20,102 @@ namespace PurificationPioneer.Network.Proxy
         {
             switch (package.cmdType)
             {
+                #region LogicCmd.StartLoadGame
+                case LogicCmd.StartLoadGame:
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[StartLoadGame] 开始加载游戏");
+#endif
+                    break;
+                #endregion
+
+                #region LogicCmd.ForceSelect
+                case LogicCmd.ForceSelect:
+                    var forceSelect = CmdPackageProtocol.ProtobufDeserialize<ForceSelect>(package.body);
+                    if (null == forceSelect)
+                    {
+                        Debug.LogError($"ForceSelect is null");
+                        return;
+                    }
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[ForceSelect] 强制选择默认英雄");
+#endif
+                    break;
+
+                #endregion
+                
+                #region LogicCmd.UpdateSelectTimer
+                case LogicCmd.UpdateSelectTimer:
+                    var updateSelectTimer = CmdPackageProtocol.ProtobufDeserialize<UpdateSelectTimer>(package.body);
+                    if (null == updateSelectTimer)
+                    {
+                        Debug.LogError($"UpdateSelectTimer is null");
+                        return;
+                    }
+
+                    CEventCenter.BroadMessage(Message.OnUpdateSelectTimer, updateSelectTimer);
+                    break;
+                #endregion
+
+                #region LogicCmd.SelectHeroRes
+                case LogicCmd.SelectHeroRes:
+                    var selectHeroRes = CmdPackageProtocol.ProtobufDeserialize<SelectHeroRes>(package.body);
+                    if (null == selectHeroRes)
+                    {
+                        Debug.LogError($"SelectHeroRes is null");
+                        return;
+                    }
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[SelectHeroRes] SeatId[{selectHeroRes.seatId}] 选择了 HeroId[{selectHeroRes.hero_id}]");
+#endif
+                    CEventCenter.BroadMessage(Message.OnSelectHero, selectHeroRes);
+                    
+                    break;
+                #endregion
+
+                #region LogicCmd.SubmitHeroRes
+
+                case LogicCmd.SubmitHeroRes:
+                    var submitHeroRes = CmdPackageProtocol.ProtobufDeserialize<SubmitHeroRes>(package.body);
+                    if(null==submitHeroRes)
+                    {
+                        Debug.LogError($"SubmitHeroRes is null");
+                        return;
+                    }
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[SubmitHeroRes] SeatId[{submitHeroRes.seatId}] 锁定英雄]");
+#endif
+                    if(submitHeroRes.seatId==GlobalVar.SeatId)
+                        GlobalVar.SetSubmit(true);
+                    CEventCenter.BroadMessage(Message.OnSubmitHero, submitHeroRes);
+                    
+                    break;
+
+                #endregion
+                
+                #region LogicCmd.FinishMatchTick
+                case LogicCmd.FinishMatchTick:
+                    var finishMatchTick = CmdPackageProtocol.ProtobufDeserialize<FinishMatchTick>(package.body);
+                    if (null == finishMatchTick)
+                    {
+                        Debug.LogError($"FinishMatchTick is null");
+                        return;
+                    }
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[FinishMatchTick]匹配完成({finishMatchTick.matchers.Count})，开始英雄选择");
+#endif
+                    GlobalVar.OnFinishMatchTick(finishMatchTick);
+                    CEventCenter.BroadMessage(Message.OnFinishMatch);
+                    
+                    break;
+                #endregion
+                
+                #region LogicCmd.StopMatchRes
+
                 case LogicCmd.StopMatchRes:
                     var stopMatchRes = CmdPackageProtocol.ProtobufDeserialize<StopMatchRes>(package.body);
                     if (stopMatchRes == null)
@@ -35,22 +132,36 @@ namespace PurificationPioneer.Network.Proxy
                         CEventCenter.BroadMessage(Message.OnStopMatch);
                     }
                     
-                    break;
+                    break;                
+
+                #endregion
+
+                #region LogicCmd.RemoveMatcherTick
+
                 case LogicCmd.RemoveMatcherTick:
 #if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[RemoveMatcherTick]有玩家走了");
 #endif
                     CEventCenter.BroadMessage(Message.OnRemovePlayer);
-                    break;
+                    break;                 
+
+                #endregion
+
+                #region LogicCmd.AddMatcherTick
+
                 case LogicCmd.AddMatcherTick:
 #if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[AddMatcherTick]新玩家来了");
 #endif
                     CEventCenter.BroadMessage(Message.OnAddPlayer);
-                    break;
-                    
+                    break;                      
+
+                #endregion
+
+                #region LogicCmd.StartMatchRes
+
                 case LogicCmd.StartMatchRes:
                     var startMatchRes = CmdPackageProtocol.ProtobufDeserialize<StartMatchRes>(package.body);
                     if (startMatchRes == null)
@@ -60,10 +171,15 @@ namespace PurificationPioneer.Network.Proxy
                     }
 #if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
-                        Debug.Log($"[StartMatchRes]开始匹配");
+                        Debug.Log($"[StartMatchRes]开始匹配:{startMatchRes.current}/{startMatchRes.max}");
 #endif
                     CEventCenter.BroadMessage(Message.OnStartMatch,startMatchRes);
-                    break;
+                    break;                    
+
+                #endregion
+
+                #region LogicCmd.LoginLogicRes
+
                 case LogicCmd.LoginLogicRes:
                     var loginLogicRes = CmdPackageProtocol.ProtobufDeserialize<LoginLogicRes>(package.body);
                     if (loginLogicRes == null)
@@ -87,7 +203,12 @@ namespace PurificationPioneer.Network.Proxy
                             else 
                                 Debug.LogWarning("Udp服务建立失败");
                         });
-                    break;
+                    break;                    
+
+                #endregion
+
+                #region LogicCmd.UdpTestRes
+
                 case LogicCmd.UdpTestRes:
                     var udpTestRes = CmdPackageProtocol.ProtobufDeserialize<UdpTestRes>(package.body);
                     if (udpTestRes == null)
@@ -99,7 +220,9 @@ namespace PurificationPioneer.Network.Proxy
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[UdpTestRes]{udpTestRes.content}");
 #endif
-                    break;
+                    break;                    
+
+                #endregion
             }
         }
         
@@ -151,6 +274,10 @@ namespace PurificationPioneer.Network.Proxy
                 startMatchReq);
         }
 
+        /// <summary>
+        /// 取消匹配
+        /// </summary>
+        /// <param name="uname"></param>
         public void TryStopMatch(string uname)
         {
             if(!logicServerConnected)
@@ -163,6 +290,37 @@ namespace PurificationPioneer.Network.Proxy
                 ServiceType.Logic,
                 LogicCmd.StopMatchReq,
                 stopMatchReq);
+        }
+
+
+        /// <summary>
+        /// 选中英雄
+        /// </summary>
+        /// <param name="uname"></param>
+        /// <param name="heroId"></param>
+        public void SelectHero(string uname, int heroId)
+        {
+            var selectHeroReq = new SelectHeroReq
+            {
+                uname = uname,
+                hero_id = heroId,
+            };
+            NetworkMgr.Instance.TcpSendProtobuf(
+                ServiceType.Logic,
+                LogicCmd.SelectHeroReq,
+                selectHeroReq);
+        }
+
+        /// <summary>
+        /// 锁定英雄
+        /// </summary>
+        /// <param name="uname"></param>
+        public void SubmitHero(string uname)
+        {
+            NetworkMgr.Instance.TcpSendProtobuf(
+                ServiceType.Logic,
+                LogicCmd.SubmitHeroReq,
+                new SubmitHeroReq{uname = uname});
         }
     }
 }

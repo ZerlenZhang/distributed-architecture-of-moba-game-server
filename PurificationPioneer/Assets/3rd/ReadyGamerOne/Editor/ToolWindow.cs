@@ -112,8 +112,6 @@ namespace ReadyGamerOne.Editor
                 EditorGUILayout.HelpBox("忘了设置命名空间了！", MessageType.Error);
                 return;
             }
-            
-            
 
             if (GUILayout.Button("创建相关文件夹"))
             {
@@ -123,8 +121,6 @@ namespace ReadyGamerOne.Editor
                 FileUtil.CreateFolder(root + "/" + ConstNamespace);
                 FileUtil.CreateFolder(root + "/" + DataNamespace);
                 FileUtil.CreateFolder(root + "/" + ScriptNamespace);
-                FileUtil.CreateFolder(root + "/" + "Scenes");
-                FileUtil.CreateFolder(root + "/" + "Prefabs");
                 AssetDatabase.Refresh();
                 Debug.Log("生成完毕");
             }

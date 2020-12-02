@@ -10,5 +10,9 @@ namespace PurificationPioneer.Const
 		public const string OnAddPlayer = "OnAddPlayer";
 		public const string OnRemovePlayer = "OnRemovePlayer";
 		public const string OnStopMatch = "OnStopMatch";
+		public const string OnFinishMatch = "OnFinishMatch";
+		public const string OnSelectHero = "OnSelectHero"; // SelectHeroRes
+		public const string OnSubmitHero = "OnSubmitHero"; // SubmitHeroRes
+		public const string OnUpdateSelectTimer = "OnUpdateSelectTimer"; //UpdateSelectTimer
 	}
 }

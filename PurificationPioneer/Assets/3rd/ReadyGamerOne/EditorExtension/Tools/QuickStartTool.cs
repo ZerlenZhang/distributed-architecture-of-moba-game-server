@@ -69,21 +69,21 @@ namespace ReadyGamerOne.EditorExtension
             EditorGUILayout.Space();
 
 
-                createMessage = EditorGUILayout.Toggle("是否生成空Message常量类", createMessage);
-                if (createMessage)
-                    EditorGUILayout.LabelField("生成Message.cs路径",
-                        Application.dataPath + "/" + rootNs + "/" + constNs + "/Message.cs");
-                EditorGUILayout.Space();
-                createGlobalVar = EditorGUILayout.Toggle("是否重写GlobalVar类", createGlobalVar);
-                if (createGlobalVar)
-                    EditorGUILayout.LabelField("生成GlobalVar.cs路径",
-                        Application.dataPath + "/" + rootNs + "/Global/GlobalVar.cs");
-                EditorGUILayout.Space();
-                createSceneNameClass = EditorGUILayout.Toggle("是否生成SceneName类", createSceneNameClass);
-                if (createSceneNameClass)
-                    EditorGUILayout.LabelField("生成SceneName.cs路径",
-                        Application.dataPath + "/" + rootNs + "/" + constNs + "/" + autoDir + "/SceneName.cs");
-                EditorGUILayout.Space();
+            createMessage = EditorGUILayout.Toggle("是否生成空Message常量类", createMessage);
+            if (createMessage)
+                EditorGUILayout.LabelField("生成Message.cs路径",
+                    Application.dataPath + "/" + rootNs + "/" + constNs + "/Message.cs");
+            EditorGUILayout.Space();
+            createGlobalVar = EditorGUILayout.Toggle("是否重写GlobalVar类", createGlobalVar);
+            if (createGlobalVar)
+                EditorGUILayout.LabelField("生成GlobalVar.cs路径",
+                    Application.dataPath + "/" + rootNs + "/Global/GlobalVar.cs");
+            EditorGUILayout.Space();
+            createSceneNameClass = EditorGUILayout.Toggle("是否生成SceneName类", createSceneNameClass);
+            if (createSceneNameClass)
+                EditorGUILayout.LabelField("生成SceneName.cs路径",
+                    Application.dataPath + "/" + rootNs + "/" + constNs + "/" + autoDir + "/SceneName.cs");
+            EditorGUILayout.Space();
             
 
 

@@ -171,6 +171,13 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _uface; }
       set { _uface = value; }
     }
+    private string _heros;
+    [global::ProtoBuf.ProtoMember(14, IsRequired = true, Name=@"heros", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string heros
+    {
+      get { return _heros; }
+      set { _heros = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

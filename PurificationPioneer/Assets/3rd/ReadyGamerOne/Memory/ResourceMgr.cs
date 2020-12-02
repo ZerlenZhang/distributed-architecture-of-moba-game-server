@@ -501,7 +501,8 @@ namespace ReadyGamerOne.MemorySystem
                      parentClass:"ReadyGamerOne.MemorySystem.AssetConstUtil<AssetConstUtil>",
                      helpTips: "这个类提供了Resources下文件名和路径字典访问方式，同名资源可能引起bug",
                      fileContent: content,
-                     autoOverwrite: true);
+                     autoOverwrite: true,
+                     true);
              }
 
              

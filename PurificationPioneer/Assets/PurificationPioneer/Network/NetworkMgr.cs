@@ -5,6 +5,7 @@ using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Network;
 using ReadyGamerOne.Utility;
+using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Network
 {
@@ -156,11 +157,9 @@ namespace PurificationPioneer.Network
                 return;
             }
             var cmdPackage = CmdPackageProtocol.PackageProtobuf(serviceType, cmdType, body);
-            if (cmdPackage == null)
-                return;
+            Assert.IsNotNull(cmdPackage);
             var tcpPackage = TcpProtocol.Pack(cmdPackage);
-            if (tcpPackage == null)
-                return;
+            Assert.IsNotNull(tcpPackage);
 
             tcp.Send(tcpPackage);
         }
@@ -184,6 +183,8 @@ namespace PurificationPioneer.Network
                 GameSettings.Instance.MaxTcpPackageSize,
                 GameSettings.Instance.MaxWaitTime,
                 ()=>GameSettings.Instance.EnableSocketLog);
+
+            Application.quitting += CloseSocket;
         }
         
         protected virtual void OnDestroy()

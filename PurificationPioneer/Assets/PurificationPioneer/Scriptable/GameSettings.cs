@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using DG.Tweening;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Utility;
 using UnityEngine;
@@ -27,6 +28,9 @@ namespace PurificationPioneer.Scriptable
                         
         }
 #endif
+
+        #region IP和端口配置
+
         [Header("IP和端口配置")]
         [SerializeField] private string gatewayIp = "121.196.178.141";
         public string GatewayIp => gatewayIp;
@@ -64,10 +68,13 @@ namespace PurificationPioneer.Scriptable
         public int UdpLocalPort => udpLocalPort;
         public void SetUdpLocalPort(int port) => udpLocalPort = port;        
 
-        #endregion
+        #endregion        
 
+        #endregion
         
-        [Header("全局变量")]
+        #region Socket设置
+
+        [Header("Socket设置")]
         [SerializeField] private int maxTcpPackageSize = 4096;
         public int MaxTcpPackageSize => maxTcpPackageSize;
         
@@ -75,7 +82,11 @@ namespace PurificationPioneer.Scriptable
         public int MaxUdpPackageSize => maxUdpPackageSize;
 
         [SerializeField] private int maxWaitTime = 5000;
-        public int MaxWaitTime => maxWaitTime;
+        public int MaxWaitTime => maxWaitTime;        
+
+        #endregion
+
+        #region 调试开关
 
         [Header("调试开关")]
         
@@ -99,8 +110,21 @@ namespace PurificationPioneer.Scriptable
         public bool EnableProtoLog => enableProtoLog;
         public void SetEnableProtoLog(bool value) => enableProtoLog = value;        
 
-        #endregion
+        #endregion        
 
+        #endregion
+        
+        #region Ui设置
+
+        [Header("Ui设置")]
+        [SerializeField] private Ease matchPanelEaseType = Ease.InCirc;
+        public Ease MatchPanelEaseType => matchPanelEaseType;
+        [SerializeField] private float matchPanelEaseTime = 1;
+        public float MatchPanelEaseTime=>matchPanelEaseTime;        
+
+        #endregion
+        
+        #region 作弊模式
 
         [Header("作弊模式")]
         
@@ -116,7 +140,11 @@ namespace PurificationPioneer.Scriptable
         public string DebugAccount => debugAccount;
         
         [SerializeField] private string debugPassword = "developer_password";
-        public string DebugPassword => debugPassword;
+        public string DebugPassword => debugPassword;        
+
+        #endregion
+
+
         
     }
 }

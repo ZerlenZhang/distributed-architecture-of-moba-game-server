@@ -1,4 +1,7 @@
-﻿using PurificationPioneer.Script;
+﻿using PurificationPioneer.Global;
+using PurificationPioneer.Network.Proxy;
+using PurificationPioneer.Script;
+using PurificationPioneer.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,5 +20,22 @@ namespace PurificationPioneer.View
         public Button noticeBtn;
         public Button chatBtn;
         public Button shopBtn;
+
+        public void TryMatch()
+        {
+            LogicProxy.Instance.StartMatch(
+                GlobalVar.Uname);
+        }
+
+        public void UpdateUserInfo()
+        {
+            userInfoRect.UpdateInfo(
+                AssetConstUtil.GetUserIcon(GlobalVar.Uface),
+                GlobalVar.Unick,
+                GlobalVar.Ulevel,
+                GlobalVar.Uexp);
+            coinBarInfo.SetValue(GlobalVar.Ucoin);
+            diamondBarInfo.SetValue(GlobalVar.Udiamond);
+        }
     }
 }

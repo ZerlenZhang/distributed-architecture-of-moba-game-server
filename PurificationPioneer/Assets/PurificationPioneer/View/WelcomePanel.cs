@@ -14,17 +14,6 @@ namespace PurificationPioneer.View
 		{
 			//do any thing you want
 			script = m_TransFrom.GetComponent<WelcomePanelScript>();
-			
-			
-			script.loginBtn.onClick.AddListener(() =>
-			{
-				var account = script.account.text;
-				var pwd = script.password.text;
-				GlobalPref.Account = account;
-				GlobalPref.Pwd = pwd;
-				AuthProxy.Instance.Login(account,pwd);
-			});
-
 
 #if UNITY_EDITOR
 			if (GameSettings.Instance.DebugMode)
