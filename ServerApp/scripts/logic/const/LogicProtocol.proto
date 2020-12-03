@@ -18,11 +18,51 @@ message StartMatchReq{
     required string uname = 1;
 }
 
+message StartMatchRes{
+    required int32 current = 1;
+    required int32 max = 2;
+}
+
+message StopMatchReq{
+    required string uname = 1;
+}
+
+message StopMatchRes{
+    required int32 status = 1;
+}
+
 message MatchInfo{
     required string unick = 1;
-    required int32 uface = 2;
+    required int32 urank = 2;
+    required int32 seatId = 3;
 }
 
 message FinishMatchTick{
     repeated MatchInfo matchers = 1;
+    required int32 heroSelectTime = 2;
+}
+
+message SelectHeroReq{
+    required string uname = 1;
+    required int32 hero_id = 2;
+}
+
+message SelectHeroRes{
+    required int32 seatId = 1;
+    required int32 hero_id = 2;
+}
+
+message SubmitHeroReq{
+    required string uname = 1;
+}
+message SubmitHeroRes{
+    required int32 seatId = 1;
+}
+
+message UpdateSelectTimer{
+    required int32 current = 1;
+}
+
+message ForceSelect{
+    repeated SelectHeroRes selectResults = 1;
 }

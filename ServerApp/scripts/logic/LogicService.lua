@@ -8,13 +8,15 @@ cTypeToCallback[cType.UserLostConn] = logicMessageHandler.OnUserLostConn;
 cTypeToCallback[cType.LoginLogicReq] = logicMessageHandler.OnPlayerLoginLogic;
 cTypeToCallback[cType.UdpTestReq] = logicMessageHandler.OnUdpTest;
 cTypeToCallback[cType.StartMatchReq] = logicMessageHandler.OnStartMatch;
+cTypeToCallback[cType.StopMatchReq] = logicMessageHandler.OnStopMatch;
+cTypeToCallback[cType.SelectHeroReq] = logicMessageHandler.OnSelectHero;
+cTypeToCallback[cType.SubmitHeroReq] = logicMessageHandler.OnSubmitHero;
 
 
 
 return   {
     OnSessionRecvCmd=function(s,msg)
         --{sType,cType,utag,body}
-        Debug.Log("GetMsg: CmdType: "..msg[2]);
         if cTypeToCallback[msg[2]] then
             cTypeToCallback[msg[2]](s,msg);
         else

@@ -19,6 +19,7 @@ end
 
 
 local logicServerConfig=config.servers[sType.Logic];
+local logicConfig=require("logic/LogicConfig");
 
 --开启服务器
 Netbus.TcpListen(logicServerConfig.port
@@ -29,7 +30,8 @@ Netbus.TcpListen(logicServerConfig.port
 
 print("Logic server [tcp] listen at: ", logicServerConfig.port);
 
-Netbus.UdpListen(logicServerConfig.udp_port);
+Netbus.UdpListen(logicConfig.udp_port);
+print("Logic server [udp] listen at: ", logicConfig.udp_port);
 
 
 --注册服务
@@ -38,5 +40,5 @@ local ret = Service.Register(sType.Logic,logicService);
 if ret then
     print("register Logic Service:[" .. sType.Logic .. "] service success");
 else
-    print("register Logic Service:[" .. sType.Logic .. "] service failed");
+    Debug.LogError("register Logic Service:[" .. sType.Logic .. "] service failed");
 end

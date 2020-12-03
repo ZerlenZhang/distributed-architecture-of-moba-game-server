@@ -14,5 +14,6 @@ return {
 	UserUnregisterRes = 4,
 
 	LoginLogicReq = 1,
+    SelectHeroReq = 12,
 }
 

@@ -12,5 +12,14 @@ cmdNameMap[ServiceType.Logic]={
     AddMatcherTick = 7,
     RemoveMatcherTick = 8,
     FinishMatchTick = 9,
+    StopMatchReq = 10,
+    StopMatchRes = 11,
+    SelectHeroReq = 12,
+    SelectHeroRes = 13,
+    SubmitHeroReq = 14,
+    SubmitHeroRes = 15,
+    UpdateSelectTimer = 16,
+    ForceSelect = 17,
+    StartLoadGame = 18,
 };
 return cmdNameMap;

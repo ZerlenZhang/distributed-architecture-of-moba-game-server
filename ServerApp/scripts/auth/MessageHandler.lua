@@ -98,7 +98,7 @@ local function user_login( s,req )
             end
 
             --登陆成功
-            print(uinfo.uid.." "..uinfo.unick.." login".." uface-"..uinfo.uface);
+            print(uinfo.uid.." "..uinfo.unick.." login".." uface-"..uinfo.uface.." heros-"..uinfo.heros);
             
             -- --将用户数据保存到Redis
             -- redis.SetUinfo(uinfo.uid,uinfo);

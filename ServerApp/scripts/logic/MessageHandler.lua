@@ -2,40 +2,23 @@ local Respones = require("Respones")
 local Stype = require("ServiceType")
 local CmdType = require("logic/const/CmdType")
 local config= require("GameConfig");
+local MatchMgr=require("logic/MatchMgr");
 
+local logicServerConfig=config.servers[Stype.Logic];
+local LogicConfig=require("logic/LogicConfig");
 
 local function login_logic_server(s, req)
 	local uid = req[3]
 	local stype = req[1]
-    local logicServerConfig=config.servers[Stype.Logic];
 
     if config.enable_proto_log then
         Debug.Log("a player login LogicServer")
     end
 
     Session.SendPackage(s,{stype,CmdType.LoginLogicRes,uid,{
-        udp_ip=logicServerConfig.udp_ip,
-        udp_port=logicServerConfig.udp_port,
+        udp_ip=LogicConfig.udp_ip,
+        udp_port=LogicConfig.udp_port,
     }});
-
-	-- local p = logic_server_players[uid] -- player对象
-	-- if p then -- 玩家对象已经存在了，更新一下session就可以了; 
-	-- 	p:set_session(s)
-	-- 	p:set_udp_addr(body.udp_ip, body.udp_port)
-	-- 	send_sta tus(s, stype, Cmd.eLoginLogicRes, uid, Respones.OK)
-	-- 	return
-	-- end
-
-	-- p = player:new()
-	-- p:init(uid, s, function(status)
-	-- 	if status == Respones.OK then
-	-- 		logic_server_players[uid] = p
-	-- 		online_player_num = online_player_num + 1
-	-- 	end
-	-- 	send_status(s, stype, Cmd.eLoginLogicRes, uid, status)
-	-- end)
-
-	-- p:set_udp_addr(body.udp_ip, body.udp_port)
 end
 
 local function udp_test(s, req) 
@@ -48,33 +31,59 @@ local function udp_test(s, req)
 		content = "success! "..body.content,
 	}}
 
-    local ip,port=Session.GetAddress(s);
-    
-	Debug.Log("UdpTest: "..body.content.." IP-"..ip.." Port-"..port);
+	local ip,port=Session.GetAddress(s);
+
+    if config.enable_proto_log then
+		Debug.Log("UdpTest: "..body.content.." IP-"..ip.." Port-"..port);
+	end
+
 	Session.UdpSendPackage(ip,port,msg);
 end
 
 local function on_start_match(s,req)
-    --do some thing
     if config.enable_proto_log then
-        Debug.Log("A player start match")
-    end
+        Debug.Log(req[4].uname.." try match")
+	end
 
-    Session.SendPackage(s,{
-        req[1],
-        CmdType.StartMatchRes,
-        req[3],
-        nil
-    });
+	MatchMgr.OnPlayerTryMatch(s,req[3],req[2],req[4]);
 end
 
+local function on_stop_match(s,req)
+    if config.enable_proto_log then
+        Debug.Log(req[4].uname.." try stop match");
+	end
+	MatchMgr.OnPlayerTryStopMatch(req[4].uname);
+end
+
+
 local function on_user_lost_conn(s,req)
+end
+
+local function on_select_hero(s,req)
+	if not req[4].hero_id then
+		Debug.LogError("there is no heroId");
+		return;
+	end
+    if config.enable_proto_log then
+        Debug.Log(req[4].uname.." select hero "..req[4].hero_id);
+	end
+	MatchMgr.OnPlayerSelectHero(req[4].uname,req[4].hero_id);
+end
+
+local function on_submit_hero(s,req)
+    if config.enable_proto_log then
+        Debug.Log(req[4].uname.." submit hero ");
+	end
+	MatchMgr.OnPlayerSubmitHero(req[4].uname);
 end
 
 return {
 	OnUdpTest = udp_test,
     OnPlayerLoginLogic = login_logic_server,
     OnStartMatch = on_start_match,
-    OnUserLostConn = on_user_lost_conn,
+	OnUserLostConn = on_user_lost_conn,
+	OnStopMatch = on_stop_match,
+	OnSelectHero = on_select_hero,
+	OnSubmitHero = on_submit_hero,
 }
 

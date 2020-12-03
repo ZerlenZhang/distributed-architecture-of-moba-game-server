@@ -212,7 +212,7 @@ function get_uinfo_by_uname_pwd( uname,upwd,handler )
 		return;
 	end
 
-	local sql="select uid,uname,pwd,unick,ulevel,uexp,urank,ucoin,udiamond,usignature,uintegrity,status,uface from usertable where uname=\"%s\" and pwd=\"%s\" limit 1";
+	local sql="select uid,uname,pwd,unick,ulevel,uexp,urank,ucoin,udiamond,usignature,uintegrity,status,uface,heros from usertable where uname=\"%s\" and pwd=\"%s\" limit 1";
 	sql=string.format(sql,uname,upwd);
 	--print(sql);
 	Mysql.Query(mysqlConn,sql,function( err,ret )
@@ -247,9 +247,90 @@ function get_uinfo_by_uname_pwd( uname,upwd,handler )
 			uintegrity=tonumber(result[11]),
 			status=tonumber(result[12]),
 			uface=tonumber(result[13]),
+			heros=result[14],
 		};
 		if handler then
 			handler(nil,uinfo);
+		end
+	end);
+end
+
+--根据用户名获取匹配信息
+--handler:err,matcherinfo
+function get_matcherinfo_by_uname(uname,handler)
+
+	if mysqlConn==nil then
+		--数据库还没有联好
+		if handler then
+			handler("mysql is not connected",nil);
+		end
+		return;
+	end
+
+	local sql="select unick,urank from usertable where uname=\"%s\" limit 1";
+	sql=string.format(sql,uname);
+
+	Mysql.Query(mysqlConn,sql,function( err,ret )
+		--出现错误
+		if err then
+			if handler then
+				handler(err,nil);
+			end
+			return;
+		end
+		--没有查到数据
+		if ret==nil or #ret <=0 then
+			if handler then
+				handler(nil,nil);
+			end
+			return;
+		end
+		--查到数据
+		local result = ret[1];
+		local matcher =
+		{
+			unick=result[1],
+			urank=tonumber(result[2]),
+		};
+		if handler then
+			handler(nil,matcher);
+		end
+	end);
+end
+
+--根据用户名获取默认英雄
+function get_default_heroId_by_uname(uname,handler)
+	if mysqlConn==nil then
+		--数据库还没有联好
+		if handler then
+			handler("mysql is not connected",nil);
+		end
+		return;
+	end
+
+	local sql="select heros from usertable where uname=\"%s\" limit 1";
+	sql=string.format(sql,uname);
+	Mysql.Query(mysqlConn,sql,function( err,ret )
+		--出现错误
+		if err then
+			if handler then
+				handler(err,nil);
+			end
+			return;
+		end
+		--没有查到数据
+		if ret==nil or #ret <=0 then
+			if handler then
+				handler(nil,nil);
+			end
+			return;
+		end
+		--查到数据
+		local result = ret[1];
+		local  startIndex, endIndex = string.find(result[1],",",1);
+		local defaultHeroId=tonumber(string.sub(result[1],1,startIndex));
+		if handler then
+			handler(nil,defaultHeroId);
 		end
 	end);
 end
@@ -259,6 +340,8 @@ return {
 	GetUinfoByKey=get_uinfo_by_key,
 	GetUinfoByUid=get_uinfo_by_uid,
 	GetUinfoByUnamePwd=get_uinfo_by_uname_pwd,
+	GetMatcherInfoByUname=get_matcherinfo_by_uname,
+	GetDefaultHeroIdByUname=get_default_heroId_by_uname,
 	EditProfile=edit_profile,
 	CheckUnameExist=check_uname_exist,
 	IsConnect=function() return mysqlConn~=nil end

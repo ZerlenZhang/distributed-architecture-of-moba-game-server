@@ -140,7 +140,7 @@ local function _server_send_to_client(s,raw)
 		return;
 	else
 		if config.enable_gateway_log then
-			Debug.Log("s-c:Normal "..ctype);
+			Debug.Log("S->C["..utag.."] ["..stype..":"..ctype.."]");
 		end
 	end
 
@@ -213,7 +213,7 @@ local function _client_send_to_server(s,raw)
 		end
 		--uid_sessionDic[uid]=s;
 		if config.enable_gateway_log then
-			Debug.Log("c-s:Normal CmdType-"..ctype);
+			Debug.Log("c-s:Normal ["..stype.."-"..ctype.."]");
 		end
 	end
 
