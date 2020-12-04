@@ -35,11 +35,14 @@ message MatchInfo{
     required string unick = 1;
     required int32 urank = 2;
     required int32 seatId = 3;
+    required int32 uface = 4;
+    required int32 ulevel = 5;
 }
 
 message FinishMatchTick{
     repeated MatchInfo matchers = 1;
     required int32 heroSelectTime = 2;
+    required int32 roomId = 3;
 }
 
 message SelectHeroReq{
@@ -65,4 +68,42 @@ message UpdateSelectTimer{
 
 message ForceSelect{
     repeated SelectHeroRes selectResults = 1;
+}
+
+message PlayerInput{
+    required int32 moveX = 2;
+    required int32 moveY = 3;
+    required bool jump = 4;
+    required int32 mouseX = 5;
+    required int32 mouseY = 6;
+    required bool attack = 7;
+}
+
+message LogicFrame{
+    required int32 frameId = 1;
+    repeated PlayerInput inputs = 2;
+}
+
+message NextFrameInput{
+    required int32 frameId = 1;
+    repeated PlayerInput inputs = 2;
+    required int32 roomId = 3;
+    required int32 roomType = 4;
+    required int32 seatId = 5;
+}
+
+message LogicFramesToSync{
+    required int32 frameId = 1;
+    repeated LogicFrame unsyncFrames = 2;
+}
+
+message StartGameReq{
+    required string uname = 1;
+}
+
+message StartGameRes{
+    required int32 gameTime = 1;
+    required int32 randSeed = 2;
+    required int32 logicFrameDeltaTime = 3;
+    required int32 startGameDelay = 4;
 }

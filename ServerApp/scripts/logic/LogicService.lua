@@ -11,6 +11,8 @@ cTypeToCallback[cType.StartMatchReq] = logicMessageHandler.OnStartMatch;
 cTypeToCallback[cType.StopMatchReq] = logicMessageHandler.OnStopMatch;
 cTypeToCallback[cType.SelectHeroReq] = logicMessageHandler.OnSelectHero;
 cTypeToCallback[cType.SubmitHeroReq] = logicMessageHandler.OnSubmitHero;
+cTypeToCallback[cType.StartGameReq] = logicMessageHandler.OnStartGameReq;
+cTypeToCallback[cType.NextFrameInput] = logicMessageHandler.OnGetNextFrameInput;
 
 
 

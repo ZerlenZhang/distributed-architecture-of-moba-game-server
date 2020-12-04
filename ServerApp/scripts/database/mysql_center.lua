@@ -267,7 +267,7 @@ function get_matcherinfo_by_uname(uname,handler)
 		return;
 	end
 
-	local sql="select unick,urank from usertable where uname=\"%s\" limit 1";
+	local sql="select unick,urank,uface,ulevel from usertable where uname=\"%s\" limit 1";
 	sql=string.format(sql,uname);
 
 	Mysql.Query(mysqlConn,sql,function( err,ret )
@@ -287,13 +287,15 @@ function get_matcherinfo_by_uname(uname,handler)
 		end
 		--查到数据
 		local result = ret[1];
-		local matcher =
+		local matchInfo =
 		{
 			unick=result[1],
 			urank=tonumber(result[2]),
+			uface=tonumber(result[3]),
+			ulevel=tonumber(result[4]),
 		};
 		if handler then
-			handler(nil,matcher);
+			handler(nil,matchInfo);
 		end
 	end);
 end

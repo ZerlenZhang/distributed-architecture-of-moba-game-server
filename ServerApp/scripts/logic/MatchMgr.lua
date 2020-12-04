@@ -27,7 +27,7 @@ local function GetRoom(roomType)
 end
 
 --自带报错
-local function GetRoomById(roomType, roomId)
+local function GetRoomByTypeAndId(roomType, roomId)
     if not roomType_RoomList[roomType] then
         Debug.LogError("Unexpected roomType:"..roomType);
         return;
@@ -69,7 +69,11 @@ local function on_player_stop_match(uname)
         return;
     end
     local player=uname_Player[uname];
-    local room=GetRoomById(player.ExpectedRoomType,player.RoomId);
+    local room=player.Room;
+    if not room then
+        Debug.LogError("player "..uname.." is not in any room");
+        return;
+    end
     if room:IsFull() then
         --cant't leave
         player:TcpSend(CmdType.StopMatchRes,{status=Respones.InvalidOperate});
@@ -86,8 +90,11 @@ local function on_player_select_hero(uname, heroId)
         return;
     end
     local player=uname_Player[uname];
-    local room=GetRoomById(player.ExpectedRoomType,player.RoomId);
-
+    local room=player.Room;
+    if not room then
+        Debug.LogError("player "..uname.." is not in any room");
+        return;
+    end
 
     if config.enable_match_log then
         Debug.Log(uname.." select hero["..heroId.."]");
@@ -107,8 +114,11 @@ local function on_player_submit_hero(uname)
     end
 
     local player=uname_Player[uname];
-    local room=GetRoomById(player.ExpectedRoomType,player.RoomId);
-
+    local room=player.Room;
+    if not room then
+        Debug.LogError("player "..uname.." is not in any room");
+        return;
+    end
     if config.enable_match_log then
         Debug.Log(uname.." submit");
     end
@@ -116,9 +126,33 @@ local function on_player_submit_hero(uname)
     room:OnMatcherSubmit(uname);
 end
 
+local function on_player_try_start_game(uname)
+    if not uname_Player[uname] then
+        Debug.LogError("unexpected uname: "..uname);
+        return;
+    end
+    local player=uname_Player[uname];
+    local room=player.Room;
+    if not room then
+        Debug.LogError("player "..uname.." is not in any room");
+        return;
+    end
+    room:OnPlayerReady(player);
+end
+
+local function on_take_frame_input(roomType, roomId, frameId,seatId,inputs)
+    local room=GetRoomByTypeAndId(roomType,roomId);
+    if not room then
+        Debug.LogError("unexcepted room: type-"..roomType..", roomId-"..roomId);
+    end
+    room:TakeFrameInput(frameId,seatId,inputs);
+end
+
 return {
     OnPlayerTryMatch=on_player_try_match,
     OnPlayerTryStopMatch=on_player_stop_match,
     OnPlayerSelectHero=on_player_select_hero,
     OnPlayerSubmitHero=on_player_submit_hero,
+    OnPlayerTryStartGame=on_player_try_start_game,
+    OnTakeFrameInput=on_take_frame_input,
 }

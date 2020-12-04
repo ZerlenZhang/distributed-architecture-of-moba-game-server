@@ -77,6 +77,17 @@ local function on_submit_hero(s,req)
 	MatchMgr.OnPlayerSubmitHero(req[4].uname);
 end
 
+local function on_start_game(s,req)
+    if config.enable_proto_log then
+        Debug.Log(req[4].uname.." request to start game");
+	end
+    MatchMgr.OnPlayerTryStartGame(req[4].uname);
+end
+
+local function on_get_next_frame_input(s,req)
+    MatchMgr.OnTakeFrameInput(req[4].roomType,req[4].roomId,req[4].frameId,req[4].seatId,req[4].inputs);
+end
+
 return {
 	OnUdpTest = udp_test,
     OnPlayerLoginLogic = login_logic_server,
@@ -85,5 +96,7 @@ return {
 	OnStopMatch = on_stop_match,
 	OnSelectHero = on_select_hero,
 	OnSubmitHero = on_submit_hero,
+	OnStartGameReq = on_start_game,
+	OnGetNextFrameInput = on_get_next_frame_input,
 }
 

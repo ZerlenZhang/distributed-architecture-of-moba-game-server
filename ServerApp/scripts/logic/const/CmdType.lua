@@ -18,4 +18,8 @@ return {
     UpdateSelectTimer = 16,
     ForceSelect = 17,
     StartLoadGame = 18,
+    StartGameReq = 19,
+    StartGameRes = 20,
+    NextFrameInput = 21,
+    LogicFramesToSync = 22,
 };
