@@ -20,12 +20,45 @@ namespace PurificationPioneer.Network.Proxy
         {
             switch (package.cmdType)
             {
+                #region LogicCmd.LogicFramesToSync
+                case LogicCmd.LogicFramesToSync:
+                    var logicFrameToSync = CmdPackageProtocol.ProtobufDeserialize<LogicFramesToSync>(package.body);
+                    if (null == logicFrameToSync)
+                    {
+                        Debug.LogError($"LogicFramesToSync is null");
+                        return;
+                    }         
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[LogicFramesToSync] 帧同步进行中：{logicFrameToSync.frameId}");
+#endif
+                    break;
+                #endregion
+                
+                #region LogicCmd.StartGameRes
+                case LogicCmd.StartGameRes:
+                    var startGameReq = CmdPackageProtocol.ProtobufDeserialize<StartGameRes>(package.body);
+                    if (null == startGameReq)
+                    {
+                        Debug.LogError($"StartGameRes is null");
+                        return;
+                    }
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[StartGameRes] 游戏 {startGameReq.startGameDelay} 秒后开始");
+#endif
+                    GlobalVar.SaveGameInfos(startGameReq);
+                    CEventCenter.BroadMessage(Message.OnGameStart, GlobalVar.StartGameDelay);
+                    break;
+                #endregion
+                
                 #region LogicCmd.StartLoadGame
                 case LogicCmd.StartLoadGame:
 #if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[StartLoadGame] 开始加载游戏");
 #endif
+                    CEventCenter.BroadMessage(Message.OnStartLoadGame);
                     break;
                 #endregion
 
@@ -70,6 +103,7 @@ namespace PurificationPioneer.Network.Proxy
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[SelectHeroRes] SeatId[{selectHeroRes.seatId}] 选择了 HeroId[{selectHeroRes.hero_id}]");
 #endif
+                    GlobalVar.SelectHero(selectHeroRes);
                     CEventCenter.BroadMessage(Message.OnSelectHero, selectHeroRes);
                     
                     break;
@@ -88,8 +122,7 @@ namespace PurificationPioneer.Network.Proxy
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[SubmitHeroRes] SeatId[{submitHeroRes.seatId}] 锁定英雄]");
 #endif
-                    if(submitHeroRes.seatId==GlobalVar.SeatId)
-                        GlobalVar.SetSubmit(true);
+                    GlobalVar.SubmitHero(submitHeroRes);
                     CEventCenter.BroadMessage(Message.OnSubmitHero, submitHeroRes);
                     
                     break;
@@ -108,7 +141,7 @@ namespace PurificationPioneer.Network.Proxy
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[FinishMatchTick]匹配完成({finishMatchTick.matchers.Count})，开始英雄选择");
 #endif
-                    GlobalVar.OnFinishMatchTick(finishMatchTick);
+                    GlobalVar.SaveMatchers(finishMatchTick);
                     CEventCenter.BroadMessage(Message.OnFinishMatch);
                     
                     break;
@@ -268,6 +301,8 @@ namespace PurificationPioneer.Network.Proxy
             {
                 uname = uname
             };
+
+            GlobalVar.SetRoomType(LogicCmd.StartMatchReq);
             NetworkMgr.Instance.TcpSendProtobuf(
                 ServiceType.Logic,
                 LogicCmd.StartMatchReq,
@@ -321,6 +356,19 @@ namespace PurificationPioneer.Network.Proxy
                 ServiceType.Logic,
                 LogicCmd.SubmitHeroReq,
                 new SubmitHeroReq{uname = uname});
+        }
+
+        /// <summary>
+        /// 开始战斗
+        /// </summary>
+        /// <param name="uname"></param>
+        public void StartGameReq(string uname)
+        {
+            var startGameReq = new StartGameReq
+            {
+                uname = uname,
+            };
+            NetworkMgr.Instance.TcpSendProtobuf(ServiceType.Logic, LogicCmd.StartGameReq, startGameReq);
         }
     }
 }

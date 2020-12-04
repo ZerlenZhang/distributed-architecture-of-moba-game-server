@@ -33,7 +33,7 @@ namespace PurificationPioneer.Network.Proxy
                             }
 #endif
                             //保存信息并广播
-                            GlobalVar.SaveInfo(loginRes.uinfo);
+                            GlobalVar.SaveUserInfo(loginRes.uinfo);
                             CEventCenter.BroadMessage(Message.OnUserLogin);
                         }
                         else

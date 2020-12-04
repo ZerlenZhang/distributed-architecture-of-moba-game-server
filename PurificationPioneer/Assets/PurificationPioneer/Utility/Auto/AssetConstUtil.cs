@@ -9,6 +9,7 @@ namespace PurificationPioneer.Utility
 			= new System.Collections.Generic.Dictionary<string,string>{
 					{ @"DebugPanel" , @"ClassPanel\DebugPanel" },
 					{ @"HomePanel" , @"ClassPanel\HomePanel" },
+					{ @"LoadingPanel" , @"ClassPanel\LoadingPanel" },
 					{ @"MatchPanel" , @"ClassPanel\MatchPanel" },
 					{ @"WelcomePanel" , @"ClassPanel\WelcomePanel" },
 					{ @"HeroIcon0" , @"ClassSprite\ClassHeroIcon\HeroIcon0" },
@@ -24,6 +25,7 @@ namespace PurificationPioneer.Utility
 					{ @"Avatar7" , @"ClassSprite\ClassUserIcon\Avatar7" },
 					{ @"Avatar8" , @"ClassSprite\ClassUserIcon\Avatar8" },
 					{ @"HeroOption" , @"ClassUi\HeroOption" },
+					{ @"LoadMatcherUi" , @"ClassUi\LoadMatcherUi" },
 					{ @"MatcherRect" , @"ClassUi\MatcherRect" },
 				};
 		public override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;

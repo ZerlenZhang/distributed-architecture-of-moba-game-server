@@ -21,7 +21,7 @@ namespace PurificationPioneer.Global
 		public static string Usignature{ get; private set; }
 		public static int Uexp{ get; private set; }
 		public static List<int> HeroIds{ get; private set; }
-		public static void SaveInfo(UserAccountInfo uinfo)
+		public static void SaveUserInfo(UserAccountInfo uinfo)
 		{
 			Uname = uinfo.uname;
 			Unick = uinfo.unick;
@@ -48,26 +48,97 @@ namespace PurificationPioneer.Global
 
 		#endregion
 		
-		#region MatchInfo
+		#region MatcherInfo
 
+		public class MatcherInfo
+		{
+			//userInfo
+			public int SeatId { get; private set; } = -1;
+			public string Unick { get; private set; }
+			public int Urank { get; private set; } = 1;
+			public int Uface { get; private set; } = -1;
+			public int Ulevel { get; private set; } = 0;
+			//matchInfo
+			public int HeroId { get; private set; } = -1;
+			public int SetHeroId(int heroId) => HeroId = heroId;
+			public bool IsSubmit { get; private set; } = false;
+			public bool SetSubmitted() => IsSubmit = true;
+
+			public MatcherInfo(MatchInfo matchInfo)
+			{
+				SeatId = matchInfo.seatId;
+				Unick = matchInfo.unick;
+				Urank = matchInfo.urank;
+				Uface = matchInfo.uface;
+				Ulevel = matchInfo.ulevel;
+			}
+		}
+		
 		public static int SelectHeroTime { get; private set; }
-		public static int SeatId{ get; private set; }
-		public static bool IsSubmit { get; private set; }
-		public static void SetSubmit(bool value) => IsSubmit = value;
-		public static List<MatchInfo> MatcherInfos{ get; private set; }
-		public static void OnFinishMatchTick(FinishMatchTick finishMatchTick)
+		public static int RoomType { get; private set; }
+		public static void SetRoomType(int roomType) => RoomType = roomType;
+		public static int RoomId { get; private set; }
+		public static Dictionary<int, MatcherInfo> SeatId_MatcherInfo{ get; private set; }
+
+		private static MatcherInfo self;
+		public static int SeatId => self.SeatId;
+		public static bool IsSubmit => self.IsSubmit;
+		public static void SaveMatchers(FinishMatchTick finishMatchTick)
 		{
 			SelectHeroTime = finishMatchTick.heroSelectTime;
-			MatcherInfos = finishMatchTick.matchers;
-			foreach (var matcherInfo in MatcherInfos)
+			RoomId = finishMatchTick.roomId;
+			SeatId_MatcherInfo = new Dictionary<int, MatcherInfo>();
+			
+			foreach (var matchInfo in finishMatchTick.matchers)
 			{
-				if (matcherInfo.unick == Unick)
+				var matcherInfo = new MatcherInfo(matchInfo);
+				
+				if (matchInfo.unick == Unick)
 				{
-					SeatId = matcherInfo.seatId;
-					break;
+					self = matcherInfo;
 				}
+				
+				SeatId_MatcherInfo.Add(matchInfo.seatId, matcherInfo);
 			}
-		}		
+		}
+
+		public static void SelectHero(SelectHeroRes selectHeroRes)
+		{
+			if (!SeatId_MatcherInfo.ContainsKey(selectHeroRes.seatId))
+			{
+				Debug.LogError($"Unexcepted seatId: {selectHeroRes.seatId}");
+				return;
+			}
+
+			SeatId_MatcherInfo[selectHeroRes.seatId].SetHeroId(selectHeroRes.hero_id);
+		}
+
+		public static void SubmitHero(SubmitHeroRes submitHeroRes)
+		{
+			if (!SeatId_MatcherInfo.ContainsKey(submitHeroRes.seatId))
+			{
+				Debug.LogError($"Unexcepted seatId: {submitHeroRes.seatId}");
+				return;
+			}
+
+			SeatId_MatcherInfo[submitHeroRes.seatId].SetSubmitted();
+		}
+
+		#endregion
+		
+		#region GameInfo
+
+		public static int LogicFrameDeltaTime { get; private set; }
+		public static int StartGameDelay { get; private set; }
+		public static int GameTime { get; private set; }
+		
+		public static void SaveGameInfos(StartGameRes startGameRes)
+		{
+			LogicFrameDeltaTime = startGameRes.logicFrameDeltaTime;
+			GameTime = startGameRes.gameTime;
+			StartGameDelay = startGameRes.startGameDelay;
+			//RandSeed
+		}
 
 		#endregion
 	}

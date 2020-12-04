@@ -14,5 +14,7 @@ namespace PurificationPioneer.Const
 		public const string OnSelectHero = "OnSelectHero"; // SelectHeroRes
 		public const string OnSubmitHero = "OnSubmitHero"; // SubmitHeroRes
 		public const string OnUpdateSelectTimer = "OnUpdateSelectTimer"; //UpdateSelectTimer
+		public const string OnStartLoadGame = "OnStartLoadGame";
+		public const string OnGameStart = "OnGameStart"; // int
 	}
 }

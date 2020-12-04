@@ -7,6 +7,7 @@ using PurificationPioneer.Script;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,9 +45,10 @@ namespace PurificationPioneer.View
 
 		private void AddMatcherIcons()
 		{
-			foreach (var matcherInfo in GlobalVar.MatcherInfos)
+			foreach (var kv in GlobalVar.SeatId_MatcherInfo)
 			{
-				var parent = matcherInfo.seatId % 2 == 1 ? script.leftGroup : script.rightGroup;
+				var matcherInfo = kv.Value;
+				var parent = matcherInfo.SeatId % 2 == 1 ? script.leftGroup : script.rightGroup;
 				var matcherRectUi = ResourceMgr.InstantiateGameObject(UiName.MatcherRect, parent)
 					.GetComponent<MatcherRect>();
 				
@@ -54,7 +56,7 @@ namespace PurificationPioneer.View
 				matcherRectUi.InitValues(matcherInfo);
 				
 				//保存到字典
-				seatId_MatcherRect.Add(matcherInfo.seatId, matcherRectUi);
+				seatId_MatcherRect.Add(matcherInfo.SeatId, matcherRectUi);
 			}
 
 			LayoutRebuilder.ForceRebuildLayoutImmediate(script.leftGroup);
@@ -70,6 +72,7 @@ namespace PurificationPioneer.View
 			CEventCenter.AddListener<SelectHeroRes>(Message.OnSelectHero, OnSelectHero);
 			CEventCenter.AddListener<SubmitHeroRes>(Message.OnSubmitHero, OnSubmitHero);
 			CEventCenter.AddListener<UpdateSelectTimer>(Message.OnUpdateSelectTimer,OnUpdateSelectTimer);
+			CEventCenter.AddListener(Message.OnStartLoadGame, OnStartLoadGame);
 		}
 
 		protected override void OnRemoveListener()
@@ -77,6 +80,7 @@ namespace PurificationPioneer.View
 			base.OnRemoveListener();
 			CEventCenter.RemoveListener<SelectHeroRes>(Message.OnSelectHero, OnSelectHero);
 			CEventCenter.RemoveListener<SubmitHeroRes>(Message.OnSubmitHero, OnSubmitHero);
+			CEventCenter.RemoveListener(Message.OnStartLoadGame, OnStartLoadGame);
 			CEventCenter.RemoveListener<UpdateSelectTimer>(Message.OnUpdateSelectTimer,OnUpdateSelectTimer);
 		}
 
@@ -91,6 +95,13 @@ namespace PurificationPioneer.View
 
 
 		#region MessageHandler
+		
+		
+
+		private void OnStartLoadGame()
+		{
+			PanelMgr.PushPanel(PanelName.LoadingPanel);
+		}
 
 		private void OnUpdateSelectTimer(UpdateSelectTimer obj)
 		{

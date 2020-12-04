@@ -25,11 +25,11 @@ namespace PurificationPioneer.Script
 
         private Coroutine shineCoroutine;
 
-        public void InitValues(MatchInfo matcherInfo)
+        public void InitValues(GlobalVar.MatcherInfo matcherInfo)
         {
-            SeatId = matcherInfo.seatId;
-            Unick = matcherInfo.unick;
-            nickText.text = matcherInfo.unick;
+            SeatId = matcherInfo.SeatId;
+            Unick = matcherInfo.Unick;
+            nickText.text = matcherInfo.Unick;
             if (SeatId == GlobalVar.SeatId)
             {
                 shineCoroutine = MainLoop.Instance.StartCoroutines(ShineBg());

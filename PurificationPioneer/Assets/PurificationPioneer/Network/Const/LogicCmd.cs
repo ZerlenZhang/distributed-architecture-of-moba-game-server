@@ -20,5 +20,9 @@
         public const int UpdateSelectTimer = 16;
         public const int ForceSelect = 17;
         public const int StartLoadGame = 18;
+        public const int StartGameReq = 19;
+        public const int StartGameRes = 20;
+        public const int NextFrameInput = 21;
+        public const int LogicFramesToSync = 22;
     }
 }
