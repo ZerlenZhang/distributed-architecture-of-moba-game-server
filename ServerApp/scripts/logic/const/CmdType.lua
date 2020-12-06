@@ -22,4 +22,6 @@ return {
     StartGameRes = 20,
     NextFrameInput = 21,
     LogicFramesToSync = 22,
+    InitUdpReq = 23,
+    InitUdpRes = 24,
 };

@@ -5,13 +5,13 @@ local config=require("GameConfig");
 local Mysql=require("database/mysql_center");
 Mysql.Connect();
 
-function Player:New(tcpSession,uname,utag,roomType)
+function Player:New(tcpSession,uname,utag)
     local instance = Object.New(self,uname);
     --socketinfo
-    instance.TcpSession=tcpSession;
-    instance.Utag=utag;
-    instance.UdpIp=nil;
-    instance.UdpPort=0;
+    instance.__tcpSession=tcpSession;
+    instance.__utag=utag;
+    instance.__udpIp=nil;
+    instance.__udpPort=0;
     --userinfo
     instance.Uname=uname;
     instance.Uface=0;
@@ -22,11 +22,16 @@ function Player:New(tcpSession,uname,utag,roomType)
     instance.Room=nil;
     instance.SeatId=-1;
     instance.HeroId=-1;
-    instance.ExpectedRoomType=roomType;
+    instance.ExpectedRoomType=-1;
     --game
     instance.SyncFrameId=0;
 
     return instance;
+end
+
+function Player:SetUdpAddr(udpIp,udpPort)
+    self.__udpIp=udpIp;
+    self.__udpPort=udpPort;
 end
 
 function Player:IsInRoom()
@@ -55,17 +60,17 @@ end
 
 function Player:UdpSend(cmdType,body)
 	--玩家已经断线
-	if not self.TcpSession then
+	if not self.__tcpSession then
         Debug.LogWarning(self.Unick.." is offline")
 		return;
 	end
 
-    if not self.UdpIp or self.UdpPort==0 then
+    if not self.__udpIp or self.__udpPort==0 then
         Debug.LogWarning(self.Unick.." Udp address is wrong")
 		return;
 	end
 
-   Session.UdpSendPackage(self.UdpIp,self.UdpPort,{
+   Session.UdpSendPackage(self.__udpIp,self.__udpPort,{
     ServiceType.Logic,cmdType,0,body
    });
 end
@@ -73,11 +78,11 @@ end
 function Player:TcpSend(cmdType,body)
     -- Debug.Log("[Player.TcpSend] User "..self.Uname.."  cmdType "..cmdType);
     Session.SendPackage(
-        self.TcpSession,
+        self.__tcpSession,
         {
             ServiceType.Logic,
             cmdType,
-            self.Utag,
+            self.__utag,
             body,
         }
     );

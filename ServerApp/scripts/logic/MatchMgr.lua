@@ -43,14 +43,26 @@ local function GetRoomByTypeAndId(roomType, roomId)
 
 end
 
-local function on_player_try_match(s,utag,roomType,body)
-
-    local uname=body.uname;
+local function on_new_player_come(s,utag,uname)
     local player=uname_Player[uname];
     if not player then
-        player=Player:New(s,uname,utag,roomType);
+        player=Player:New(s,uname,utag);
         uname_Player[uname]=player;
     end
+
+    player:TcpSend(CmdType.LoginLogicRes,{
+        udp_ip=LogicConfig.udp_ip,
+        udp_port=LogicConfig.udp_port,
+	});
+end
+
+local function on_player_try_match(uname, roomType)
+    local player=uname_Player[uname];
+    if not player then
+        Debug.LogError("Unexpected uname: "..uname);
+        return;
+    end
+    player.ExpectedRoomType=roomType;
     local room=GetRoom(roomType);
 
     --start match feedback
@@ -61,6 +73,16 @@ local function on_player_try_match(s,utag,roomType,body)
 
     --add player to room
     room:AddPlayer(player);
+end
+
+local function set_player_udp_addr(uname, ip, port)
+    local player=uname_Player[uname];
+    if not player then
+        Debug.LogError("Unexpected uname: "..uname);
+        return;
+    end
+    player:SetUdpAddr(ip, port);
+    player:UdpSend(CmdType.InitUdpRes);
 end
 
 local function on_player_stop_match(uname)
@@ -155,4 +177,6 @@ return {
     OnPlayerSubmitHero=on_player_submit_hero,
     OnPlayerTryStartGame=on_player_try_start_game,
     OnTakeFrameInput=on_take_frame_input,
+    InitPlayer=on_new_player_come,
+    SetUdpAddr=set_player_udp_addr,
 }

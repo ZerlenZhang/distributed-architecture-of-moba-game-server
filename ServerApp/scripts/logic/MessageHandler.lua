@@ -8,17 +8,14 @@ local logicServerConfig=config.servers[Stype.Logic];
 local LogicConfig=require("logic/LogicConfig");
 
 local function login_logic_server(s, req)
-	local uid = req[3]
-	local stype = req[1]
+	local utag = req[3];
+	local stype = req[1];
 
     if config.enable_proto_log then
         Debug.Log("a player login LogicServer")
     end
 
-    Session.SendPackage(s,{stype,CmdType.LoginLogicRes,uid,{
-        udp_ip=LogicConfig.udp_ip,
-        udp_port=LogicConfig.udp_port,
-    }});
+	MatchMgr.InitPlayer(s, utag, req[4].uname);
 end
 
 local function udp_test(s, req) 
@@ -41,11 +38,13 @@ local function udp_test(s, req)
 end
 
 local function on_start_match(s,req)
+	local roomType = req[2];
+	local uname = req[4].uname;
     if config.enable_proto_log then
-        Debug.Log(req[4].uname.." try match")
+        Debug.Log(uname.." try match")
 	end
 
-	MatchMgr.OnPlayerTryMatch(s,req[3],req[2],req[4]);
+	MatchMgr.OnPlayerTryMatch(uname,roomType);
 end
 
 local function on_stop_match(s,req)
@@ -88,6 +87,12 @@ local function on_get_next_frame_input(s,req)
     MatchMgr.OnTakeFrameInput(req[4].roomType,req[4].roomId,req[4].frameId,req[4].seatId,req[4].inputs);
 end
 
+local function on_init_udp(s,req)
+	local uname=req[4].uname;
+	local ip,port=Session.GetAddress(s);
+	MatchMgr.SetUdpAddr(uname,ip,port);
+end
+
 return {
 	OnUdpTest = udp_test,
     OnPlayerLoginLogic = login_logic_server,
@@ -98,5 +103,6 @@ return {
 	OnSubmitHero = on_submit_hero,
 	OnStartGameReq = on_start_game,
 	OnGetNextFrameInput = on_get_next_frame_input,
+	OnInitUdp = on_init_udp,
 }
 

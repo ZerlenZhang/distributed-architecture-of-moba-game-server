@@ -13,6 +13,7 @@ cTypeToCallback[cType.SelectHeroReq] = logicMessageHandler.OnSelectHero;
 cTypeToCallback[cType.SubmitHeroReq] = logicMessageHandler.OnSubmitHero;
 cTypeToCallback[cType.StartGameReq] = logicMessageHandler.OnStartGameReq;
 cTypeToCallback[cType.NextFrameInput] = logicMessageHandler.OnGetNextFrameInput;
+cTypeToCallback[cType.InitUdpReq] = logicMessageHandler.OnInitUdp;
 
 
 

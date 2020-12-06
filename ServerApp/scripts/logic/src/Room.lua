@@ -86,7 +86,7 @@ end
 
 --开始英雄选择
 function Room:StartHeroPick()
-    Debug.Log("[Room:StartHeroPick] RoomId["..self.RoomId.."]");
+    Debug.Log("Room["..self.RoomId.."] start hero pick");
     local matchinfoArr=List:New("matchInfoArr:"..self.RoomId);
     local finished=0;
     self.PlayerList:Foreach(function(index,player)
@@ -210,25 +210,25 @@ function Room:FrameSyncLoop()
     self.__allFrames[self.__frameId]=self.nextFrame;
     self.__frameId=self.__frameId+1;
 
-    self.PlayerList:Foreach(function(_,player) self:SendUnsyncFrames(player);end);
+    self.PlayerList:Foreach(function(_,player)
+        --发送尚未同步的帧
+        local frames = {};
+
+        for i = (player.SyncFrameId+1), #self.__allFrames do
+            table.insert(frames,self.__allFrames[i]);
+        end
+        --	print("player.SyncFrameId:"..player.SyncFrameId.."self.__frameId"..self.__frameId.."#self.__allFrames:"..#self.__allFrames);
+        player:UdpSend(CmdType.LogicFramesToSync,{
+            frameId=self.__frameId,
+            unsyncFrames=frames,
+        });
+    end);
 
     self.nextFrame=
     {
 		frameId = self.__frameId,
 		inputs = {},
 	};
-end
-
---发送尚未同步的帧
-function Room:SendUnsyncFrames(player)
-	local frames = {};
-
-	for i = (player.SyncFrameId+1), #self.__allFrames do
-		table.insert(frames,self.__allFrames[i]);
-	end
-    --	print("player.SyncFrameId:"..player.SyncFrameId.."self.__frameId"..self.__frameId.."#self.__allFrames:"..#self.__allFrames);
-	local body = {frameId=self.__frameId,unsyncFrames=frames}
-	player:UdpSend(CmdType.LogicFramesToSync,body);
 end
 
 --接受收到的输入
