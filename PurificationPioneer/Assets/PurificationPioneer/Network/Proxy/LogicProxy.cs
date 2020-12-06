@@ -211,6 +211,17 @@ namespace PurificationPioneer.Network.Proxy
 
                 #endregion
 
+                #region LogicCmd.InitUdpRes
+
+                case LogicCmd.InitUdpRes:
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[InitUdpRes] Udp初始化完成");
+#endif
+                    break;   
+
+                #endregion
+                
                 #region LogicCmd.LoginLogicRes
 
                 case LogicCmd.LoginLogicRes:
@@ -266,7 +277,8 @@ namespace PurificationPioneer.Network.Proxy
         {
             NetworkMgr.Instance.TcpSendProtobuf(
                 ServiceType.Logic,
-                LogicCmd.LoginLogicReq);     
+                LogicCmd.LoginLogicReq,
+                new LoginLogicReq{uname = GlobalVar.Uname});     
         }
 
         /// <summary>

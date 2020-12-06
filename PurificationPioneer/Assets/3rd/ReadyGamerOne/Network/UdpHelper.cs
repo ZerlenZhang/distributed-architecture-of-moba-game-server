@@ -32,7 +32,7 @@ namespace ReadyGamerOne.Network
 
         
         public UdpHelper(string targetIp,int targetPort, int localPort, Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
-            int maxUdpPackageSize, Func<bool> enableSocketLog=null, Action onFinishedSetup=null)
+            int maxUdpPackageSize, Func<bool> enableSocketLog=null, Action onFinishedSetup=null, byte[] initBytes=null)
         {
             Assert.IsNotNull(onException);
             Assert.IsNotNull(onRecvCmd);
@@ -46,27 +46,20 @@ namespace ReadyGamerOne.Network
             this.LocalUdpPort = localPort;
             this.TargetIp = targetIp;
             this.TargetPort = targetPort;
-            NetUtil.GetSuitableIp(
+            NetUtil.SetupUdp(
                 targetIp,
                 targetPort,
-                suitableIp =>
+                localPort,
+                RecvThread,
+                (localIp, socket, recvThread) =>
                 {
-                    this.LocalIp = suitableIp;
+                    this.LocalIp = localIp;
                     
                     //创建udpSocket
                     try
                     {
-                        this.clientSocket=new Socket(
-                            AddressFamily.InterNetwork,
-                            SocketType.Dgram,
-                            ProtocolType.Udp);
-                        //绑定本地端口
-                        var localPoint = new IPEndPoint(IPAddress.Parse(this.LocalIp), LocalUdpPort);
-                        this.clientSocket.Bind(localPoint);
-                        
-                        this.recvThread=new Thread(RecvThread);
-                        this.recvThread.Start();
-                        
+                        this.clientSocket = socket;
+                        this.recvThread = recvThread;
         #if DebugMode
                         if(ifEnableSocketLog())
                             Debug.Log($"Udp[local-{this.LocalIp}:{LocalUdpPort}] 开始接收");
@@ -78,8 +71,6 @@ namespace ReadyGamerOne.Network
                         this.onException(e);
                     }                    
                 });
-            
-
         }
 
         /// <summary>

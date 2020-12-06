@@ -1,5 +1,8 @@
 syntax = "proto2";
 
+message LoginLogicReq{
+    required string uname = 1;
+}
 
 message LoginLogicRes{
     required string udp_ip = 1;
@@ -106,4 +109,8 @@ message StartGameRes{
     required int32 randSeed = 2;
     required int32 logicFrameDeltaTime = 3;
     required int32 startGameDelay = 4;
+}
+
+message InitUdpReq{
+    required string uname = 1;
 }

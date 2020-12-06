@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using PurificationPioneer.Global;
+using PurificationPioneer.Network.Const;
+using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Network;
@@ -86,9 +89,6 @@ namespace PurificationPioneer.Network
 
             var localPort = NetUtil.GetUdpPort();
             GameSettings.Instance.SetUdpLocalPort(localPort);
-            
-
-
 
             udp = new UdpHelper(
                 GameSettings.Instance.UdpServerIp,
@@ -109,6 +109,9 @@ namespace PurificationPioneer.Network
                     }
 #endif                    
                     onFinishSetup?.Invoke(!errorInside);
+
+                    UdpSendProtobuf(ServiceType.Logic, LogicCmd.InitUdpReq, new InitUdpReq{uname = GlobalVar.Uname});
+
                 });
 
         }
@@ -148,6 +151,7 @@ namespace PurificationPioneer.Network
 
             tcp.Send(tcpPackage);
         }
+        
 
         public void TcpSendProtobuf(int serviceType, int cmdType, ProtoBuf.IExtensible body=null)
         {

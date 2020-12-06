@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using ReadyGamerOne.Network;
 using UnityEngine.Assertions;
 using Debug = UnityEngine.Debug;
@@ -157,28 +158,30 @@ namespace ReadyGamerOne.Utility
         }
 
         
-        private class IpWorker
+        private class UdpSetupWorker
         {
             private int curIndex = 0;
             private List<string> ipList;
             private Socket socket;
             private string targetIp;
             private int targetPort;
+            private int localPort;
 
             public bool IsFinished { get; private set; } = false;
-            public IpWorker(string targetIp,int targetPort)
+            public UdpSetupWorker(string targetIp,int targetPort, int localPort)
             {
+                this.localPort = localPort;
                 this.targetIp = targetIp;
                 this.targetPort = targetPort;
-                ipList=NetUtil.GetLocalIpAddress(AddressFamily.InterNetwork);
+                ipList=GetLocalIpAddress(AddressFamily.InterNetwork);
             }
 
-            public void Start(Action<string> onGetSuitableIp)
+            public void Start(byte[] initBytes, Action recvThread, Action<string, Socket, Thread> onGetSuitableIp)
             {
                 if (curIndex >= ipList.Count)
                 {
                      IsFinished = true;
-                     onGetSuitableIp(null);
+                     onGetSuitableIp(null,null,null);
                      return;
                 }
 
@@ -196,7 +199,7 @@ namespace ReadyGamerOne.Utility
 
                 try
                 {
-                 this.socket.BeginSendTo(new byte[0], 0, 0, SocketFlags.None,
+                 this.socket.BeginSendTo(initBytes, 0, initBytes.Length, SocketFlags.None,
                      new IPEndPoint(IPAddress.Parse(this.targetIp), this.targetPort),
                      (iar) =>
                      {
@@ -212,18 +215,19 @@ namespace ReadyGamerOne.Utility
                          }
                          finally
                          {
-                             socket.Dispose();
-                             socket.Close();
-                             socket = null;
-                             
                              if (!error)
                              {
                                  IsFinished = true;
-                                 onGetSuitableIp(curIp);
+                                 var thread = new Thread(new ThreadStart(recvThread));
+                                 onGetSuitableIp(curIp, this.socket, thread);
+                                 thread.Start();
                              }
                              else
                              {
-                                 Start(onGetSuitableIp);
+                                 socket.Dispose();
+                                 socket.Close();
+                                 socket = null;
+                                 Start(initBytes, recvThread, onGetSuitableIp);
                              }
                          }
                      }, null);
@@ -231,14 +235,13 @@ namespace ReadyGamerOne.Utility
                 catch (Exception e)
                 {
                     Debug.LogWarning($"[BeginSendTo][CurIndex:{curIndex-1}][{curIp}:{curPort}]{e}");
-                    Start(onGetSuitableIp);
+                    Start(initBytes,recvThread,onGetSuitableIp);
                 }
             }
         }
-        public static void GetSuitableIp(string targetIp, int targetPort, Action<string> onGetIp)
+        public static void SetupUdp(string targetIp, int targetPort, int localPort,Action recvThread, Action<string, Socket, Thread> onSetUpUdp, byte[] initBytes=null)
         {
-            new IpWorker(targetIp, targetPort).Start(onGetIp);
+            new UdpSetupWorker(targetIp, targetPort, localPort).Start(initBytes ?? new byte[0], recvThread, onSetUpUdp);
         }
-        
     }     
 }

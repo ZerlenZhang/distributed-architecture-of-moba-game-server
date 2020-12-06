@@ -10,6 +10,23 @@
 // Generated from: protos/LogicProtocol.proto
 namespace PurificationPioneer.Network.ProtoGen
 {
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginLogicReq")]
+  public partial class LoginLogicReq : global::ProtoBuf.IExtensible
+  {
+    public LoginLogicReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LoginLogicRes")]
   public partial class LoginLogicRes : global::ProtoBuf.IExtensible
   {
@@ -529,6 +546,23 @@ namespace PurificationPioneer.Network.ProtoGen
     {
       get { return _startGameDelay; }
       set { _startGameDelay = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"InitUdpReq")]
+  public partial class InitUdpReq : global::ProtoBuf.IExtensible
+  {
+    public InitUdpReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

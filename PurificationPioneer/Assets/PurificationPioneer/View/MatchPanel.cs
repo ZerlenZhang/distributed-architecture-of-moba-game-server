@@ -4,7 +4,6 @@ using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Script;
-using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.View;

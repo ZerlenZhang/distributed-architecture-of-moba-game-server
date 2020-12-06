@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gatewayIp: 121.196.178.141
   gatewayPort: 6080
-  maxTcpPackageSize: 4096
-  maxUdpPackageSize: 4096
+  maxTcpPackageSize: 65536
+  maxUdpPackageSize: 65536
   maxWaitTime: 5000
   closeSocketOnAnyException: 1
   enableSocketLog: 0

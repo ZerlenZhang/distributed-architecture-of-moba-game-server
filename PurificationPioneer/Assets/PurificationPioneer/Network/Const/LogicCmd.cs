@@ -24,5 +24,7 @@
         public const int StartGameRes = 20;
         public const int NextFrameInput = 21;
         public const int LogicFramesToSync = 22;
+        public const int InitUdpReq = 23;
+        public const int InitUdpRes = 24;
     }
 }
