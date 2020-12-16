@@ -207,8 +207,7 @@ end
 
 --帧同步主循环
 function Room:FrameSyncLoop()
-    self.__allFrames[self.__frameId]=self.nextFrame;
-    self.__frameId=self.__frameId+1;
+    self.__allFrames[self.__frameId]=self.__nextFrame;
 
     self.PlayerList:Foreach(function(_,player)
         --发送尚未同步的帧
@@ -224,7 +223,9 @@ function Room:FrameSyncLoop()
         });
     end);
 
-    self.nextFrame=
+    self.__frameId=self.__frameId+1;
+
+    self.__nextFrame=
     {
 		frameId = self.__frameId,
 		inputs = {},
@@ -234,7 +235,8 @@ end
 --接受收到的输入
 function Room:TakeFrameInput(frameId, seatId,inputs)
 	--是否过时
-	if frameId<=self.__frameId then
+    if frameId<self.__frameId then
+        Debug.Log("frameId is out of date: "..frameId);
 		return;
 	end
 	--是否内容无效
@@ -248,10 +250,14 @@ function Room:TakeFrameInput(frameId, seatId,inputs)
         return;
     end
 
+    local player=self.PlayerList:At(seatId);
+
     --更新客户端同步到帧数
 	if player.SyncFrameId< frameId-1 then
-		player.SyncFrameId=frameId-1;
-	end
+        player.SyncFrameId=frameId-1;
+    end
+
+    Debug.Log("TakeInput Player["..player.SeatId.."].SyncFrameId="..player.SyncFrameId);
 
 	--加入到当前帧操作
 	for k, opt in pairs(inputs) do

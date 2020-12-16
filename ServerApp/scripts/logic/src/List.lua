@@ -45,6 +45,14 @@ function List:Foreach(action_index_value)
     end
 end
 
+function List:At(index)
+    if index<1 or index>self:Count() then
+        Debug.LogError("index is out of range:"..index.." List-"..self.name);
+        return;
+    end
+    return self.__content[index];
+end
+
 function List:FindFirst(func_bool_item)
     for i,v in ipairs(self.__content) do
         if func_bool_item(v) then

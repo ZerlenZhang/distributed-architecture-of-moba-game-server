@@ -74,6 +74,7 @@ message ForceSelect{
 }
 
 message PlayerInput{
+    required int32 seatId = 1;
     required int32 moveX = 2;
     required int32 moveY = 3;
     required bool jump = 4;
@@ -89,10 +90,10 @@ message LogicFrame{
 
 message NextFrameInput{
     required int32 frameId = 1;
-    repeated PlayerInput inputs = 2;
-    required int32 roomId = 3;
-    required int32 roomType = 4;
-    required int32 seatId = 5;
+    required int32 roomId = 2;
+    required int32 roomType = 3;
+    required int32 seatId = 4;
+    repeated PlayerInput inputs = 5;
 }
 
 message LogicFramesToSync{

@@ -163,9 +163,19 @@ local function on_player_try_start_game(uname)
 end
 
 local function on_take_frame_input(roomType, roomId, frameId,seatId,inputs)
+    if not roomType then
+        Debug.LogError("roomType is nil");
+        return;
+    end
+    if not roomId then
+        Debug.LogError("roomId is nil");
+        return;
+    end
     local room=GetRoomByTypeAndId(roomType,roomId);
+
     if not room then
         Debug.LogError("unexcepted room: type-"..roomType..", roomId-"..roomId);
+        return;
     end
     room:TakeFrameInput(frameId,seatId,inputs);
 end
