@@ -179,7 +179,7 @@ local function _client_send_to_server(s,raw)
 		--如果是登陆用户服务器请求
 		utag = Session.GetUTag(s);
 		if utag==0 then
-			--print("is loginRequest");
+			--用户第一次登陆
 			utag=g_ukey;
 			g_ukey=g_ukey+1;
 			Session.SetUTag(s,utag);
@@ -234,7 +234,8 @@ return   {
     	end
     end,
     OnSessionDisconnected=function(s,stype)
-    	if Session.IsClient(s) then 
+		if Session.IsClient(s) then
+			--和其他服务器的连接断开
     		for k,v in pairs(sessionDic) do
     			if v==s then
     				Debug.LogError("disconnected from: ["..config.servers[k].descrip.."]");
@@ -243,18 +244,18 @@ return   {
     		end
     		return;
     	else
-    		--print("client leave");
+    		--和玩家断开
 
             local ip,port = Session.GetAddress(s);
             print("client ["..ip..":"..port.."] leave");
 
-    		--1.把客户端从utag临时映射表删除
+    		--1.把客户端从utag临时映射表删除，只有发起登录请求但是没有收到回复的会走这个逻辑
     		local utag = Session.GetUTag(s);
     		if tag_sessionDic[utag] and tag_sessionDic[utag]==s then
     			tag_sessionDic[utag]=nil;
     			Session.SetUTag(s,0);
     		end
-            --2.把客户端从uid映射表删除
+            --2.把客户端从uid映射表删除，已经登陆了的短线请求会走这里
     		local uid = Session.GetUId(s);
     		if uid_sessionDic[uid] and uid_sessionDic[uid]==s then
     			uid_sessionDic[uid]=nil;
@@ -266,7 +267,8 @@ return   {
     		end
 
             local targetServer = sessionDic[stype];
-            if nil==targetServer then
+			if nil==targetServer then
+				Debug.LogError("Unexpeced stype:"..stype);
                 return;
             end
 

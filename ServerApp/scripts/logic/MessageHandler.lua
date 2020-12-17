@@ -56,6 +56,10 @@ end
 
 
 local function on_user_lost_conn(s,req)
+    if config.enable_proto_log then
+        Debug.Log("User["..req[3].."] lost conn");
+	end
+	MatchMgr.OnUserLostConn(req[3]);
 end
 
 local function on_select_hero(s,req)

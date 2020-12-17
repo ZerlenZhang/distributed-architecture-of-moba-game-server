@@ -5,9 +5,11 @@ local LogicConfig=require("logic/LogicConfig");
 local CmdType=require("logic/const/CmdType");
 local Respones=require("Respones");
 local config=require("GameConfig");
+local PlayerState=require("logic/const/PlayerState");
 
 local roomType_RoomList={}
 local uname_Player={};
+local utag_Player={};
 
 --确保有房间
 local function GetRoom(roomType)
@@ -44,16 +46,19 @@ local function GetRoomByTypeAndId(roomType, roomId)
 end
 
 local function on_new_player_come(s,utag,uname)
-    local player=uname_Player[uname];
+    local player=uname_Player[uname] or utag_Player[utag];
     if not player then
         player=Player:New(s,uname,utag);
-        uname_Player[uname]=player;
     end
+    uname_Player[uname]=player;
+    utag_Player[utag]=player;
 
     player:TcpSend(CmdType.LoginLogicRes,{
         udp_ip=LogicConfig.udp_ip,
         udp_port=LogicConfig.udp_port,
-	});
+    });
+
+    player:OnLine();
 end
 
 local function on_player_try_match(uname, roomType)
@@ -180,6 +185,15 @@ local function on_take_frame_input(roomType, roomId, frameId,seatId,inputs)
     room:TakeFrameInput(frameId,seatId,inputs);
 end
 
+local function on_user_lost_conn(utag)
+    local player = utag_Player[utag];
+    if not player then
+        Debug.LogError("Unexpected utag:"..utag);
+        return;
+    end
+    player:OnOffLine();
+end
+
 return {
     OnPlayerTryMatch=on_player_try_match,
     OnPlayerTryStopMatch=on_player_stop_match,
@@ -189,4 +203,5 @@ return {
     OnTakeFrameInput=on_take_frame_input,
     InitPlayer=on_new_player_come,
     SetUdpAddr=set_player_udp_addr,
+    OnUserLostConn=on_user_lost_conn,
 }

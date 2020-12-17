@@ -3,6 +3,7 @@ local Player=Object:New("[Class] Player");
 local ServiceType=require("ServiceType");
 local config=require("GameConfig");
 local Mysql=require("database/mysql_center");
+local PlayerState=require("logic/const/PlayerState");
 Mysql.Connect();
 
 function Player:New(tcpSession,uname,utag)
@@ -16,6 +17,7 @@ function Player:New(tcpSession,uname,utag)
     instance.Uname=uname;
     instance.Uface=0;
     instance.Unick="";
+    instance.State=PlayerState.OnLine;
     --roomInfo
     instance.IsSubmit=false;
     instance.IsReady=false;
@@ -40,7 +42,7 @@ end
 
 function Player:OnAddToRoom(room)
     self.Room=room;
-    print("SetRoom-"..self.Room.RoomId);
+    self.State=PlayerState.Matching;
     if config.enable_match_log then
         Debug.Log("Player["..self.Uname.."] enter Room["..self.Room.RoomId.."]");
     end
@@ -56,6 +58,7 @@ function Player:OnRemoveFromRoom(room)
     self.SyncFrameId=0;
     self.IsReady=false;
     self.IsSubmit=false;
+    self.State=PlayerState.OnLine;
 end
 
 function Player:UdpSend(cmdType,body)
@@ -122,6 +125,20 @@ function Player:GetDefaultHeroId(handler)
         end
         handler(defaultHeroId);
     end);
+end
+
+function Player:OnLine()
+    self.State=PlayerState.OnLine;
+    if self.Room then
+        self.Room:OnPlayerOnLine(self);
+    end
+end
+
+function Player:OnOffLine()
+    self.State=PlayerState.OffLine;
+    if self:IsInRoom() then
+        self.Room:OnPlayerOffLine(self);
+    end
 end
 
 return Player;
