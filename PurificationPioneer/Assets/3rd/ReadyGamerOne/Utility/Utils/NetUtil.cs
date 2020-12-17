@@ -163,16 +163,13 @@ namespace ReadyGamerOne.Utility
             private int curIndex = 0;
             private List<string> ipList;
             private Socket socket;
-            private string targetIp;
-            private int targetPort;
             private int localPort;
-
+            private IPEndPoint targetIpEndPoint;
             public bool IsFinished { get; private set; } = false;
-            public UdpSetupWorker(string targetIp,int targetPort, int localPort)
+            public UdpSetupWorker(IPEndPoint targetIpEndPoint, int localPort)
             {
                 this.localPort = localPort;
-                this.targetIp = targetIp;
-                this.targetPort = targetPort;
+                this.targetIpEndPoint = targetIpEndPoint;
                 ipList=GetLocalIpAddress(AddressFamily.InterNetwork);
             }
 
@@ -200,7 +197,7 @@ namespace ReadyGamerOne.Utility
                 try
                 {
                  this.socket.BeginSendTo(initBytes, 0, initBytes.Length, SocketFlags.None,
-                     new IPEndPoint(IPAddress.Parse(this.targetIp), this.targetPort),
+                     targetIpEndPoint,
                      (iar) =>
                      {
                          bool error = false;
@@ -239,9 +236,9 @@ namespace ReadyGamerOne.Utility
                 }
             }
         }
-        public static void SetupUdp(string targetIp, int targetPort, int localPort,Action recvThread, Action<string, Socket, Thread> onSetUpUdp, byte[] initBytes=null)
+        public static void SetupUdp(IPEndPoint targetIpEndPoint, int localPort,Action recvThread, Action<string, Socket, Thread> onSetUpUdp, byte[] initBytes=null)
         {
-            new UdpSetupWorker(targetIp, targetPort, localPort).Start(initBytes ?? new byte[0], recvThread, onSetUpUdp);
+            new UdpSetupWorker(targetIpEndPoint, localPort).Start(initBytes ?? new byte[0], recvThread, onSetUpUdp);
         }
     }     
 }

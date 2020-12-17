@@ -75,20 +75,16 @@ namespace PurificationPioneer.Network
         #endregion
 
         private TcpHelper tcp;
-        
         private UdpHelper udp;
-        private string udpServerIp;
-        private int udpServerPort;
-
         private bool errorInside = false;
 
-        #region 发送数据
-
+        /// <summary>
+        /// 建立Udp服务
+        /// </summary>
+        /// <param name="onFinishSetup"></param>
         public void SetupUdp(Action<bool> onFinishSetup=null)
         {
-
-            var localPort = NetUtil.GetUdpPort();
-            GameSettings.Instance.SetUdpLocalPort(localPort);
+            GameSettings.Instance.SetUdpLocalPort(NetUtil.GetUdpPort());
 
             udp = new UdpHelper(
                 GameSettings.Instance.UdpServerIp,
@@ -109,12 +105,29 @@ namespace PurificationPioneer.Network
                     }
 #endif                    
                     onFinishSetup?.Invoke(!errorInside);
-
-                    UdpSendProtobuf(ServiceType.Logic, LogicCmd.InitUdpReq, new InitUdpReq{uname = GlobalVar.Uname});
-
+                    if(!errorInside)
+                        UdpSendProtobuf(ServiceType.Logic, LogicCmd.InitUdpReq, new InitUdpReq{uname = GlobalVar.Uname});
                 });
 
         }
+
+        /// <summary>
+        /// 建立Tcp服务
+        /// </summary>
+        private void SetupTcp()
+        {
+            tcp=new TcpHelper(
+                GameSettings.Instance.GatewayIp,
+                GameSettings.Instance.GatewayPort,
+                OnError,
+                OnRecvCmd,
+                GameSettings.Instance.MaxTcpPackageSize,
+                GameSettings.Instance.MaxWaitTime,
+                ()=>GameSettings.Instance.EnableSocketLog);
+        }
+        
+        #region 发送数据
+
 
         public void UdpSendProtobuf(int serviceType, int cmdType, ProtoBuf.IExtensible body = null)
         {
@@ -178,21 +191,15 @@ namespace PurificationPioneer.Network
         protected override void OnStateIsNull()
         {
             base.OnStateIsNull();
-            
-            tcp=new TcpHelper(
-                GameSettings.Instance.GatewayIp,
-                GameSettings.Instance.GatewayPort,
-                OnError,
-                OnRecvCmd,
-                GameSettings.Instance.MaxTcpPackageSize,
-                GameSettings.Instance.MaxWaitTime,
-                ()=>GameSettings.Instance.EnableSocketLog);
 
+            SetupTcp();
+            
             Application.quitting += CloseSocket;
         }
         
-        protected virtual void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             if (GameSettings.Instance.EnableSocketLog)
             {
                 Debug.Log("OnDestroy_关闭链接");

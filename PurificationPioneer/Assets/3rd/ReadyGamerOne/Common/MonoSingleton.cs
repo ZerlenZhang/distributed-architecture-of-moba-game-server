@@ -86,5 +86,9 @@ namespace ReadyGamerOne.Common
             
         }
 
+        protected virtual void OnDestroy()
+        {
+            
+        }
     }
 }

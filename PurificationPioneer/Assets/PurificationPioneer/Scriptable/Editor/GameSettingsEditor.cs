@@ -1,4 +1,6 @@
-﻿using PurificationPioneer.Network.Proxy;
+﻿using System.Collections.Generic;
+using PurificationPioneer.Network.ProtoGen;
+using PurificationPioneer.Network.Proxy;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +19,23 @@ namespace PurificationPioneer.Scriptable
             if (GUILayout.Button("显示ip"))
             {
                 (target as GameSettings)?.LogIp();
+            }
+            if (GUILayout.Button("Try_NextFrameInput"))
+            {
+                LogicProxy.Instance.SendLogicInput(
+                    666,555,444,333,new List<PlayerInput>
+                    {
+                        new PlayerInput
+                        {
+                            seatId = 444,
+                            attack = false,
+                            jump = false,
+                            mouseX = 222,
+                            mouseY = 111,
+                            moveX = 0,
+                            moveY = 0,
+                        }
+                    });
             }
         }
     }

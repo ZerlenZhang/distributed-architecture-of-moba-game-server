@@ -14,3 +14,4 @@ namespace PurificationPioneer.Script
 		}
 	}
 }
+

@@ -357,6 +357,13 @@ namespace PurificationPioneer.Network.ProtoGen
   {
     public PlayerInput() {}
     
+    private int _seatId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"seatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatId
+    {
+      get { return _seatId; }
+      set { _seatId = value; }
+    }
     private int _moveX;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"moveX", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int moveX
@@ -440,34 +447,34 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _frameId; }
       set { _frameId = value; }
     }
-    private readonly global::System.Collections.Generic.List<PlayerInput> _inputs = new global::System.Collections.Generic.List<PlayerInput>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"inputs", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<PlayerInput> inputs
-    {
-      get { return _inputs; }
-    }
-  
     private int _roomId;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"roomId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int roomId
     {
       get { return _roomId; }
       set { _roomId = value; }
     }
     private int _roomType;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"roomType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"roomType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int roomType
     {
       get { return _roomType; }
       set { _roomType = value; }
     }
     private int _seatId;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"seatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"seatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int seatId
     {
       get { return _seatId; }
       set { _seatId = value; }
     }
+    private readonly global::System.Collections.Generic.List<PlayerInput> _inputs = new global::System.Collections.Generic.List<PlayerInput>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"inputs", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<PlayerInput> inputs
+    {
+      get { return _inputs; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

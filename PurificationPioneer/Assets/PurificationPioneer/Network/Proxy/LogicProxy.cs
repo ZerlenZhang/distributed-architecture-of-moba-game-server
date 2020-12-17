@@ -1,7 +1,10 @@
-﻿using PurificationPioneer.Const;
+﻿using System.Collections.Generic;
+using System.Text;
+using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.Const;
 using PurificationPioneer.Network.ProtoGen;
+using PurificationPioneer.Script;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using UnityEngine;
@@ -28,10 +31,17 @@ namespace PurificationPioneer.Network.Proxy
                         Debug.LogError($"LogicFramesToSync is null");
                         return;
                     }         
+                    
 #if DebugMode
+                    var inputCountList = new StringBuilder();
+                    foreach (var frame in logicFrameToSync.unsyncFrames)
+                    {
+                        inputCountList.Append($" [{frame.frameId}-{frame.inputs.Count}]");
+                    }
                     if(GameSettings.Instance.EnableProtoLog)
-                        Debug.Log($"[LogicFramesToSync] 帧同步进行中：{logicFrameToSync.frameId}");
+                        Debug.Log($"[LogicFramesToSync] 帧同步进行中-{FrameSyncMgr.FrameId}/{logicFrameToSync.frameId}{inputCountList}");
 #endif
+                    FrameSyncMgr.OnFrameSyncTick(logicFrameToSync, GlobalVar.LogicFrameDeltaTime);
                     break;
                 #endregion
                 
@@ -381,6 +391,34 @@ namespace PurificationPioneer.Network.Proxy
                 uname = uname,
             };
             NetworkMgr.Instance.TcpSendProtobuf(ServiceType.Logic, LogicCmd.StartGameReq, startGameReq);
+        }
+
+        /// <summary>
+        /// 发送逻辑帧输入
+        /// </summary>
+        /// <param name="frameId"></param>
+        /// <param name="roomType"></param>
+        /// <param name="roomId"></param>
+        /// <param name="seatId"></param>
+        /// <param name="inputs"></param>
+        public void SendLogicInput(int frameId,int roomType,int roomId,int seatId,
+            IEnumerable<PlayerInput> inputs)
+        {
+            var nextFrameInput = new NextFrameInput
+            {
+                frameId = frameId,
+                roomId = roomId,
+                roomType = roomType,
+                seatId = seatId,
+            };
+            foreach (var playerInput in inputs)
+            {
+                nextFrameInput.inputs.Add(playerInput);
+            }
+            NetworkMgr.Instance.UdpSendProtobuf(
+                ServiceType.Logic,
+                LogicCmd.NextFrameInput,
+                nextFrameInput);
         }
     }
 }

@@ -16,5 +16,8 @@ namespace PurificationPioneer.Const
 		public const string OnUpdateSelectTimer = "OnUpdateSelectTimer"; //UpdateSelectTimer
 		public const string OnStartLoadGame = "OnStartLoadGame";
 		public const string OnGameStart = "OnGameStart"; // int
+
+
+		public const string AndroidMoveInput = "AndroidMoveInput";//Vector2
 	}
 }

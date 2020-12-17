@@ -3,7 +3,7 @@ using ReadyGamerOne.View;
 
 namespace PurificationPioneer.Script
 {
-    public class DebugSceneMgr:BaseSceneMgr<DebugSceneMgr>
+    public class DebugSceneMgr:PpSceneMgr<DebugSceneMgr>
     {
         protected override void Start()
         {

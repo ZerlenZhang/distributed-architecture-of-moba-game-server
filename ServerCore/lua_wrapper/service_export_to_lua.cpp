@@ -168,7 +168,7 @@ push_proto_message_tolua(const Message* message) {
 	const Descriptor* descriptor = message->GetDescriptor();
 	for (int32_t index = 0; index < descriptor->field_count(); ++index) {
 		const FieldDescriptor* fd = descriptor->field(index);
-		const std::string& name = fd->lowercase_name();
+		const std::string& name = fd->name();
 
 		// key
 		lua_pushstring(state, name.c_str());

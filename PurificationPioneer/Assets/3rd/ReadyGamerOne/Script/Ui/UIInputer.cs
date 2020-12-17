@@ -5,13 +5,16 @@ using UnityEngine.EventSystems;
 namespace ReadyGamerOne.Script
 {
     public class UIInputer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler,
-        IPointerDownHandler, IPointerClickHandler
+        IPointerDownHandler, IPointerClickHandler,IBeginDragHandler,IEndDragHandler,IDragHandler
     {
         public event Action<PointerEventData> eventOnPointerEnter;
         public event Action<PointerEventData> eventOnPointerExit;
         public event Action<PointerEventData> eventOnPointerUp;
         public event Action<PointerEventData> eventOnPointerDown;
         public event Action<PointerEventData> eventOnPointerClick;
+        public event Action<PointerEventData> eventOnBeginDrag;
+        public event Action<PointerEventData> eventOnEndDrag;
+        public event Action<PointerEventData> eventOnDrag;
 
         public event Action<GameObject> eventOnClickObj;
 
@@ -45,32 +48,42 @@ namespace ReadyGamerOne.Script
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (eventOnPointerEnter == null) return;
-            eventOnPointerEnter(eventData);
+            eventOnPointerEnter?.Invoke(eventData);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (eventOnPointerExit == null) return;
-            eventOnPointerExit(eventData);
+            eventOnPointerExit?.Invoke(eventData);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (eventOnPointerUp == null) return;
-            eventOnPointerUp(eventData);
+            eventOnPointerUp?.Invoke(eventData);
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (eventOnPointerDown == null) return;
-            eventOnPointerDown(eventData);
+            eventOnPointerDown?.Invoke(eventData);
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (eventOnPointerClick == null) return;
-            eventOnPointerClick(eventData);
+            eventOnPointerClick?.Invoke(eventData);
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            eventOnBeginDrag?.Invoke(eventData);
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            eventOnEndDrag?.Invoke(eventData);
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            eventOnDrag?.Invoke(eventData);
         }
     }
 }

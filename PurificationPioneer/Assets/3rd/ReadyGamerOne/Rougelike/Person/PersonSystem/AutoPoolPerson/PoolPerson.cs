@@ -28,14 +28,14 @@ namespace ReadyGamerOne.Rougelike.Person
         /// 对象池，这是整个泛型定义存在的意义!
         /// 泛型对象池可以做到为所有可能的子类各自维护一个对象池
         /// </summary>
-        private static ObjPoor<T> objPoor= new ObjPoor<T>(
+        private static ObjPool<T> _objPool= new ObjPool<T>(
             () => new T(),
             obj => obj.OnRecycleToPool(),
             obj => obj.OnGetFromPool());
 
         public static T GetInstance(Vector3? pos, Transform parent = null)
         {
-            var person = objPoor.GetObj();
+            var person = _objPool.GetObj();
             if (parent)
                 parent.gameObject.transform.SetParent(parent);
             if(pos!=null)
@@ -90,7 +90,7 @@ namespace ReadyGamerOne.Rougelike.Person
         public void Release()
         {
             TickOnKillEventAndClearEvent();
-            objPoor.ReleaseObj(this as T);
+            _objPool.ReleaseObj(this as T);
         }
 
         public event Action<IPoolPerson> onAfterGet;

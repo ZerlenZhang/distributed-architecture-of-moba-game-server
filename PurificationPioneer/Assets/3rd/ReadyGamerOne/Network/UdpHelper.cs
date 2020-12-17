@@ -21,6 +21,7 @@ namespace ReadyGamerOne.Network
         private Socket clientSocket;
         private Thread recvThread;
         private byte[] udpRecvBuff;
+        private IPEndPoint targetIpEndPoint;
         
         
         private Action<byte[], int, int> onRecvCmd;
@@ -29,10 +30,17 @@ namespace ReadyGamerOne.Network
                 
 
         #endregion
-
         
-        public UdpHelper(string targetIp,int targetPort, int localPort, Action<Exception> onException, Action<byte[],int,int> onRecvCmd,
-            int maxUdpPackageSize, Func<bool> enableSocketLog=null, Action onFinishedSetup=null, byte[] initBytes=null)
+        public UdpHelper(
+            string targetIp,
+            int targetPort, 
+            int localPort,
+            Action<Exception> onException, 
+            Action<byte[],int,int> onRecvCmd,
+            int maxUdpPackageSize,
+            Func<bool> enableSocketLog=null,
+            Action onFinishedSetup=null, 
+            byte[] initBytes=null)
         {
             Assert.IsNotNull(onException);
             Assert.IsNotNull(onRecvCmd);
@@ -46,10 +54,11 @@ namespace ReadyGamerOne.Network
             this.LocalUdpPort = localPort;
             this.TargetIp = targetIp;
             this.TargetPort = targetPort;
+            this.targetIpEndPoint = new IPEndPoint(IPAddress.Parse(TargetIp), TargetPort);
+            
             NetUtil.SetupUdp(
-                targetIp,
-                targetPort,
-                localPort,
+                targetIpEndPoint,
+                LocalUdpPort,
                 RecvThread,
                 (localIp, socket, recvThread) =>
                 {
@@ -113,7 +122,7 @@ namespace ReadyGamerOne.Network
                     0,
                     content.Length,
                     SocketFlags.None,
-                    new IPEndPoint(IPAddress.Parse(TargetIp), TargetPort), 
+                    targetIpEndPoint, 
                     OnUdpSend,
                     this.clientSocket);
                 
