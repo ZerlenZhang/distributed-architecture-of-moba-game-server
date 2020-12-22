@@ -9,6 +9,7 @@ namespace PurificationPioneer.Utility
 			= new System.Collections.Generic.Dictionary<string,string>{
 					{ @"Character0" , @"ClassCharacter\Character0" },
 					{ @"Character1" , @"ClassCharacter\Character1" },
+					{ @"LocalCamera" , @"ClassLocalAsset\LocalCamera" },
 					{ @"AndroidBattlePanel" , @"ClassPanel\AndroidBattlePanel" },
 					{ @"DebugPanel" , @"ClassPanel\DebugPanel" },
 					{ @"HomePanel" , @"ClassPanel\HomePanel" },

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Utility;
 using ReadyGamerOne.Attributes;
+using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -14,6 +16,10 @@ namespace PurificationPioneer.Script
         IPpController
         where T:class, IPpAnimator
     {
+        public Transform cameraLookPoint;
+        
+        #region MoveSpeed
+
         /// <summary>
         /// 玩家移动速度
         /// </summary>
@@ -22,7 +28,9 @@ namespace PurificationPioneer.Script
         {
             get => moveSpeed;
             set => moveSpeed = value;
-        }
+        }        
+
+        #endregion
         
         #region CharacterAnimator
 
@@ -48,6 +56,7 @@ namespace PurificationPioneer.Script
         /// <param name="logicPos"></param>
         public virtual void InitCharacterController(int seatId, Vector3 logicPos)
         {
+            Assert.IsNotNull(cameraLookPoint);
             //帧同步回调初始化
             SeatId = seatId;
             FrameSyncMgr.AddListener(this);
@@ -57,6 +66,20 @@ namespace PurificationPioneer.Script
             this.stick_y = 0;
             CharacterAnimator.LogicToIdle();
             logicPosition = logicPos;
+            
+            if(GlobalVar.SeatId==SeatId)
+                InitLocalPlayer();
+        }
+
+        /// <summary>
+        /// 初始化本地玩家
+        /// </summary>
+        protected virtual void InitLocalPlayer()
+        {
+            var localCameraHelper =
+                ResourceMgr.InstantiateGameObject(LocalAssetName.LocalCamera)
+                    .GetComponent<LocalCameraHelper>();
+            localCameraHelper.Init(transform,this.cameraLookPoint);
         }
         
         #region IFrameSyncWithSeatId
