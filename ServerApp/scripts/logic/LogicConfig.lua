@@ -2,7 +2,7 @@ local CmdType=require("logic/const/CmdType");
 
 roomInfos={}
 roomInfos[CmdType.StartMatchReq]={
-    Max=2,
+    Max=1,
     GameTime=500,
 }
 
@@ -17,4 +17,6 @@ return {
     startGameDelay=3,
 
     logicFrameDeltaTime=30,--ms
+
+    broadTimes=1,
 };

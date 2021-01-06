@@ -47,7 +47,7 @@ end
 
 --new methods
 function Room:LogRoomInfo()
-    Debug.Log("[Room]RoomId-"..self.RoomId..":RoomType-"..self.RoomType..":Max-"..self.Max..":Player-"..self.PlayerList.Count().."/"..self.Max);
+    Debug.Log("[Room]RoomId-"..self.RoomId..":RoomType-"..self.RoomType..":Player-"..self.PlayerList:Count().."/"..self.Max);
 end
 
 function Room:BroadMessage(cmdType,body,ignore)
@@ -236,10 +236,12 @@ function Room:FrameSyncLoop()
         sendFramesInfo=sendFramesInfo.." ["..player.SeatId.."-"..#frames.."]";
 
         --	print("player.SyncFrameId:"..player.SyncFrameId.."self.__frameId"..self.__frameId.."#self.__allFrames:"..#self.__allFrames);
-        player:UdpSend(CmdType.LogicFramesToSync,{
-            frameId=self.__frameId,
-            unsyncFrames=frames,
-        });
+        for i=1,LogicConfig.broadTimes do
+            player:UdpSend(CmdType.LogicFramesToSync,{
+                frameId=self.__frameId,
+                unsyncFrames=frames,
+            });
+        end
     end);
 
     Debug.Log("Room["..self.RoomId.."] FrameSync["..self.__frameId.."]"..sendFramesInfo);
@@ -255,11 +257,7 @@ end
 
 --接受收到的输入
 function Room:TakeFrameInput(frameId, seatId,inputs)
-	--是否过时
-    if frameId<self.__frameId then
-        Debug.Log("frameId is out of date: "..frameId);
-		return;
-	end
+
 	--是否内容无效
 	if #inputs <= 0 then
 		Debug.LogError("get empty NextFrameOpts");
@@ -273,12 +271,19 @@ function Room:TakeFrameInput(frameId, seatId,inputs)
 
     local player=self.PlayerList:At(seatId);
 
+    --消息包重复
+    if player.SyncFrameId>=frameId-1 then
+        return;
+    end
     --更新客户端同步到帧数
-	if player.SyncFrameId< frameId-1 then
-        player.SyncFrameId=frameId-1;
+    player.SyncFrameId=frameId-1;
+    --是否过时
+    if frameId<self.__frameId then
+        Debug.Log("frameId is out of date: "..frameId);
+        return;
     end
 
-    Debug.Log("TakeInput Player["..player.SeatId.."].SyncFrameId="..player.SyncFrameId);
+    -- Debug.Log("TakeInput Player["..player.SeatId.."].SyncFrameId="..player.SyncFrameId);
 
 	--加入到当前帧操作
 	for k, opt in pairs(inputs) do

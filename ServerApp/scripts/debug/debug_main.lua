@@ -7,7 +7,7 @@ o1:Print();
 o2:Print();
 
 local Room=require("logic/src/Room");
-local r1=Room:New("Room_1");
+local r1=Room:New(0,10);
 r1:LogRoomInfo();
 
 local List=require("logic/src/List");
@@ -23,3 +23,7 @@ Debug.Log("ListSize:"..roomList:Count());
 roomList:Foreach(function(i,v)
     Debug.Log("Foreach: "..i.." "..v.name);
 end)
+
+for i=0,1 do
+    print(i);
+end
