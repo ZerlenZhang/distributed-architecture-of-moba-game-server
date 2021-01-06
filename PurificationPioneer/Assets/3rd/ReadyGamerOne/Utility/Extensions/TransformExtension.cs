@@ -26,5 +26,14 @@ namespace ReadyGamerOne.Utility
 
             return new Vector2(horValue, verValue);
         }
+
+
+        public static void DestroyChildrenImmediate(this Transform transform)
+        {
+            while (transform.childCount > 0)
+            {
+                Object.DestroyImmediate(transform.GetChild(0).gameObject);
+            }
+        }
     }
 }

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &486734095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 486734096}
+  m_Layer: 0
+  m_Name: ShotPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &486734096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486734095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.604, z: 1.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7072444061591351794}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &518061084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,9 +1338,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7072444061591711132}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -118.131454, y: -98.01, z: -57.969975}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7072444061591351794}
   m_RootOrder: 1
@@ -1747,7 +1777,7 @@ GameObject:
   - component: {fileID: 7072444061582351952}
   - component: {fileID: 4097186198518360826}
   - component: {fileID: 5250964523331521538}
-  - component: {fileID: 1028930690115299559}
+  - component: {fileID: 5016805982010870467}
   m_Layer: 0
   m_Name: Character0
   m_TagString: Untagged
@@ -1774,6 +1804,7 @@ Transform:
   - {fileID: 7072444061591351702}
   - {fileID: 7072444061591351684}
   - {fileID: 518061085}
+  - {fileID: 486734096}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1787,7 +1818,7 @@ Animator:
   m_GameObject: {fileID: 7072444061591711186}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 860793eb3324391468f1c120a75ec049, type: 3}
-  m_Controller: {fileID: 9100000, guid: 121cbbcf0a459a1499645701a6313125, type: 2}
+  m_Controller: {fileID: 9100000, guid: 25099f97ee30d464290591052f3a516f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1810,9 +1841,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraLookPoint: {fileID: 518061085}
   moveSpeed: 1
-  characterAnimator: {fileID: 1028930690115299559}
+  characterAnimator: {fileID: 5016805982010870467}
   characterController: {fileID: 5250964523331521538}
   seatId: 0
+  shotPoint: {fileID: 486734096}
+  attackMinDeltaTime: 0.5
 --- !u!143 &5250964523331521538
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1831,7 +1864,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.97, z: 0}
---- !u!114 &1028930690115299559
+--- !u!114 &5016805982010870467
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1840,14 +1873,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7072444061591711186}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f0525646bb47c9a29856376a70801d, type: 3}
+  m_Script: {fileID: 11500000, guid: f01df001960d431facc6a8112c5f1f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7072444061582351952}
-  horizontalFloatKey: horizontal
-  verticalFloatKey: vertical
-  moveSpeedKey: moveSpeed
-  toDieTrigger: die
+  dieTriggerKey: die
+  runTriggerKey: run
+  idleTriggerKey: idle
 --- !u!1 &7072444061591711188
 GameObject:
   m_ObjectHideFlags: 0

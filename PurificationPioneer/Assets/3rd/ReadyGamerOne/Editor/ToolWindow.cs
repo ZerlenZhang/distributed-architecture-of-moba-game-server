@@ -56,7 +56,6 @@ namespace ReadyGamerOne.Editor
                         | BindingFlags.Static);
                     if(func==null)
                         continue;
-//                    Debug.Log(type);
                     var name=type.GetField("Title",
                         BindingFlags.IgnoreCase 
                         | BindingFlags.NonPublic

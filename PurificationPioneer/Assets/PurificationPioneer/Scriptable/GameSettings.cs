@@ -88,7 +88,10 @@ namespace PurificationPioneer.Scriptable
 
         #region 调试开关
 
-        [Header("调试开关")]
+        [Header("调试开关")] 
+        [SerializeField] private int netMsgTimes = 2;
+
+        public int NetMsgTimes => netMsgTimes;
         
         #region CloseSocketOnAnyException
         [SerializeField] private bool closeSocketOnAnyException = true;
@@ -110,7 +113,23 @@ namespace PurificationPioneer.Scriptable
         public bool EnableProtoLog => enableProtoLog;
         public void SetEnableProtoLog(bool value) => enableProtoLog = value;        
 
-        #endregion        
+        #endregion
+
+        #region EnableFrameSyncLog
+
+        [SerializeField] private bool enableFrameSyncLog = true;
+
+        public bool EnableFrameSyncLog => enableFrameSyncLog;
+
+        #endregion
+
+        #region EnableInputLog
+
+        [SerializeField] private bool enableInputLog = true;
+
+        public bool EnableInputLog => enableInputLog;
+
+        #endregion
 
         #endregion
         
@@ -120,7 +139,8 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private Ease matchPanelEaseType = Ease.InCirc;
         public Ease MatchPanelEaseType => matchPanelEaseType;
         [SerializeField] private float matchPanelEaseTime = 1;
-        public float MatchPanelEaseTime=>matchPanelEaseTime;        
+        public float MatchPanelEaseTime=>matchPanelEaseTime;
+        
 
         #endregion
         
@@ -144,7 +164,14 @@ namespace PurificationPioneer.Scriptable
 
         #endregion
 
+        #region 输入配置
 
-        
+        [Header("PC端攻击键")] [SerializeField] private KeyCode _attackKey = KeyCode.Mouse0;
+
+        public KeyCode AttackKey => _attackKey;
+        [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
+
+        public KeyCode JumpKey => _jumpKey;
+        #endregion
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
 using UnityEngine;
@@ -41,5 +40,6 @@ namespace PurificationPioneer.Script
             this.submitBtn.gameObject.SetActive(false);
             this.timerObj.DOMove(this.submitBtn.transform.position, time).SetEase(easeType);
         }
+
     }
 }

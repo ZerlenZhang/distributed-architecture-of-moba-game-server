@@ -25,7 +25,7 @@ namespace PurificationPioneer.Script
             LogicState = CharacterState.Idle;
         }
 
-        public virtual void ToMove(float x,float y, float speed)
+        public virtual void ToMove()
         {
             AniState = CharacterState.Move;
         }

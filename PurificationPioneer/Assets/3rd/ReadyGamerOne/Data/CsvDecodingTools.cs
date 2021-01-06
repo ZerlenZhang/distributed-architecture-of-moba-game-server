@@ -31,6 +31,7 @@ namespace ReadyGamerOne.Data
         #pragma warning restore 414
         private static string DataConfigFileName = "DataConfig";
         private static bool overriteOldFile = false;
+        private static bool isPartial = true;
         private static Dictionary<string, DataConfigInfo> _dataConfigInfos = new Dictionary<string, DataConfigInfo>();
         private static void OnToolsGUI(string rootNs,string viewNs,string constNs,string dataNs,string autoDir,string scriptDir)
         {
@@ -62,7 +63,8 @@ namespace ReadyGamerOne.Data
             EditorGUILayout.Space();
             overriteOldFile = EditorGUILayout.Toggle("是否覆盖旧文件", overriteOldFile);
             EditorGUILayout.Space();
-
+            isPartial = EditorGUILayout.Toggle("数据类型是否Partial", isPartial);
+            EditorGUILayout.Space();
 
             if (GUILayout.Button("根据DataConfig文件生成空csv文件"))
             {               
@@ -78,7 +80,6 @@ namespace ReadyGamerOne.Data
                 }
                 AssetDatabase.Refresh();
                 Debug.Log("生成完毕");
-//                WindowsUtil.OpenFolderInExplorer(csvDirPath);
             }
             
             
@@ -110,7 +111,10 @@ namespace ReadyGamerOne.Data
                     }
                     
          
-                    Utility.FileUtil.ReCreateFileNameConstClassFromDir("FileName", consDir,Application.dataPath + "/Resources/ClassFile",rootNs+"."+constNs);               
+                    Utility.FileUtil.ReCreateFileNameConstClassFromDir(
+                        "FileName", 
+                        consDir,
+                        Application.dataPath + "/Resources/ClassFile",rootNs+"."+constNs);               
                     AssetDatabase.Refresh();        //这里是一个点
                     Debug.Log("生成完成");
                 }
@@ -381,8 +385,10 @@ namespace ReadyGamerOne.Data
             
             sw.WriteLine("using UnityEngine;\nusing System.Collections;\n");
             var ns = string.IsNullOrEmpty(nameSpace) ? "DefaultNamespace" : nameSpace;
-            sw.WriteLine("namespace "+ns+"\n" +
-                         "{\n\t[System.Serializable]\n\tpublic class " + className + " : "+ parentClass);
+
+            var partialType = isPartial ? " partial " : "";
+            sw.WriteLine($"namespace {ns}\n" +
+                         "{\n\t[System.Serializable]\n\tpublic "+ partialType + "class " + className + " : "+ parentClass);
             sw.WriteLine("\t{");
 
             var csr = new CsvStreamReader(filePath);

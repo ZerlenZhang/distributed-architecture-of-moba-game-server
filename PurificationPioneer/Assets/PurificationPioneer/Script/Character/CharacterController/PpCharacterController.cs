@@ -2,6 +2,7 @@
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
+using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using ReadyGamerOne.Attributes;
 using ReadyGamerOne.MemorySystem;
@@ -16,7 +17,9 @@ namespace PurificationPioneer.Script
         IPpController
         where T:class, IPpAnimator
     {
-        public Transform cameraLookPoint;
+        #region Inspector properties
+
+        [SerializeField]private Transform cameraLookPoint;
         
         #region MoveSpeed
 
@@ -47,19 +50,23 @@ namespace PurificationPioneer.Script
         [SerializeField] private CharacterController characterController;
 
         protected CharacterController CharacterController => characterController;
+        #endregion        
+
         #endregion
-        
+
+        #region public API
+
         /// <summary>
         /// 初始化角色控制器
         /// </summary>
         /// <param name="seatId"></param>
         /// <param name="logicPos"></param>
-        public virtual void InitCharacterController(int seatId, Vector3 logicPos)
+        public void InitCharacterController(int seatId, Vector3 logicPos)
         {
             Assert.IsNotNull(cameraLookPoint);
             //帧同步回调初始化
             SeatId = seatId;
-            FrameSyncMgr.AddListener(this);
+            FrameSyncMgr.AddFrameSyncCharacter(this);
             
             //初始化内部参数
             this.stick_x = 0;
@@ -67,21 +74,38 @@ namespace PurificationPioneer.Script
             CharacterAnimator.LogicToIdle();
             logicPosition = logicPos;
             
+            InitCharacter();
+            
             if(GlobalVar.SeatId==SeatId)
-                InitLocalPlayer();
+                InitLocalCharacter();
+        }        
+
+        #endregion
+
+
+        #region protected methods
+
+        /// <summary>
+        /// 所有角色都要进行的初始化操作
+        /// </summary>
+        protected virtual void InitCharacter()
+        {
+            
         }
 
         /// <summary>
         /// 初始化本地玩家
         /// </summary>
-        protected virtual void InitLocalPlayer()
+        protected virtual void InitLocalCharacter()
         {
             var localCameraHelper =
                 ResourceMgr.InstantiateGameObject(LocalAssetName.LocalCamera)
                     .GetComponent<LocalCameraHelper>();
             localCameraHelper.Init(transform,this.cameraLookPoint);
-        }
-        
+        }        
+
+        #endregion
+
         #region IFrameSyncWithSeatId
 
         [SerializeField]private int seatId;
@@ -91,12 +115,12 @@ namespace PurificationPioneer.Script
             private set => seatId = value;
         }
 
-        public virtual void SkipPlayerInput(IEnumerable<PlayerInput> inputs)
+        public void SkipCharacterInput(IEnumerable<PlayerInput> inputs)
         {               
-            SyncLastPlayerInput(inputs);
+            SyncLastCharacterInput(inputs);
         }
 
-        public virtual void SyncLastPlayerInput(IEnumerable<PlayerInput> inputs)
+        public void SyncLastCharacterInput(IEnumerable<PlayerInput> inputs)
         {            
             foreach (var playerInput in inputs)
             {
@@ -107,17 +131,27 @@ namespace PurificationPioneer.Script
                 DoJoystick(GlobalVar.LogicFrameDeltaTime.ToFloat());
                 this.logicPosition = this.transform.position;
                 
-                print("前进：" + (this.logicPosition - before).magnitude);                
+                if(playerInput.attack)
+                    OnAttack();
+#if DebugMode
+                if(GameSettings.Instance.EnableFrameSyncLog)
+                    Debug.Log($"[GetInput-SyncLast-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y}), 前进：{(this.logicPosition - before).magnitude}");                
+#endif
+
             }
         }
 
-        public virtual void OnHandleCurrentPlayerInput(IEnumerable<PlayerInput> inputs)
+        public void OnHandleCurrentCharacterInput(IEnumerable<PlayerInput> inputs)
         {
             foreach (var playerInput in inputs)
             {
                 this.stick_x = playerInput.moveX;
                 this.stick_y = playerInput.moveY;
-
+#if DebugMode
+                if(GameSettings.Instance.EnableFrameSyncLog)
+                    Debug.Log($"[GetInput-Current-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y})");
+#endif
+    
                 if (this.stick_x == 0 && this.stick_y == 0)
                 {
                     CharacterAnimator.LogicToIdle();
@@ -126,10 +160,17 @@ namespace PurificationPioneer.Script
                 {
                     CharacterAnimator.LogicToWalk();
                 }
+                if(playerInput.attack)
+                    OnAttack();
             }
         }        
         
         #endregion
+
+        protected virtual void OnAttack()
+        {
+            
+        }
 
         #region Private_Logic
 
@@ -169,7 +210,7 @@ namespace PurificationPioneer.Script
             //有移动的话，切换状态，执行手柄逻辑
             if (CharacterAnimator.AniState == CharacterState.Idle)
             {
-                CharacterAnimator.ToMove(this.stick_x.ToFloat(),this.stick_y.ToFloat(),MoveSpeed);
+                CharacterAnimator.ToMove();
             }
             
             DoJoystick(Time.deltaTime);
@@ -192,16 +233,21 @@ namespace PurificationPioneer.Script
             //有移动，将逻辑状态置为Walk
             CharacterAnimator.LogicToWalk();
 
-            var localForward = transform.forward;
+            var cameraForward = Camera.main.transform.forward;
+            var expectedForward = new Vector2(
+                cameraForward.x,cameraForward.z).normalized;
 
-            var srcDir = new Vector2(
-                localForward.x,
-                localForward.z);
+            transform.forward = new Vector3(expectedForward.x, 0, expectedForward.y);
+
             var inputDir = new Vector2(
                 this.stick_x.ToFloat(),
                 this.stick_y.ToFloat());
+
+
+            var angle =  -Mathf.Sign(inputDir.x) * Vector2.Angle(inputDir, Vector2.up);
+            var moveDir = expectedForward.RotateDegree(angle);
             
-            var moveDir = srcDir.RotateDegree(Vector2.Angle(inputDir, Vector2.up));
+            Debug.Log($"[Move] expectedForward:{expectedForward}, inputDir:{inputDir}, moveDir:{moveDir}, angle:{angle}");
 
             var s = this.moveSpeed * deltaTime;
             

@@ -34,12 +34,11 @@ namespace PurificationPioneer.Script
             animator.SetFloat(verticalFloatKey, 0);
         }
 
-        public override void ToMove(float x, float y, float speed)
+        public override void ToMove()
         {
-            base.ToMove(x, y, speed);
-            animator.SetFloat(horizontalFloatKey, x);
-            animator.SetFloat(verticalFloatKey, y);
-            animator.SetFloat(moveSpeedKey, speed);
+            base.ToMove();
+            animator.SetFloat(horizontalFloatKey, 0);
+            animator.SetFloat(verticalFloatKey, 1);
         }
     }
 }

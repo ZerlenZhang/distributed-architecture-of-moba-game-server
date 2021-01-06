@@ -4,38 +4,95 @@ using System.Linq;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
+using PurificationPioneer.Scriptable;
+using PurificationPioneer.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Script
 {
-    public interface IFrameSyncWithSeatId
+    /// <summary>
+    /// 接受帧同步输入的角色需要实现这个接口并加入到监听当中
+    /// </summary>
+    public interface IFrameSyncCharacter
     {
+        /// <summary>
+        /// 游戏单位座位号
+        /// </summary>
         int SeatId { get; }
-        void SkipPlayerInput(IEnumerable<PlayerInput> inputs);
-        void SyncLastPlayerInput(IEnumerable<PlayerInput> inputs);
-        void OnHandleCurrentPlayerInput(IEnumerable<PlayerInput> inputs);
+        /// <summary>
+        /// 跳过某一帧的输入
+        /// </summary>
+        /// <param name="inputs"></param>
+        void SkipCharacterInput(IEnumerable<PlayerInput> inputs);
+        /// <summary>
+        /// 同步上一帧的输入
+        /// </summary>
+        /// <param name="inputs"></param>
+        void SyncLastCharacterInput(IEnumerable<PlayerInput> inputs);
+        /// <summary>
+        /// 处理这一帧的输入
+        /// </summary>
+        /// <param name="inputs"></param>
+        void OnHandleCurrentCharacterInput(IEnumerable<PlayerInput> inputs);
     }
+
+    /// <summary>
+    /// 随帧同步更新的逻辑单位需要实现这个接口
+    /// 比如子弹，自动AI
+    /// </summary>
+    public interface IFrameSyncUnit
+    {
+        int InstanceId { get; }
+        void OnLogicFrameUpdate(float deltaTime);
+    }
+    
     public static class FrameSyncMgr
     {
 
-        #region Public
-
+        #region IFrameSyncWithSeatId_监听
+        
         /// <summary>
-        /// 添加监听者
+        /// 添加帧同步角色监听者
         /// </summary>
-        /// <param name="frameSyncWithSeatId"></param>
-        public static void AddListener(IFrameSyncWithSeatId frameSyncWithSeatId)
+        /// <param name="frameSyncCharacter"></param>
+        public static void AddFrameSyncCharacter(IFrameSyncCharacter frameSyncCharacter)
         {
-            if (!ListenerDic.TryGetValue(frameSyncWithSeatId.SeatId, out var listenerList))
+            if (!frameSyncCharacterDic.TryGetValue(frameSyncCharacter.SeatId, out var listenerList))
             {
-                listenerList = new List<IFrameSyncWithSeatId>();
-                ListenerDic.Add(frameSyncWithSeatId.SeatId, listenerList);
+                listenerList = new List<IFrameSyncCharacter>();
+                frameSyncCharacterDic.Add(frameSyncCharacter.SeatId, listenerList);
             }
 
-            if (!listenerList.Contains(frameSyncWithSeatId))
-                listenerList.Add(frameSyncWithSeatId);
+            if (!listenerList.Contains(frameSyncCharacter))
+                listenerList.Add(frameSyncCharacter);
         }
+
+        /// <summary>
+        /// 移除帧同步角色监听者
+        /// </summary>
+        /// <param name="frameSyncCharacter"></param>
+        public static void RemoveFrameSyncCharacter(IFrameSyncCharacter frameSyncCharacter)
+        {
+            _frameSyncCharactersToRemove.Add(frameSyncCharacter.SeatId, frameSyncCharacter);
+            // if (frameSyncCharacterDic.TryGetValue(frameSyncCharacter.SeatId, out var characterList))
+            // {
+            //     characterList.Remove(frameSyncCharacter);
+            // }
+        }
+        
+        /// <summary>
+        /// 清空帧同步角色监听者
+        /// </summary>
+        public static void ClearFrameSyncCharacters()
+        {
+            _frameId = 0;
+            _lastFrameEvent = null;
+            frameSyncCharacterDic.Clear();
+        }
+        
+
+        #endregion
         /// <summary>
         /// 接收到服务器帧事件的回调
         /// </summary>
@@ -73,90 +130,174 @@ namespace PurificationPioneer.Script
             }
             
             //收集最近输入，发送到服务器
-            SendPlayerInput();
-        }
+            SendLocalCharacterInput();
 
-        /// <summary>
-        /// 清空数据
-        /// </summary>
-        public static void Clear()
+            //移除缓存的监听者
+            RemoveCacheFrameSyncListeners();
+        }
+        
+        #region IFrameSyncUpdate_监听
+
+        public static void AddFrameSyncUnit(IFrameSyncUnit frameSyncUnit)
         {
-            _frameId = 0;
-            _lastFrameEvent = null;
-            ListenerDic.Clear();
+            frameSyncUnitDic.Add(frameSyncUnit.InstanceId, frameSyncUnit);
         }
 
+        public static void RemoveFrameSyncUnit(IFrameSyncUnit frameSyncUnit)
+        {
+            _frameSyncUnitsToRemove.Add(frameSyncUnit.InstanceId, frameSyncUnit);
+        }
+
+        public static void ClearFrameSyncUpdaters()
+        {
+            frameSyncUnitDic.Clear();
+        }
         #endregion
+ 
+        private static int _frameId = 0;
+        public static int FrameId => _frameId;
+
+        private static int newestInputId = 0;
+
+        public static int NewestInputId => newestInputId;
+
 
         #region Private
 
-        private static int _frameId = 0;
-        public static int FrameId => _frameId;
         private static LogicFrame _lastFrameEvent;
 
-        private static readonly Dictionary<int, List<IFrameSyncWithSeatId>> ListenerDic =
-            new Dictionary<int, List<IFrameSyncWithSeatId>>();
-        private static void BroadLogicFrame(LogicFrame logicFrame, Action<IFrameSyncWithSeatId,IEnumerable<PlayerInput>> onOperateInputs)
+        #region Private Collections
+
+        private static readonly Dictionary<int, IFrameSyncUnit> frameSyncUnitDic =
+            new Dictionary<int, IFrameSyncUnit>();
+
+        private static Dictionary<int, IFrameSyncUnit> _frameSyncUnitsToRemove = new Dictionary<int, IFrameSyncUnit>();
+        private static void ForeachFrameSyncUnits(Action<IFrameSyncUnit> onForeach)
+        {
+            foreach (var id_frameSyncUpdate in frameSyncUnitDic)
+            {
+                if(_frameSyncUnitsToRemove.ContainsKey(id_frameSyncUpdate.Key))
+                    continue;
+                onForeach?.Invoke(id_frameSyncUpdate.Value);
+            }
+        }
+        
+        private static readonly Dictionary<int, List<IFrameSyncCharacter>> frameSyncCharacterDic =
+            new Dictionary<int, List<IFrameSyncCharacter>>();
+        private static Dictionary<int, IFrameSyncCharacter> _frameSyncCharactersToRemove =
+            new Dictionary<int, IFrameSyncCharacter>();        
+
+        #endregion
+        
+        /// <summary>
+        /// 广播逻辑帧给每个IFrameSyncCharacter
+        /// </summary>
+        /// <param name="logicFrame"></param>
+        /// <param name="onOperateInputs"></param>
+        private static void BroadLogicFrame(LogicFrame logicFrame, Action<IFrameSyncCharacter,IEnumerable<PlayerInput>> onOperateInputs)
         {
             var groups = logicFrame.inputs
                 .GroupBy(input => input.seatId);
             foreach (var seatIdInputs in groups)
             {
                 var seatId = seatIdInputs.Key;
-                Assert.IsTrue(ListenerDic.ContainsKey(seatId));
-                foreach (var listener in ListenerDic[seatId])
+                Assert.IsTrue(frameSyncCharacterDic.ContainsKey(seatId));
+                foreach (var listener in frameSyncCharacterDic[seatId])
                 {
+                    if(_frameSyncCharactersToRemove.ContainsKey(listener.SeatId))
+                        continue;
                     onOperateInputs(listener, seatIdInputs);
                 }
             }
         }
 
-        private static void SendPlayerInput()
+        /// <summary>
+        /// 发送本地玩家输入
+        /// </summary>
+        private static void SendLocalCharacterInput()
         {
             var selfInput = InputMgr.GetInput();
-            var inputFrameId = _frameId + 1;
-            
-            Debug.Log($"SendInput:[{inputFrameId}]({selfInput.moveX},{selfInput.moveY})");
+            newestInputId = _frameId + 1;
+#if DebugMode
+            if(GameSettings.Instance.EnableInputLog)
+                Debug.Log($"[SendInput-{newestInputId}]({selfInput.moveX},{selfInput.moveY})");
+#endif
             
             var inputs = new List<PlayerInput>
             {
                 selfInput,
             };
 
-            LogicProxy.Instance.SendLogicInput(
-                inputFrameId,
-                GlobalVar.RoomType,
-                GlobalVar.RoomId,
-                GlobalVar.SeatId,
-                inputs);
+            for(var i=0;i<GameSettings.Instance.NetMsgTimes;i++)
+                LogicProxy.Instance.SendLogicInput(
+                    newestInputId,
+                    GlobalVar.RoomType,
+                    GlobalVar.RoomId,
+                    GlobalVar.SeatId,
+                    inputs);
             
         }
-
+        
+        /// <summary>
+        /// 处理这一帧的输入
+        /// </summary>
+        /// <param name="logicFrame"></param>
         private static void HandleCurrentLogicFrame(LogicFrame logicFrame)
         {
             BroadLogicFrame(logicFrame, (
-                    listener,
+                    character,
                     inputs)
-                    =>listener.OnHandleCurrentPlayerInput(inputs));
+                    =>character.OnHandleCurrentCharacterInput(inputs));
+            
+            ForeachFrameSyncUnits( 
+                unit => 
+                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));
         }
 
+        /// <summary>
+        /// 跳过某一帧的输入
+        /// </summary>
+        /// <param name="logicFrame"></param>
         private static void SkipLogicFrame(LogicFrame logicFrame)
         {
             BroadLogicFrame(logicFrame, (
-                    listener,
+                    character,
                     inputs)
-                =>listener.SkipPlayerInput(inputs));
+                =>character.SkipCharacterInput(inputs));
+            ForeachFrameSyncUnits( 
+                unit => 
+                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));
         }
-
+        
+        /// <summary>
+        /// 同步上一帧的输入
+        /// </summary>
+        /// <param name="logicFrame"></param>
         private static void SyncLastFrame(LogicFrame logicFrame)
         {
             BroadLogicFrame(logicFrame, (
-                    listener,
+                    character,
                     inputs)
-                =>listener.SyncLastPlayerInput(inputs));
-        }        
+                =>character.SyncLastCharacterInput(inputs));
+        }
 
+        /// <summary>
+        /// 移除缓冲区里里的帧消息监听者
+        /// </summary>
+        private static void RemoveCacheFrameSyncListeners()
+        {
+            foreach (var id_listener in _frameSyncCharactersToRemove)
+            {
+                frameSyncCharacterDic.Remove(id_listener.Key);
+            }
+            _frameSyncCharactersToRemove.Clear();
+            foreach (var id_unit in _frameSyncUnitsToRemove)
+            {
+                frameSyncUnitDic.Remove(id_unit.Key);
+            }
+            _frameSyncUnitsToRemove.Clear();
+        }
+        
         #endregion
-
     }
 }

@@ -1,6 +1,6 @@
-namespace PurificationPioneer.Script
+ namespace PurificationPioneer.Script
 {
-	public partial class PurificationPioneerMgr
+	public partial class  PurificationPioneerMgr
 	{
 		partial void OnSafeAwake()
 		{

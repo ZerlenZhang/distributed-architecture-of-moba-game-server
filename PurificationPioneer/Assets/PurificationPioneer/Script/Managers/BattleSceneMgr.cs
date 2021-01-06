@@ -16,6 +16,7 @@ namespace PurificationPioneer.Script
         public Transform leftPoint;
         public Transform rightPoint;
         public float generateRadius = 3;
+        public bool lookMouse = true;
         
         protected override void Start()
         {
@@ -45,8 +46,9 @@ namespace PurificationPioneer.Script
 
         private IEnumerator GenerateCharacters(float delay)
         {
-            var times = GlobalVar.SeatId_MatcherInfo.Count / 2;
+            var times = Mathf.Max(GlobalVar.SeatId_MatcherInfo.Count / 2,1);
             var deltaTime = delay / (1 + times);
+            
             var deltaDegree = 360f / times;
             foreach (var kv in GlobalVar.SeatId_MatcherInfo)
             {
@@ -77,6 +79,10 @@ namespace PurificationPioneer.Script
                 if(genPoint==rightPoint)
                     yield return new WaitForSeconds(deltaTime);
             }
+
+            // Cursor.visible = false;
+            if(lookMouse)
+                Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }

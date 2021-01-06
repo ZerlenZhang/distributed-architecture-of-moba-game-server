@@ -33,13 +33,15 @@ namespace PurificationPioneer.Network.Proxy
                     }         
                     
 #if DebugMode
-                    var inputCountList = new StringBuilder();
-                    foreach (var frame in logicFrameToSync.unsyncFrames)
+                    if (GameSettings.Instance.EnableFrameSyncLog)
                     {
-                        inputCountList.Append($" [{frame.frameId}-{frame.inputs.Count}]");
+                        var inputCountList = new StringBuilder();
+                        foreach (var frame in logicFrameToSync.unsyncFrames)
+                        {
+                            inputCountList.Append($" [{frame.frameId}-{frame.inputs.Count}]");
+                        }
+                        Debug.Log($"[LogicFramesToSync] 帧同步进行中-{FrameSyncMgr.NewestInputId}/{FrameSyncMgr.FrameId}/{logicFrameToSync.frameId}{inputCountList}");                        
                     }
-                    if(GameSettings.Instance.EnableProtoLog)
-                        Debug.Log($"[LogicFramesToSync] 帧同步进行中-{FrameSyncMgr.FrameId}/{logicFrameToSync.frameId}{inputCountList}");
 #endif
                     FrameSyncMgr.OnFrameSyncTick(logicFrameToSync, GlobalVar.LogicFrameDeltaTime);
                     break;

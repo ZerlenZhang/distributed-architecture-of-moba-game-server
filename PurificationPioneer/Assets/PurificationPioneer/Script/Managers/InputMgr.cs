@@ -1,9 +1,7 @@
-﻿using System;
-using PurificationPioneer.Const;
-using PurificationPioneer.Global;
+﻿using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
+using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
-using ReadyGamerOne.Common;
 using UnityEngine;
 
 namespace PurificationPioneer.Script
@@ -22,8 +20,8 @@ namespace PurificationPioneer.Script
             var input = new PlayerInput();
             input.seatId = GlobalVar.SeatId;
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
-            input.attack = attack;
-            input.jump = jump;
+            input.attack = Input.GetKey(GameSettings.Instance.AttackKey);
+            input.jump = Input.GetKey(GameSettings.Instance.JumpKey);
             input.mouseX = mouseX;
             input.mouseY = mouseY;
             input.moveX = Input.GetAxis("Horizontal").ToInt();

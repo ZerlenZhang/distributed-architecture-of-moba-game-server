@@ -421,8 +421,9 @@ namespace ReadyGamerOne.Script
         #endregion
 
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             Debug.LogWarning("MainLoop_OnDestory函数被调用！");
         }
     }

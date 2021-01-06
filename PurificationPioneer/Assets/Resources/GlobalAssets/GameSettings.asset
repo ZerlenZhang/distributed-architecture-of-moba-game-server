@@ -17,11 +17,16 @@ MonoBehaviour:
   maxTcpPackageSize: 65536
   maxUdpPackageSize: 65536
   maxWaitTime: 5000
+  netMsgTimes: 2
   closeSocketOnAnyException: 1
   enableSocketLog: 0
   enableProtoLog: 1
+  enableFrameSyncLog: 1
+  enableInputLog: 0
   matchPanelEaseType: 20
   matchPanelEaseTime: 1
   debugMode: 1
   debugAccount: developer
   debugPassword: developer_password
+  _attackKey: 323
+  _jumpKey: 32

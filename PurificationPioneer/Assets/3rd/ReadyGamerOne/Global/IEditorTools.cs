@@ -5,7 +5,7 @@ namespace ReadyGamerOne.Global
     /// </summary>
     public interface IEditorTools
     {
-//        static string Title = "标题";
-//        static void OnToolsGUI(string rootNs,string viewNs,string constNs,string dataNs,string autoDir,string scriptDir)
+//        private static string Title = "标题";
+//        private static void OnToolsGUI(string rootNs,string viewNs,string constNs,string dataNs,string autoDir,string scriptDir)
     }
 }
