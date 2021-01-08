@@ -1,4 +1,5 @@
 ﻿using PurificationPioneer.Data;
+using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Data;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -49,7 +50,12 @@ namespace PurificationPioneer.Script
     {
         public void DisableBullet(DirectionFrameSyncBullet frameSyncBullet)
         {
-            Debug.Log($"[DirectBullet] Destroy!");
+#if DebugMode
+            if (GameSettings.Instance.EnableBulletLog)
+            {
+                Debug.Log($"[DirectBullet] Destroy!");
+            }
+#endif
             Object.Destroy(frameSyncBullet.gameObject);
         }
 

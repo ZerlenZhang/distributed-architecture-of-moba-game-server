@@ -77,7 +77,10 @@ namespace PurificationPioneer.Script
             _bulletState = bulletState;
             bulletState.RendererPosition = bulletState.LogicPosition;
             FrameSyncMgr.AddFrameSyncUnit(this);
-            BattleSceneMgr.Instance.eventOnGameState += OnBulletStateGUI;
+#if DebugMode
+            if(GameSettings.Instance.EnableBulletLog)
+                BattleSceneMgr.Instance.eventOnGameState += OnBulletStateGUI;
+#endif
         }
 
         private void Update()
@@ -145,10 +148,13 @@ namespace PurificationPioneer.Script
             {
                 DestroyBullet();
             }
-            else
+            
+#if DebugMode
+            else if (GameSettings.Instance.EnableBulletLog)
             {
-                Debug.Log($"BullsetLife: {_bulletLogicAgeTime}/{_bulletConfig.MaxLife}");
+                Debug.Log($"[AbstractFrameSyncBullet] BulletLife: {_bulletLogicAgeTime}/{_bulletConfig.MaxLife}");
             }
+#endif
         }
 
         #endregion
@@ -172,7 +178,12 @@ namespace PurificationPioneer.Script
             if (_isDestroyed)
                 return;
             _isDestroyed = true;
-            Debug.Log($"[AbstractFrameSyncBullet] DestroyBullet");
+#if DebugMode
+            if (GameSettings.Instance.EnableBulletLog)
+            {
+                Debug.Log($"[AbstractFrameSyncBullet] DestroyBullet");
+            }
+#endif
             OnBulletDestroy();
             BulletStrategy.DisableBullet(this as TBullet);
         }
@@ -181,7 +192,10 @@ namespace PurificationPioneer.Script
         {
             _isInitialized = false;
             FrameSyncMgr.RemoveFrameSyncUnit(this);
-            BattleSceneMgr.Instance.eventOnGameState -= OnBulletStateGUI;
+#if DebugMode
+            if(GameSettings.Instance.EnableBulletLog)
+                BattleSceneMgr.Instance.eventOnGameState -= OnBulletStateGUI;
+#endif
         }
         
         private void OnDestroy()

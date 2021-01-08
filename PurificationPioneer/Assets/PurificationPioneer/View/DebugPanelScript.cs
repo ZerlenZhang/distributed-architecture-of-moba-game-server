@@ -16,7 +16,7 @@ namespace PurificationPioneer.View
 
         public void InitSettings()
         {
-            debugModeToggle.isOn = GameSettings.Instance.DebugMode;
+            debugModeToggle.isOn = GameSettings.Instance.DeveloperMode;
             enableSocketLogToggle.isOn = GameSettings.Instance.EnableSocketLog;
             closeSocketOnAnyException.isOn = GameSettings.Instance.CloseSocketOnAnyException;
             enableProtoLogToggle.isOn = GameSettings.Instance.EnableProtoLog;

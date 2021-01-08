@@ -131,6 +131,14 @@ namespace PurificationPioneer.Scriptable
 
         #endregion
 
+        #region EnableBulletLog
+
+        [SerializeField] private bool enableBulletLog = false;
+
+        public bool EnableBulletLog => enableBulletLog;
+
+        #endregion
+        
         #endregion
         
         #region Ui设置
@@ -150,9 +158,9 @@ namespace PurificationPioneer.Scriptable
         
         #region DebugMode
 
-        [SerializeField] private bool debugMode = true;
-        public bool DebugMode => debugMode;
-        public void SetDebugMode(bool value) => debugMode = value;        
+        [SerializeField] private bool developerMode = true;
+        public bool DeveloperMode => developerMode;
+        public void SetDeveloperMode(bool value) => developerMode = value;        
 
         #endregion
         

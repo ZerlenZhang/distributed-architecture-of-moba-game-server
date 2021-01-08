@@ -16,7 +16,7 @@ namespace PurificationPioneer.View
 			script = m_TransFrom.GetComponent<WelcomePanelScript>();
 
 #if UNITY_EDITOR
-			if (GameSettings.Instance.DebugMode)
+			if (GameSettings.Instance.DeveloperMode)
 			{
 				script.account.text = GameSettings.Instance.DebugAccount;
 				script.password.text = GameSettings.Instance.DebugPassword;

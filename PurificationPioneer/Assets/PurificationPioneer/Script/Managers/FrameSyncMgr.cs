@@ -53,8 +53,15 @@ namespace PurificationPioneer.Script
         
         public static void OnFrameSyncStateGUI(GUIStyle defaultGuiStyle)
         {
-            GUILayout.Label($"FrameID\t{_frameId}",defaultGuiStyle);
-            GUILayout.Label($"上次逻辑帧间隔\t{Time.timeSinceLevelLoad-lastTickTime}",defaultGuiStyle);
+            GUILayout.Label($"FrameID\t{_frameId}\t",defaultGuiStyle);
+            
+            var delayFrameCount = FrameId - NewestInputId;
+            GUILayout.Label($"DelayFrame\t{delayFrameCount}", defaultGuiStyle);
+            
+            // GUILayout.Label($"上次逻辑帧间隔\t{Time.timeSinceLevelLoad-lastTickTime}",defaultGuiStyle);
+            var delayTime = delayFrameCount * GlobalVar.LogicFrameDeltaTime +
+                            (int)((Time.timeSinceLevelLoad - lastTickTime)*1000);
+            GUILayout.Label($"Delay\t{delayTime}\tms", defaultGuiStyle);
         }
         
         /// <summary>
@@ -74,7 +81,7 @@ namespace PurificationPioneer.Script
             {
                 throw new Exception($"网络同步异常, msg.frameId[{msg.frameId}] msg.framesCount[{msg.unsyncFrames.Count}] localFrameId[{_frameId}]");
             }
-            
+
             //同步上一帧处理结果
             if (null != _lastFrameEvent)
                 SyncLastFrame(_lastFrameEvent);
@@ -88,17 +95,16 @@ namespace PurificationPioneer.Script
             
             //更新客户端frameId
             _frameId = msg.frameId;
-
+            
             //根据最后一帧，控制接下来的显示逻辑
-            if (msg.unsyncFrames.Count > 1)
+            _lastFrameEvent = msg.unsyncFrames.Last();
+            HandleCurrentLogicFrame(_lastFrameEvent);
+            
+            if (_lastFrameEvent.inputs.Count > 0)
             {
-                _lastFrameEvent = msg.unsyncFrames.Last();
-                HandleCurrentLogicFrame(_lastFrameEvent);
+                newestInputId = _frameId;
             }
-            else
-            {
-                _lastFrameEvent = null;
-            }
+
             
             //收集最近输入，发送到服务器
             SendLocalCharacterInput();
@@ -127,7 +133,9 @@ namespace PurificationPioneer.Script
             }
 
             if (!listenerList.Contains(frameSyncCharacter))
+            {
                 listenerList.Add(frameSyncCharacter);
+            }
         }
 
         /// <summary>
@@ -157,7 +165,7 @@ namespace PurificationPioneer.Script
         #endregion
         
 
-        #region IFrameSyncUpdate_监听
+        #region IFrameSyncUnit_监听
 
         public static void AddFrameSyncUnit(IFrameSyncUnit frameSyncUnit)
         {
@@ -238,11 +246,6 @@ namespace PurificationPioneer.Script
         private static void SendLocalCharacterInput()
         {
             var selfInput = InputMgr.GetInput();
-            newestInputId = _frameId + 1;
-#if DebugMode
-            if(GameSettings.Instance.EnableInputLog)
-                Debug.Log($"[SendInput-{newestInputId}]({selfInput.moveX},{selfInput.moveY})");
-#endif
             
             var inputs = new List<PlayerInput> 
             {
@@ -251,7 +254,7 @@ namespace PurificationPioneer.Script
 
             for(var i=0;i<GameSettings.Instance.NetMsgTimes;i++)
                 LogicProxy.Instance.SendLogicInput(
-                    newestInputId,
+                    _frameId + 1,
                     GlobalVar.RoomType,
                     GlobalVar.RoomId,
                     GlobalVar.SeatId,
