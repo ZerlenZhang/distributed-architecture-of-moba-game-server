@@ -49,7 +49,69 @@ namespace PurificationPioneer.Script
     
     public static class FrameSyncMgr
     {
+        private static float lastTickTime = 0;
+        
+        public static void OnFrameSyncStateGUI(GUIStyle defaultGuiStyle)
+        {
+            GUILayout.Label($"FrameID\t{_frameId}",defaultGuiStyle);
+            GUILayout.Label($"上次逻辑帧间隔\t{Time.timeSinceLevelLoad-lastTickTime}",defaultGuiStyle);
+        }
+        
+        /// <summary>
+        /// 接收到服务器帧事件的回调
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="logicFrameDeltaTime"></param>
+        public static void OnFrameSyncTick(LogicFramesToSync msg, int logicFrameDeltaTime)
+        {
+            //包过时
+            if (msg.frameId <= _frameId)
+                return;
+            //debug logic
+            lastTickTime = Time.timeSinceLevelLoad;
 
+            if (msg.frameId > _frameId + msg.unsyncFrames.Count)
+            {
+                throw new Exception($"网络同步异常, msg.frameId[{msg.frameId}] msg.framesCount[{msg.unsyncFrames.Count}] localFrameId[{_frameId}]");
+            }
+            
+            //同步上一帧处理结果
+            if (null != _lastFrameEvent)
+                SyncLastFrame(_lastFrameEvent);
+            
+            //如果现在frameId小于msg.frameId，就快进到最后一帧
+            for (var i = 0; i < msg.unsyncFrames.Count-1; i++)
+            {
+                var logicFrame = msg.unsyncFrames[i];
+                SkipLogicFrame(logicFrame);
+            }
+            
+            //更新客户端frameId
+            _frameId = msg.frameId;
+
+            //根据最后一帧，控制接下来的显示逻辑
+            if (msg.unsyncFrames.Count > 1)
+            {
+                _lastFrameEvent = msg.unsyncFrames.Last();
+                HandleCurrentLogicFrame(_lastFrameEvent);
+            }
+            else
+            {
+                _lastFrameEvent = null;
+            }
+            
+            //收集最近输入，发送到服务器
+            SendLocalCharacterInput();
+
+            //移除缓存的监听者
+            RemoveCacheFrameSyncListeners();
+        }
+        
+        
+        
+        
+        
+        
         #region IFrameSyncWithSeatId_监听
         
         /// <summary>
@@ -93,49 +155,8 @@ namespace PurificationPioneer.Script
         
 
         #endregion
-        /// <summary>
-        /// 接收到服务器帧事件的回调
-        /// </summary>
-        /// <param name="msg"></param>
-        /// <param name="logicFrameDeltaTime"></param>
-        public static void OnFrameSyncTick(LogicFramesToSync msg, int logicFrameDeltaTime)
-        {
-            //包过时
-            if (msg.frameId <= _frameId)
-                return;
-            
-            //同步上一帧处理结果
-            if (null != _lastFrameEvent)
-                SyncLastFrame(_lastFrameEvent);
-            
-            //如果现在frameId小于msg.frameId，就快进到最后一帧
-            for (var i = 0; i < msg.unsyncFrames.Count-1; i++)
-            {
-                var logicFrame = msg.unsyncFrames[i];
-                SkipLogicFrame(logicFrame);
-            }
-            
-            //更新客户端frameId
-            _frameId = msg.frameId;
-
-            //根据最后一帧，控制接下来的显示逻辑
-            if (msg.unsyncFrames.Count > 1)
-            {
-                _lastFrameEvent = msg.unsyncFrames.Last();
-                HandleCurrentLogicFrame(_lastFrameEvent);
-            }
-            else
-            {
-                _lastFrameEvent = null;
-            }
-            
-            //收集最近输入，发送到服务器
-            SendLocalCharacterInput();
-
-            //移除缓存的监听者
-            RemoveCacheFrameSyncListeners();
-        }
         
+
         #region IFrameSyncUpdate_监听
 
         public static void AddFrameSyncUnit(IFrameSyncUnit frameSyncUnit)
@@ -223,7 +244,7 @@ namespace PurificationPioneer.Script
                 Debug.Log($"[SendInput-{newestInputId}]({selfInput.moveX},{selfInput.moveY})");
 #endif
             
-            var inputs = new List<PlayerInput>
+            var inputs = new List<PlayerInput> 
             {
                 selfInput,
             };

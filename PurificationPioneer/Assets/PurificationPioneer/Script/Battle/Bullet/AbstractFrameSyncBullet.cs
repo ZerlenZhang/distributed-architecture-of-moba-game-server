@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PurificationPioneer.Scriptable;
+using UnityEngine;
 
 namespace PurificationPioneer.Script
 {
@@ -76,6 +77,7 @@ namespace PurificationPioneer.Script
             _bulletState = bulletState;
             bulletState.RendererPosition = bulletState.LogicPosition;
             FrameSyncMgr.AddFrameSyncUnit(this);
+            BattleSceneMgr.Instance.eventOnGameState += OnBulletStateGUI;
         }
 
         private void Update()
@@ -102,12 +104,27 @@ namespace PurificationPioneer.Script
             }
         }
 
+        #region Debug
+
+        private float lastCallTime;
+
+        protected virtual void OnBulletStateGUI(GUIStyle defaultGuiStyle)
+        {
+            GUILayout.Label($"Bullet[{InstanceId}] tickDelta\t{Time.timeSinceLevelLoad-lastCallTime}", defaultGuiStyle);
+        }
+
+        #endregion
+        
 
         #region IFrameSyncUnit
 
         public int InstanceId => GetInstanceID();
         public void OnLogicFrameUpdate(float deltaTime)
         {
+            //debug
+            lastCallTime = Time.timeSinceLevelLoad;
+            
+            //bullet logic
             _timeSinceLastLogicFrame = 0;
             _bulletLogicAgeTime += deltaTime;
             
@@ -127,6 +144,10 @@ namespace PurificationPioneer.Script
             if(_bulletLogicAgeTime>=BulletConfig.MaxLife)
             {
                 DestroyBullet();
+            }
+            else
+            {
+                Debug.Log($"BullsetLife: {_bulletLogicAgeTime}/{_bulletConfig.MaxLife}");
             }
         }
 
@@ -160,6 +181,7 @@ namespace PurificationPioneer.Script
         {
             _isInitialized = false;
             FrameSyncMgr.RemoveFrameSyncUnit(this);
+            BattleSceneMgr.Instance.eventOnGameState -= OnBulletStateGUI;
         }
         
         private void OnDestroy()

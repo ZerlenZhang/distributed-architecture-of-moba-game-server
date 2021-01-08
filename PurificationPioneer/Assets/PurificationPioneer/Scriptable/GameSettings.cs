@@ -171,7 +171,20 @@ namespace PurificationPioneer.Scriptable
         public KeyCode AttackKey => _attackKey;
         [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
 
+        [SerializeField] private KeyCode _gameStateKey = KeyCode.Tab;
+
+        public KeyCode GameStateKey => _gameStateKey;
+
         public KeyCode JumpKey => _jumpKey;
+        #endregion
+
+
+        #region Gizmos设置
+
+        [Header("Gizmos设置")] [SerializeField] private int defaultStateFontSize = 20;
+
+        public int DefaultStateFontSize => defaultStateFontSize;
+
         #endregion
     }
 }

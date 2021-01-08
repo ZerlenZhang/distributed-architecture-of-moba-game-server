@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
+using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
@@ -17,13 +19,41 @@ namespace PurificationPioneer.Script
         public Transform rightPoint;
         public float generateRadius = 3;
         public bool lookMouse = true;
-        
+        public event Action<GUIStyle> eventOnGameState;
+
+        private GUIStyle _defaultGuiStyle;
+
+        private GUIStyle DefaultGuiStyle
+        {
+            get
+            {
+                if (null == _defaultGuiStyle)
+                {
+                    _defaultGuiStyle=new GUIStyle
+                    {
+                        fontSize = GameSettings.Instance.DefaultStateFontSize
+                    };
+                }
+
+                return _defaultGuiStyle;
+            }
+        }
+        private void OnGUI()
+        {
+            if(Input.GetKey(GameSettings.Instance.GameStateKey))
+                eventOnGameState?.Invoke(DefaultGuiStyle);
+        }
+
         protected override void Start()
         {
             base.Start();
+
+            eventOnGameState += FrameSyncMgr.OnFrameSyncStateGUI;
+            
             LogicProxy.Instance.StartGameReq(GlobalVar.Uname);
             
             CEventCenter.AddListener<int>(Message.OnGameStart,OnStartGameSoon);
+            
 #if UNITY_ANDROID && !UNITY_EDITOR
             PanelMgr.PushPanel(PanelName.AndroidBattlePanel);
 #endif

@@ -49,7 +49,7 @@ namespace PurificationPioneer.Script
     {
         public void DisableBullet(DirectionFrameSyncBullet frameSyncBullet)
         {
-            // Debug.Log($"[DirectBullet] Destroy!");
+            Debug.Log($"[DirectBullet] Destroy!");
             Object.Destroy(frameSyncBullet.gameObject);
         }
 

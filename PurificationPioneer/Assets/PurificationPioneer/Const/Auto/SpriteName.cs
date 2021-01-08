@@ -14,6 +14,5 @@ namespace PurificationPioneer.Const
 		public static readonly string Avatar5 = @"Avatar5";
 		public static readonly string Avatar6 = @"Avatar6";
 		public static readonly string Avatar7 = @"Avatar7";
-		public static readonly string Avatar8 = @"Avatar8";
 	}
 }

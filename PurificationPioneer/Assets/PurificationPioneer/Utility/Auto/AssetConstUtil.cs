@@ -32,7 +32,6 @@ namespace PurificationPioneer.Utility
 					{ @"Avatar5" , @"ClassSprite\ClassUserIcon\Avatar5" },
 					{ @"Avatar6" , @"ClassSprite\ClassUserIcon\Avatar6" },
 					{ @"Avatar7" , @"ClassSprite\ClassUserIcon\Avatar7" },
-					{ @"Avatar8" , @"ClassSprite\ClassUserIcon\Avatar8" },
 					{ @"HeroOption" , @"ClassUi\HeroOption" },
 					{ @"LoadMatcherUi" , @"ClassUi\LoadMatcherUi" },
 					{ @"MatcherRect" , @"ClassUi\MatcherRect" },
