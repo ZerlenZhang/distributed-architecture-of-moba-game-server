@@ -16,6 +16,7 @@ namespace PurificationPioneer.Data
 		public int maxLife;
 		public int damage;
 		public string statement;
+		public float radius;
 		public override string ToString()
 		{
 			var ans="==《	BulletData	》==\n" +
@@ -23,7 +24,8 @@ namespace PurificationPioneer.Data
 					"speed" + "	" + speed+"\n" +
 					"maxLife" + "	" + maxLife+"\n" +
 					"damage" + "	" + damage+"\n" +
-					"statement" + "	" + statement;
+					"statement" + "	" + statement+"\n" +
+					"radius" + "	" + radius;
 			return ans;
 
 		}

@@ -51,6 +51,10 @@ namespace PurificationPioneer.Script
     {
         private static float lastTickTime = 0;
         
+        /// <summary>
+        /// 网络状态GUI显示
+        /// </summary>
+        /// <param name="defaultGuiStyle"></param>
         public static void OnFrameSyncStateGUI(GUIStyle defaultGuiStyle)
         {
             GUILayout.Label($"FrameID\t{_frameId}\t",defaultGuiStyle);
@@ -81,6 +85,9 @@ namespace PurificationPioneer.Script
             {
                 throw new Exception($"网络同步异常, msg.frameId[{msg.frameId}] msg.framesCount[{msg.unsyncFrames.Count}] localFrameId[{_frameId}]");
             }
+            
+            //收集最近输入，发送到服务器
+            SendLocalCharacterInput(msg.frameId);
 
             //同步上一帧处理结果
             if (null != _lastFrameEvent)
@@ -104,20 +111,11 @@ namespace PurificationPioneer.Script
             {
                 newestInputId = _frameId;
             }
-
             
-            //收集最近输入，发送到服务器
-            SendLocalCharacterInput();
-
             //移除缓存的监听者
             RemoveCacheFrameSyncListeners();
         }
-        
-        
-        
-        
-        
-        
+
         #region IFrameSyncWithSeatId_监听
         
         /// <summary>
@@ -182,15 +180,18 @@ namespace PurificationPioneer.Script
             frameSyncUnitDic.Clear();
         }
         #endregion
- 
+
+        #region public properties
+
         private static int _frameId = 0;
         public static int FrameId => _frameId;
 
         private static int newestInputId = 0;
 
-        public static int NewestInputId => newestInputId;
+        public static int NewestInputId => newestInputId;        
 
-
+        #endregion
+        
         #region Private
 
         private static LogicFrame _lastFrameEvent;
@@ -243,7 +244,7 @@ namespace PurificationPioneer.Script
         /// <summary>
         /// 发送本地玩家输入
         /// </summary>
-        private static void SendLocalCharacterInput()
+        private static void SendLocalCharacterInput(int localFrameId)
         {
             var selfInput = InputMgr.GetInput();
             
@@ -254,7 +255,7 @@ namespace PurificationPioneer.Script
 
             for(var i=0;i<GameSettings.Instance.NetMsgTimes;i++)
                 LogicProxy.Instance.SendLogicInput(
-                    _frameId + 1,
+                    localFrameId + 1,
                     GlobalVar.RoomType,
                     GlobalVar.RoomId,
                     GlobalVar.SeatId,

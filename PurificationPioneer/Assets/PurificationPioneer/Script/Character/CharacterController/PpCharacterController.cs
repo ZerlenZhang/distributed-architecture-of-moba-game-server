@@ -134,9 +134,9 @@ namespace PurificationPioneer.Script
                 var moved = this.stick_x != 0 || this.stick_y != 0;
                 if (playerInput.attack)
                 {
-                    OnAttack();
                     if (!moved)
-                        UpdateCharacterDirection();
+                        GetCameraDirection();
+                    OnAttack();
                 }
 #if DebugMode
                 if(GameSettings.Instance.EnableFrameSyncLog)
@@ -222,13 +222,15 @@ namespace PurificationPioneer.Script
         }
 
 
-        private Vector2 UpdateCharacterDirection()
+        private Vector2 GetCameraDirection(bool updateCharacterDirection=true)
         {
             var cameraForward = Camera.main.transform.forward;
             var expectedForward = new Vector2(
                 cameraForward.x,cameraForward.z).normalized;
 
-            transform.forward = new Vector3(expectedForward.x, 0, expectedForward.y);
+            if(updateCharacterDirection)
+                transform.forward = new Vector3(expectedForward.x, 0, expectedForward.y);
+            
             return expectedForward;
         }
 
@@ -248,7 +250,7 @@ namespace PurificationPioneer.Script
             //有移动，将逻辑状态置为Walk
             CharacterAnimator.LogicToWalk();
 
-            var expectedForward = UpdateCharacterDirection();
+            var expectedForward = GetCameraDirection();
             var inputDir = new Vector2(
                 this.stick_x.ToFloat(),
                 this.stick_y.ToFloat());

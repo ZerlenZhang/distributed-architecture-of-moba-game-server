@@ -1,4 +1,6 @@
-﻿using PurificationPioneer.Data;
+﻿using Es.InkPainter;
+using PurificationPioneer.Data;
+using PurificationPioneer.Global;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Data;
 using UnityEngine;
@@ -9,6 +11,10 @@ namespace PurificationPioneer.Script
     public class DirectionFrameSyncBullet:
         AbstractFrameSyncBullet<DirectionFrameSyncBullet,DirectionBulletStrategy,BulletData,DirectionBulletState>
     {
+        
+        
+        public BrushConfigAsset brushConfig;
+        private RaycastHit[] HitInfos=new RaycastHit[GlobalVar.MaxHitInfoCount];
         public void Init(int bulletId, Vector3 position, Vector3 direction)
         {
             var state = new DirectionBulletState(transform)
@@ -16,12 +22,42 @@ namespace PurificationPioneer.Script
                 LogicPosition = position,
                 Direction = direction
             };
-            Initialize(CsvMgr.GetData<BulletData>(bulletId.ToString()),state);
+            var config = CsvMgr.GetData<BulletData>(bulletId.ToString());
+            transform.localScale = Vector3.one * config.radius;
+            Initialize(config,state);
         }
         
         protected override bool HitTest(DirectionBulletState currentBulletState, BulletData bulletConfig)
         {
-            return false;
+            var hitCount =
+                Physics.RaycastNonAlloc(
+                    new Ray(currentBulletState.LogicPosition, currentBulletState.Direction),
+                    HitInfos,
+                    bulletConfig.radius,
+                    attackLayer);
+                // Physics.SphereCastNonAlloc(
+                // currentBulletState.LogicPosition,
+                // bulletConfig.radius, 
+                // currentBulletState.Direction, 
+                // HitInfos, 
+                // 0.01f, 
+                // attackLayer);
+
+            if (hitCount == 0)
+                return false;
+            
+            for (var i = 0; i < hitCount; i++)
+            {
+                var hitInfo = HitInfos[i];
+                var canvas = hitInfo.collider.GetComponent<InkCanvas>();
+                if (canvas != null)
+                {
+                    canvas.Paint(brushConfig.brush, hitInfo);
+                    // Debug.Log($"[{hitCount}]Paint!{hitInfo.collider.name}");
+                }
+            }
+            DestroyBullet();
+            return true;
         }
     }
     

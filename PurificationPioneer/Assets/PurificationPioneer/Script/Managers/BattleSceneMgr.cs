@@ -62,6 +62,7 @@ namespace PurificationPioneer.Script
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            eventOnGameState -= FrameSyncMgr.OnFrameSyncStateGUI;
             CEventCenter.RemoveListener<int>(Message.OnGameStart,OnStartGameSoon);
         }
 

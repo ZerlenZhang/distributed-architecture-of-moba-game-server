@@ -17,6 +17,8 @@ namespace PurificationPioneer.Script
         where TBulletState: class, IBulletState
         where TBulletConfig: class, IBulletConfig
     {
+        public LayerMask attackLayer;
+        
         /// <summary>
         /// 配置类型，内部只读不写
         /// </summary>

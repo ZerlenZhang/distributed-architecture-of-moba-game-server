@@ -141,5 +141,13 @@ namespace PurificationPioneer.Global
 		}
 
 		#endregion
+
+
+
+		#region GameConfigs
+
+		public const int MaxHitInfoCount = 3;
+
+		#endregion
 	}
 }
