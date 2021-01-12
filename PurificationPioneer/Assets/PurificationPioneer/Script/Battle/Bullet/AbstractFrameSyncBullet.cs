@@ -65,10 +65,10 @@ namespace PurificationPioneer.Script
         /// </summary>
         /// <param name="bulletConfig"></param>
         /// <param name="bulletState"></param>
-        public void Initialize(TBulletConfig bulletConfig, TBulletState bulletState)
+        public virtual bool Initialize(TBulletConfig bulletConfig, TBulletState bulletState)
         {
             if (_isInitialized)
-                return;
+                return false;
             _isInitialized = true;
             _isDestroyed = false;
             _isBulletRunning = true;
@@ -83,6 +83,7 @@ namespace PurificationPioneer.Script
             if(GameSettings.Instance.EnableBulletLog)
                 BattleSceneMgr.Instance.eventOnGameState += OnBulletStateGUI;
 #endif
+            return true;
         }
 
         private void Update()

@@ -1,5 +1,4 @@
 ﻿using PurificationPioneer.Global;
-using PurificationPioneer.Network;
 using PurificationPioneer.Network.Proxy;
 using UnityEngine;
 using UnityEngine.UI;

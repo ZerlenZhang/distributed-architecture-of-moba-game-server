@@ -1,5 +1,4 @@
 ﻿using ReadyGamerOne.Utility;
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace ReadyGamerOne.Network

@@ -20,6 +20,8 @@ namespace PurificationPioneer.Script
         #region Inspector properties
 
         [SerializeField]private Transform cameraLookPoint;
+
+        public CharacterConfigAsset CharacterConfig { get; private set; }
         
         #region MoveSpeed
 
@@ -61,11 +63,13 @@ namespace PurificationPioneer.Script
         /// </summary>
         /// <param name="seatId"></param>
         /// <param name="logicPos"></param>
-        public void InitCharacterController(int seatId, Vector3 logicPos)
+        public void InitCharacterController(int seatId, Vector3 logicPos, CharacterConfigAsset config)
         {
             Assert.IsNotNull(cameraLookPoint);
+            Assert.IsNotNull(config);
             //帧同步回调初始化
             SeatId = seatId;
+            CharacterConfig = config;
             FrameSyncMgr.AddFrameSyncCharacter(this);
             
             //初始化内部参数
@@ -104,6 +108,10 @@ namespace PurificationPioneer.Script
             localCameraHelper.Init(transform,this.cameraLookPoint);
         }        
 
+        protected virtual void OnAttack()
+        {
+            
+        }
         #endregion
 
         #region IFrameSyncWithSeatId
@@ -126,16 +134,15 @@ namespace PurificationPioneer.Script
             {
                 this.stick_x = playerInput.moveX;
                 this.stick_y = playerInput.moveY;
+                this.attack = playerInput.attack;
                 var before = this.logicPosition;
                 this.transform.position = this.logicPosition;
                 DoJoystick(GlobalVar.LogicFrameDeltaTime.ToFloat());
                 this.logicPosition = this.transform.position;
 
-                var moved = this.stick_x != 0 || this.stick_y != 0;
                 if (playerInput.attack)
                 {
-                    if (!moved)
-                        GetCameraDirection();
+                    GetCameraDirection();
                     OnAttack();
                 }
 #if DebugMode
@@ -172,10 +179,6 @@ namespace PurificationPioneer.Script
         
         #endregion
 
-        protected virtual void OnAttack()
-        {
-            
-        }
 
         #region Private_Logic
 
@@ -183,6 +186,8 @@ namespace PurificationPioneer.Script
         /// 遥感操作
         /// </summary>
         private int stick_x, stick_y;
+
+        private bool attack;
         
         /// <summary>
         /// 逻辑位置
@@ -228,8 +233,11 @@ namespace PurificationPioneer.Script
             var expectedForward = new Vector2(
                 cameraForward.x,cameraForward.z).normalized;
 
-            if(updateCharacterDirection)
+            if (updateCharacterDirection)
+            {
                 transform.forward = new Vector3(expectedForward.x, 0, expectedForward.y);
+                // Debug.Log($"UpdateDir");
+            }
             
             return expectedForward;
         }
@@ -250,7 +258,16 @@ namespace PurificationPioneer.Script
             //有移动，将逻辑状态置为Walk
             CharacterAnimator.LogicToWalk();
 
-            var expectedForward = GetCameraDirection();
+            Vector2 expectedForward;
+            // if (attack)
+            // {
+                var transformForward = transform.forward;
+                expectedForward = new Vector2(transformForward.x, transformForward.z);
+            // }
+            // else
+            // {
+            expectedForward=GetCameraDirection();
+            // }
             var inputDir = new Vector2(
                 this.stick_x.ToFloat(),
                 this.stick_y.ToFloat());

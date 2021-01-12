@@ -16,10 +16,6 @@ namespace PurificationPioneer.Scriptable
             {
                 LogicProxy.Instance.TestUdp("hello world");
             }
-            if (GUILayout.Button("显示ip"))
-            {
-                (target as GameSettings)?.LogIp();
-            }
             if (GUILayout.Button("Try_NextFrameInput"))
             {
                 LogicProxy.Instance.SendLogicInput(

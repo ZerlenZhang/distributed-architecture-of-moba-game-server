@@ -254,8 +254,11 @@ namespace PurificationPioneer.Network.Proxy
                         (status)=>
                         {
                             logicServerConnected = status;
-                            if(logicServerConnected)
+                            if (logicServerConnected)
+                            {
                                 Debug.Log("Udp服务建立成功");
+                                NetworkMgr.Instance.UdpSendProtobuf(ServiceType.Logic, LogicCmd.InitUdpReq, new InitUdpReq{uname = GlobalVar.Uname});
+                            }
                             else 
                                 Debug.LogWarning("Udp服务建立失败");
                         });

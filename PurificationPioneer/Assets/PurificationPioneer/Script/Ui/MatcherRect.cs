@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Utility;
-using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEngine;

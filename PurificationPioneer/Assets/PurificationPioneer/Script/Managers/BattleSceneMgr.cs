@@ -7,7 +7,6 @@ using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
-using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -89,12 +88,10 @@ namespace PurificationPioneer.Script
                     ? leftPoint
                     : rightPoint;
 
-                //instantiate go
-                var characterObj = ResourceMgr.InstantiateGameObject(
-                    AssetConstUtil.GetHeroGameObjectKey(matcherInfo.HeroId));
-                var ppController = characterObj.GetComponent<IPpController>();
-
-                Assert.IsNotNull(ppController);
+                //get config
+                var characterConfig=ResourceMgr.GetAsset<CharacterConfigAsset>(
+                    AssetConstUtil.GetHeroConfigKey(matcherInfo.HeroId));
+                Assert.IsTrue(characterConfig);
                 
                 //get position
                 var generatePos = genPoint.position + new Vector3(
@@ -102,9 +99,8 @@ namespace PurificationPioneer.Script
                     0,
                     this.generateRadius * Mathf.Sin(kv.Key * deltaDegree));
 
-                //init settings
-                characterObj.transform.position = generatePos;
-                ppController.InitCharacterController(kv.Key, generatePos);
+                //实例化，初始化
+                characterConfig.InstantiateAndInitialize(kv.Key, generatePos);
                 
                 //delay
                 if(genPoint==rightPoint)

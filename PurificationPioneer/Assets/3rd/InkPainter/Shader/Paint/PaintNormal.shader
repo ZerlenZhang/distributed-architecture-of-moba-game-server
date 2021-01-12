@@ -26,8 +26,6 @@ Shader "Es/InkPainter/PaintNormal"{
 	SubShader{
 		CGINCLUDE
 
-#include "../Lib/InkPainterFoundation.cginc"
-
 			struct app_data {
 				float4 vertex:POSITION;
 				float4 uv:TEXCOORD0;
@@ -53,6 +51,8 @@ Shader "Es/InkPainter/PaintNormal"{
 #pragma multi_compile DXT5NM_COMPRESS_USE DXT5NM_COMPRESS_UNUSE
 #pragma vertex vert
 #pragma fragment frag
+			#include "../Lib/InkPainterFoundation.cginc"
+			#include <UnityShaderUtilities.cginc>
 
 			v2f vert(app_data i) {
 				v2f o;

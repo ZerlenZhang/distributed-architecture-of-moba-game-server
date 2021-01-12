@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9af4606bb554f60b4e38da76090ec12, type: 3}
+  m_Name: Character2
+  m_EditorClassIdentifier: 
+  "\u5907\u6CE8": "\u8C03\u8BD5\u4F7F\u7528\u7684\u89D2\u8272"
+  characterId: 2
+  prefab: {fileID: 8200326896365405706, guid: c3f00d8c5b037fd42abc7db335b8093f, type: 3}
+  baseHp: 0
+  increaseHp: 0
+  baseAttack: 0
+  increaseAttack: 0
+  baseDefence: 0
+  increaseDefence: 0
+  basePaintEfficiency: 0
+  increasePaintEfficiency: 0
+  firstSkill: {fileID: 0}
+  secondSkill: {fileID: 0}

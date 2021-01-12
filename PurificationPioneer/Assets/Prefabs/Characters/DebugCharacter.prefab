@@ -268,7 +268,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraLookPoint: {fileID: 5090126642713239139}
   moveSpeed: 3
-  characterAnimator: {fileID: 3077310148824323186}
+  characterAnimator: {fileID: 1205331563, guid: b02dae70454e88b4dabff60c98182c10,
+    type: 3}
   characterController: {fileID: 5693862668851215100}
   seatId: 0
   shotPoint: {fileID: 8543864827467669756}

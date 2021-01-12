@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using UnityEditor.Callbacks;
-
 using System.IO;
-using System.Collections;
 
 
 public class ReporterEditor : Editor

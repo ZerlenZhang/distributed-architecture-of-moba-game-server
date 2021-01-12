@@ -7,9 +7,6 @@ namespace PurificationPioneer.Utility
 	{
 		private System.Collections.Generic.Dictionary<string,string> nameToPath 
 			= new System.Collections.Generic.Dictionary<string,string>{
-					{ @"DirectBullet" , @"ClassBullet\DirectBullet" },
-					{ @"Character0" , @"ClassCharacter\Character0" },
-					{ @"Character1" , @"ClassCharacter\Character1" },
 					{ @"Character3" , @"ClassCharacter\Character3" },
 					{ @"BulletData_BulletData" , @"ClassFile\BulletData_BulletData" },
 					{ @"DataConfig" , @"ClassFile\DataConfig" },
@@ -35,6 +32,7 @@ namespace PurificationPioneer.Utility
 					{ @"HeroOption" , @"ClassUi\HeroOption" },
 					{ @"LoadMatcherUi" , @"ClassUi\LoadMatcherUi" },
 					{ @"MatcherRect" , @"ClassUi\MatcherRect" },
+					{ @"Weapon0" , @"ClassWeapon\Weapon0" },
 				};
 		public override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;
 	}

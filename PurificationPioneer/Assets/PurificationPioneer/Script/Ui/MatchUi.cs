@@ -1,8 +1,6 @@
-﻿using System;
-using PurificationPioneer.Global;
+﻿using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace PurificationPioneer.Script

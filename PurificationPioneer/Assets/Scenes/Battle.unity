@@ -1840,6 +1840,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FloorInstance (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6212551477047821866, guid: 535d349339989314d91ba4c752edfc53,
+        type: 3}
+      propertyPath: paintSet.Array.data[0].useMainPaint
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 535d349339989314d91ba4c752edfc53, type: 3}
 --- !u!4 &634124400 stripped

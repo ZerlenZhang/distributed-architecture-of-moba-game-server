@@ -26,7 +26,6 @@ Shader "Es/InkPainter/PaintHeight"{
 	SubShader{
 		CGINCLUDE
 
-#include "../Lib/InkPainterFoundation.cginc"
 
 			struct app_data {
 				float4 vertex:POSITION;
@@ -53,6 +52,8 @@ Shader "Es/InkPainter/PaintHeight"{
 #pragma multi_compile INK_PAINTER_HEIGHT_BLEND_USE_BRUSH INK_PAINTER_HEIGHT_BLEND_ADD INK_PAINTER_HEIGHT_BLEND_SUB INK_PAINTER_HEIGHT_BLEND_MIN INK_PAINTER_HEIGHT_BLEND_MAX INK_PAINTER_HEIGHT_BLEND_COLOR_RGB_HEIGHT_A
 #pragma vertex vert
 #pragma fragment frag
+			#include "../Lib/InkPainterFoundation.cginc"
+			#include <UnityShaderUtilities.cginc>
 
 			v2f vert(app_data i) {
 				v2f o;

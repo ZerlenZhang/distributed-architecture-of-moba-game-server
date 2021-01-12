@@ -7,11 +7,17 @@ namespace PurificationPioneer.Utility
     {
         private const string HeroIconKey = "HeroIcon";
         private const string UserIconKey = "Avatar";
-        private const string HeroGameObjectKey = "Character";
+        private const string HeroConfigKey = "Character";
+        private const string WeaponConfigKey = "Weapon";
 
-        public static string GetHeroGameObjectKey(int heroId)
+        public static string GetWeaponConfigKey(int weaponId)
         {
-            return $"{HeroGameObjectKey}{heroId}";
+            return $"{WeaponConfigKey}{weaponId}";
+        }
+
+        public static string GetHeroConfigKey(int heroId)
+        {
+            return $"{HeroConfigKey}{heroId}";
         }
         
         public static Sprite GetHeroIcon(int heroId)

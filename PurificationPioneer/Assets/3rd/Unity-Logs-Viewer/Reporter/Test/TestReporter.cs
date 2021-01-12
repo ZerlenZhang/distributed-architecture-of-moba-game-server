@@ -16,7 +16,6 @@
 //use UNITY_CHANGE4 for unity 2018.3 (Networking system)
 
 using UnityEngine;
-using System.Collections;
 using System.Threading;
 #if UNITY_CHANGE3
 using UnityEngine.SceneManagement;

@@ -151,9 +151,9 @@ namespace Es.InkPainter
 			#endregion Constractor
 		}
 
-		private static Material paintMainMaterial = null;
-		private static Material paintNormalMaterial = null;
-		private static Material paintHeightMaterial = null;
+		private static Material s_paintMainMaterial = null;
+		private static Material s_paintNormalMaterial = null;
+		private static Material s_paintHeightMaterial = null;
 		private bool eraseFlag = false;
 		private RenderTexture debugEraserMainView;
 		private RenderTexture debugEraserNormalView;
@@ -260,8 +260,7 @@ namespace Es.InkPainter
 
 		private void Awake()
 		{
-			if(OnCanvasAttached != null)
-				OnCanvasAttached(this);
+			OnCanvasAttached?.Invoke(this);
 			InitPropertyID();
 			SetMaterial();
 			SetTexture();
@@ -270,11 +269,9 @@ namespace Es.InkPainter
 
 		private void Start()
 		{
-			if(OnInitializedStart != null)
-				OnInitializedStart(this);
+			OnInitializedStart?.Invoke(this);
 			SetRenderTexture();
-			if(OnInitializedAfter != null)
-				OnInitializedAfter(this);
+			OnInitializedAfter?.Invoke(this);
 		}
 
 		private void OnDestroy()
@@ -285,15 +282,13 @@ namespace Es.InkPainter
 
 		private void OnGUI()
 		{
-			if(eraserDebug)
-			{
-				if(debugEraserMainView!=null)
+			if (!eraserDebug) return;
+			if(debugEraserMainView!=null)
 				GUI.DrawTexture(new Rect(0, 0, 100, 100), debugEraserMainView);
-				if(debugEraserNormalView!=null)
+			if(debugEraserNormalView!=null)
 				GUI.DrawTexture(new Rect(0, 100, 100, 100), debugEraserNormalView);
-				if(debugEraserHeightView!=null)
+			if(debugEraserHeightView!=null)
 				GUI.DrawTexture(new Rect(0, 200, 100, 100), debugEraserHeightView);
-			}
 		}
 
 		#endregion UnityEventMethod
@@ -343,12 +338,12 @@ namespace Es.InkPainter
 		/// </summary>
 		private void SetMaterial()
 		{
-			if(paintMainMaterial == null)
-				paintMainMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintMain"));
-			if(paintNormalMaterial == null)
-				paintNormalMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintNormal"));
-			if(paintHeightMaterial == null)
-				paintHeightMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintHeight"));
+			if(s_paintMainMaterial == null)
+				s_paintMainMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintMain"));
+			if(s_paintNormalMaterial == null)
+				s_paintNormalMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintNormal"));
+			if(s_paintHeightMaterial == null)
+				s_paintHeightMaterial = new Material(Resources.Load<Material>("Es.InkPainter.PaintHeight"));
 			var m = GetComponent<Renderer>().materials;
 			for(int i = 0; i < m.Length; ++i)
 			{
@@ -381,8 +376,11 @@ namespace Es.InkPainter
 		/// <param name="material">material.</param>
 		private RenderTexture SetupRenderTexture(Texture baseTex, int propertyID, Material material)
 		{
-			var rt = new RenderTexture(baseTex.width, baseTex.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
-			rt.filterMode = baseTex.filterMode;
+			var rt = new RenderTexture(baseTex.width, baseTex.height, 0, RenderTextureFormat.ARGB32,
+				RenderTextureReadWrite.Linear)
+			{
+				filterMode = baseTex.filterMode
+			};
 			Graphics.Blit(baseTex, rt);
 			material.SetTexture(propertyID, rt);
 			return rt;
@@ -442,34 +440,34 @@ namespace Es.InkPainter
 		/// <param name="uv">UV coordinates for the hit location.</param>
 		private void SetPaintMainData(Brush brush, Vector2 uv)
 		{
-			paintMainMaterial.SetVector(paintUVPropertyID, uv);
-			paintMainMaterial.SetTexture(brushTexturePropertyID, brush.BrushTexture);
-			paintMainMaterial.SetFloat(brushScalePropertyID, brush.Scale);
-			paintMainMaterial.SetFloat(brushRotatePropertyID, brush.RotateAngle);
-			paintMainMaterial.SetVector(brushColorPropertyID, brush.Color);
+			s_paintMainMaterial.SetVector(paintUVPropertyID, uv);
+			s_paintMainMaterial.SetTexture(brushTexturePropertyID, brush.BrushTexture);
+			s_paintMainMaterial.SetFloat(brushScalePropertyID, brush.Scale/transform.lossyScale.x);
+			s_paintMainMaterial.SetFloat(brushRotatePropertyID, brush.RotateAngle);
+			s_paintMainMaterial.SetVector(brushColorPropertyID, brush.Color);
 
-			foreach(var key in paintMainMaterial.shaderKeywords)
-				paintMainMaterial.DisableKeyword(key);
+			foreach(var key in s_paintMainMaterial.shaderKeywords)
+				s_paintMainMaterial.DisableKeyword(key);
 			switch(brush.ColorBlending)
 			{
 				case Brush.ColorBlendType.UseColor:
-					paintMainMaterial.EnableKeyword(COLOR_BLEND_USE_CONTROL);
+					s_paintMainMaterial.EnableKeyword(COLOR_BLEND_USE_CONTROL);
 					break;
 
 				case Brush.ColorBlendType.UseBrush:
-					paintMainMaterial.EnableKeyword(COLOR_BLEND_USE_BRUSH);
+					s_paintMainMaterial.EnableKeyword(COLOR_BLEND_USE_BRUSH);
 					break;
 
 				case Brush.ColorBlendType.Neutral:
-					paintMainMaterial.EnableKeyword(COLOR_BLEND_NEUTRAL);
+					s_paintMainMaterial.EnableKeyword(COLOR_BLEND_NEUTRAL);
 					break;
 
 				case Brush.ColorBlendType.AlphaOnly:
-					paintMainMaterial.EnableKeyword(COLOR_BLEND_ALPHA_ONLY);
+					s_paintMainMaterial.EnableKeyword(COLOR_BLEND_ALPHA_ONLY);
 					break;
 
 				default:
-					paintMainMaterial.EnableKeyword(COLOR_BLEND_USE_CONTROL);
+					s_paintMainMaterial.EnableKeyword(COLOR_BLEND_USE_CONTROL);
 					break;
 			}
 		}
@@ -481,49 +479,49 @@ namespace Es.InkPainter
 		/// <param name="uv">UV coordinates for the hit location.</param>
 		private void SetPaintNormalData(Brush brush, Vector2 uv, bool erase)
 		{
-			paintNormalMaterial.SetVector(paintUVPropertyID, uv);
-			paintNormalMaterial.SetTexture(brushTexturePropertyID, brush.BrushTexture);
-			paintNormalMaterial.SetTexture(brushNormalTexturePropertyID, brush.BrushNormalTexture);
-			paintNormalMaterial.SetFloat(brushScalePropertyID, brush.Scale);
-			paintNormalMaterial.SetFloat(brushRotatePropertyID, brush.RotateAngle);
-			paintNormalMaterial.SetFloat(brushNormalBlendPropertyID, brush.NormalBlend);
+			s_paintNormalMaterial.SetVector(paintUVPropertyID, uv);
+			s_paintNormalMaterial.SetTexture(brushTexturePropertyID, brush.BrushTexture);
+			s_paintNormalMaterial.SetTexture(brushNormalTexturePropertyID, brush.BrushNormalTexture);
+			s_paintNormalMaterial.SetFloat(brushScalePropertyID, brush.Scale);
+			s_paintNormalMaterial.SetFloat(brushRotatePropertyID, brush.RotateAngle);
+			s_paintNormalMaterial.SetFloat(brushNormalBlendPropertyID, brush.NormalBlend);
 
-			foreach(var key in paintNormalMaterial.shaderKeywords)
-				paintNormalMaterial.DisableKeyword(key);
+			foreach(var key in s_paintNormalMaterial.shaderKeywords)
+				s_paintNormalMaterial.DisableKeyword(key);
 			switch(brush.NormalBlending)
 			{
 				case Brush.NormalBlendType.UseBrush:
-					paintNormalMaterial.EnableKeyword(NORMAL_BLEND_USE_BRUSH);
+					s_paintNormalMaterial.EnableKeyword(NORMAL_BLEND_USE_BRUSH);
 					break;
 
 				case Brush.NormalBlendType.Add:
-					paintNormalMaterial.EnableKeyword(NORMAL_BLEND_ADD);
+					s_paintNormalMaterial.EnableKeyword(NORMAL_BLEND_ADD);
 					break;
 
 				case Brush.NormalBlendType.Sub:
-					paintNormalMaterial.EnableKeyword(NORMAL_BLEND_SUB);
+					s_paintNormalMaterial.EnableKeyword(NORMAL_BLEND_SUB);
 					break;
 
 				case Brush.NormalBlendType.Min:
-					paintNormalMaterial.EnableKeyword(NORMAL_BLEND_MIN);
+					s_paintNormalMaterial.EnableKeyword(NORMAL_BLEND_MIN);
 					break;
 
 				case Brush.NormalBlendType.Max:
-					paintNormalMaterial.EnableKeyword(NORMAL_BLEND_MAX);
+					s_paintNormalMaterial.EnableKeyword(NORMAL_BLEND_MAX);
 					break;
 
 				default:
-					paintNormalMaterial.EnableKeyword(NORMAL_BLEND_USE_BRUSH);
+					s_paintNormalMaterial.EnableKeyword(NORMAL_BLEND_USE_BRUSH);
 					break;
 			}
 
 			switch(erase)
 			{
 				case true:
-					paintNormalMaterial.EnableKeyword(DXT5NM_COMPRESS_UNUSE);
+					s_paintNormalMaterial.EnableKeyword(DXT5NM_COMPRESS_UNUSE);
 					break;
 				case false:
-					paintNormalMaterial.EnableKeyword(DXT5NM_COMPRESS_USE);
+					s_paintNormalMaterial.EnableKeyword(DXT5NM_COMPRESS_USE);
 					break;
 			}
 		}
@@ -535,44 +533,44 @@ namespace Es.InkPainter
 		/// <param name="uv">UV coordinates for the hit location.</param>
 		private void SetPaintHeightData(Brush brush, Vector2 uv)
 		{
-			paintHeightMaterial.SetVector(paintUVPropertyID, uv);
-			paintHeightMaterial.SetTexture(brushTexturePropertyID, brush.BrushTexture);
-			paintHeightMaterial.SetTexture(brushHeightTexturePropertyID, brush.BrushHeightTexture);
-			paintHeightMaterial.SetFloat(brushScalePropertyID, brush.Scale);
-			paintHeightMaterial.SetFloat(brushRotatePropertyID, brush.RotateAngle);
-			paintHeightMaterial.SetFloat(brushHeightBlendPropertyID, brush.HeightBlend);
-			paintHeightMaterial.SetVector(brushHeightColorPropertyID, brush.Color);
+			s_paintHeightMaterial.SetVector(paintUVPropertyID, uv);
+			s_paintHeightMaterial.SetTexture(brushTexturePropertyID, brush.BrushTexture);
+			s_paintHeightMaterial.SetTexture(brushHeightTexturePropertyID, brush.BrushHeightTexture);
+			s_paintHeightMaterial.SetFloat(brushScalePropertyID, brush.Scale);
+			s_paintHeightMaterial.SetFloat(brushRotatePropertyID, brush.RotateAngle);
+			s_paintHeightMaterial.SetFloat(brushHeightBlendPropertyID, brush.HeightBlend);
+			s_paintHeightMaterial.SetVector(brushHeightColorPropertyID, brush.Color);
 
-			foreach(var key in paintHeightMaterial.shaderKeywords)
-				paintHeightMaterial.DisableKeyword(key);
+			foreach(var key in s_paintHeightMaterial.shaderKeywords)
+				s_paintHeightMaterial.DisableKeyword(key);
 			switch(brush.HeightBlending)
 			{
 				case Brush.HeightBlendType.UseBrush:
-					paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_USE_BRUSH);
+					s_paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_USE_BRUSH);
 					break;
 
 				case Brush.HeightBlendType.Add:
-					paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_ADD);
+					s_paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_ADD);
 					break;
 
 				case Brush.HeightBlendType.Sub:
-					paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_SUB);
+					s_paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_SUB);
 					break;
 
 				case Brush.HeightBlendType.Min:
-					paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_MIN);
+					s_paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_MIN);
 					break;
 
 				case Brush.HeightBlendType.Max:
-					paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_MAX);
+					s_paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_MAX);
 					break;
 
 				case Brush.HeightBlendType.ColorRGB_HeightA:
-					paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_COLOR_RGB_HEIGHT_A);
+					s_paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_COLOR_RGB_HEIGHT_A);
 					break;
 
 				default:
-					paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_ADD);
+					s_paintHeightMaterial.EnableKeyword(HEIGHT_BLEND_ADD);
 					break;
 			}
 		}
@@ -698,7 +696,7 @@ namespace Es.InkPainter
 				{
 					var mainPaintTextureBuffer = RenderTexture.GetTemporary(p.paintMainTexture.width, p.paintMainTexture.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
 					SetPaintMainData(brush, uv);
-					Graphics.Blit(p.paintMainTexture, mainPaintTextureBuffer, paintMainMaterial);
+					Graphics.Blit(p.paintMainTexture, mainPaintTextureBuffer, s_paintMainMaterial);
 					Graphics.Blit(mainPaintTextureBuffer, p.paintMainTexture);
 					RenderTexture.ReleaseTemporary(mainPaintTextureBuffer);
 				}
@@ -707,7 +705,7 @@ namespace Es.InkPainter
 				{
 					var normalPaintTextureBuffer = RenderTexture.GetTemporary(p.paintNormalTexture.width, p.paintNormalTexture.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
 					SetPaintNormalData(brush, uv, eraseFlag);
-					Graphics.Blit(p.paintNormalTexture, normalPaintTextureBuffer, paintNormalMaterial);
+					Graphics.Blit(p.paintNormalTexture, normalPaintTextureBuffer, s_paintNormalMaterial);
 					Graphics.Blit(normalPaintTextureBuffer, p.paintNormalTexture);
 					RenderTexture.ReleaseTemporary(normalPaintTextureBuffer);
 				}
@@ -716,7 +714,7 @@ namespace Es.InkPainter
 				{
 					var heightPaintTextureBuffer = RenderTexture.GetTemporary(p.paintHeightTexture.width, p.paintHeightTexture.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear);
 					SetPaintHeightData(brush, uv);
-					Graphics.Blit(p.paintHeightTexture, heightPaintTextureBuffer, paintHeightMaterial);
+					Graphics.Blit(p.paintHeightTexture, heightPaintTextureBuffer, s_paintHeightMaterial);
 					Graphics.Blit(heightPaintTextureBuffer, p.paintHeightTexture);
 					RenderTexture.ReleaseTemporary(heightPaintTextureBuffer);
 				}
@@ -762,6 +760,14 @@ namespace Es.InkPainter
 				renderCamera = Camera.main;
 
 			Vector3 p = transform.InverseTransformPoint(worldPos);
+			// var lossyScale = transform.lossyScale;
+			// var modelMatrix = Matrix4x4.Translate(transform.position) * Matrix4x4.Rotate(transform.rotation) * Matrix4x4.identity;
+			// // modelMatrix.m00 /= lossyScale.x;
+			// // modelMatrix.m11 /= lossyScale.y;
+			// // modelMatrix.m22 /= lossyScale.z;
+			// // modelMatrix.m00 = 1;
+			// // modelMatrix.m11 = 1;
+			// // modelMatrix.m22 = 1;
 			Matrix4x4 mvp = renderCamera.projectionMatrix * renderCamera.worldToCameraMatrix * transform.localToWorldMatrix;
 			if(MeshOperator.LocalPointToUV(p, mvp, out uv))
 				return PaintUVDirect(brush, uv, materialSelector);

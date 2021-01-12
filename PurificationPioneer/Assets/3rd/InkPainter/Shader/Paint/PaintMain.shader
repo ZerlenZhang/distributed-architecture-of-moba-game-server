@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Es/InkPainter/PaintMain"{
+﻿Shader "Es/InkPainter/PaintMain"{
 	Properties{
 		[HideInInspector]
 		_MainTex("MainTex", 2D) = "white"
@@ -22,7 +20,6 @@ Shader "Es/InkPainter/PaintMain"{
 	SubShader{
 		CGINCLUDE
 
-#include "../Lib/InkPainterFoundation.cginc"
 
 			struct app_data {
 				float4 vertex:POSITION;
@@ -47,8 +44,11 @@ Shader "Es/InkPainter/PaintMain"{
 #pragma multi_compile INK_PAINTER_COLOR_BLEND_USE_CONTROL INK_PAINTER_COLOR_BLEND_USE_BRUSH INK_PAINTER_COLOR_BLEND_NEUTRAL INK_PAINTER_COLOR_BLEND_ALPHA_ONLY
 #pragma vertex vert
 #pragma fragment frag
+			#include "../Lib/InkPainterFoundation.cginc"
+			#include <UnityShaderUtilities.cginc>
 
 			v2f vert(app_data i) {
+				
 				v2f o;
 				o.screen = UnityObjectToClipPos(i.vertex);
 				o.uv = i.uv;

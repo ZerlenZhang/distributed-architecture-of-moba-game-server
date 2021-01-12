@@ -1,33 +1,22 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using DG.Tweening;
+﻿using DG.Tweening;
 using ReadyGamerOne.Common;
-using ReadyGamerOne.Utility;
 using UnityEngine;
 
 namespace PurificationPioneer.Scriptable
 {
     public class GameSettings:ScriptableSingleton<GameSettings>
     {
+        #region Editor
+
 #if UNITY_EDITOR
         [UnityEditor.MenuItem("净化先锋/开发者选项")]
         private static void ShowInspector()
         {
             UnityEditor.Selection.activeInstanceID = Instance.GetInstanceID();
         }
-        public void LogIp()
-        {
-            Debug.Log("Part_1");
-            foreach (var ip in NetUtil.GetLocalIpAddress(AddressFamily.InterNetwork))
-            {
-                Debug.Log($"LocalIp: {ip}");
-            }
+#endif        
 
-            Debug.Log("Part_2");
-            NetUtil.GetCurrentIpv4Async(ip => Debug.Log(ip));
-                        
-        }
-#endif
+        #endregion
 
         #region IP和端口配置
 
@@ -185,8 +174,7 @@ namespace PurificationPioneer.Scriptable
 
         public KeyCode JumpKey => _jumpKey;
         #endregion
-
-
+        
         #region Gizmos设置
 
         [Header("Gizmos设置")] [SerializeField] private int defaultStateFontSize = 20;

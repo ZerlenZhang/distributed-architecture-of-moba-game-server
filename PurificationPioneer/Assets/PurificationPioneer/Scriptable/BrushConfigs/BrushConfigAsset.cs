@@ -6,6 +6,11 @@ namespace PurificationPioneer.Scriptable
     [CreateAssetMenu(fileName = "NewBrushConfig", menuName = "净化先锋/BrushConfig", order = 0)]
     public class BrushConfigAsset : ScriptableObject
     {
+#if UNITY_EDITOR
+        [SerializeField] private string 备注;
+
+        [Space]
+#endif
         public Brush brush;
     }
 }

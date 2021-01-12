@@ -1,39 +1,36 @@
 ﻿using Es.InkPainter;
-using PurificationPioneer.Data;
 using PurificationPioneer.Global;
 using PurificationPioneer.Scriptable;
-using ReadyGamerOne.Data;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace PurificationPioneer.Script
 {
+   
     public class DirectionFrameSyncBullet:
-        AbstractFrameSyncBullet<DirectionFrameSyncBullet,DirectionBulletStrategy,BulletData,DirectionBulletState>
+        AbstractFrameSyncBullet<
+            DirectionFrameSyncBullet,
+            DirectionBulletStrategy,
+            DirectionBulletConfigAsset,
+            DirectionBulletState>
     {
-        
-        
-        public BrushConfigAsset brushConfig;
         private RaycastHit[] HitInfos=new RaycastHit[GlobalVar.MaxHitInfoCount];
-        public void Init(int bulletId, Vector3 position, Vector3 direction)
+
+        public override bool Initialize(DirectionBulletConfigAsset bulletConfig, DirectionBulletState bulletState)
         {
-            var state = new DirectionBulletState(transform)
-            {
-                LogicPosition = position,
-                Direction = direction
-            };
-            var config = CsvMgr.GetData<BulletData>(bulletId.ToString());
-            transform.localScale = Vector3.one * config.radius;
-            Initialize(config,state);
+            if (!base.Initialize(bulletConfig, bulletState))
+                return false;
+            transform.localScale = Vector3.one * bulletConfig.Radius;
+            return true;
         }
-        
-        protected override bool HitTest(DirectionBulletState currentBulletState, BulletData bulletConfig)
+
+        protected override bool HitTest(DirectionBulletState currentBulletState, DirectionBulletConfigAsset bulletConfig)
         {
             var hitCount =
                 Physics.RaycastNonAlloc(
                     new Ray(currentBulletState.LogicPosition, currentBulletState.Direction),
                     HitInfos,
-                    bulletConfig.radius,
+                    bulletConfig.Radius,
                     attackLayer);
                 // Physics.SphereCastNonAlloc(
                 // currentBulletState.LogicPosition,
@@ -52,7 +49,7 @@ namespace PurificationPioneer.Script
                 var canvas = hitInfo.collider.GetComponent<InkCanvas>();
                 if (canvas != null)
                 {
-                    canvas.Paint(brushConfig.brush, hitInfo);
+                    canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
                     // Debug.Log($"[{hitCount}]Paint!{hitInfo.collider.name}");
                 }
             }
@@ -60,8 +57,7 @@ namespace PurificationPioneer.Script
             return true;
         }
     }
-    
-    
+
     public class DirectionBulletState:IBulletState
     {
         private readonly Transform _transform;
@@ -82,7 +78,7 @@ namespace PurificationPioneer.Script
     }
 
     public class DirectionBulletStrategy : 
-        IBulletStrategy<DirectionFrameSyncBullet, BulletData, DirectionBulletState>
+        IBulletStrategy<DirectionFrameSyncBullet, DirectionBulletConfigAsset, DirectionBulletState>
     {
         public void DisableBullet(DirectionFrameSyncBullet frameSyncBullet)
         {
@@ -100,17 +96,16 @@ namespace PurificationPioneer.Script
             return frameSyncBullet.gameObject.activeSelf;
         }
 
-        public void UpdateStateOnRendererFrame(float timeSinceLastLogicFrame, BulletData bulletConfig,
+        public void UpdateStateOnRendererFrame(float timeSinceLastLogicFrame, DirectionBulletConfigAsset bulletConfig,
             ref DirectionBulletState bulletState)
         {
             bulletState.RendererPosition = bulletState.LogicPosition +
-                                   bulletState.Direction * (timeSinceLastLogicFrame * bulletConfig.speed);
+                                   bulletState.Direction * (timeSinceLastLogicFrame * bulletConfig.Speed);
         }
 
-        public void UpdateStateOnLogicFrame(float deltaTime, BulletData bulletConfig, ref DirectionBulletState bulletState)
+        public void UpdateStateOnLogicFrame(float deltaTime, DirectionBulletConfigAsset bulletConfig, ref DirectionBulletState bulletState)
         {
-            bulletState.LogicPosition = bulletState.LogicPosition +
-                                        bulletState.Direction * (deltaTime * bulletConfig.speed);
+            bulletState.LogicPosition += bulletState.Direction * (deltaTime * bulletConfig.Speed);
                                         
         }
     }

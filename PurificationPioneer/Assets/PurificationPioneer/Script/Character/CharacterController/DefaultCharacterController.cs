@@ -1,4 +1,5 @@
-﻿using PurificationPioneer.Const;
+﻿using PurificationPioneer.Scriptable;
+using PurificationPioneer.Utility;
 using ReadyGamerOne.MemorySystem;
 using UnityEngine;
 
@@ -10,12 +11,15 @@ namespace PurificationPioneer.Script
         public Transform shotPoint;
         public float attackMinDeltaTime = 0.5f;
         private float lastAttackTime = 0;
-        public int bulletId = 1;
+        public int weaponId = 0;
+        public WeaponConfigAsset WeaponConfig { get; protected set; }
 
         protected override void InitCharacter()
         {
             base.InitCharacter();
             lastAttackTime = Time.realtimeSinceStartup;
+            WeaponConfig = ResourceMgr.Instantiate<WeaponConfigAsset>(
+                AssetConstUtil.GetWeaponConfigKey(weaponId));
         }
 
         protected override void OnAttack()
@@ -27,9 +31,7 @@ namespace PurificationPioneer.Script
                 lastAttackTime = currentTime;
                 //attack
                 var shotDir = shotPoint.forward;
-                var directBullet = ResourceMgr.InstantiateGameObject(
-                    BulletName.DirectBullet).GetComponent<DirectionFrameSyncBullet>();
-                directBullet.Init(1, shotPoint.position, shotDir);
+                WeaponConfig.CommonAttack(shotPoint.position, shotDir);
             }
 
         }

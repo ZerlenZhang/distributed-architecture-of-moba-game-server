@@ -7,7 +7,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using ReadyGamerOne.Network;
 using UnityEngine.Assertions;
 using Debug = UnityEngine.Debug;
 
@@ -22,18 +21,13 @@ namespace ReadyGamerOne.Utility
         public static int GetUdpPort()
         {
             int port = -1;
-            for (int i = 8000; i <= 12000; i++)
+            for (var i = 8000; i <= 12000; i++)
             {
                 if (IsPortOccupiedFunc(i) == false)
                 {
                     port = i;
                     break;
                 }
-            }
-
-            if (port != -1)
-            {
-                //Debug.Log("find port :" + port);
             }
             return port;
         }
