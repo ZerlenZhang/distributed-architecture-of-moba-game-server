@@ -2,10 +2,6 @@ namespace PurificationPioneer.Const
 {
 	public partial class SpriteName
 	{
-		public static readonly string HeroIcon0 = @"HeroIcon0";
-		public static readonly string HeroIcon1 = @"HeroIcon1";
-		public static readonly string HeroIcon2 = @"HeroIcon2";
-		public static readonly string HeroIcon3 = @"HeroIcon3";
 		public static readonly string Avatar0 = @"Avatar0";
 		public static readonly string Avatar1 = @"Avatar1";
 		public static readonly string Avatar2 = @"Avatar2";

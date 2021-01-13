@@ -141,9 +141,9 @@ namespace PurificationPioneer.Scriptable
 
         #endregion
         
-        #region 作弊模式
+        #region 开发者模式
 
-        [Header("作弊模式")]
+        [Header("开发者模式")]
         
         #region DebugMode
 
@@ -152,6 +152,10 @@ namespace PurificationPioneer.Scriptable
         public void SetDeveloperMode(bool value) => developerMode = value;        
 
         #endregion
+
+        [SerializeField] private bool workAsAndroid = false;
+
+        public bool WorkAsAndroid => workAsAndroid;
         
         [SerializeField] private string debugAccount = "developer";
         public string DebugAccount => debugAccount;
@@ -165,11 +169,25 @@ namespace PurificationPioneer.Scriptable
 
         [Header("PC端攻击键")] [SerializeField] private KeyCode _attackKey = KeyCode.Mouse0;
 
-        public KeyCode AttackKey => _attackKey;
         [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
 
+        [SerializeField] private KeyCode _heroFirstSkillKey = KeyCode.Q;
+        [SerializeField] private KeyCode _heroSecondSkillKey = KeyCode.E;
+        [SerializeField] private KeyCode _weaponFirstSkillKey = KeyCode.Mouse1;
+        [SerializeField] private KeyCode _weaponSecondSkillKey = KeyCode.R;
+        
         [SerializeField] private KeyCode _gameStateKey = KeyCode.Tab;
+        
 
+        public KeyCode AttackKey => _attackKey;
+
+        public KeyCode HeroFirstSkillKey => _heroFirstSkillKey;
+
+        public KeyCode HeroSecondSkillKey => _heroSecondSkillKey;
+
+        public KeyCode WeaponFirstSkillKey => _weaponFirstSkillKey;
+
+        public KeyCode WeaponSecondSkillKey => _weaponSecondSkillKey;
         public KeyCode GameStateKey => _gameStateKey;
 
         public KeyCode JumpKey => _jumpKey;

@@ -115,7 +115,7 @@ namespace PurificationPioneer.Network.Proxy
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[SelectHeroRes] SeatId[{selectHeroRes.seatId}] 选择了 HeroId[{selectHeroRes.hero_id}]");
 #endif
-                    GlobalVar.SelectHero(selectHeroRes);
+                    GlobalVar.OnSelectHero(selectHeroRes);
                     CEventCenter.BroadMessage(Message.OnSelectHero, selectHeroRes);
                     
                     break;
@@ -134,7 +134,7 @@ namespace PurificationPioneer.Network.Proxy
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[SubmitHeroRes] SeatId[{submitHeroRes.seatId}] 锁定英雄]");
 #endif
-                    GlobalVar.SubmitHero(submitHeroRes);
+                    GlobalVar.OnSubmitHero(submitHeroRes);
                     CEventCenter.BroadMessage(Message.OnSubmitHero, submitHeroRes);
                     
                     break;

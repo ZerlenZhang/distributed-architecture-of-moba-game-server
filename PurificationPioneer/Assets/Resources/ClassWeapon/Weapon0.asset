@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5b5343683974397808891db0d8b0f84, type: 3}
+  m_Script: {fileID: 11500000, guid: c227b43343d64ef19c372ff00acc7cfb, type: 3}
   m_Name: Weapon0
   m_EditorClassIdentifier: 
   "\u5907\u6CE8": "\u8C03\u8BD5\u4F7F\u7528\u7684\u6B66\u5668"
   weaponId: 0
-  attackPercent: 0
-  paintPercent: 0
-  commonAttack: {fileID: 0}
-  firstSkill: {fileID: 0}
+  attackPercent: 5
+  paintPercent: 10
+  commonAttack: {fileID: 11400000, guid: 2f5ca1101b16f6e4981ec5ce0cf23811, type: 2}
+  firstSkill: {fileID: 11400000, guid: 054e88d7e19c33a45a929d4dde1d5a76, type: 2}
   secondSkill: {fileID: 0}
+  story0: 
+  story1: 

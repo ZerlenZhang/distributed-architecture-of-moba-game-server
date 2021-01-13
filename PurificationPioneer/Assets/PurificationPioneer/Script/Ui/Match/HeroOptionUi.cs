@@ -1,4 +1,5 @@
 ﻿using System;
+using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,10 +11,10 @@ namespace PurificationPioneer.Script
         public Image heroIcon;
         public Button clickBtn;
 
-        public void InitValues(int heroId, Action<int> onClick)
+        public void InitValues(HeroConfigAsset heroConfig, Action<int> onClick)
         {
-            heroIcon.sprite = AssetConstUtil.GetHeroIcon(heroId);
-            clickBtn.onClick.AddListener(()=>onClick(heroId));
+            this.heroIcon.sprite = heroConfig.icon;
+            clickBtn.onClick.AddListener(()=>onClick(heroConfig.characterId));
         }
     }
 }

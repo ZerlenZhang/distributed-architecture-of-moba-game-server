@@ -30,7 +30,7 @@ namespace PurificationPioneer.View
 			script.heroOptionRectUi.InitValues(GlobalVar.HeroIds,
 				id =>
 				{
-					if (GlobalVar.IsSubmit)
+					if (GlobalVar.IsLocalSubmit)
 					{
 						Debug.LogError("已经锁定，无法选择");
 						return;
@@ -116,7 +116,7 @@ namespace PurificationPioneer.View
 
 			seatId_MatcherRect[obj.seatId].SubmitHeroRes();
 
-			if (obj.seatId == GlobalVar.SeatId)
+			if (obj.seatId == GlobalVar.LocalSeatId)
 			{
 				script.OnSubmit();
 			}

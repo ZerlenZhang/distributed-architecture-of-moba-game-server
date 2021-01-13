@@ -258,7 +258,7 @@ namespace PurificationPioneer.Script
                     localFrameId + 1,
                     GlobalVar.RoomType,
                     GlobalVar.RoomId,
-                    GlobalVar.SeatId,
+                    GlobalVar.LocalSeatId,
                     inputs);
             
         }

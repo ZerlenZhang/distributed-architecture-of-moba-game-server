@@ -406,6 +406,34 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _attack; }
       set { _attack = value; }
     }
+    private bool _heroFirstSkill;
+    [global::ProtoBuf.ProtoMember(8, IsRequired = true, Name=@"heroFirstSkill", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public bool heroFirstSkill
+    {
+      get { return _heroFirstSkill; }
+      set { _heroFirstSkill = value; }
+    }
+    private bool _heroSecondSkill;
+    [global::ProtoBuf.ProtoMember(9, IsRequired = true, Name=@"heroSecondSkill", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public bool heroSecondSkill
+    {
+      get { return _heroSecondSkill; }
+      set { _heroSecondSkill = value; }
+    }
+    private bool _weaponFirstSkill;
+    [global::ProtoBuf.ProtoMember(10, IsRequired = true, Name=@"weaponFirstSkill", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public bool weaponFirstSkill
+    {
+      get { return _weaponFirstSkill; }
+      set { _weaponFirstSkill = value; }
+    }
+    private bool _weaponSecondSkill;
+    [global::ProtoBuf.ProtoMember(11, IsRequired = true, Name=@"weaponSecondSkill", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public bool weaponSecondSkill
+    {
+      get { return _weaponSecondSkill; }
+      set { _weaponSecondSkill = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

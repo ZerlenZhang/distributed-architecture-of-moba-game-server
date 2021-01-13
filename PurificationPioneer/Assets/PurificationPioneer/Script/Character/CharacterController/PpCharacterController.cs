@@ -21,7 +21,7 @@ namespace PurificationPioneer.Script
 
         [SerializeField]private Transform cameraLookPoint;
 
-        public CharacterConfigAsset CharacterConfig { get; private set; }
+        public HeroConfigAsset HeroConfig { get; private set; }
         
         #region MoveSpeed
 
@@ -63,13 +63,13 @@ namespace PurificationPioneer.Script
         /// </summary>
         /// <param name="seatId"></param>
         /// <param name="logicPos"></param>
-        public void InitCharacterController(int seatId, Vector3 logicPos, CharacterConfigAsset config)
+        public void InitCharacterController(int seatId, Vector3 logicPos, HeroConfigAsset config)
         {
             Assert.IsNotNull(cameraLookPoint);
             Assert.IsNotNull(config);
             //帧同步回调初始化
             SeatId = seatId;
-            CharacterConfig = config;
+            HeroConfig = config;
             FrameSyncMgr.AddFrameSyncCharacter(this);
             
             //初始化内部参数
@@ -80,13 +80,12 @@ namespace PurificationPioneer.Script
             
             InitCharacter();
             
-            if(GlobalVar.SeatId==SeatId)
+            if(GlobalVar.LocalSeatId==SeatId)
                 InitLocalCharacter();
         }        
 
         #endregion
-
-
+        
         #region protected methods
 
         /// <summary>
@@ -178,8 +177,7 @@ namespace PurificationPioneer.Script
         }        
         
         #endregion
-
-
+        
         #region Private_Logic
 
         /// <summary>
@@ -202,6 +200,19 @@ namespace PurificationPioneer.Script
         
         private void Update()
         {
+#if UNITY_EDITOR
+            if (!GameSettings.Instance.WorkAsAndroid)
+            {
+                //用户输入
+                if (Input.GetKey(GameSettings.Instance.AttackKey))
+                    InputMgr.attack = true;
+            }
+#elif UNITY_STANDALONE_WIN
+            //用户输入
+            if (Input.GetKey(GameSettings.Instance.AttackKey))
+                InputMgr.attack = true;
+#endif
+            
             //如果逻辑状态是击飞，眩晕，死亡的状态的话，表现层不变
             if (CharacterAnimator.LogicState != CharacterState.Idle
                 && CharacterAnimator.LogicState != CharacterState.Move)

@@ -7,6 +7,7 @@ using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -53,8 +54,19 @@ namespace PurificationPioneer.Script
             
             CEventCenter.AddListener<int>(Message.OnGameStart,OnStartGameSoon);
             
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_EDITOR
+            if (GameSettings.Instance.WorkAsAndroid)
+            {
+                PanelMgr.PushPanel(PanelName.AndroidBattlePanel);
+            }
+            else
+            {
+                PanelMgr.PushPanel(PanelName.BattlePanel);
+            }
+#elif UNITY_ANDROID
             PanelMgr.PushPanel(PanelName.AndroidBattlePanel);
+#elif UNITY_STANDALONE_WIN
+            PanelMgr.PushPanel(PanelName.BattlePanel);
 #endif
         }
 
@@ -89,7 +101,7 @@ namespace PurificationPioneer.Script
                     : rightPoint;
 
                 //get config
-                var characterConfig=ResourceMgr.GetAsset<CharacterConfigAsset>(
+                var characterConfig=ResourceMgr.GetAsset<HeroConfigAsset>(
                     AssetConstUtil.GetHeroConfigKey(matcherInfo.HeroId));
                 Assert.IsTrue(characterConfig);
                 
@@ -107,9 +119,16 @@ namespace PurificationPioneer.Script
                     yield return new WaitForSeconds(deltaTime);
             }
 
-            // Cursor.visible = false;
+#if UNITY_EDITOR
+            if (!GameSettings.Instance.WorkAsAndroid)
+            {
+                if(lookMouse)
+                    Cursor.lockState = CursorLockMode.Locked;
+            }
+#elif UNITY_STANDALONE_WIN
             if(lookMouse)
                 Cursor.lockState = CursorLockMode.Locked;
+#endif
         }
     }
 }

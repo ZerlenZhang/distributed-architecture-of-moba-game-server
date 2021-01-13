@@ -9,7 +9,11 @@ namespace PurificationPioneer.Scriptable
 
         [Space]
 #endif
-        public int temp;
+        public float cd;
+
+        public int maxCount;
+
+        public Sprite icon;
 
         /// <summary>
         /// 一次性释放

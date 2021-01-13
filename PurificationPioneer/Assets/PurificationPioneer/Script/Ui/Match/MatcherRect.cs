@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
+using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
+using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEngine;
@@ -28,7 +30,7 @@ namespace PurificationPioneer.Script
             SeatId = matcherInfo.SeatId;
             Unick = matcherInfo.Unick;
             nickText.text = matcherInfo.Unick;
-            if (SeatId == GlobalVar.SeatId)
+            if (SeatId == GlobalVar.LocalSeatId)
             {
                 shineCoroutine = MainLoop.Instance.StartCoroutines(ShineBg());
             }
@@ -37,7 +39,7 @@ namespace PurificationPioneer.Script
         public void SelectHeroRes(SelectHeroRes res)
         {
             HeroId = res.hero_id;
-            heroIcon.sprite = AssetConstUtil.GetHeroIcon(HeroId);
+            heroIcon.sprite = ResourceMgr.GetAsset<HeroConfigAsset>(AssetConstUtil.GetHeroConfigKey(res.hero_id)).icon;
         }
 
         public void SubmitHeroRes()

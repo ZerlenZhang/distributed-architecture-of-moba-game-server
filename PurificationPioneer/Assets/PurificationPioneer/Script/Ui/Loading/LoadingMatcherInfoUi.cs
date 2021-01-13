@@ -18,7 +18,7 @@ namespace PurificationPioneer.Script
 
         public void InitValues(GlobalVar.MatcherInfo matcherInfo)
         {
-            bigImage.sprite = AssetConstUtil.GetHeroIcon(matcherInfo.HeroId);
+            bigImage.sprite = matcherInfo.HeroConfig.icon;
             userIcon.sprite = AssetConstUtil.GetUserIcon(matcherInfo.Uface);
             userNick.text = matcherInfo.Unick;
             userLevel.text = matcherInfo.Ulevel.ToString();

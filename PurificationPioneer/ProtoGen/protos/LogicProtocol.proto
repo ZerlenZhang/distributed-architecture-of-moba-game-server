@@ -81,6 +81,10 @@ message PlayerInput{
     required int32 mouseX = 5;
     required int32 mouseY = 6;
     required bool attack = 7;
+    required bool heroFirstSkill = 8;
+    required bool heroSecondSkill = 9;
+    required bool weaponFirstSkill = 10;
+    required bool weaponSecondSkill = 11;
 }
 
 message LogicFrame{

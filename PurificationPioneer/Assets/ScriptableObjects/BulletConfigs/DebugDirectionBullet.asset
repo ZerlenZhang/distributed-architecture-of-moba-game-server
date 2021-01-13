@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c317d850e6e3482cadc1a9932c40f88e, type: 3}
+  m_Script: {fileID: 11500000, guid: d42b65f4dbb44a8aa5518f50aef9b527, type: 3}
   m_Name: DebugDirectionBullet
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  _maxLife: 0
-  _speed: 0
-  _radius: 0
-  _brushConfig: {fileID: 0}
+  "\u5907\u6CE8": 
+  prefab: {fileID: 741288650360761987, guid: 1f8e45a44527b8244a5d0b6549cdff30, type: 3}
+  _maxLife: 5
+  _speed: 8
+  _radius: 0.6
+  _brushConfig: {fileID: 11400000, guid: d6eea41092e8fb2498c4f919ad00495e, type: 2}

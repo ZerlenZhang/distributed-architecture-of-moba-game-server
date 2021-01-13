@@ -19,7 +19,7 @@ namespace PurificationPioneer.Script
 
         public void SubmitHeroReq()
         {
-            if (GlobalVar.IsSubmit)
+            if (GlobalVar.IsLocalSubmit)
             {
                 Debug.LogError("重复锁定");
                 return;

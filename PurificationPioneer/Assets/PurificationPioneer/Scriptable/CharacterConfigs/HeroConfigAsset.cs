@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 namespace PurificationPioneer.Scriptable
 {
     [CreateAssetMenu(fileName = "NewCharacterConfig", menuName = "净化先锋/CharacterConfig", order = 0)]
-    public class CharacterConfigAsset : ScriptableObject
+    public class HeroConfigAsset : ScriptableObject
     {
 #if UNITY_EDITOR
         [SerializeField] private string 备注;
@@ -15,6 +15,7 @@ namespace PurificationPioneer.Scriptable
         [Header("常规")]
         public int characterId;
         public GameObject prefab;
+        public Sprite icon;
         
         [Header("基础数值")]
         public int baseHp;
@@ -27,10 +28,10 @@ namespace PurificationPioneer.Scriptable
         public int increasePaintEfficiency;
 
         [Header("技能配置")]
-        [SerializeField]private SkillConfigAsset firstSkill;
-        [SerializeField]private SkillConfigAsset secondSkill;
+        public SkillConfigAsset firstSkill;
+        public SkillConfigAsset secondSkill;
 
-        [Header("世界观故事")]
+        [Header("世界观故事")] public string heroName;
         public string stroy0;
         public string stroy1;
         public string stroy2;

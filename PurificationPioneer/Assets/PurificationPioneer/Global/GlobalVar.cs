@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using PurificationPioneer.Network.ProtoGen;
+using PurificationPioneer.Scriptable;
+using PurificationPioneer.Utility;
+using ReadyGamerOne.MemorySystem;
 using UnityEngine;
 
 namespace PurificationPioneer.Global
@@ -60,9 +63,13 @@ namespace PurificationPioneer.Global
 			public int Ulevel { get; private set; } = 0;
 			//matchInfo
 			public int HeroId { get; private set; } = -1;
+			public int WeaponId { get; private set; } = 0;
 			public int SetHeroId(int heroId) => HeroId = heroId;
 			public bool IsSubmit { get; private set; } = false;
 			public bool SetSubmitted() => IsSubmit = true;
+			
+			public HeroConfigAsset HeroConfig { get; private set; }
+			public void SetHeroConfig(HeroConfigAsset config) => HeroConfig = config;
 
 			public MatcherInfo(MatchInfo matchInfo)
 			{
@@ -81,8 +88,11 @@ namespace PurificationPioneer.Global
 		public static Dictionary<int, MatcherInfo> SeatId_MatcherInfo{ get; private set; }
 
 		private static MatcherInfo self;
-		public static int SeatId => self.SeatId;
-		public static bool IsSubmit => self.IsSubmit;
+		public static int LocalSeatId => self.SeatId;
+		public static bool IsLocalSubmit => self.IsSubmit;
+		public static int LocalHeroId => self.HeroId;
+		public static int LocalWeaponId => self.WeaponId;
+		public static HeroConfigAsset LocalHeroConfig => self.HeroConfig;
 		public static void SaveMatchers(FinishMatchTick finishMatchTick)
 		{
 			SelectHeroTime = finishMatchTick.heroSelectTime;
@@ -102,7 +112,7 @@ namespace PurificationPioneer.Global
 			}
 		}
 
-		public static void SelectHero(SelectHeroRes selectHeroRes)
+		public static void OnSelectHero(SelectHeroRes selectHeroRes)
 		{
 			if (!SeatId_MatcherInfo.ContainsKey(selectHeroRes.seatId))
 			{
@@ -113,7 +123,7 @@ namespace PurificationPioneer.Global
 			SeatId_MatcherInfo[selectHeroRes.seatId].SetHeroId(selectHeroRes.hero_id);
 		}
 
-		public static void SubmitHero(SubmitHeroRes submitHeroRes)
+		public static void OnSubmitHero(SubmitHeroRes submitHeroRes)
 		{
 			if (!SeatId_MatcherInfo.ContainsKey(submitHeroRes.seatId))
 			{
@@ -121,7 +131,11 @@ namespace PurificationPioneer.Global
 				return;
 			}
 
-			SeatId_MatcherInfo[submitHeroRes.seatId].SetSubmitted();
+			var matcherInfo = SeatId_MatcherInfo[submitHeroRes.seatId];
+			matcherInfo.SetSubmitted();
+			matcherInfo.SetHeroConfig(
+				ResourceMgr.GetAsset<HeroConfigAsset>(AssetConstUtil.GetHeroConfigKey(matcherInfo.HeroId)));
+
 		}
 
 		#endregion
@@ -141,8 +155,6 @@ namespace PurificationPioneer.Global
 		}
 
 		#endregion
-
-
 
 		#region GameConfigs
 

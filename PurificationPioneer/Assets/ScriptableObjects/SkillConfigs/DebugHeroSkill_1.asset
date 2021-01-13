@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14df87c5666e45cbb9c0625a4739fb6b, type: 3}
-  m_Name: ShotItemSkill
+  m_Name: DebugHeroSkill_1
   m_EditorClassIdentifier: 
-  "\u5907\u6CE8": 
-  temp: 0
-  commonBulletConfig: {fileID: 0}
+  "\u5907\u6CE8": "\u8C03\u8BD5\u82F1\u96C4\u6280\u80FD1"
+  cd: 3
+  maxCount: 1
+  icon: {fileID: 21300000, guid: 9b12e7436791f49f4b719288e41a61fd, type: 3}
+  commonBulletConfig: {fileID: 11400000, guid: 5c24fac063a0ede4199502a8a713e7fd, type: 2}

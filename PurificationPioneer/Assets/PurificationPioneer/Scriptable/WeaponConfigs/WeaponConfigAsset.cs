@@ -15,12 +15,12 @@ namespace PurificationPioneer.Scriptable
         public int paintPercent;
         
         [Header("平A")]
-        [SerializeField]protected SkillConfigAsset commonAttack;
+        public SkillConfigAsset commonAttack;
         
         [Header("一技能")]
-        [SerializeField]protected SkillConfigAsset firstSkill;
+        public SkillConfigAsset firstSkill;
         [Header("二技能")]
-        [SerializeField]protected SkillConfigAsset secondSkill;
+        public SkillConfigAsset secondSkill;
 
         [Header("世界观故事")]
         public string story0;

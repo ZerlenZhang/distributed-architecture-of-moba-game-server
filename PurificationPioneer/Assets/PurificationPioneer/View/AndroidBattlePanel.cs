@@ -2,6 +2,7 @@ using System;
 using PurificationPioneer.Const;
 using ReadyGamerOne.Common;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace PurificationPioneer.View
 {
@@ -11,7 +12,14 @@ namespace PurificationPioneer.View
 		partial void OnLoad()
 		{
 			script = m_TransFrom.GetComponent<AndroidBattlePanelScript>();
+			Assert.IsTrue(script);
 			//do any thing you want
+			InitScript();
+		}
+
+		private void InitScript()
+		{
+			script.Init();
 		}
 
 		protected override void OnAddListener()

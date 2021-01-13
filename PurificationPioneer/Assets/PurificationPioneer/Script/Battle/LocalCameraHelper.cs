@@ -1,5 +1,6 @@
 ﻿using System;
 using Cinemachine;
+using PurificationPioneer.Scriptable;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -22,10 +23,17 @@ namespace PurificationPioneer.Script
             Assert.IsTrue(vcam);
             vcam.Follow = follow;
             vcam.LookAt = lookAt;
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_EDITOR
+            if (GameSettings.Instance.WorkAsAndroid)
+            {
+                androidInputAxis = new AndroidInputAxis();
+                vcam.m_XAxis.SetInputAxisProvider(AndroidInputAxis.X, androidInputAxis);
+                vcam.m_YAxis.SetInputAxisProvider(AndroidInputAxis.Y, androidInputAxis);   
+            }
+#elif UNITY_ANDROID
             androidInputAxis = new AndroidInputAxis();
             vcam.m_XAxis.SetInputAxisProvider(AndroidInputAxis.X, androidInputAxis);
-            vcam.m_YAxis.SetInputAxisProvider(AndroidInputAxis.Y, androidInputAxis);            
+            vcam.m_YAxis.SetInputAxisProvider(AndroidInputAxis.Y, androidInputAxis); 
 #endif
         }
 
