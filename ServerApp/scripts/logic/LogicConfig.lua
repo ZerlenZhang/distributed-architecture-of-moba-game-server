@@ -16,7 +16,7 @@ return {
 
     startGameDelay=3,
 
-    logicFrameDeltaTime=30,--ms
+    logicFrameDeltaTime=50,--ms
 
     broadTimes=1,
 };
