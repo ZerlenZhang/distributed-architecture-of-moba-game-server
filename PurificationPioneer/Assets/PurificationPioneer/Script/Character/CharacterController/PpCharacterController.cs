@@ -20,6 +20,7 @@ namespace PurificationPioneer.Script
         #region Inspector properties
 
         [SerializeField]private Transform cameraLookPoint;
+        [SerializeField] protected Transform centerPoint;
 
         public HeroConfigAsset HeroConfig { get; private set; }
         
@@ -65,7 +66,7 @@ namespace PurificationPioneer.Script
         /// <param name="logicPos"></param>
         public void InitCharacterController(int seatId, Vector3 logicPos, HeroConfigAsset config)
         {
-            Assert.IsNotNull(cameraLookPoint);
+            Assert.IsTrue(cameraLookPoint && centerPoint);
             Assert.IsNotNull(config);
             //帧同步回调初始化
             SeatId = seatId;
@@ -107,7 +108,7 @@ namespace PurificationPioneer.Script
             localCameraHelper.Init(transform,this.cameraLookPoint);
         }        
 
-        protected virtual void OnAttack()
+        protected virtual void OnAttack(int faceX,int faceY)
         {
             
         }
@@ -133,7 +134,10 @@ namespace PurificationPioneer.Script
             {
                 this.stick_x = playerInput.moveX;
                 this.stick_y = playerInput.moveY;
+                this.face_x = playerInput.faceX;
+                this.face_y = playerInput.faceY;
                 this.attack = playerInput.attack;
+                
                 var before = this.logicPosition;
                 this.transform.position = this.logicPosition;
                 DoJoystick(GlobalVar.LogicFrameDeltaTime.ToFloat());
@@ -141,8 +145,7 @@ namespace PurificationPioneer.Script
 
                 if (playerInput.attack)
                 {
-                    GetCameraDirection();
-                    OnAttack();
+                    OnAttack(this.face_x,this.face_y);
                 }
 #if DebugMode
                 if(GameSettings.Instance.EnableFrameSyncLog)
@@ -158,11 +161,13 @@ namespace PurificationPioneer.Script
             {
                 this.stick_x = playerInput.moveX;
                 this.stick_y = playerInput.moveY;
+                this.face_x = playerInput.faceX;
+                this.face_y = playerInput.faceY;
+                this.attack = playerInput.attack;
 #if DebugMode
                 if(GameSettings.Instance.EnableFrameSyncLog)
                     Debug.Log($"[GetInput-Current-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y})");
 #endif
-    
                 if (this.stick_x == 0 && this.stick_y == 0)
                 {
                     CharacterAnimator.LogicToIdle();
@@ -172,7 +177,7 @@ namespace PurificationPioneer.Script
                     CharacterAnimator.LogicToWalk();
                 }
                 if(playerInput.attack)
-                    OnAttack();
+                    OnAttack(this.face_x,this.face_y);
             }
         }        
         
@@ -183,7 +188,7 @@ namespace PurificationPioneer.Script
         /// <summary>
         /// 遥感操作
         /// </summary>
-        private int stick_x, stick_y;
+        private int stick_x, stick_y, face_x,face_y;
 
         private bool attack;
         
@@ -236,22 +241,7 @@ namespace PurificationPioneer.Script
             
             DoJoystick(Time.deltaTime);
         }
-
-
-        private Vector2 GetCameraDirection(bool updateCharacterDirection=true)
-        {
-            var cameraForward = Camera.main.transform.forward;
-            var expectedForward = new Vector2(
-                cameraForward.x,cameraForward.z).normalized;
-
-            if (updateCharacterDirection)
-            {
-                transform.forward = new Vector3(expectedForward.x, 0, expectedForward.y);
-                // Debug.Log($"UpdateDir");
-            }
-            
-            return expectedForward;
-        }
+        
 
         /// <summary>
         /// 根据stick_x和stick_y，移动deltaTime这么长时间
@@ -269,16 +259,7 @@ namespace PurificationPioneer.Script
             //有移动，将逻辑状态置为Walk
             CharacterAnimator.LogicToWalk();
 
-            Vector2 expectedForward;
-            // if (attack)
-            // {
-                var transformForward = transform.forward;
-                expectedForward = new Vector2(transformForward.x, transformForward.z);
-            // }
-            // else
-            // {
-            expectedForward=GetCameraDirection();
-            // }
+            var expectedForward = new Vector2(this.face_x, this.face_y).normalized;
             var inputDir = new Vector2(
                 this.stick_x.ToFloat(),
                 this.stick_y.ToFloat());
@@ -286,6 +267,8 @@ namespace PurificationPioneer.Script
 
             var angle =  -Mathf.Sign(inputDir.x) * Vector2.Angle(inputDir, Vector2.up);
             var moveDir = expectedForward.RotateDegree(angle);
+
+            transform.forward = new Vector3(moveDir.x, 0, moveDir.y);
             
             // Debug.Log($"[Move] expectedForward:{expectedForward}, inputDir:{inputDir}, moveDir:{moveDir}, angle:{angle}");
 

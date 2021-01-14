@@ -434,6 +434,20 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _weaponSecondSkill; }
       set { _weaponSecondSkill = value; }
     }
+    private int _faceX;
+    [global::ProtoBuf.ProtoMember(12, IsRequired = true, Name=@"faceX", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int faceX
+    {
+      get { return _faceX; }
+      set { _faceX = value; }
+    }
+    private int _faceY;
+    [global::ProtoBuf.ProtoMember(13, IsRequired = true, Name=@"faceY", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int faceY
+    {
+      get { return _faceY; }
+      set { _faceY = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

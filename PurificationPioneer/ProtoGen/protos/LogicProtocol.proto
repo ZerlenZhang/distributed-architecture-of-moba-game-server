@@ -85,6 +85,8 @@ message PlayerInput{
     required bool heroSecondSkill = 9;
     required bool weaponFirstSkill = 10;
     required bool weaponSecondSkill = 11;
+    required int32 faceX = 12;
+    required int32 faceY = 13;
 }
 
 message LogicFrame{

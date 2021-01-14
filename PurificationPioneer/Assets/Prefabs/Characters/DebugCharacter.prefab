@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8543864827467669756}
   m_Layer: 0
-  m_Name: ShotPoint
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4074196640514386768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.431, z: 1.068}
+  m_LocalPosition: {x: 0, y: 0.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5985495542125394955}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 3077310148824323186}
   - component: {fileID: 5062419579060501991}
   m_Layer: 0
-  m_Name: Character3
+  m_Name: DebugCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,11 +267,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraLookPoint: {fileID: 5090126642713239139}
+  centerPoint: {fileID: 8543864827467669756}
   moveSpeed: 3
   characterAnimator: {fileID: 1205331563, guid: b02dae70454e88b4dabff60c98182c10,
     type: 3}
   characterController: {fileID: 5693862668851215100}
   seatId: 0
-  shotPoint: {fileID: 8543864827467669756}
+  offsetLen: 1
   attackMinDeltaTime: 0.3
-  bulletId: 1
+  weaponId: 0

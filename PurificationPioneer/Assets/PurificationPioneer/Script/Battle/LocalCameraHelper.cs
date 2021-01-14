@@ -1,14 +1,30 @@
 ﻿using System;
 using Cinemachine;
 using PurificationPioneer.Scriptable;
+using ReadyGamerOne.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Script
 {
-    public class LocalCameraHelper : MonoBehaviour
+    public class LocalCameraHelper : MonoSingleton<LocalCameraHelper>
     {
-        [SerializeField]
+        [SerializeField]private Camera usedCamera;
+
+        public Camera ActivateCamera
+        {
+            get
+            {
+                if (usedCamera == null)
+                {
+                    usedCamera=Camera.main;
+                    if (!usedCamera)
+                        throw new Exception($"[LocalCameraHelper] usedCamera is null and Camera.main is null");
+                }
+
+                return usedCamera;
+            }
+        }
         public CinemachineFreeLook vcam;
         private AndroidInputAxis androidInputAxis;
 
@@ -37,6 +53,15 @@ namespace PurificationPioneer.Script
 #endif
         }
 
+        public Vector2 GetCameraDirectionXZ()
+        {
+            var cameraForward = ActivateCamera.transform.forward;
+            var expectedForward = new Vector2(
+                cameraForward.x, cameraForward.z).normalized;
+            return expectedForward;
+        }
+        
+        
         private void Update()
         {
             androidInputAxis?.Update();
@@ -59,19 +84,26 @@ namespace PurificationPioneer.Script
             {
                 lastInput = Input.mousePosition;
             }
-            
+
+            private bool inputVaild = false;
             public void Update()
             {
                 if (Input.GetMouseButton(0))
                 {
                     var input = Input.mousePosition;
-                    value.x = (input.x - lastInput.x)/Screen.width/Time.deltaTime;
-                    value.y = (input.y - lastInput.y)/Screen.height/Time.deltaTime;
-                    lastInput = input;
+                    if (input.x > Screen.width / 2f)
+                    {
+                        inputVaild = true;
+                        value.x = (input.x - lastInput.x)/Screen.width/Time.deltaTime;
+                        value.y = (input.y - lastInput.y)/Screen.height/Time.deltaTime;
+                        lastInput = input;                        
+                    }
+
                 }
 
-                if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonUp(0) && inputVaild)
                 {
+                    inputVaild = false;
                     lastInput = Input.mousePosition;
                     value=Vector2.zero;
                 }
