@@ -22,15 +22,15 @@ namespace PurificationPioneer.Script
                 AssetConstUtil.GetWeaponConfigKey(weaponId));
         }
 
-        protected override void OnAttack(int faceX,int faceY)
+        protected override void OnAttack(int faceX,int faceY, int faceZ)
         {
-            base.OnAttack(faceX, faceY);
+            base.OnAttack(faceX, faceY, faceZ);
             var currentTime = Time.realtimeSinceStartup;
             if (currentTime - lastAttackTime > attackMinDeltaTime)
             {
                 lastAttackTime = currentTime;
                 //attack
-                var shotDir = new Vector3(faceX, 0, faceY).normalized;
+                var shotDir = new Vector3(faceX, faceY, faceZ).normalized;
                 var shotPoint = centerPoint.position + shotDir * offsetLen;
                 WeaponConfig.CommonAttack(shotPoint, shotDir);
             }

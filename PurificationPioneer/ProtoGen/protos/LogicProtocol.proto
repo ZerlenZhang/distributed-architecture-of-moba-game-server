@@ -87,6 +87,7 @@ message PlayerInput{
     required bool weaponSecondSkill = 11;
     required int32 faceX = 12;
     required int32 faceY = 13;
+    required int32 faceZ = 14;
 }
 
 message LogicFrame{

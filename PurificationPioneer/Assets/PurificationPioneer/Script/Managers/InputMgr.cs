@@ -25,7 +25,7 @@ namespace PurificationPioneer.Script
 
         public static PlayerInput GetInput()
         {
-            var cameraDir = LocalCameraHelper.Instance.GetCameraDirectionXZ();
+            var cameraDir = LocalCameraHelper.Instance.GetCameraDirection();
             var input = new PlayerInput
             {
                 seatId = GlobalVar.LocalSeatId,
@@ -38,7 +38,8 @@ namespace PurificationPioneer.Script
                 weaponFirstSkill = weaponFirstSkill,
                 weaponSecondSkill = weaponSecondSkill,
                 faceX = cameraDir.x.ToInt(),
-                faceY = cameraDir.y.ToInt()
+                faceY = cameraDir.y.ToInt(),
+                faceZ = cameraDir.z.ToInt()
             };
 
 #if UNITY_EDITOR

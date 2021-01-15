@@ -10,7 +10,8 @@ namespace PurificationPioneer.Script
     public class LocalCameraHelper : MonoSingleton<LocalCameraHelper>
     {
         [SerializeField]private Camera usedCamera;
-
+        [SerializeField] private float lowOffset = 2.0f;
+        private Transform lowPoint;
         public Camera ActivateCamera
         {
             get
@@ -39,6 +40,10 @@ namespace PurificationPioneer.Script
             Assert.IsTrue(vcam);
             vcam.Follow = follow;
             vcam.LookAt = lookAt;
+            lowPoint = new GameObject("LowPoint").transform;
+            lowPoint.SetParent(transform);
+            lowPoint.localPosition = Vector3.down * lowOffset;
+            
 #if UNITY_EDITOR
             if (GameSettings.Instance.WorkAsAndroid)
             {
@@ -53,18 +58,20 @@ namespace PurificationPioneer.Script
 #endif
         }
 
-        public Vector2 GetCameraDirectionXZ()
+        public Vector3 GetCameraDirection()
         {
-            var cameraForward = ActivateCamera.transform.forward;
-            var expectedForward = new Vector2(
-                cameraForward.x, cameraForward.z).normalized;
-            return expectedForward;
+            var cameraForward = lowPoint.forward;
+            return cameraForward;
         }
         
         
         private void Update()
         {
             androidInputAxis?.Update();
+            var ans = 2 * Mathf.Abs( Mathf.Clamp(vcam.m_YAxis.Value,0,1)- 0.5f);
+            var offset = Mathf.Lerp(2, 0, ans);
+            lowPoint.localPosition = offset * Vector3.down;
+            lowPoint.LookAt(vcam.LookAt);
         }
 
         /// <summary>

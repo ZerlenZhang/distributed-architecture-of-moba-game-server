@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 741288650360761998}
   - component: {fileID: 741288650360761997}
   - component: {fileID: 741288650360761996}
+  - component: {fileID: 6762470604382567165}
   m_Layer: 0
   m_Name: DirectBullet
   m_TagString: Untagged
@@ -109,4 +110,21 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 256
-  brushConfig: {fileID: 11400000, guid: d6eea41092e8fb2498c4f919ad00495e, type: 2}
+--- !u!114 &6762470604382567165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741288650360761987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8887883f00b6403d986a33e4aeb15cd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isStatic: 0
+  _mass: 1
+  _useGravity: 0
+  _gravityScale: 1
+  _velocity: {x: 0, y: 0, z: 0}
+  _acceleration: {x: 0, y: 0, z: 0}

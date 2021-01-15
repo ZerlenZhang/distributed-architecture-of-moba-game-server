@@ -2,6 +2,7 @@
 using PurificationPioneer.Global;
 using PurificationPioneer.Scriptable;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Object = UnityEngine.Object;
 
 namespace PurificationPioneer.Script
@@ -15,15 +16,7 @@ namespace PurificationPioneer.Script
             DirectionBulletState>
     {
         private RaycastHit[] HitInfos=new RaycastHit[GlobalVar.MaxHitInfoCount];
-
-        public override bool Initialize(DirectionBulletConfigAsset bulletConfig, DirectionBulletState bulletState)
-        {
-            if (!base.Initialize(bulletConfig, bulletState))
-                return false;
-            transform.localScale = Vector3.one * bulletConfig.Radius;
-            return true;
-        }
-
+        
         protected override bool HitTest(DirectionBulletState currentBulletState, DirectionBulletConfigAsset bulletConfig)
         {
             var hitCount =
@@ -58,22 +51,54 @@ namespace PurificationPioneer.Script
         }
     }
 
-    public class DirectionBulletState:IBulletState
+    public class DirectionBulletState
     {
-        private readonly Transform _transform;
-        public DirectionBulletState(Transform transform) => _transform = transform;
-        public Vector3 LogicPosition { get; set; }
-
-        public Vector3 RendererPosition
+        private readonly PpRigidbody _rigidbody;
+        private IPpRigidbodyState _rigidbodyState;
+        private Vector3 _logicPosition;
+        /// <summary>
+        /// 保存当前状态，
+        /// </summary>
+        public void SaveState()
         {
-            get=>_transform.position;
-            set=>_transform.position=value;
+            _logicPosition = _rigidbody.Position;
+            _rigidbody.GetStateNoAlloc(ref _rigidbodyState);
         }
+
+        /// <summary>
+        /// 应用上次保存的状态并模拟一段时间
+        /// </summary>
+        /// <param name="deltaTime"></param>
+        public void ApplyAndSimulate(float deltaTime)
+        {
+            _rigidbody.ApplyRigidbodyState(_rigidbodyState);
+            _rigidbody.Simulate(deltaTime);
+        }
+        public DirectionBulletState(PpRigidbody rigidbody, Vector3 dir, Vector3 logicPosition)
+        {
+            _rigidbody = rigidbody;
+            Assert.IsTrue(_rigidbody);
+
+            _logicPosition = logicPosition;
+            _rigidbody.Position = logicPosition;
+            Direction = dir;
+            _rigidbodyState = _rigidbody.GetState();
+        }
+
+        public Vector3 LogicPosition => _logicPosition;
 
         public Vector3 Direction
         {
-            get => _transform.forward;
-            set => _transform.forward = value;
+            get => _rigidbody.transform.forward;
+            private set => _rigidbody.transform.forward = value;
+        }
+        public Vector3 Velocity
+        {
+            set => _rigidbody.Velocity = value;
+        }
+        public float Radius
+        {
+            set=>_rigidbody.transform.localScale = Vector3.one *value;
         }
     }
 
@@ -96,18 +121,25 @@ namespace PurificationPioneer.Script
             return frameSyncBullet.gameObject.activeSelf;
         }
 
-        public void UpdateStateOnRendererFrame(float timeSinceLastLogicFrame, DirectionBulletConfigAsset bulletConfig,
-            ref DirectionBulletState bulletState)
+        public void OnInitBulletState(DirectionFrameSyncBullet bullet, DirectionBulletState bulletState,
+            DirectionBulletConfigAsset bulletConfig)
         {
-            bulletState.RendererPosition = bulletState.LogicPosition +
-                                   bulletState.Direction * (timeSinceLastLogicFrame * bulletConfig.Speed);
+            bulletState.Radius = bulletConfig.Radius;
+            bulletState.Velocity = bulletState.Direction * bulletConfig.Speed;
+            bulletState.SaveState();
         }
 
-        public void UpdateStateOnLogicFrame(float deltaTime, DirectionBulletConfigAsset bulletConfig, ref DirectionBulletState bulletState)
+        public void OnRendererFrame(float timeSinceLastLogicFrame, DirectionBulletConfigAsset bulletConfig,
+            ref DirectionBulletState bulletState)
         {
-            bulletState.LogicPosition += bulletState.Direction * (deltaTime * bulletConfig.Speed);
-                                        
+            bulletState.ApplyAndSimulate(timeSinceLastLogicFrame);
+        }
+
+        public void OnLogicFrame(float deltaTime, DirectionBulletConfigAsset bulletConfig, 
+            ref DirectionBulletState bulletState)
+        {
+            bulletState.ApplyAndSimulate(deltaTime);
+            bulletState.SaveState();
         }
     }
-    
 }

@@ -108,7 +108,7 @@ namespace PurificationPioneer.Script
             localCameraHelper.Init(transform,this.cameraLookPoint);
         }        
 
-        protected virtual void OnAttack(int faceX,int faceY)
+        protected virtual void OnAttack(int faceX,int faceY, int faceZ)
         {
             
         }
@@ -136,6 +136,7 @@ namespace PurificationPioneer.Script
                 this.stick_y = playerInput.moveY;
                 this.face_x = playerInput.faceX;
                 this.face_y = playerInput.faceY;
+                this.face_z = playerInput.faceZ;
                 this.attack = playerInput.attack;
                 
                 var before = this.logicPosition;
@@ -145,7 +146,7 @@ namespace PurificationPioneer.Script
 
                 if (playerInput.attack)
                 {
-                    OnAttack(this.face_x,this.face_y);
+                    OnAttack(this.face_x,this.face_y,this.face_z);
                 }
 #if DebugMode
                 if(GameSettings.Instance.EnableFrameSyncLog)
@@ -163,6 +164,7 @@ namespace PurificationPioneer.Script
                 this.stick_y = playerInput.moveY;
                 this.face_x = playerInput.faceX;
                 this.face_y = playerInput.faceY;
+                this.face_z = playerInput.faceZ;
                 this.attack = playerInput.attack;
 #if DebugMode
                 if(GameSettings.Instance.EnableFrameSyncLog)
@@ -177,7 +179,7 @@ namespace PurificationPioneer.Script
                     CharacterAnimator.LogicToWalk();
                 }
                 if(playerInput.attack)
-                    OnAttack(this.face_x,this.face_y);
+                    OnAttack(this.face_x,this.face_y,this.face_z);
             }
         }        
         
@@ -188,7 +190,7 @@ namespace PurificationPioneer.Script
         /// <summary>
         /// 遥感操作
         /// </summary>
-        private int stick_x, stick_y, face_x,face_y;
+        private int stick_x, stick_y, face_x,face_y,face_z;
 
         private bool attack;
         
@@ -259,7 +261,7 @@ namespace PurificationPioneer.Script
             //有移动，将逻辑状态置为Walk
             CharacterAnimator.LogicToWalk();
 
-            var expectedForward = new Vector2(this.face_x, this.face_y).normalized;
+            var expectedForward = new Vector2(this.face_x, this.face_z).normalized;
             var inputDir = new Vector2(
                 this.stick_x.ToFloat(),
                 this.stick_y.ToFloat());

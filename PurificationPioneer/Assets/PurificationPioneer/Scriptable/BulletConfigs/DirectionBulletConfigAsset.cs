@@ -27,17 +27,14 @@ namespace PurificationPioneer.Scriptable
             var bulletObj = Object.Instantiate(prefab);
             Assert.IsTrue(bulletObj);
 
-
-            var bulletState = new DirectionBulletState(bulletObj.transform)
-            {
-                Direction = direction,
-                LogicPosition = createPos
-            };
-            
             var script = bulletObj.GetComponent<DirectionFrameSyncBullet>();
             Assert.IsNotNull(script);
             
-            script.Initialize(this, bulletState);
+            script.Initialize(this, new DirectionBulletState(
+                bulletObj.GetComponent<PpRigidbody>(),
+                direction,
+                createPos));
+            
             return script;
         }
     }

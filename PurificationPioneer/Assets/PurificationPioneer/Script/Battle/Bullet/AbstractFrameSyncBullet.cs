@@ -14,7 +14,6 @@ namespace PurificationPioneer.Script
         : MonoBehaviour, IFrameSyncUnit
         where TBullet:AbstractFrameSyncBullet<TBullet, TBulletStrategy, TBulletConfig, TBulletState>
         where TBulletStrategy:class, IBulletStrategy<TBullet, TBulletConfig, TBulletState>,new()
-        where TBulletState: class, IBulletState
         where TBulletConfig: class, IBulletConfig
     {
         public LayerMask attackLayer;
@@ -60,12 +59,13 @@ namespace PurificationPioneer.Script
         /// </summary>
         private bool _isBulletRunning = true;
         
+        
         /// <summary>
         /// 子弹初始化
         /// </summary>
         /// <param name="bulletConfig"></param>
         /// <param name="bulletState"></param>
-        public virtual bool Initialize(TBulletConfig bulletConfig, TBulletState bulletState)
+        public bool Initialize(TBulletConfig bulletConfig, TBulletState bulletState)
         {
             if (_isInitialized)
                 return false;
@@ -77,7 +77,8 @@ namespace PurificationPioneer.Script
             _timeSinceLastLogicFrame = 0;
             _bulletConfig = bulletConfig;
             _bulletState = bulletState;
-            bulletState.RendererPosition = bulletState.LogicPosition;
+            
+            BulletStrategy.OnInitBulletState(this as TBullet,_bulletState,_bulletConfig);
             FrameSyncMgr.AddFrameSyncUnit(this);
 #if DebugMode
             if(GameSettings.Instance.EnableBulletLog)
@@ -102,7 +103,7 @@ namespace PurificationPioneer.Script
             }
 
             //更新子弹渲染状态
-            BulletStrategy.UpdateStateOnRendererFrame(_timeSinceLastLogicFrame, BulletConfig, ref _bulletState);
+            BulletStrategy.OnRendererFrame(_timeSinceLastLogicFrame, BulletConfig, ref _bulletState);
 
             if (_bulletRenderAgeTime > BulletConfig.MaxLife)
             {
@@ -138,7 +139,7 @@ namespace PurificationPioneer.Script
                 deltaTime -= (_bulletLogicAgeTime - BulletConfig.MaxLife);
 
             //更新子弹逻辑状态
-            BulletStrategy.UpdateStateOnLogicFrame(deltaTime, BulletConfig, ref _bulletState);
+            BulletStrategy.OnLogicFrame(deltaTime, BulletConfig, ref _bulletState);
             
             //子弹击中物体
             if (HitTest(_bulletState, BulletConfig))

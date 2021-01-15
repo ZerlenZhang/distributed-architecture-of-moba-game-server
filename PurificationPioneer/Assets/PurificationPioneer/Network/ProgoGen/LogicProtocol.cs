@@ -448,6 +448,13 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _faceY; }
       set { _faceY = value; }
     }
+    private int _faceZ;
+    [global::ProtoBuf.ProtoMember(14, IsRequired = true, Name=@"faceZ", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int faceZ
+    {
+      get { return _faceZ; }
+      set { _faceZ = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
