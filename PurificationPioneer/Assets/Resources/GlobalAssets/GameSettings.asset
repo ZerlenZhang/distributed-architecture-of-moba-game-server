@@ -20,10 +20,12 @@ MonoBehaviour:
   netMsgTimes: 1
   closeSocketOnAnyException: 1
   enableSocketLog: 0
-  enableProtoLog: 1
+  enableProtoLog: 0
   enableFrameSyncLog: 0
-  enableInputLog: 0
+  _enableInputLog: 0
   enableBulletLog: 0
+  _enableMoveLog: 0
+  enablePhysicsLog: 1
   matchPanelEaseType: 20
   matchPanelEaseTime: 1
   developerMode: 1
@@ -38,3 +40,4 @@ MonoBehaviour:
   _weaponSecondSkillKey: 114
   _gameStateKey: 9
   defaultStateFontSize: 50
+  _maxCollisionCount: 8

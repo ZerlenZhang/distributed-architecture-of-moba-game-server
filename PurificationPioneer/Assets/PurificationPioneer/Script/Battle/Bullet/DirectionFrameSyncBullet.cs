@@ -51,57 +51,18 @@ namespace PurificationPioneer.Script
         }
     }
 
-    public class DirectionBulletState
+    public class DirectionBulletState : FrameSyncRigidbodyState
     {
-        private readonly PpRigidbody _rigidbody;
-        private IPpRigidbodyState _rigidbodyState;
-        private Vector3 _logicPosition;
-        /// <summary>
-        /// 保存当前状态，
-        /// </summary>
-        public void SaveState()
+        public DirectionBulletState(PpRigidbody rigidbody,Vector3 dir,Vector3 initPosition) : base(rigidbody,initPosition)
         {
-            _logicPosition = _rigidbody.Position;
-            _rigidbody.GetStateNoAlloc(ref _rigidbodyState);
-        }
-
-        /// <summary>
-        /// 应用上次保存的状态并模拟一段时间
-        /// </summary>
-        /// <param name="deltaTime"></param>
-        public void ApplyAndSimulate(float deltaTime)
-        {
-            _rigidbody.ApplyRigidbodyState(_rigidbodyState);
-            _rigidbody.Simulate(deltaTime);
-        }
-        public DirectionBulletState(PpRigidbody rigidbody, Vector3 dir, Vector3 logicPosition)
-        {
-            _rigidbody = rigidbody;
-            Assert.IsTrue(_rigidbody);
-
-            _logicPosition = logicPosition;
-            _rigidbody.Position = logicPosition;
             Direction = dir;
-            _rigidbodyState = _rigidbody.GetState();
-        }
-
-        public Vector3 LogicPosition => _logicPosition;
-
-        public Vector3 Direction
-        {
-            get => _rigidbody.transform.forward;
-            private set => _rigidbody.transform.forward = value;
-        }
-        public Vector3 Velocity
-        {
-            set => _rigidbody.Velocity = value;
         }
         public float Radius
         {
             set=>_rigidbody.transform.localScale = Vector3.one *value;
         }
     }
-
+    
     public class DirectionBulletStrategy : 
         IBulletStrategy<DirectionFrameSyncBullet, DirectionBulletConfigAsset, DirectionBulletState>
     {

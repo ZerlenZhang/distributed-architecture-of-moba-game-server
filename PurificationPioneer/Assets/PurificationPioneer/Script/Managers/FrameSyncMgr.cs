@@ -55,7 +55,7 @@ namespace PurificationPioneer.Script
         /// 网络状态GUI显示
         /// </summary>
         /// <param name="defaultGuiStyle"></param>
-        public static void OnFrameSyncStateGUI(GUIStyle defaultGuiStyle)
+        public static void OnGui(GUIStyle defaultGuiStyle)
         {
             GUILayout.Label($"FrameID\t{_frameId}\t",defaultGuiStyle);
             

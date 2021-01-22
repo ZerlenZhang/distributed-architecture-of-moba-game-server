@@ -82,7 +82,7 @@ namespace PurificationPioneer.Script
             FrameSyncMgr.AddFrameSyncUnit(this);
 #if DebugMode
             if(GameSettings.Instance.EnableBulletLog)
-                BattleSceneMgr.Instance.eventOnGameState += OnBulletStateGUI;
+                PurificationPioneerMgr.Instance.eventOnGameState += OnBulletStateGUI;
 #endif
             return true;
         }
@@ -162,7 +162,6 @@ namespace PurificationPioneer.Script
         }
 
         #endregion
-        
 
         /// <summary>
         /// 子弹击中物体的检测和处理
@@ -198,7 +197,7 @@ namespace PurificationPioneer.Script
             FrameSyncMgr.RemoveFrameSyncUnit(this);
 #if DebugMode
             if(GameSettings.Instance.EnableBulletLog)
-                BattleSceneMgr.Instance.eventOnGameState -= OnBulletStateGUI;
+                PurificationPioneerMgr.Instance.eventOnGameState -= OnBulletStateGUI;
 #endif
         }
         

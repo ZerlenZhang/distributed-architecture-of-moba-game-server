@@ -48,11 +48,11 @@ namespace PurificationPioneer.Script
 
         #endregion
         
-        #region CharacterController
+        #region CharacterRigidbody
 
-        [SerializeField] private CharacterController characterController;
+        [SerializeField] private PpRigidbody characterRigidbody;
 
-        protected CharacterController CharacterController => characterController;
+        protected PpRigidbody CharacterRigidbody => characterRigidbody;
         #endregion        
 
         #endregion
@@ -77,7 +77,8 @@ namespace PurificationPioneer.Script
             this.stick_x = 0;
             this.stick_y = 0;
             CharacterAnimator.LogicToIdle();
-            logicPosition = logicPos;
+
+            _characterBodyState = new FrameSyncRigidbodyState(CharacterRigidbody,logicPos);
             
             InitCharacter();
             
@@ -138,19 +139,24 @@ namespace PurificationPioneer.Script
                 this.face_y = playerInput.faceY;
                 this.face_z = playerInput.faceZ;
                 this.attack = playerInput.attack;
+
+                var time = GlobalVar.LogicFrameDeltaTime.ToFloat();
+                var beforePos = _characterBodyState.RendererPosition;
+
+                _characterBodyState.ApplyAndSimulate(time);
+                DoJoystick(time);
+                _characterBodyState.SaveState();
                 
-                var before = this.logicPosition;
-                this.transform.position = this.logicPosition;
-                DoJoystick(GlobalVar.LogicFrameDeltaTime.ToFloat());
-                this.logicPosition = this.transform.position;
+                
+                var newPos = _characterBodyState.RendererPosition;
 
                 if (playerInput.attack)
                 {
                     OnAttack(this.face_x,this.face_y,this.face_z);
                 }
 #if DebugMode
-                if(GameSettings.Instance.EnableFrameSyncLog)
-                    Debug.Log($"[GetInput-SyncLast-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y}), 前进：{(this.logicPosition - before).magnitude}");                
+                if(GameSettings.Instance.EnableMoveLog)
+                    Debug.Log($"[GetInput-SyncLast-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y}), 前进：{(newPos - beforePos).magnitude}");                
 #endif
 
             }
@@ -167,7 +173,7 @@ namespace PurificationPioneer.Script
                 this.face_z = playerInput.faceZ;
                 this.attack = playerInput.attack;
 #if DebugMode
-                if(GameSettings.Instance.EnableFrameSyncLog)
+                if(GameSettings.Instance.EnableMoveLog)
                     Debug.Log($"[GetInput-Current-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y})");
 #endif
                 if (this.stick_x == 0 && this.stick_y == 0)
@@ -193,16 +199,16 @@ namespace PurificationPioneer.Script
         private int stick_x, stick_y, face_x,face_y,face_z;
 
         private bool attack;
-        
+
         /// <summary>
         /// 逻辑位置
         /// </summary>
-        private Vector3 logicPosition;
-
+        // private Vector3 logicPosition;
+        private FrameSyncRigidbodyState _characterBodyState;
         protected virtual void Start()
         {
             Assert.IsNotNull(CharacterAnimator);
-            Assert.IsNotNull(CharacterController);
+            Assert.IsNotNull(CharacterRigidbody);
         }
         
         private void Update()
@@ -276,7 +282,7 @@ namespace PurificationPioneer.Script
 
             var s = this.moveSpeed * deltaTime;
             
-            CharacterController.Move(new Vector3(
+            CharacterRigidbody.Move(new Vector3(
                 s * moveDir.x,
                 0, 
                 s * moveDir.y));

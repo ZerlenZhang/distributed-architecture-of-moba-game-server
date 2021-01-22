@@ -29,11 +29,12 @@ namespace PurificationPioneer.Scriptable
 
             var script = bulletObj.GetComponent<DirectionFrameSyncBullet>();
             Assert.IsNotNull(script);
-            
-            script.Initialize(this, new DirectionBulletState(
-                bulletObj.GetComponent<PpRigidbody>(),
+
+            var bulletState = new DirectionBulletState(bulletObj.GetComponent<PpRigidbody>(),
                 direction,
-                createPos));
+                createPos);
+            
+            script.Initialize(this, bulletState);
             
             return script;
         }

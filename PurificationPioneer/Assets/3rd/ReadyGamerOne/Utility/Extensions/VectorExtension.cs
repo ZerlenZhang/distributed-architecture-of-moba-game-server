@@ -4,6 +4,10 @@ namespace ReadyGamerOne.Utility
 {
     public static class VectorExtension
     {
+        public static Vector3 ToVector3(this Vector4 self)
+        {
+            return new Vector3(self.x, self.y, self.z);
+        }
         public static Vector2 ToVector2(this Vector3 self)
         {
             return new Vector2(self.x, self.y);

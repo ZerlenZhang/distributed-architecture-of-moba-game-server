@@ -149,10 +149,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5985495542125394955}
   - component: {fileID: 3677307249362139720}
+  - component: {fileID: 3325851054768078692}
   - component: {fileID: 2158605402448019132}
-  - component: {fileID: 5693862668851215100}
   - component: {fileID: 3077310148824323186}
   - component: {fileID: 5062419579060501991}
+  - component: {fileID: 7030726936735595738}
   m_Layer: 0
   m_Name: DebugCharacter
   m_TagString: Untagged
@@ -185,6 +186,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8200326896365405706}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!136 &3325851054768078692
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200326896365405706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2158605402448019132
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -224,24 +239,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!143 &5693862668851215100
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8200326896365405706}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3077310148824323186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,8 +268,27 @@ MonoBehaviour:
   moveSpeed: 3
   characterAnimator: {fileID: 1205331563, guid: b02dae70454e88b4dabff60c98182c10,
     type: 3}
-  characterController: {fileID: 5693862668851215100}
+  characterRigidbody: {fileID: 7030726936735595738}
   seatId: 0
   offsetLen: 1
   attackMinDeltaTime: 0.3
   weaponId: 0
+--- !u!114 &7030726936735595738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200326896365405706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8887883f00b6403d986a33e4aeb15cd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isKinematic: 0
+  _mass: 1
+  _useGravity: 1
+  _gravityScale: 1
+  _velocity: {x: 0, y: 0, z: 0}
+  _acceleration: {x: 0, y: 0, z: 0}
+  physicMaterial: {fileID: 0}

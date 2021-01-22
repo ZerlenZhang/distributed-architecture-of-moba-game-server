@@ -19,36 +19,9 @@ namespace PurificationPioneer.Script
         public Transform rightPoint;
         public float generateRadius = 3;
         public bool lookMouse = true;
-        public event Action<GUIStyle> eventOnGameState;
-
-        private GUIStyle _defaultGuiStyle;
-
-        private GUIStyle DefaultGuiStyle
-        {
-            get
-            {
-                if (null == _defaultGuiStyle)
-                {
-                    _defaultGuiStyle=new GUIStyle
-                    {
-                        fontSize = GameSettings.Instance.DefaultStateFontSize
-                    };
-                }
-
-                return _defaultGuiStyle;
-            }
-        }
-        private void OnGUI()
-        {
-            if(Input.GetKey(GameSettings.Instance.GameStateKey))
-                eventOnGameState?.Invoke(DefaultGuiStyle);
-        }
-
         protected override void Start()
         {
             base.Start();
-
-            eventOnGameState += FrameSyncMgr.OnFrameSyncStateGUI;
             
             LogicProxy.Instance.StartGameReq(GlobalVar.Uname);
             
@@ -73,7 +46,6 @@ namespace PurificationPioneer.Script
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            eventOnGameState -= FrameSyncMgr.OnFrameSyncStateGUI;
             CEventCenter.RemoveListener<int>(Message.OnGameStart,OnStartGameSoon);
         }
 

@@ -114,9 +114,9 @@ namespace PurificationPioneer.Scriptable
 
         #region EnableInputLog
 
-        [SerializeField] private bool enableInputLog = true;
+        [SerializeField] private bool _enableInputLog = true;
 
-        public bool EnableInputLog => enableInputLog;
+        public bool EnableInputLog => _enableInputLog;
 
         #endregion
 
@@ -125,6 +125,22 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private bool enableBulletLog = false;
 
         public bool EnableBulletLog => enableBulletLog;
+
+        #endregion
+
+        #region EnableMoveLog
+
+        [SerializeField] private bool _enableMoveLog;
+
+        public bool EnableMoveLog => _enableMoveLog;
+
+        #endregion
+
+        #region EnablePhysicsLog
+
+        [SerializeField] private bool enablePhysicsLog;
+
+        public bool EnablePhysicsLog => enablePhysicsLog;
 
         #endregion
         
@@ -198,6 +214,14 @@ namespace PurificationPioneer.Scriptable
         [Header("Gizmos设置")] [SerializeField] private int defaultStateFontSize = 20;
 
         public int DefaultStateFontSize => defaultStateFontSize;
+
+        #endregion
+
+        #region Physics
+
+        [Header("Physics")]
+        [SerializeField] private int _maxCollisionCount = 8;
+        public int MaxCollisionCount => _maxCollisionCount;
 
         #endregion
     }
