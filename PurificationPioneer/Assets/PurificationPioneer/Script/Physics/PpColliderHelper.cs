@@ -6,83 +6,52 @@ using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Script
 {
-    public class ColliderHelper:IDisposable
+    public class PpColliderHelper:IDisposable
     {
         public bool IsTrigger => _collider.isTrigger;
         public int SelfLayer => _collider.transform.gameObject.layer;
-        public int DetectLayer => _detectLayer;
         public Collider Collider => _collider;
 
         //当前物理帧检测到的触发器和碰撞体
-        private HashSet<Collider> _currentTriggerSet;
-        public HashSet<Collider> CurrentColliderSet => _currentColliderSet;
-        private HashSet<Collider> _currentColliderSet;
         public HashSet<Collider> CurrentTriggerSet => _currentTriggerSet;
+        private HashSet<Collider> _currentTriggerSet;
+        public Dictionary<Collider,PpCollision> CurrentColliderDic => _currentColliderDic;
+        private Dictionary<Collider,PpCollision> _currentColliderDic;
         //上一物理帧检测到的触发器和碰撞体
-        private HashSet<Collider> lastTriggerSet;
-        public HashSet<Collider> LastColliderSet => lastColliderSet;
-        private HashSet<Collider> lastColliderSet;
         public HashSet<Collider> LastTriggerSet => lastTriggerSet;
+        private HashSet<Collider> lastTriggerSet;
+        public Dictionary<Collider,PpCollision> LastColliderDic => _lastColliderDic;
+        private Dictionary<Collider,PpCollision> _lastColliderDic;
         
-        
-        private Collider _collider;
-        private PpRigidbody _rigidbody;
-        public PpRigidbody Rigidbody => _rigidbody;
-        private int _detectLayer;
-
-        internal ColliderHelper(Collider collider, PpRigidbody rigidbody)
-        {
-            Assert.IsTrue(collider && rigidbody);
-            _rigidbody = rigidbody;
-            _collider = collider;
-            lastTriggerSet = new HashSet<Collider>();
-            lastColliderSet = new HashSet<Collider>();
-            _currentTriggerSet = new HashSet<Collider>();
-            _currentColliderSet = new HashSet<Collider>();
-            movementDic = new Dictionary<Collider, Vector3>();
-            for (var i = 0; i < 32; i++)
-            {
-                var ignore = Physics.GetIgnoreLayerCollision(i, rigidbody.transform.gameObject.layer);
-                if(!ignore)
-                    _detectLayer |= 1 << i;
-            }
-        }
-
         #region 寄存相对collider的移动
 
-        private Dictionary<Collider, Vector3> movementDic;
-        public Dictionary<Collider, Vector3> MovementDic => movementDic;
-
-        public void SetValue(Collider collider, Vector3 value)
-        {
-            if (!movementDic.ContainsKey(collider))
-                movementDic.Add(collider, value);
-            else
-                movementDic[collider] = value;
-        }
-
-        public Vector3 GetValue(Collider collider)
-        {
-            Assert.IsTrue(movementDic.ContainsKey(collider));
-            return movementDic[collider];
-        }
-
-        public void ClearMovementValues()
-        {
-            movementDic.Clear();
-        }
-
         #endregion
+        
+        private Collider _collider;
+        private PpRigidbodyHelper _rigidbodyHelper;
+
+        internal PpColliderHelper(Collider collider, PpRigidbodyHelper rigidbodyHelper)
+        {
+            Assert.IsTrue(collider);
+            Assert.IsNotNull(rigidbodyHelper);
+            _rigidbodyHelper = rigidbodyHelper;
+            _collider = collider;
+            lastTriggerSet = new HashSet<Collider>();
+            _lastColliderDic = new Dictionary<Collider,PpCollision>();
+            _currentTriggerSet = new HashSet<Collider>();
+            _currentColliderDic = new Dictionary<Collider,PpCollision>();
+        }
+
 
         /// <summary>
         /// 将这一逻辑帧的触发器和碰撞器数据缓存
         /// </summary>
         public void UpdateLastTriggersAndCollidersSet()
         {
-            lastColliderSet.Clear();
-            foreach (var other in _currentColliderSet)
+            _lastColliderDic.Clear();
+            foreach (var other in _currentColliderDic)
             {
-                lastColliderSet.Add(other);
+                _lastColliderDic.Add(other.Key, other.Value);
             }
             lastTriggerSet.Clear();
             foreach (var other in _currentTriggerSet)
@@ -98,13 +67,13 @@ namespace PurificationPioneer.Script
         /// <param name="ingoreSet"></param>
         public void UpdateCurrentTriggersAndCollidersSet(Collider[] cache, HashSet<Collider> ingoreSet)
         {
-            _currentColliderSet.Clear();
+            _currentColliderDic.Clear();
             _currentTriggerSet.Clear();
                     
             GetOverlapNoAlloc(
                 cache,
-                _currentColliderSet,
-                _currentTriggerSet,
+                collider=>_currentColliderDic.Add(collider, new PpCollision(collider)),
+                trigger=>_currentTriggerSet.Add(trigger),
                 ingoreSet);
         }
         
@@ -117,7 +86,7 @@ namespace PurificationPioneer.Script
         /// <param name="ignoreSet"></param>
         public void GetOverlapNoAlloc(Collider[] cache,HashSet<Collider> resultColliders,HashSet<Collider> resultTriggers, HashSet<Collider> ignoreSet=null)
         {
-            var count = _collider.GetOverlapNoAlloc(DetectLayer, cache);
+            var count = _collider.GetOverlapNoAlloc(_rigidbodyHelper.DetectLayer, cache);
             for (var i = 0; i < count; i++)
             {
                 var other = cache[i];
@@ -133,6 +102,31 @@ namespace PurificationPioneer.Script
                 }
             }
         }
+        /// <summary>
+        /// 获取当前碰撞体周围的所有交叉体，会包含自身，建议将自身加入到ignoreSet
+        /// </summary>
+        /// <param name="cache"></param>
+        /// <param name="onGetCollider"></param>
+        /// <param name="onGetTrigger"></param>
+        /// <param name="ignoreSet"></param>
+        public void GetOverlapNoAlloc(Collider[] cache,Action<Collider> onGetCollider,Action<Collider> onGetTrigger, HashSet<Collider> ignoreSet=null)
+        {
+            var count = _collider.GetOverlapNoAlloc(_rigidbodyHelper.DetectLayer, cache);
+            for (var i = 0; i < count; i++)
+            {
+                var other = cache[i];
+                if(ignoreSet!=null && ignoreSet.Contains(other))
+                    continue;
+                if (!other.isTrigger && !IsTrigger)
+                {
+                    onGetCollider.Invoke(other);
+                }
+                else
+                {
+                    onGetTrigger.Invoke(other);
+                }
+            }
+        }
 
         public Vector3 Calculate(IEnumerable<Collider> colliders,Func<Collider,Vector3,float,Vector3> onOperateOtherCollider=null)
         {
@@ -145,19 +139,18 @@ namespace PurificationPioneer.Script
         {
             if (IsTrigger)
                 return Vector3.zero;
-            return _collider.ComputeCurrent(DetectLayer, cache, ignoreSet, currentPosition);
+            return _collider.ComputeCurrent(_rigidbodyHelper.DetectLayer, cache, ignoreSet, currentPosition);
         }
 
 
         public void Dispose()
         {
-            movementDic = null;
-            _currentColliderSet = null;
+            _currentColliderDic = null;
             _currentTriggerSet = null;
             lastTriggerSet = null;
-            lastColliderSet = null;
+            _lastColliderDic = null;
             _collider = null;
-            _rigidbody = null;
+            _rigidbodyHelper = null;
         }
     }
 }

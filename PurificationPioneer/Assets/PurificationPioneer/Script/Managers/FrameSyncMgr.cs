@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
@@ -8,6 +9,7 @@ using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Object = UnityEngine.Object;
 
 namespace PurificationPioneer.Script
 {
@@ -49,6 +51,28 @@ namespace PurificationPioneer.Script
     
     public static class FrameSyncMgr
     {
+        #region Debug
+
+        private static DefaultCharacterController _cc;
+
+        private static DefaultCharacterController DefaultCharacterController
+        {
+            get
+            {
+                if (!_cc)
+                {
+                    _cc = Object.FindObjectOfType<DefaultCharacterController>();
+                    Assert.IsTrue(_cc);
+                    Debug.Log($"监视：{_cc.name}");
+                    _lastPosition = _cc.transform.position;
+                }
+
+                return _cc;
+            }
+        }
+
+        private static Vector3 _lastPosition;
+        #endregion
         private static float lastTickTime = 0;
         
         /// <summary>
@@ -63,8 +87,7 @@ namespace PurificationPioneer.Script
             GUILayout.Label($"DelayFrame\t{delayFrameCount}", defaultGuiStyle);
             
             // GUILayout.Label($"上次逻辑帧间隔\t{Time.timeSinceLevelLoad-lastTickTime}",defaultGuiStyle);
-            var delayTime = delayFrameCount * GlobalVar.LogicFrameDeltaTime +
-                            (int)((Time.timeSinceLevelLoad - lastTickTime)*1000);
+            var delayTime = DelayMillionSecond;
             GUILayout.Label($"Delay\t{delayTime}\tms", defaultGuiStyle);
         }
         
@@ -75,6 +98,10 @@ namespace PurificationPioneer.Script
         /// <param name="logicFrameDeltaTime"></param>
         public static void OnFrameSyncTick(LogicFramesToSync msg, int logicFrameDeltaTime)
         {
+            if (_frameId == 0)
+            {// 初次调用，保存世界状态
+                PpPhysics.SaveWorldState();
+            }
             //包过时
             if (msg.frameId <= _frameId)
                 return;
@@ -89,16 +116,21 @@ namespace PurificationPioneer.Script
             //收集最近输入，发送到服务器
             SendLocalCharacterInput(msg.frameId);
 
+            PpPhysics.ApplyWorldState();
+            
             //同步上一帧处理结果
             if (null != _lastFrameEvent)
                 SyncLastFrame(_lastFrameEvent);
-            
+
             //如果现在frameId小于msg.frameId，就快进到最后一帧
             for (var i = 0; i < msg.unsyncFrames.Count-1; i++)
             {
                 var logicFrame = msg.unsyncFrames[i];
+                if(logicFrame.frameId<=_frameId)
+                    continue;
                 SkipLogicFrame(logicFrame);
             }
+            PpPhysics.SaveWorldState();
             
             //更新客户端frameId
             _frameId = msg.frameId;
@@ -111,6 +143,7 @@ namespace PurificationPioneer.Script
             {
                 newestInputId = _frameId;
             }
+            
             
             //移除缓存的监听者
             RemoveCacheFrameSyncListeners();
@@ -189,6 +222,9 @@ namespace PurificationPioneer.Script
         private static int newestInputId = 0;
 
         public static int NewestInputId => newestInputId;        
+        
+        public static int DelayMillionSecond=>(FrameId - NewestInputId) * GlobalVar.LogicFrameDeltaTime +
+                                     (int)((Time.timeSinceLevelLoad - lastTickTime)*1000);
 
         #endregion
         
@@ -291,7 +327,18 @@ namespace PurificationPioneer.Script
                 =>character.SkipCharacterInput(inputs));
             ForeachFrameSyncUnits( 
                 unit => 
-                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));
+                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));    
+#if DebugMode
+            if (GameSettings.Instance.EnableMoveLog)
+            {
+                PpPhysics.Simulate(GlobalVar.LogicFrameDeltaTime.ToFloat(),PpPhysicsSimulateOptions.BroadEvent);
+                var newPos = DefaultCharacterController.transform.position;
+                var move=newPos-_lastPosition;
+                _lastPosition = newPos;
+                Debug.Log($"[Frame-{logicFrame.frameId}][Skip] move:{move.magnitude}");             
+            }
+#endif
+
         }
         
         /// <summary>
@@ -304,6 +351,17 @@ namespace PurificationPioneer.Script
                     character,
                     inputs)
                 =>character.SyncLastCharacterInput(inputs));
+            PpPhysics.Simulate(GlobalVar.LogicFrameDeltaTime.ToFloat(),PpPhysicsSimulateOptions.BroadEvent);
+#if DebugMode
+            if (GameSettings.Instance.EnableMoveLog)
+            {
+                var newPos = DefaultCharacterController.transform.position;
+                var move=newPos-_lastPosition;
+                _lastPosition = newPos;
+                Debug.Log($"[Frame-{logicFrame.frameId}][Last] move:{move.magnitude}, input:[{logicFrame.GetMoveInputString()}]");                
+            }
+#endif
+
         }
 
         /// <summary>
@@ -324,5 +382,20 @@ namespace PurificationPioneer.Script
         }
         
         #endregion
+    }
+
+
+    public static class LogicFrameExtension
+    {
+        public static string GetMoveInputString(this LogicFrame self)
+        {
+            var sb = new StringBuilder();
+            foreach (var playerInput in self.inputs)
+            {
+                sb.Append($"({playerInput.moveX},{playerInput.mouseY}");
+            }
+
+            return sb.ToString();
+        }
     }
 }

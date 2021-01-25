@@ -23,19 +23,13 @@ namespace PurificationPioneer.Script
                 Physics.RaycastNonAlloc(
                     new Ray(currentBulletState.LogicPosition, currentBulletState.Direction),
                     HitInfos,
-                    bulletConfig.Radius,
+                    bulletConfig.Radius*1.5f,
                     attackLayer);
-                // Physics.SphereCastNonAlloc(
-                // currentBulletState.LogicPosition,
-                // bulletConfig.radius, 
-                // currentBulletState.Direction, 
-                // HitInfos, 
-                // 0.01f, 
-                // attackLayer);
-
             if (hitCount == 0)
+            {
                 return false;
-            
+            }
+
             for (var i = 0; i < hitCount; i++)
             {
                 var hitInfo = HitInfos[i];
@@ -43,19 +37,43 @@ namespace PurificationPioneer.Script
                 if (canvas != null)
                 {
                     canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
-                    // Debug.Log($"[{hitCount}]Paint!{hitInfo.collider.name}");
-                }
+                    Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
+                }else
+                    Debug.Log($"子弹碰到但没有涂色：{hitInfo.collider.name}");
             }
             DestroyBullet();
             return true;
         }
     }
 
-    public class DirectionBulletState : FrameSyncRigidbodyState
+    public class DirectionBulletState
     {
-        public DirectionBulletState(PpRigidbody rigidbody,Vector3 dir,Vector3 initPosition) : base(rigidbody,initPosition)
+        private readonly PpRigidbodyState _rigidbodyState;
+        public DirectionBulletState(PpRigidbody rigidbody,Vector3 dir,Vector3 initPosition)
         {
+            _rigidbody = rigidbody;
+            Assert.IsTrue(_rigidbody);
+            _rigidbodyState = PpPhysics.GetRigidbodyState(_rigidbody,true);
+            RendererPosition = initPosition;
             Direction = dir;
+            Assert.IsNotNull(_rigidbodyState);
+        }     
+        private readonly PpRigidbody _rigidbody;
+
+        public Vector3 LogicPosition => _rigidbodyState.Position;
+        private Vector3 RendererPosition
+        {
+            set => _rigidbody.InternalPosition = value;
+        }
+        
+        public Vector3 Velocity
+        {
+            set => _rigidbody.InternalVelocity = value;
+        }
+        public Vector3 Direction
+        {
+            get => _rigidbody.transform.forward;
+            private set => _rigidbody.transform.forward = value;
         }
         public float Radius
         {
@@ -87,20 +105,21 @@ namespace PurificationPioneer.Script
         {
             bulletState.Radius = bulletConfig.Radius;
             bulletState.Velocity = bulletState.Direction * bulletConfig.Speed;
-            bulletState.SaveState();
+            
+            // bulletState.SaveState();
         }
 
         public void OnRendererFrame(float timeSinceLastLogicFrame, DirectionBulletConfigAsset bulletConfig,
             ref DirectionBulletState bulletState)
         {
-            bulletState.ApplyAndSimulate(timeSinceLastLogicFrame);
+            // bulletState.ApplyAndSimulate(timeSinceLastLogicFrame);
         }
 
         public void OnLogicFrame(float deltaTime, DirectionBulletConfigAsset bulletConfig, 
             ref DirectionBulletState bulletState)
         {
-            bulletState.ApplyAndSimulate(deltaTime);
-            bulletState.SaveState();
+            // bulletState.ApplyAndSimulate(deltaTime);
+            // bulletState.SaveState();
         }
     }
 }

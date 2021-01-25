@@ -42,7 +42,7 @@
 
 		private void FixedUpdate()
 		{
-			PpPhysics.Simulate(Time.fixedDeltaTime);
+			PpPhysics.Simulate(Time.fixedDeltaTime,PpPhysicsSimulateOptions.NoEvent);
 		}
 	}
 }

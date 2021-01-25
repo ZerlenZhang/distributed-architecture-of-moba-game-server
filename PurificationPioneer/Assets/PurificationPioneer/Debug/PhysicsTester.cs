@@ -1,22 +1,23 @@
-﻿using UnityEngine;
+﻿using PurificationPioneer.Script;
+using UnityEngine;
 
 namespace PurificationPioneer
 {
     public class PhysicsTester : MonoBehaviour
     {
-        private void PpOnCollisionEnter(Collider other)
+        private void PpOnCollisionEnter(PpCollision other)
         {
-            Debug.Log($"[Physics] {name} collision enter: {other.name}");
+            Debug.Log($"[Physics] {name} collision enter: {other.Collider.name}");
         }
 
-        private void PpOnCollisionExit(Collider other)
+        private void PpOnCollisionExit(PpCollision other)
         {
-            Debug.Log($"[Physics] {name} collision exit: {other.name}");
+            Debug.Log($"[Physics] {name} collision exit: {other.Collider.name}");
         }
 
-        private void PpOnCollisionStay(Collider other)
+        private void PpOnCollisionStay(PpCollision other)
         {
-            Debug.Log($"[Physics] {name} collision stay: {other.name}");
+            Debug.Log($"[Physics] {name} collision stay: {other.Collider.name}");
         }
 
         private void PpOnTriggerEnter(Collider other)

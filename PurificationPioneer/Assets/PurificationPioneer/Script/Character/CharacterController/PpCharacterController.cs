@@ -77,13 +77,14 @@ namespace PurificationPioneer.Script
             this.stick_x = 0;
             this.stick_y = 0;
             CharacterAnimator.LogicToIdle();
-
-            _characterBodyState = new FrameSyncRigidbodyState(CharacterRigidbody,logicPos);
             
             InitCharacter();
             
             if(GlobalVar.LocalSeatId==SeatId)
                 InitLocalCharacter();
+            
+            //debug
+            lastPosition = transform.position;
         }        
 
         #endregion
@@ -107,6 +108,10 @@ namespace PurificationPioneer.Script
                 ResourceMgr.InstantiateGameObject(LocalAssetName.LocalCamera)
                     .GetComponent<LocalCameraHelper>();
             localCameraHelper.Init(transform,this.cameraLookPoint);
+
+#if UNITY_EDITOR
+            UnityEditor.Selection.activeInstanceID = this.gameObject.GetInstanceID();
+#endif
         }        
 
         protected virtual void OnAttack(int faceX,int faceY, int faceZ)
@@ -141,14 +146,13 @@ namespace PurificationPioneer.Script
                 this.attack = playerInput.attack;
 
                 var time = GlobalVar.LogicFrameDeltaTime.ToFloat();
-                var beforePos = _characterBodyState.RendererPosition;
+                var beforePos = characterRigidbody.Position;
+                
+                // _characterBodyState.ApplyAndSimulate(time);
+                 DoJoystick(time);
+                // _characterBodyState.SaveState();
 
-                _characterBodyState.ApplyAndSimulate(time);
-                DoJoystick(time);
-                _characterBodyState.SaveState();
-                
-                
-                var newPos = _characterBodyState.RendererPosition;
+                var newPos = characterRigidbody.Position;
 
                 if (playerInput.attack)
                 {
@@ -156,7 +160,7 @@ namespace PurificationPioneer.Script
                 }
 #if DebugMode
                 if(GameSettings.Instance.EnableMoveLog)
-                    Debug.Log($"[GetInput-SyncLast-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y}), 前进：{(newPos - beforePos).magnitude}");                
+                    Debug.Log($"[GetInput-SyncLast] [Time {time}] ({this.stick_x},{this.stick_y}), 前进：{(newPos - beforePos).magnitude}");                
 #endif
 
             }
@@ -204,7 +208,7 @@ namespace PurificationPioneer.Script
         /// 逻辑位置
         /// </summary>
         // private Vector3 logicPosition;
-        private FrameSyncRigidbodyState _characterBodyState;
+        // private FrameSyncRigidbodyState _characterBodyState;
         protected virtual void Start()
         {
             Assert.IsNotNull(CharacterAnimator);
@@ -248,8 +252,26 @@ namespace PurificationPioneer.Script
             }
             
             DoJoystick(Time.deltaTime);
+
+            //debug
+#if DebugMode
+            if(GameSettings.Instance.EnableMoveLog)
+            {
+                timer += Time.deltaTime;
+                if (timer > time)
+                {
+                    timer = 0;
+                    var move = transform.position - lastPosition;
+                    Debug.Log($"[PpCharacterController] Move: {move.magnitude} {move}");
+                    lastPosition = transform.position;
+                }                
+            }
+#endif
         }
-        
+
+        private Vector3 lastPosition;
+        private float timer = 0;
+        private float time = 1;
 
         /// <summary>
         /// 根据stick_x和stick_y，移动deltaTime这么长时间
@@ -270,7 +292,7 @@ namespace PurificationPioneer.Script
             var expectedForward = new Vector2(this.face_x, this.face_z).normalized;
             var inputDir = new Vector2(
                 this.stick_x.ToFloat(),
-                this.stick_y.ToFloat());
+                this.stick_y.ToFloat()); 
 
 
             var angle =  -Mathf.Sign(inputDir.x) * Vector2.Angle(inputDir, Vector2.up);

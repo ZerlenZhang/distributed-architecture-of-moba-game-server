@@ -222,6 +222,20 @@ namespace PurificationPioneer.Scriptable
         [Header("Physics")]
         [SerializeField] private int _maxCollisionCount = 8;
         public int MaxCollisionCount => _maxCollisionCount;
+        [SerializeField] private float defaultStaticFriction = 0.2f;
+        public float DefaultStaticFriction => defaultStaticFriction;
+        [SerializeField] private float defaultDynamicFriction = 0.1f;
+        public float DefaultDynamicFriction => defaultDynamicFriction;
+        [SerializeField] private float defaultBounciness = 0;
+        public float DefaultBounciness => defaultBounciness;
+
+        #endregion
+
+        #region Painting
+
+        [Header("Painting")] private float _brushScaler = 10.0f;
+
+        public float BrushScaler => _brushScaler;
 
         #endregion
     }

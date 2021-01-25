@@ -1,22 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using PurificationPioneer.Scriptable;
+﻿using PurificationPioneer.Scriptable;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Events;
 
 namespace PurificationPioneer.Script
 {
     /// <summary>
     /// 刚体状态类，此类的数据，足以设置刚体的状态
     /// </summary>
-    public class PpRigidbodyState : IPpRigidbodyState
+    public class PpRigidbodyState
     {
         public Vector3 Velocity { get; private set; }
         public Vector3 Acceleration { get;private set; }
         public Vector3 Position { get; private set; }
         public Quaternion Rotation { get; private set; }
-        public void SetValue(Vector3 velocity, Vector3 acceleration, Vector3 position, Quaternion rotation)
+
+        public void SetVelocity(Vector3 velocity) => Velocity = velocity;
+        public void SetAcceleration(Vector3 acceleration) => Acceleration = acceleration;
+        public void SetPosition(Vector3 position) => Position = position;
+        public void SetRotation(Quaternion rotation) => Rotation = rotation;
+        public void SaveValue(PpRigidbody rigidbody)
+        {
+            Velocity = rigidbody.Velocity;
+            Acceleration = rigidbody.Acceleration;
+            Position = rigidbody.Position;
+            Rotation = rigidbody.Rotation;
+        }
+        public void SaveValue(Vector3 velocity, Vector3 acceleration, Vector3 position, Quaternion rotation)
         {
             Velocity = velocity;
             Acceleration = acceleration;
@@ -24,7 +33,7 @@ namespace PurificationPioneer.Script
             Rotation = rotation;
         }
 
-        public PpRigidbodyState(IPpRigidbody ppRigidbody)
+        public PpRigidbodyState(PpRigidbody ppRigidbody)
         {
             Velocity = ppRigidbody.Velocity;
             Acceleration = ppRigidbody.Acceleration;
@@ -33,7 +42,7 @@ namespace PurificationPioneer.Script
         }
     }
     
-    public class PpRigidbody : MonoBehaviour,IPpRigidbody
+    public class PpRigidbody : MonoBehaviour
     {
         #region IPpRigidbody
 
@@ -41,38 +50,65 @@ namespace PurificationPioneer.Script
         public bool IsKinematic { get=>_isKinematic; set=>_isKinematic=value; }
         public bool UseGravity { get=>_useGravity; set=>_useGravity=value; }
         public float GravityScale { get=>_gravityScale; set=>_gravityScale=value; }
-        public Vector3 Velocity { get=>_velocity; set=>_velocity=value; }
-        public Vector3 Acceleration { get=>_acceleration; private set=>_acceleration=value; }
+        public Vector3 Velocity{ get=>_velocity; set => _velocity = value; }
+
+        public Vector3 Acceleration { get=>_acceleration; internal set=>_acceleration=value; }
         public Vector3 Position { get=>transform.position; set=>transform.position=value; }
         public Quaternion Rotation { get=>transform.rotation; set=>transform.rotation=value; }
         public float Mass { get => _mass; set => _mass = value; }
 
+        public float Bounciness => 
+            physicMaterial ? physicMaterial.bounciness : GameSettings.Instance.DefaultBounciness;
+        public float StaticFriction =>
+            physicMaterial ? physicMaterial.staticFriction : GameSettings.Instance.DefaultStaticFriction;
+        public float DynamicFriction =>
+            physicMaterial ? physicMaterial.dynamicFriction : GameSettings.Instance.DefaultDynamicFriction;
 
-        #region 碰撞事件
-        public event Action<Collider> eventOnTriggerEnter;
-        public event Action<Collider> eventOnTriggerStay;
-        public event Action<Collider> eventOnTriggerExit;
-        public event Action<Collider> eventOnColliderEnter;
-        public event Action<Collider> eventOnColliderStay;
-        public event Action<Collider> eventOnColliderExit;
-
-        // private CollisionChecker _collisionChecker;
-        // private CollisionChecker BodyCollisionChecker
-        // {
-        //     get
-        //     {
-        //         if (null == _collisionChecker)
-        //         {
-        //             _collisionChecker = new CollisionChecker(this,GameSettings.Instance.MaxCollisionCount);
-        //         }
-        //
-        //         return _collisionChecker;
-        //     }
-        // }        
-
-        #endregion        
-        
         #endregion
+
+        #region internal properties
+
+        internal Vector3 InternalVelocity
+        {
+            set
+            {
+                Velocity = value;
+                PpPhysics.GetRigidbodyState(this,true).SetVelocity(value);
+            }
+        }
+
+        internal Vector3 InternalAcceleration
+        {
+            get => Acceleration;
+            set
+            {
+                Acceleration = value;
+                PpPhysics.GetRigidbodyState(this,true).SetAcceleration(value);
+            }
+        }
+
+        internal Vector3 InternalPosition
+        {
+            set
+            {
+                Position = value;
+                PpPhysics.GetRigidbodyState(this,true).SetPosition(value);
+            }
+        }
+
+        internal Quaternion InternalRotation
+        {
+            set
+            {
+                Rotation = value;
+                PpPhysics.GetRigidbodyState(this,true).SetRotation(value);
+            }
+        }        
+
+        #endregion
+
+
+        #region editor fields
 
         [SerializeField] private bool _isKinematic;
         [SerializeField] private float _mass=1;
@@ -81,22 +117,39 @@ namespace PurificationPioneer.Script
         [SerializeField] private Vector3 _velocity;
         [SerializeField] private Vector3 _acceleration;
 
-        public PhysicMaterial physicMaterial;
+        public PhysicMaterial physicMaterial;        
+
+        #endregion
+
+
 
         private PpRigidbodyHelper _rigidbodyHelper;
+
+        private PpRigidbodyHelper RigidbodyHelper
+        {
+            get
+            {
+                if (null == _rigidbodyHelper)
+                {
+                    _rigidbodyHelper = this.GetHelper();
+                    Assert.IsNotNull(_rigidbodyHelper);
+                }
+                return _rigidbodyHelper;
+            }
+        }
         
         
         #region IPpRigidbodyState logic
 
-        public void GetStateNoAlloc(IPpRigidbodyState state)
+        public void GetStateNoAlloc(PpRigidbodyState state)
         {
-            state.SetValue(Velocity, Acceleration, Position, Rotation);
+            state.SaveValue(Velocity, Acceleration, Position, Rotation);
         }
-        public IPpRigidbodyState GetState()
+        public PpRigidbodyState GetState()
         {
             return new PpRigidbodyState(this);
         }
-        public void ApplyRigidbodyState(IPpRigidbodyState state)
+        public void ApplyRigidbodyState(PpRigidbodyState state)
         {
             Position = state.Position;
             Velocity = state.Velocity;
@@ -124,15 +177,12 @@ namespace PurificationPioneer.Script
         #endregion
 
         #region Monobehaviors
-
         private void Start()
         {
             if (UseGravity)
             {
-                Acceleration += Physics.gravity * GravityScale;
+                InternalAcceleration += Physics.gravity * GravityScale;
             }
-
-            _rigidbodyHelper = this.GetHelper();
         }
 
         private void OnDestroy()
@@ -146,7 +196,7 @@ namespace PurificationPioneer.Script
         {
             if (Application.isPlaying && GameSettings.Instance.EnablePhysicsLog)
             {
-                _rigidbodyHelper?.DrawSelfGizmos();
+                RigidbodyHelper?.DrawSelfGizmos();
             }
         }
 
@@ -166,8 +216,8 @@ namespace PurificationPioneer.Script
         
         public void Move(Vector3 movement)
         {
-            Position += movement;
-        }        
+            Position += movement.normalized * RigidbodyHelper.TryMoveDistance(movement);
+        }
 
         #endregion
     }

@@ -9,6 +9,45 @@ namespace ReadyGamerOne.Utility
     {
         #region Collider
 
+        public static int CastNoAlloc(this Collider self, Vector3 dir, float distance, int layer, RaycastHit[] results)
+        {
+            if (self is BoxCollider box)
+            {
+                return Physics.BoxCastNonAlloc(box.GetCenterPosition(), box.size, dir.normalized, results,self.transform.rotation,distance,layer);
+            }
+
+            if (self is SphereCollider sphere)
+            {
+                return Physics.SphereCastNonAlloc(sphere.GetCenterPosition(), sphere.radius, dir.normalized, results, distance,
+                    layer);
+            }
+
+            if (self is CapsuleCollider capsule)
+            {
+                capsule.GetTowPoint(out var first, out var second);
+                return Physics.CapsuleCastNonAlloc(first, second, capsule.radius, dir.normalized, results, distance, layer);
+            }
+            
+            throw new Exception($"Unexpected collider type: {self}");
+        }
+
+        public static void GetCenterPosition(this Collider self)
+        {        
+            if (self is BoxCollider box)
+            {
+                box.GetCenterPosition();
+            }else if (self is SphereCollider sphere)
+            {
+                sphere.GetCenterPosition();
+            }else if (self is CapsuleCollider capsule)
+            {
+                capsule.GetCenterPosition();
+            }
+            else
+            {
+                throw new Exception($"Unexpected collider type: {self}");
+            }
+        }
         public static void DrawSelfGizmos(this Collider self)
         {
             if (self is BoxCollider box)
@@ -142,11 +181,16 @@ namespace ReadyGamerOne.Utility
 
         #region BoxCollider
 
-        private static void DrawSelfGizmos(this BoxCollider self)
+        private static Vector3 GetCenterPosition(this BoxCollider self)
         {
             var trans = self.transform;
+            return trans.position + (trans.localToWorldMatrix * self.center).ToVector3();
+        }
+
+        private static void DrawSelfGizmos(this BoxCollider self)
+        {
             Gizmos.DrawWireCube(
-                trans.position + (trans.localToWorldMatrix * self.center).ToVector3(),
+                self.GetCenterPosition(),
                 self.size);
         }
 
@@ -195,7 +239,7 @@ namespace ReadyGamerOne.Utility
         {
             var trans = self.transform;
             return Physics.OverlapBoxNonAlloc(
-                currentPosition ?? trans.position + (trans.localToWorldMatrix * self.center).ToVector3(),
+                currentPosition ?? self.GetCenterPosition(),
                 self.size,
                 results,
                 trans.rotation,
@@ -213,7 +257,7 @@ namespace ReadyGamerOne.Utility
         {
             var trans = self.transform;
             return Physics.OverlapBox(
-                currentPosition ?? trans.position + (trans.localToWorldMatrix * self.center).ToVector3(),
+                currentPosition ?? self.GetCenterPosition(),
                 self.size,
                 trans.rotation,
                 detectLayer);
@@ -222,6 +266,12 @@ namespace ReadyGamerOne.Utility
         #endregion
 
         #region CapsuleCollider
+
+        private static Vector3 GetCenterPosition(this CapsuleCollider self)
+        {
+            var trans = self.transform;
+           return trans.position + (trans.localToWorldMatrix * self.center).ToVector3();
+        }
 
         public static float GetRealHeight(this CapsuleCollider self)
         {
@@ -236,7 +286,7 @@ namespace ReadyGamerOne.Utility
         public static void GetTowPoint(this CapsuleCollider self, out Vector3 first, out Vector3 second,Vector3? currentPosition=null)
         {
             var trans = self.transform;
-            var pos = currentPosition ?? trans.position + (trans.localToWorldMatrix * self.center).ToVector3();
+            var pos = currentPosition ?? self.GetCenterPosition();
             var halfHeight = self.GetMiddleLength() / 2;
             first = Vector3.zero;
             second=Vector3.zero;
@@ -333,11 +383,16 @@ namespace ReadyGamerOne.Utility
         
         #region SphereCollider
 
-        private static void DrawSelfGizmos(this SphereCollider self)
-        {           
+        private static Vector3 GetCenterPosition(this SphereCollider self)
+        {
             var trans = self.transform;
+            return trans.position + (trans.localToWorldMatrix * self.center).ToVector3();
+        }
+
+        private static void DrawSelfGizmos(this SphereCollider self)
+        {
             Gizmos.DrawWireSphere(
-                trans. position + (trans.localToWorldMatrix * self.center).ToVector3(),
+                self.GetCenterPosition(),
                 self.radius);
         }
         /// <summary>
@@ -382,9 +437,8 @@ namespace ReadyGamerOne.Utility
         /// <returns></returns>
         private static int GetOverlapNoAlloc(this SphereCollider self, int detectLayer, Collider[] results, Vector3? currentPosition=null)
         {
-            var trans = self.transform;
             return Physics.OverlapSphereNonAlloc(
-                currentPosition ?? trans.position + (trans.localToWorldMatrix * self.center).ToVector3(),
+                currentPosition ?? self.GetCenterPosition(),
                 self.radius,
                 results,
                 detectLayer);
@@ -398,9 +452,8 @@ namespace ReadyGamerOne.Utility
         /// <returns></returns>
         private static Collider[] GetOverlap(this SphereCollider self,int detectLayer, Vector3? currentPosition=null)
         {
-            var trans = self.transform;
             return Physics.OverlapSphere(
-                 currentPosition ?? trans. position + (trans.localToWorldMatrix * self.center).ToVector3(),
+                 currentPosition ?? self.GetCenterPosition(),
                 self.radius,
                 detectLayer);
         }
