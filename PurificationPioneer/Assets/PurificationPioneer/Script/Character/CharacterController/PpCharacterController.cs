@@ -118,6 +118,17 @@ namespace PurificationPioneer.Script
         {
             
         }
+
+        protected virtual void OnJump()
+        {
+            if (CharacterRigidbody.IfOnGround())
+            {
+                // Debug.Log("Jump");
+                var speed = CharacterRigidbody.Velocity;
+                CharacterRigidbody.Velocity = new Vector3(speed.x, HeroConfig.jumpSpeed, speed.z);
+            }
+        }
+        
         #endregion
 
         #region IFrameSyncWithSeatId
@@ -158,6 +169,11 @@ namespace PurificationPioneer.Script
                 {
                     OnAttack(this.face_x,this.face_y,this.face_z);
                 }
+
+                if (playerInput.jump)
+                {
+                    OnJump();
+                }
 #if DebugMode
                 if(GameSettings.Instance.EnableMoveLog)
                     Debug.Log($"[GetInput-SyncLast] [Time {time}] ({this.stick_x},{this.stick_y}), 前进：{(newPos - beforePos).magnitude}");                
@@ -188,8 +204,6 @@ namespace PurificationPioneer.Script
                 {
                     CharacterAnimator.LogicToWalk();
                 }
-                if(playerInput.attack)
-                    OnAttack(this.face_x,this.face_y,this.face_z);
             }
         }        
         
@@ -218,6 +232,10 @@ namespace PurificationPioneer.Script
         private void Update()
         {
 #if UNITY_EDITOR
+            if (Input.GetKeyDown(GameSettings.Instance.JumpKey))
+            {
+                InputMgr.jump = true;
+            }
             if (!GameSettings.Instance.WorkAsAndroid)
             {
                 //用户输入
@@ -226,6 +244,10 @@ namespace PurificationPioneer.Script
             }
 #elif UNITY_STANDALONE_WIN
             //用户输入
+            if (Input.GetKeyDown(GameSettings.Instance.JumpKey))
+            {
+                InputMgr.jump = true;
+            }
             if (Input.GetKey(GameSettings.Instance.AttackKey))
                 InputMgr.attack = true;
 #endif
@@ -283,6 +305,11 @@ namespace PurificationPioneer.Script
             if (this.stick_x == 0 && this.stick_y == 0) 
             {
                 CharacterAnimator.LogicToIdle();
+                var velocity = CharacterRigidbody.Velocity;
+                CharacterRigidbody.Velocity = new Vector3(
+                    0,
+                    velocity.y,
+                    0);
                 return;
             }
 
@@ -302,12 +329,19 @@ namespace PurificationPioneer.Script
             
             // Debug.Log($"[Move] expectedForward:{expectedForward}, inputDir:{inputDir}, moveDir:{moveDir}, angle:{angle}");
 
-            var s = this.moveSpeed * deltaTime;
-            
-            CharacterRigidbody.Move(new Vector3(
-                s * moveDir.x,
-                0, 
-                s * moveDir.y));
+
+            var vel = CharacterRigidbody.Velocity;
+            CharacterRigidbody.Velocity = new Vector3(
+                this.moveSpeed * moveDir.x,
+                vel.y,
+                moveSpeed * moveDir.y);
+            //
+            // var s = this.moveSpeed * deltaTime;
+            //
+            // CharacterRigidbody.Move(new Vector3(
+            //     s * moveDir.x,
+            //     0, 
+            //     s * moveDir.y));
         }            
 
         #endregion

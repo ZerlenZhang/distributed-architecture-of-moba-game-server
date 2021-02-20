@@ -6,6 +6,18 @@ namespace ReadyGamerOne.Utility
 {
     public static class GameObjectExtension
     {
+        public static int GetUnityDetectLayer(this GameObject self)
+        {
+            var layer=0;
+            for (var i = 0; i < 32; i++)
+            {
+                var ignore = Physics.GetIgnoreLayerCollision(i, self.layer);
+                if(!ignore)
+                    layer |= 1 << i;
+            }
+
+            return layer;
+        }
         public static T GetOrAddComponent<T>(this GameObject self)
             where T:Component
         {

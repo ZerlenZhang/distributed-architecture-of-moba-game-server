@@ -8,40 +8,70 @@ namespace ReadyGamerOne.Utility
     public static class ColliderExtension
     {
         #region Collider
+        /// <summary>
+        /// 向某个方向做检测，对获取到的trigger和collider做操作
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="dir"></param>
+        /// <param name="distance"></param>
+        /// <param name="layer"></param>
+        /// <param name="cache"></param>
+        /// <param name="onHitOther"></param>
+        /// <param name="ignoreSet"></param>
 
-        public static int CastNoAlloc(this Collider self, Vector3 dir, float distance, int layer, RaycastHit[] results)
+        public static void CastActionNoAlloc(this Collider self, Vector3 dir, float distance, int layer,
+            RaycastHit[] cache, Action<RaycastHit> onHitOther, HashSet<Collider> ignoreSet=null, Vector3? centerOffset=null)
         {
+            var count = self.CastNoAlloc(dir, distance, layer, cache, centerOffset);
+            for (var i = 0; i < count; i++)
+            {
+                var hitInfo = cache[i];
+                if(ignoreSet !=null && ignoreSet.Contains(hitInfo.collider))
+                    continue;
+                onHitOther.Invoke(hitInfo);
+            }
+        }
+
+        public static int CastNoAlloc(this Collider self, Vector3 dir, float distance, int layer, RaycastHit[] results, Vector3? centerOffset=null)
+        {
+            var centerPos = self.GetCenterPosition();
+            if (centerOffset.HasValue)
+                centerPos += centerOffset.Value;
             if (self is BoxCollider box)
             {
-                return Physics.BoxCastNonAlloc(box.GetCenterPosition(), box.size, dir.normalized, results,self.transform.rotation,distance,layer);
+                return Physics.BoxCastNonAlloc(centerPos, box.size, dir.normalized, results,self.transform.rotation,distance,layer);
             }
 
             if (self is SphereCollider sphere)
             {
-                return Physics.SphereCastNonAlloc(sphere.GetCenterPosition(), sphere.radius, dir.normalized, results, distance,
+                return Physics.SphereCastNonAlloc(centerPos, sphere.radius, dir.normalized, results, distance,
                     layer);
             }
 
             if (self is CapsuleCollider capsule)
             {
                 capsule.GetTowPoint(out var first, out var second);
+                if (centerOffset.HasValue)
+                {
+                    return Physics.CapsuleCastNonAlloc(centerOffset.Value + first, centerOffset.Value + second, capsule.radius, dir.normalized, results, distance, layer);
+                }
                 return Physics.CapsuleCastNonAlloc(first, second, capsule.radius, dir.normalized, results, distance, layer);
             }
             
             throw new Exception($"Unexpected collider type: {self}");
         }
 
-        public static void GetCenterPosition(this Collider self)
+        public static Vector3 GetCenterPosition(this Collider self)
         {        
             if (self is BoxCollider box)
             {
-                box.GetCenterPosition();
+                return box.GetCenterPosition();
             }else if (self is SphereCollider sphere)
             {
-                sphere.GetCenterPosition();
+                return sphere.GetCenterPosition();
             }else if (self is CapsuleCollider capsule)
             {
-                capsule.GetCenterPosition();
+                return capsule.GetCenterPosition();
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using PurificationPioneer.Script;
+﻿using System.Text;
+using PurificationPioneer.Script;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -27,6 +28,8 @@ namespace PurificationPioneer.Scriptable
         public int basePaintEfficiency;
         public int increasePaintEfficiency;
 
+        public float jumpSpeed = 10;
+
         [Header("技能配置")]
         public SkillConfigAsset firstSkill;
         public SkillConfigAsset secondSkill;
@@ -37,8 +40,20 @@ namespace PurificationPioneer.Scriptable
         public string stroy2;
         public string stroy3;
         public string stroy4;
-        
-        
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append($"-----<HeroConfig>-----\n" +
+                      $"Name:{heroName}\n" +
+                      $"Hp:{baseHp}\n" +
+                      $"Attack:{baseAttack}\n" +
+                      $"Defence:{baseDefence}\n" +
+                      $"PE:{basePaintEfficiency}");
+            return sb.ToString();
+        }
+
+
         public IPpController InstantiateAndInitialize(int seatId, Vector3 worldPosition, Transform parent=null)
         {
             Assert.IsTrue(prefab);

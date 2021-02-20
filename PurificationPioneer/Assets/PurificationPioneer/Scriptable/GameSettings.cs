@@ -219,7 +219,8 @@ namespace PurificationPioneer.Scriptable
 
         #region Physics
 
-        [Header("Physics")]
+        [Header("Physics")] [SerializeField] private float _physicsDeltaTime = 0.02f;
+        public float PhysicsDeltaTime => _physicsDeltaTime;
         [SerializeField] private int _maxCollisionCount = 8;
         public int MaxCollisionCount => _maxCollisionCount;
         [SerializeField] private float defaultStaticFriction = 0.2f;
@@ -233,7 +234,7 @@ namespace PurificationPioneer.Scriptable
 
         #region Painting
 
-        [Header("Painting")] private float _brushScaler = 10.0f;
+        [Header("Painting")] [SerializeField]private float _brushScaler = 10.0f;
 
         public float BrushScaler => _brushScaler;
 

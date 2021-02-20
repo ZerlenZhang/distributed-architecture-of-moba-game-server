@@ -37,9 +37,9 @@ namespace PurificationPioneer.Script
                 if (canvas != null)
                 {
                     canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
-                    Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
+                    // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
                 }else
-                    Debug.Log($"子弹碰到但没有涂色：{hitInfo.collider.name}");
+                    Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
             }
             DestroyBullet();
             return true;

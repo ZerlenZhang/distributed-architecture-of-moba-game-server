@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Es.InkPainter.Effective;
-using PurificationPioneer.Scriptable;
+using PurificationPioneer.Global;
 #if UNITY_EDITOR
 
 using System.IO;
@@ -442,7 +442,8 @@ namespace Es.InkPainter
 		{
 			s_paintMainMaterial.SetVector(paintUVPropertyID, uv);
 			s_paintMainMaterial.SetTexture(brushTexturePropertyID, brush.BrushTexture);
-			s_paintMainMaterial.SetFloat(brushScalePropertyID, brush.Scale/transform.lossyScale.x * GameSettings.Instance.BrushScaler);
+			
+			s_paintMainMaterial.SetFloat(brushScalePropertyID, GameMath.CalculateScale(gameObject,brush));
 			s_paintMainMaterial.SetFloat(brushRotatePropertyID, brush.RotateAngle);
 			s_paintMainMaterial.SetVector(brushColorPropertyID, brush.Color);
 

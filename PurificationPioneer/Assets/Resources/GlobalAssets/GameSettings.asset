@@ -25,7 +25,7 @@ MonoBehaviour:
   _enableInputLog: 0
   enableBulletLog: 0
   _enableMoveLog: 0
-  enablePhysicsLog: 1
+  enablePhysicsLog: 0
   matchPanelEaseType: 20
   matchPanelEaseTime: 1
   developerMode: 1
@@ -40,7 +40,9 @@ MonoBehaviour:
   _weaponSecondSkillKey: 114
   _gameStateKey: 9
   defaultStateFontSize: 50
+  _physicsDeltaTime: 0.02
   _maxCollisionCount: 8
   defaultStaticFriction: 0.2
   defaultDynamicFriction: 0.1
   defaultBounciness: 0
+  _brushScaler: 10

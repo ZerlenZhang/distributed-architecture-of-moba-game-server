@@ -1,58 +1,22 @@
-﻿using PurificationPioneer.Scriptable;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using PurificationPioneer.Scriptable;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Script
 {
-    /// <summary>
-    /// 刚体状态类，此类的数据，足以设置刚体的状态
-    /// </summary>
-    public class PpRigidbodyState
-    {
-        public Vector3 Velocity { get; private set; }
-        public Vector3 Acceleration { get;private set; }
-        public Vector3 Position { get; private set; }
-        public Quaternion Rotation { get; private set; }
-
-        public void SetVelocity(Vector3 velocity) => Velocity = velocity;
-        public void SetAcceleration(Vector3 acceleration) => Acceleration = acceleration;
-        public void SetPosition(Vector3 position) => Position = position;
-        public void SetRotation(Quaternion rotation) => Rotation = rotation;
-        public void SaveValue(PpRigidbody rigidbody)
-        {
-            Velocity = rigidbody.Velocity;
-            Acceleration = rigidbody.Acceleration;
-            Position = rigidbody.Position;
-            Rotation = rigidbody.Rotation;
-        }
-        public void SaveValue(Vector3 velocity, Vector3 acceleration, Vector3 position, Quaternion rotation)
-        {
-            Velocity = velocity;
-            Acceleration = acceleration;
-            Position = position;
-            Rotation = rotation;
-        }
-
-        public PpRigidbodyState(PpRigidbody ppRigidbody)
-        {
-            Velocity = ppRigidbody.Velocity;
-            Acceleration = ppRigidbody.Acceleration;
-            Position = ppRigidbody.Position;
-            Rotation = ppRigidbody.Rotation;
-        }
-    }
-    
+   
     public class PpRigidbody : MonoBehaviour
     {
-        #region IPpRigidbody
-
         public bool Enable { get=>this.enabled; set=>this.enabled=value; }
         public bool IsKinematic { get=>_isKinematic; set=>_isKinematic=value; }
         public bool UseGravity { get=>_useGravity; set=>_useGravity=value; }
         public float GravityScale { get=>_gravityScale; set=>_gravityScale=value; }
         public Vector3 Velocity{ get=>_velocity; set => _velocity = value; }
 
-        public Vector3 Acceleration { get=>_acceleration; internal set=>_acceleration=value; }
+        public Vector3 Acceleration { get=>_acceleration; }
         public Vector3 Position { get=>transform.position; set=>transform.position=value; }
         public Quaternion Rotation { get=>transform.rotation; set=>transform.rotation=value; }
         public float Mass { get => _mass; set => _mass = value; }
@@ -64,7 +28,6 @@ namespace PurificationPioneer.Script
         public float DynamicFriction =>
             physicMaterial ? physicMaterial.dynamicFriction : GameSettings.Instance.DefaultDynamicFriction;
 
-        #endregion
 
         #region internal properties
 
@@ -82,7 +45,7 @@ namespace PurificationPioneer.Script
             get => Acceleration;
             set
             {
-                Acceleration = value;
+                _acceleration = value;
                 PpPhysics.GetRigidbodyState(this,true).SetAcceleration(value);
             }
         }
@@ -106,8 +69,7 @@ namespace PurificationPioneer.Script
         }        
 
         #endregion
-
-
+        
         #region editor fields
 
         [SerializeField] private bool _isKinematic;
@@ -125,7 +87,7 @@ namespace PurificationPioneer.Script
 
         private PpRigidbodyHelper _rigidbodyHelper;
 
-        private PpRigidbodyHelper RigidbodyHelper
+        internal PpRigidbodyHelper RigidbodyHelper
         {
             get
             {
@@ -139,7 +101,7 @@ namespace PurificationPioneer.Script
         }
         
         
-        #region IPpRigidbodyState logic
+        #region PpRigidbodyState logic
 
         public void GetStateNoAlloc(PpRigidbodyState state)
         {
@@ -153,26 +115,13 @@ namespace PurificationPioneer.Script
         {
             Position = state.Position;
             Velocity = state.Velocity;
-            Acceleration = state.Acceleration;
+            _acceleration = state.Acceleration;
             Rotation = state.Rotation;
         }
         
-
         #endregion
 
         #region AddForce
-
-        public void AddImpulse(Vector3 impulse, float time)
-        {
-            var temp = time / Mass;
-            this.Velocity += new Vector3(
-                impulse.x * temp,
-                impulse.y * temp,
-                impulse.z * temp
-            );
-        }
-
-        public void AddImpulse(Vector3 impulse) => AddImpulse(impulse, Time.deltaTime);        
 
         #endregion
 
@@ -181,8 +130,9 @@ namespace PurificationPioneer.Script
         {
             if (UseGravity)
             {
-                InternalAcceleration += Physics.gravity * GravityScale;
+                _defaultAcceleration = Physics.gravity * GravityScale;
             }
+            InternalAcceleration += _defaultAcceleration;
         }
 
         private void OnDestroy()
@@ -205,18 +155,147 @@ namespace PurificationPioneer.Script
 
         #region Physics
 
-        public void Simulate(float deltaTime)
+        /// <summary>
+        /// 没有任何物体接触情况下的加速度
+        /// </summary>
+        private Vector3 _defaultAcceleration;
+
+        private Dictionary<Collider, PpRaycastHit> _commonForces = new Dictionary<Collider, PpRaycastHit>();
+        // private Dictionary<Collider, PpRaycastHit> _physicsForces = new Dictionary<Collider, PpRaycastHit>();
+        
+        public bool TryGetForce(Collider collider, out Vector3 force)
         {
-            for (var timer = 0f; timer < deltaTime; timer += Time.fixedDeltaTime)
+            if (_commonForces.TryGetValue(collider, out var commonForce))
             {
-                Velocity += Acceleration * Time.fixedDeltaTime;
-                Move(Velocity * Time.fixedDeltaTime);
+                force = commonForce.Force;
+                return true;
+            }
+
+            // if (_physicsForces.TryGetValue(collider, out var physicsForce))
+            // {
+            //     force = physicsForce.Value;
+            //     return true;
+            // }
+
+            force=Vector3.zero;
+            return false;
+        }
+
+        /// <summary>
+        /// 添加一个接触
+        /// </summary>
+        /// <param name="interact"></param>
+        /// <param name="selfCollider"></param>
+        /// <exception cref="Exception"></exception>
+        /// <exception cref="NotImplementedException"></exception>
+        public void AddInteract(PpRaycastHit interact,Collider selfCollider)
+        {
+            if (_commonForces.ContainsKey(interact.Collider))
+            {
+                throw new Exception($"重复添加力：from:{interact.Collider.name}, to:{selfCollider.name}");
+            }
+            // if (_physicsForces.ContainsKey(interact.Collider))
+            // {
+            //     throw new Exception($"重复添加力：from:{interact.Collider.name}, to:{selfCollider.name}");
+            // }
+
+            if (interact.Collider.IsNeedCallEvent())
+                _commonForces.Add(interact.Collider, interact);
+            else
+            {
+                throw new NotImplementedException("尚未实现刚体间的交互");
+                // _physicsForces.Add(interact.Collider, interact);
+            }
+            
+            UpdateForceState();
+        }
+
+        /// <summary>
+        /// 移除一个接触
+        /// </summary>
+        /// <param name="from"></param>
+        public void RemoveInteract(Collider from)
+        {
+            if (_commonForces.TryGetValue(from, out var forceToRemove))
+            {
+                _commonForces.Remove(from);
+                UpdateForceState();
             }
         }
-        
-        public void Move(Vector3 movement)
+
+        /// <summary>
+        /// 更新受力状态
+        /// </summary>
+        private void UpdateForceState()
         {
-            Position += movement.normalized * RigidbodyHelper.TryMoveDistance(movement);
+            _acceleration = _defaultAcceleration;
+            //计算分力
+            var total = 0f;
+            foreach (var kv in _commonForces)
+            {
+                var raycastHit = kv.Value;
+
+                var takeAcceleration =
+                    Vector3.Project(
+                        _defaultAcceleration,
+                        raycastHit.Normal);
+                
+                total += Vector3.Project(takeAcceleration, _defaultAcceleration).magnitude;
+                
+            }
+            //Fix 分力
+            foreach (var kv in _commonForces)
+            {
+                var raycastHit = kv.Value;
+                var takeAcceleration =
+                    Vector3.Project(
+                        _defaultAcceleration,
+                        raycastHit.Normal);
+                
+                takeAcceleration *= Vector3.Project(takeAcceleration, _defaultAcceleration).magnitude/total;
+
+                
+                raycastHit.Force = - Mass * takeAcceleration;
+
+                _acceleration -= takeAcceleration;
+            }
+        }
+
+        public void AddImpulse(Vector3 impulse, float time)
+        {
+            var temp = time / Mass;
+            this.Velocity += new Vector3(
+                impulse.x * temp,
+                impulse.y * temp,
+                impulse.z * temp
+            );
+        }
+
+        public void AddImpulse(Vector3 impulse) => AddImpulse(impulse, GameSettings.Instance.PhysicsDeltaTime);        
+
+        public void Simulate(float deltaTime,PpPhysicsSimulateOptions options)
+        {
+            var physicsDeltaTime = GameSettings.Instance.PhysicsDeltaTime;
+            for (var timer = 0f; timer < deltaTime; timer += physicsDeltaTime)
+            {
+                Velocity += Acceleration * physicsDeltaTime;
+                Move(Velocity * physicsDeltaTime,options);
+            }
+        }
+
+        private void Move(Vector3 movement,PpPhysicsSimulateOptions options)
+        {
+            Position += movement.normalized * RigidbodyHelper.TryMoveDistance(movement,options);
+        }
+
+        /// <summary>
+        /// 是否在地上
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <returns></returns>
+        public bool IfOnGround(float distance=0.01f)
+        {
+            return _rigidbodyHelper.IfOnGround(distance);
         }
 
         #endregion
