@@ -10,10 +10,12 @@ namespace ReadyGamerOne.Editor
     public class ToolWindow:EditorWindow
     {
 
-        [MenuItem("ReadyGamerOne/ToolWindow")]
+        [MenuItem("ReadyGamerOne/工具仓")]
         static void ShowWindow()
         {
             var win = GetWindow<ToolWindow>();
+            win.titleContent = new GUIContent("工具仓");
+            win.Show();
         }
 
         private string RootNamespaceKey = "RootNamespace";

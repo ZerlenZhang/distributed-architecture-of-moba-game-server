@@ -62,7 +62,7 @@ namespace PurificationPioneer.Script
         {
             if (lowPoint == null)
             {
-                throw new Exception($"LocalCameraHelper: lowPoint is null");
+                return Vector3.forward;
             }
             var cameraForward = lowPoint.forward;
             return cameraForward;
@@ -73,7 +73,7 @@ namespace PurificationPioneer.Script
         {
             if (lowPoint == null)
             {
-                throw new Exception($"LocalCameraHelper: lowPoint is null");
+                return;
             }
             androidInputAxis?.Update();
             var ans = 2 * Mathf.Abs( Mathf.Clamp(vcam.m_YAxis.Value,0,1)- 0.5f);

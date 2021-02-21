@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Utility;
 using UnityEngine.Assertions;
@@ -80,13 +81,19 @@ namespace PurificationPioneer.Script
         /// </summary>
         /// <param name="movement"></param>
         /// <returns></returns>
-        public float TryMoveDistance(Vector3 movement, PpPhysicsSimulateOptions options)
+        public float TryMoveDistance(Vector3 movement, PpPhysicsSimulateOptions options,float minDetectableDistance)
         {
             var length = movement.magnitude;
             var isLogicFrame = options == PpPhysicsSimulateOptions.BroadEvent;
             var isDirValid = Mathf.Abs(length) > Mathf.Epsilon;
             
-            var dir =  isDirValid? movement.normalized : Vector3.down;
+            var dir =  movement.normalized;
+
+            if (!isDirValid)
+            {
+                dir=Vector3.down;
+                length = minDetectableDistance;
+            }
             
 #if DebugMode
             var hitObjInfo = new StringBuilder();
@@ -99,34 +106,48 @@ namespace PurificationPioneer.Script
             //先计算真实移动距离
             foreach (var ppColliderHelper in _selfColliders)
             {
-                bool hit = false;
-                
-                //debug
-                // var debugMsg = new StringBuilder();  
-                // debugMsg.Append($"[Debug][{PpPhysics.physicsFrameId}]\n");
-                // for (var i = 0; i < 12; i++)
-                // {
-                //     var debugDir = new Vector3(
-                //         Mathf.Cos(i * 30), 0, Mathf.Sin(i * 30));
-                //     var debugHit = false;
-                //     ppColliderHelper.Collider.CastActionNoAlloc(debugDir, 1, DetectLayer, _cache,
-                //         hitInfo =>
-                //         {
-                //             if(hitInfo.collider.isTrigger)
-                //                 return;
-                //             debugHit = true;
-                //             debugMsg.Append(
-                //                 $"[Index-{i}][Dir-{debugDir}][Name-{hitInfo.collider.name}][法线-{hitInfo.normal}][角度-{Vector3.Angle(hitInfo.normal, dir)}]\n");
-                //
-                //         },SelfTriggersAndColliders);
-                //     if (!debugHit)
-                //     {
-                //         debugMsg.Append($"[Index-{i}][Dir-{debugDir}] 无法检测\n");
-                //     }
-                // }
-                // Debug.Log(debugMsg);
-                
-                
+#if DebugMode
+                if (GameSettings.Instance.EnablePhysicsLog)
+                {
+                    //debug
+                    if (isLogicFrame)
+                    {
+                         var debugMsg = new StringBuilder();  
+                         debugMsg.Append($"[Debug][{PpPhysics.physicsFrameId}]\n");
+                         var dirList = new List<Vector3>();
+                         dirList.Add(Vector3.down);
+                         for (var i = 0; i < 12; i++)
+                         {
+                             dirList.Add(new Vector3(
+                                 Mathf.Cos(i * 30), 0, Mathf.Sin(i * 30)));
+                         }
+                         for (var i = 0; i < dirList.Count; i++)
+                         {
+                             var debugDir = dirList[i];
+                             var debugHit = false;
+                             var distance = i == 0 ? minDetectableDistance : 1;
+                             ppColliderHelper.Collider.CastActionNoAlloc(debugDir, distance, DetectLayer, _cache,
+                                 hitInfo =>
+                                 {
+                                     if(hitInfo.collider.isTrigger)
+                                         return;
+                                     debugHit = true;
+                                     debugMsg.Append(
+                                         $"[Index-{i}][Dir-{debugDir}][Name-{hitInfo.collider.name}][法线-{hitInfo.normal}][角度-{Vector3.Angle(hitInfo.normal, dir)}]\n");
+                        
+                                 },_selfTriggersAndColliders);
+                             if (!debugHit)
+                             {
+                                 debugMsg.Append($"[Index-{i}][Dir-{debugDir}] 无法检测\n");
+                             }
+                         }
+                         Debug.Log(debugMsg);                    
+                    }
+                    
+                }
+#endif
+                var hit = false;
+
                 ppColliderHelper.Collider.CastActionNoAlloc(dir,length,DetectLayer,_cache,
                     hitInfo =>
                     {
@@ -139,7 +160,7 @@ namespace PurificationPioneer.Script
                         if (hitInfo.distance < length || !isDirValid)
                         {// 发现障碍物
                             
-                            if (isLogicFrame) 
+                            if (isLogicFrame)
                             {
                                 //[Stay]如果正在擦过平面，就直接返回
                                 if (_rigidbody.TryGetForce(hitInfo.collider, out var force))
@@ -160,13 +181,15 @@ namespace PurificationPioneer.Script
                                         if (tempOtherHit.collider == hitInfo.collider)
                                         {
                                             var angle = Vector3.Angle(tempOtherHit.normal, dir);
-                                            if (Mathf.Abs(90 - angle) < Mathf.Epsilon)
+                                            if (Mathf.Abs(90 - angle) < minDetectableDistance || Mathf.Abs(180-angle)<minDetectableDistance)
                                             {
-                                                Debug.LogWarning(
-                                                    $"[{PpPhysics.physicsFrameId}][取消拦截-{tempOtherHit.collider.name}]");
-                                                flatRaycastHits.Add(tempOtherHit,
-                                                    (ppColliderHelper, tempOtherHit.normal));
-                                                breakAll = true;
+                                                if(!flatRaycastHits.Any(kv=>kv.Key.HasValue && kv.Key.Value.collider==tempOtherHit.collider))
+                                                {
+                                                    // Debug.LogWarning($"[{PpPhysics.physicsFrameId}][取消拦截-{tempOtherHit.collider.name}]");
+                                                    flatRaycastHits.Add(tempOtherHit,
+                                                        (ppColliderHelper, tempOtherHit.normal));
+                                                    breakAll = true;                                                    
+                                                }
                                             }
                                         }
                                     }, _selfTriggersAndColliders, hitInfo.distance * dir);
@@ -183,6 +206,32 @@ namespace PurificationPioneer.Script
                             }
                         }
                     },_selfTriggersAndColliders);
+
+
+                if (isLogicFrame)
+                {
+                    ppColliderHelper.GetCastAround(_cache,
+                        tempOtherHit =>
+                        {
+                            if (!tempOtherHit.collider.isTrigger)
+                            {
+                                var angle = Vector3.Angle(tempOtherHit.normal, dir);
+                                // Debug.Log($"[{PpPhysics.physicsFrameId}][Extra][Hit-{tempOtherHit.collider.name}][Normal-{tempOtherHit.normal}][Angle-{angle}]");
+                                if (Mathf.Abs(90 - angle) < minDetectableDistance || Mathf.Abs(180-angle)<minDetectableDistance)
+                                {
+                                    if(!flatRaycastHits.Any(kv=>kv.Key.HasValue && kv.Key.Value.collider==tempOtherHit.collider))
+                                    {
+#if DebugMode
+                                        hitObjInfo.Append($"《{tempOtherHit.collider.name}》,");
+#endif
+                                        // Debug.LogWarning($"[{PpPhysics.physicsFrameId}][取消拦截-{tempOtherHit.collider.name}]");
+                                        flatRaycastHits.Add(tempOtherHit,
+                                            (ppColliderHelper, tempOtherHit.normal));
+                                    }
+                                }
+                            }
+                        }, _selfTriggersAndColliders, length * dir);
+                }
 
                 // if (isLogicFrame && isDirValid && !hit)
                 // {

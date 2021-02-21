@@ -285,7 +285,7 @@ namespace PurificationPioneer.Script
 
         private void Move(Vector3 movement,PpPhysicsSimulateOptions options)
         {
-            Position += movement.normalized * RigidbodyHelper.TryMoveDistance(movement,options);
+            Position += movement.normalized * RigidbodyHelper.TryMoveDistance(movement,options,GameSettings.Instance.MinDetectableDistance);
         }
 
         /// <summary>

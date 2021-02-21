@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 3077310148824323186}
   - component: {fileID: 5062419579060501991}
   - component: {fileID: 7030726936735595738}
+  - component: {fileID: 6991187789770257691}
   m_Layer: 9
   m_Name: DebugCharacter
   m_TagString: Untagged
@@ -292,3 +293,21 @@ MonoBehaviour:
   _velocity: {x: 0, y: 0, z: 0}
   _acceleration: {x: 0, y: 0, z: 0}
   physicMaterial: {fileID: 0}
+--- !u!114 &6991187789770257691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200326896365405706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a5931d74de403089da302b0dab6996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enablePpPhysicsLog: 1
+  enableUnityPhysicsLog: 1
+  enableLogStayMsg: 1
+  showPhysicFrameId: 0
+  showInteractType: 1
+  showColliderType: 0

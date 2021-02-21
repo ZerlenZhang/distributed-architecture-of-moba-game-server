@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Threading;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Network;
@@ -222,7 +223,10 @@ namespace PurificationPioneer.Network
         private void OnError(object o)
         {
             this.errorInside = true;
-            Debug.Log(o);
+            if (!(o is ThreadAbortException))
+            {
+                Debug.Log(o);
+            }
             if (GameSettings.Instance.CloseSocketOnAnyException)
             {
                 CloseSocket();

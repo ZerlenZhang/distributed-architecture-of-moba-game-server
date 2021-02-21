@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -39,7 +40,7 @@ namespace PurificationPioneer.Script
             var otherCollider = hitInfo.Collider;
             if (_currentCollisionDic.ContainsKey(otherCollider))
             {
-                throw new Exception($"重复碰撞物体：{hitInfo.Collider.name}-{hitInfo.Collider.transform.parent.name}");
+                return;
             }
             
             _currentCollisionDic.Add(otherCollider, hitInfo);
@@ -88,23 +89,23 @@ namespace PurificationPioneer.Script
         {
             #region UpdateNormal
             
-            GetCastAround(cache,
-                hitInfo =>
-                {
-                    if (hitInfo.collider.isTrigger)
-                    {
-                        if(_currentTriggerDic.TryGetValue(hitInfo.collider,out var triggerHit))
-                        {
-                            // Debug.LogWarning($"[UpdateNormal][Normal-{hitInfo.normal}][Collider-{hitInfo.collider.name}]");
-                            triggerHit.UpdateValues(hitInfo);
-                        }
-                    }else if (_currentCollisionDic.TryGetValue(hitInfo.collider, out var collisionHit))
-                    {
-                        // Debug.LogWarning($"[UpdateNormal][Normal-{hitInfo.normal}][Collider-{hitInfo.collider.name}]");
-                        collisionHit.UpdateValues(hitInfo);
-                    }
-                    
-                },ignoreSet);
+            // GetCastAround(cache,
+            //     hitInfo =>
+            //     {
+            //         if (hitInfo.collider.isTrigger)
+            //         {
+            //             if(_currentTriggerDic.TryGetValue(hitInfo.collider,out var triggerHit))
+            //             {
+            //                 // Debug.LogWarning($"[UpdateNormal][Normal-{hitInfo.normal}][Collider-{hitInfo.collider.name}]");
+            //                 triggerHit.UpdateValues(hitInfo);
+            //             }
+            //         }else if (_currentCollisionDic.TryGetValue(hitInfo.collider, out var collisionHit))
+            //         {
+            //             // Debug.LogWarning($"[UpdateNormal][Normal-{hitInfo.normal}][Collider-{hitInfo.collider.name}]");
+            //             collisionHit.UpdateValues(hitInfo);
+            //         }
+            //         
+            //     },ignoreSet);
             
             #endregion
             
@@ -217,7 +218,7 @@ namespace PurificationPioneer.Script
         public void GetCastAround(RaycastHit[] cache, Action<RaycastHit> onHitOther, HashSet<Collider> ignoreSet=null, Vector3? centerOffset=null)
         {
             //直接检测
-            _collider.CastActionNoAlloc(Vector3.down, 0, _rigidbodyHelper.DetectLayer, cache, onHitOther, ignoreSet,centerOffset);
+            _collider.CastActionNoAlloc(Vector3.down, GameSettings.Instance.MinDetectableDistance, _rigidbodyHelper.DetectLayer, cache, onHitOther, ignoreSet,centerOffset);
         }
         
         public void Dispose()

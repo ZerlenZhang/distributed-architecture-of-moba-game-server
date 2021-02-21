@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Utility.Editor
 {
     public class MapUtilWindow : EditorWindow
     {
-        [MenuItem("净化先锋/MapUtil")]
+        [MenuItem("净化先锋/地图制作工具")]
         private static void ShowWindow()
         {
             var window = GetWindow<MapUtilWindow>();
@@ -345,10 +346,17 @@ namespace PurificationPioneer.Utility.Editor
                 for (var j = 0; j < colCount; j++)
                 {
                     var pos = startPos + calculateOffset(i, j);
-                    var cube = Instantiate(prefab, pos, rotation);
+                    var cube = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+
+                    Assert.IsTrue(cube);
+
+                    cube.transform.position = pos;
+                    cube.transform.rotation = rotation;
+                    
                     cube.transform.localScale = Vector3.one * localScale;
                     cube.transform.SetParent(parent);
-                    cube.name = $"[{nameStart}]{prefab.name}[{i},{j}]";
+                    var from = parent ? parent.name : $"Prefab-{prefab.name}";
+                    cube.name = $"[{nameStart}]{from}[{i},{j}]";
                 }
             }
         }

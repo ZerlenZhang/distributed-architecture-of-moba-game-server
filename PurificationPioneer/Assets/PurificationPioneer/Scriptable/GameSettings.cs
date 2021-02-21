@@ -229,6 +229,9 @@ namespace PurificationPioneer.Scriptable
         public float DefaultDynamicFriction => defaultDynamicFriction;
         [SerializeField] private float defaultBounciness = 0;
         public float DefaultBounciness => defaultBounciness;
+        [SerializeField] private float _minDetectableDistance = 0.001f;
+
+        public float MinDetectableDistance => _minDetectableDistance;
 
         #endregion
 
