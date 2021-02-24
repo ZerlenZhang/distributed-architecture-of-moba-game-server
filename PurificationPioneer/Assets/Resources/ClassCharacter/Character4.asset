@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9af4606bb554f60b4e38da76090ec12, type: 3}
-  m_Name: Character3
+  m_Name: Character4
   m_EditorClassIdentifier: 
-  "\u5907\u6CE8": "\u8C03\u8BD5\u4F7F\u7528\u7684\u89D2\u8272"
-  characterId: 3
-  prefab: {fileID: 8200326896365405706, guid: c3f00d8c5b037fd42abc7db335b8093f, type: 3}
-  icon: {fileID: 21300000, guid: d31331b11b7d7f34797d9797f496e98b, type: 3}
+  "\u5907\u6CE8": "\u78B0\u649E\u6D82\u8272\u8005"
+  characterId: 4
+  prefab: {fileID: 3642569209298895892, guid: ba70278b1f4fffb4d97dc1a12f39e849, type: 3}
+  icon: {fileID: 21300000, guid: 855f51be763ee8843913f1f6cad61686, type: 3}
   baseHp: 100
   increaseHp: 10
   baseAttack: 10
@@ -27,7 +27,7 @@ MonoBehaviour:
   jumpSpeed: 10
   firstSkill: {fileID: 11400000, guid: 5674498c2219234428040e7ecffcf5f7, type: 2}
   secondSkill: {fileID: 11400000, guid: 770a4df8850f3484ebe0bc3d2f52bb80, type: 2}
-  heroName: "\u9EA6\u6797\u70AE\u624B"
+  heroName: "\u6EDA\u7B52\u6D17\u8863\u673A"
   stroy0: 
   stroy1: 
   stroy2: 

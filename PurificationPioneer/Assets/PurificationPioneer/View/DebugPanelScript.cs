@@ -12,10 +12,19 @@ namespace PurificationPioneer.View
         public Toggle enableSocketLogToggle;
         public Toggle enableProtoLogToggle;
         public Toggle closeSocketOnAnyException;
+
+        public Toggle enableInputLogToggle;
+        public Toggle enableMoveLogToggle;
+        public Toggle ifShowGizmosToggle;
+        
+        
         public Button startTestBtn;
 
         public void InitSettings()
         {
+            enableInputLogToggle.isOn = GameSettings.Instance.EnableInputLog;
+            enableMoveLogToggle.isOn = GameSettings.Instance.EnableMoveLog;
+            ifShowGizmosToggle.isOn = GameSettings.Instance.IfShowGizmos;
             debugModeToggle.isOn = GameSettings.Instance.DeveloperMode;
             enableSocketLogToggle.isOn = GameSettings.Instance.EnableSocketLog;
             closeSocketOnAnyException.isOn = GameSettings.Instance.CloseSocketOnAnyException;

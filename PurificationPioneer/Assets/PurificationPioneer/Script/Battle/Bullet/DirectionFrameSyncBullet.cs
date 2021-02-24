@@ -15,34 +15,62 @@ namespace PurificationPioneer.Script
             DirectionBulletConfigAsset,
             DirectionBulletState>
     {
-        private RaycastHit[] HitInfos=new RaycastHit[GlobalVar.MaxHitInfoCount];
-        
         protected override bool HitTest(DirectionBulletState currentBulletState, DirectionBulletConfigAsset bulletConfig)
         {
-            var hitCount =
-                Physics.RaycastNonAlloc(
-                    new Ray(currentBulletState.LogicPosition, currentBulletState.Direction),
-                    HitInfos,
-                    bulletConfig.Radius*1.5f,
-                    attackLayer);
-            if (hitCount == 0)
+            var rig = GetComponent<PpRigidbody>();
+            if (rig)
             {
+                var hit = false;
+                rig.RigidbodyHelper.RaycastNoAlloc(
+                    currentBulletState.Direction,
+                    bulletConfig.Radius*1.5f,
+                    hitInfo =>
+                    {
+                        var canvas = hitInfo.collider.GetComponent<InkCanvas>();
+                        if (canvas != null)
+                        {
+                            hit = true;
+                            canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
+                            // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
+                        }else
+                            Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
+                    },currentBulletState.LogicPosition,attackLayer);
+                if (hit)
+                {
+                    DestroyBullet();
+                    return true;
+                }
+
                 return false;
             }
 
-            for (var i = 0; i < hitCount; i++)
-            {
-                var hitInfo = HitInfos[i];
-                var canvas = hitInfo.collider.GetComponent<InkCanvas>();
-                if (canvas != null)
-                {
-                    canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
-                    // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
-                }else
-                    Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
-            }
-            DestroyBullet();
-            return true;
+            return false;
+
+            //
+            // var hitCount =
+            //     Physics.RaycastNonAlloc(
+            //         new Ray(currentBulletState.LogicPosition, currentBulletState.Direction),
+            //         HitInfos,
+            //         bulletConfig.Radius*1.5f,
+            //         attackLayer);
+            // if (hitCount == 0)
+            // {
+            //     return false;
+            // }
+            //
+            // for (var i = 0; i < hitCount; i++)
+            // {
+            //     var hitInfo = HitInfos[i];
+            //     var canvas = hitInfo.collider.GetComponent<InkCanvas>();
+            //     if (canvas != null)
+            //     {
+            //         canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
+            //         // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
+            //     }else
+            //         Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
+            // }
+            // DestroyBullet();
+            // return true;
         }
     }
 

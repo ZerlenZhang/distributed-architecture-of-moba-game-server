@@ -13,8 +13,6 @@ namespace PurificationPioneer.Script
     {
         private static int mouseX = 0;
         private static int mouseY = 0;
-        private static int moveX = 0;
-        private static int moveY = 0;
 
         public static bool jump = false;
         public static bool attack = false;

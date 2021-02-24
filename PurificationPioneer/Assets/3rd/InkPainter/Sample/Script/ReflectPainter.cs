@@ -4,6 +4,7 @@ namespace Es.InkPainter.Sample
 {
 	public class ReflectPainter : MonoBehaviour
 	{
+		#pragma warning disable 649
 		[SerializeField]
 		private Brush brush;
 

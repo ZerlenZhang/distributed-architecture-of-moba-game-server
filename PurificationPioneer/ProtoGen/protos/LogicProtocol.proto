@@ -26,6 +26,14 @@ message StartMatchRes{
     required int32 max = 2;
 }
 
+message StartMultiReq{
+    required string uname = 1;
+}
+
+message StartStoryReq{
+    required string uname = 1;
+}
+
 message StopMatchReq{
     required string uname = 1;
 }

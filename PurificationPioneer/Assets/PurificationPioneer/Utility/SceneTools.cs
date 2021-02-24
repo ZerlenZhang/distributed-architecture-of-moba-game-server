@@ -10,6 +10,8 @@ namespace PurificationPioneer
         :IEditorTools
 #endif
     {
+        
+        #pragma warning disable 414
 #if UNITY_EDITOR
         private static string Title = "场景工具";
         private static GameObject root;

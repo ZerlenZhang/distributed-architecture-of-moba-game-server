@@ -171,8 +171,7 @@ namespace PurificationPioneer.Script
                 {
                     var rigidbody = kv.Key;
                     if(!rigidbody.gameObject.activeSelf || 
-                       !rigidbody.Enable ||
-                       rigidbody.IsKinematic)
+                       !rigidbody.Enable)
                         continue;
                     rigidbody.Simulate(physicsDeltaTime,options);
                 }

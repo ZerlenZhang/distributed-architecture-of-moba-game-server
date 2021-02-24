@@ -7,6 +7,7 @@ namespace PurificationPioneer.Scriptable
     [CreateAssetMenu(fileName = "NewDirectionBulletConfig", menuName = "净化先锋/Bullet/DirectionBulletConfig", order = 0)]
     public class DirectionBulletConfigAsset:BulletConfigAsset,IBulletConfig
     {
+        #pragma warning disable 649
         #region IBulletConfig
 
         [SerializeField] private int _maxLife;

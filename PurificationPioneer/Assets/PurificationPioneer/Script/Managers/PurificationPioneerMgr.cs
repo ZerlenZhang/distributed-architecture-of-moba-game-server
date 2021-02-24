@@ -36,7 +36,7 @@
 		
 		private void OnGUI()
 		{
-			if(Input.GetKey(GameSettings.Instance.GameStateKey))
+			if(GameSettings.Instance.IfShowGizmos || Input.GetKey(GameSettings.Instance.GameStateKey))
 				eventOnGameState?.Invoke(DefaultGuiStyle);
 		}
 

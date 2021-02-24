@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
@@ -17,6 +18,7 @@ namespace PurificationPioneer.Script
         IPpController
         where T:class, IPpAnimator
     {
+        #pragma warning disable 649
         #region Inspector properties
 
         [SerializeField]private Transform cameraLookPoint;
@@ -149,6 +151,19 @@ namespace PurificationPioneer.Script
         {            
             foreach (var playerInput in inputs)
             {
+#if DebugMode
+                if (GameSettings.Instance.EnableInputLog)
+                {
+                    var msg = new StringBuilder();
+                    msg.Append($"[InputMsg][FrameId-{FrameSyncMgr.FrameId}]");
+                    msg.Append($"[Move-({playerInput.moveX},{playerInput.moveY}]");
+                    msg.Append($"[Attack-{playerInput.attack}][Jump-{playerInput.jump}]");
+                    msg.Append($"[Face-({playerInput.faceX},{playerInput.faceY})]");
+                    msg.Append($"[Mouse-({playerInput.mouseX},{playerInput.mouseY})]");
+                    Debug.Log(msg);
+                }
+#endif
+                
                 this.stick_x = playerInput.moveX;
                 this.stick_y = playerInput.moveY;
                 this.face_x = playerInput.faceX;

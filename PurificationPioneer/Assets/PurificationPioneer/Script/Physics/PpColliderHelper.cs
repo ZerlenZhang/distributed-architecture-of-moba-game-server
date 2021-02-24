@@ -208,19 +208,19 @@ namespace PurificationPioneer.Script
         }
 
         /// <summary>
-        /// 使用Cast检测周围碰撞体
+        /// 检测周围碰撞体
         /// </summary>
         /// <param name="cache"></param>
-        /// <param name="distance"></param>
-        /// <param name="onGetTrigger"></param>
-        /// <param name="onGetCollider"></param>
+        /// <param name="onHitOther"></param>
         /// <param name="ignoreSet"></param>
+        /// <param name="centerOffset"></param>
         public void GetCastAround(RaycastHit[] cache, Action<RaycastHit> onHitOther, HashSet<Collider> ignoreSet=null, Vector3? centerOffset=null)
         {
             //直接检测
             _collider.CastActionNoAlloc(Vector3.down, GameSettings.Instance.MinDetectableDistance, _rigidbodyHelper.DetectLayer, cache, onHitOther, ignoreSet,centerOffset);
+
         }
-        
+
         public void Dispose()
         {
             _currentCollisionDic = null;

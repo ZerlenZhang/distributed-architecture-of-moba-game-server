@@ -4,6 +4,7 @@ namespace Es.InkPainter.Sample
 {
 	public class MousePainter : MonoBehaviour
 	{
+		#pragma warning disable 649
 		/// <summary>
 		/// Types of methods used to paint.
 		/// </summary>

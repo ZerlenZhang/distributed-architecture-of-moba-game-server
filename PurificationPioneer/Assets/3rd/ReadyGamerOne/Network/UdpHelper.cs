@@ -92,7 +92,13 @@ namespace ReadyGamerOne.Network
             if (null != recvThread)
             {
                 recvThread.Interrupt();
-                recvThread.Abort();
+                try
+                {
+                    recvThread.Abort();
+                }
+                catch (ThreadAbortException)
+                {
+                } 
             }
             recvThread = null;
             

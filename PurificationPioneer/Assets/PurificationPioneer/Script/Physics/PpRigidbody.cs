@@ -128,6 +128,7 @@ namespace PurificationPioneer.Script
         #region Monobehaviors
         private void Start()
         {
+            var temp = RigidbodyHelper;
             if (UseGravity)
             {
                 _defaultAcceleration = Physics.gravity * GravityScale;

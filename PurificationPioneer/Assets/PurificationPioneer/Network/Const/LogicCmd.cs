@@ -26,6 +26,8 @@
         public const int LogicFramesToSync = 22;
         public const int InitUdpReq = 23;
         public const int InitUdpRes = 24;
-        public const int DebugUdpReq = 25;
+        public const int StartStoryReq = 25;
+        public const int StartStoryRes = 26;
+        public const int StartMultiReq = 27;
     }
 }

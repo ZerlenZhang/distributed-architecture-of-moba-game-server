@@ -16,6 +16,9 @@ namespace PurificationPioneer.Script
         public Vector3 Point => _hitInfo.Value.point;
         public Vector3 Force { get; set; }
         public float UserTag { get; set; }
+        public bool IsColliderOverride => _overrideCollider;
+        public bool IsNormalOverride => _normal.HasValue;
+        public RaycastHit RaycastHit => _hitInfo.Value;
         public PpRaycastHit(RaycastHit? hitInfo, Collider overrideCollider = null, Vector3? normal=null)
         {
             Assert.IsTrue(hitInfo.HasValue);

@@ -17,6 +17,8 @@ namespace PurificationPioneer.Scriptable
 #endif        
 
         #endregion
+        
+        #pragma warning disable 649
 
         #region IP和端口配置
 
@@ -117,6 +119,7 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private bool _enableInputLog = true;
 
         public bool EnableInputLog => _enableInputLog;
+        public void SetEnableInputLog(bool value) => _enableInputLog = value;
 
         #endregion
 
@@ -133,6 +136,7 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private bool _enableMoveLog;
 
         public bool EnableMoveLog => _enableMoveLog;
+        public void SetEnableMoveLog(bool value) => _enableMoveLog = value;
 
         #endregion
 
@@ -193,8 +197,11 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private KeyCode _weaponSecondSkillKey = KeyCode.R;
         
         [SerializeField] private KeyCode _gameStateKey = KeyCode.Tab;
-        
+        [SerializeField] private Vector2 _cameraControlRectX = new Vector2(0.3f, 0.8f);
+        [SerializeField] private Vector2 _cameraControlRectY = new Vector2(0.3f, 1);
 
+        public Vector2 CameraControlRectX => _cameraControlRectX;
+        public Vector2 CameraControlRectY => _cameraControlRectY;
         public KeyCode AttackKey => _attackKey;
 
         public KeyCode HeroFirstSkillKey => _heroFirstSkillKey;
@@ -212,6 +219,10 @@ namespace PurificationPioneer.Scriptable
         #region Gizmos设置
 
         [Header("Gizmos设置")] [SerializeField] private int defaultStateFontSize = 20;
+        [SerializeField] private bool ifShowGizmos = false;
+
+        public bool IfShowGizmos => ifShowGizmos;
+        public void SetIfShowGizmos(bool value) => ifShowGizmos = value;
 
         public int DefaultStateFontSize => defaultStateFontSize;
 

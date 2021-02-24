@@ -39,11 +39,14 @@ MonoBehaviour:
   _weaponFirstSkillKey: 324
   _weaponSecondSkillKey: 114
   _gameStateKey: 9
+  _cameraControlRectX: {x: 0.3, y: 0.8}
+  _cameraControlRectY: {x: 0.3, y: 1}
   defaultStateFontSize: 50
+  ifShowGizmos: 0
   _physicsDeltaTime: 0.02
   _maxCollisionCount: 8
   defaultStaticFriction: 0.2
   defaultDynamicFriction: 0.1
   defaultBounciness: 0
   _minDetectableDistance: 0.001
-  _brushScaler: 10
+  _brushScaler: 1

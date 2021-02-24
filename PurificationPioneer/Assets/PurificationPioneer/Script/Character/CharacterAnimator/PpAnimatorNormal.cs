@@ -8,6 +8,7 @@ namespace PurificationPioneer.Script
     /// </summary>
     public class PpAnimatorNormal:DefaultAnimator
     {
+        #pragma warning disable 649
         [SerializeField]private Animator animator;
         [SerializeField]private string dieTriggerKey="die";
         [SerializeField]private string runTriggerKey="run";

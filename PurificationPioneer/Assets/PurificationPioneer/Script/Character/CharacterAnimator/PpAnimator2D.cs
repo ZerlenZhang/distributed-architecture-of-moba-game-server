@@ -5,12 +5,14 @@ namespace PurificationPioneer.Script
 {
     public class PpAnimator2D:DefaultAnimator
     {
+#pragma warning disable 649
         [SerializeField]private Animator animator;
         [SerializeField]private string horizontalFloatKey;
         [SerializeField]private string verticalFloatKey;
         [SerializeField]private string moveSpeedKey;
         [SerializeField]private string toDieTrigger;
 
+#pragma warning restore 649
         protected override void Start()
         {
             base.Start();

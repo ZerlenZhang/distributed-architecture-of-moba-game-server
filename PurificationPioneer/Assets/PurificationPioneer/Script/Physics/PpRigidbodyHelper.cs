@@ -107,53 +107,48 @@ namespace PurificationPioneer.Script
             foreach (var ppColliderHelper in _selfColliders)
             {
 #if DebugMode
-                if (GameSettings.Instance.EnablePhysicsLog)
+                if (GameSettings.Instance.EnablePhysicsLog && isLogicFrame)
                 {
                     //debug
-                    if (isLogicFrame)
+                    var debugMsg = new StringBuilder();  
+                    debugMsg.Append($"[Debug][{PpPhysics.physicsFrameId}]\n");
+                    var dirList = new List<Vector3>();
+                    dirList.Add(Vector3.down);
+                    for (var i = 0; i < 12; i++)
                     {
-                         var debugMsg = new StringBuilder();  
-                         debugMsg.Append($"[Debug][{PpPhysics.physicsFrameId}]\n");
-                         var dirList = new List<Vector3>();
-                         dirList.Add(Vector3.down);
-                         for (var i = 0; i < 12; i++)
-                         {
-                             dirList.Add(new Vector3(
-                                 Mathf.Cos(i * 30), 0, Mathf.Sin(i * 30)));
-                         }
-                         for (var i = 0; i < dirList.Count; i++)
-                         {
-                             var debugDir = dirList[i];
-                             var debugHit = false;
-                             var distance = i == 0 ? minDetectableDistance : 1;
-                             ppColliderHelper.Collider.CastActionNoAlloc(debugDir, distance, DetectLayer, _cache,
-                                 hitInfo =>
-                                 {
-                                     if(hitInfo.collider.isTrigger)
-                                         return;
-                                     debugHit = true;
-                                     debugMsg.Append(
-                                         $"[Index-{i}][Dir-{debugDir}][Name-{hitInfo.collider.name}][法线-{hitInfo.normal}][角度-{Vector3.Angle(hitInfo.normal, dir)}]\n");
-                        
-                                 },_selfTriggersAndColliders);
-                             if (!debugHit)
-                             {
-                                 debugMsg.Append($"[Index-{i}][Dir-{debugDir}] 无法检测\n");
-                             }
-                         }
-                         Debug.Log(debugMsg);                    
+                        dirList.Add(new Vector3(
+                            Mathf.Cos(i * 30), 0, Mathf.Sin(i * 30)));
                     }
+                    for (var i = 0; i < dirList.Count; i++)
+                    {
+                        var debugDir = dirList[i];
+                        var debugHit = false;
+                        var distance = i == 0 ? minDetectableDistance : 1;
+                        ppColliderHelper.Collider.CastActionNoAlloc(debugDir, distance, DetectLayer, _cache,
+                            hitInfo =>
+                            {
+                                if(hitInfo.collider.isTrigger)
+                                    return;
+                                debugHit = true;
+                                debugMsg.Append(
+                                    $"[Index-{i}][Dir-{debugDir}][Name-{hitInfo.collider.name}][法线-{hitInfo.normal}][角度-{Vector3.Angle(hitInfo.normal, dir)}]\n");
+                    
+                            },_selfTriggersAndColliders);
+                        if (!debugHit)
+                        {
+                            debugMsg.Append($"[Index-{i}][Dir-{debugDir}] 无法检测\n");
+                        }
+                    }
+                    Debug.Log(debugMsg);                    
                     
                 }
 #endif
-                var hit = false;
 
                 ppColliderHelper.Collider.CastActionNoAlloc(dir,length,DetectLayer,_cache,
                     hitInfo =>
                     {
                         if (hitInfo.collider.isTrigger)
                             return;
-                        hit = true;
 #if DebugMode
                         hitObjInfo.Append($"{hitInfo.collider.name},");
 #endif
@@ -232,11 +227,6 @@ namespace PurificationPioneer.Script
                             }
                         }, _selfTriggersAndColliders, length * dir);
                 }
-
-                // if (isLogicFrame && isDirValid && !hit)
-                // {
-                //     Debug.Log($"[{PpPhysics.physicsFrameId}] [Collider-{ppColliderHelper.Collider.name}][Dir-{dir}][没碰到东西]");
-                // }
             }
             
             if (isLogicFrame)
@@ -307,6 +297,43 @@ namespace PurificationPioneer.Script
             }
             
             return length;
+        }
+
+        public void CastActionNoAlloc(Vector3 dir, float distance, Action<RaycastHit> onHitOther,Vector3? centerOffset=null)
+        {
+            foreach (var selfCollider in _selfTriggersAndColliders)
+            {
+                selfCollider.CastActionNoAlloc(dir,distance,DetectLayer,_cache,onHitOther,_selfTriggersAndColliders,centerOffset);
+            }
+        }
+
+        public void CastAroundNoAlloc(Action<RaycastHit> onHitOther)
+        {
+            CastActionNoAlloc(Vector3.down, GameSettings.Instance.MinDetectableDistance, onHitOther);
+        }
+
+        public void RaycastNoAlloc(Vector3 dir, float distance, Action<RaycastHit> onHitOther, Vector3? startPosOverride=null, LayerMask? detectLayerOverride=null)
+        {
+            var layer = detectLayerOverride ?? DetectLayer;
+            var start = startPosOverride ?? _rigidbody.Position;
+            var hitCount =
+                Physics.RaycastNonAlloc(
+                    new Ray(start, dir),
+                    _cache,
+                    distance,
+                    layer);
+            if (hitCount == 0)
+            {
+                return;
+            }
+
+            for (var i = 0; i < hitCount; i++)
+            {
+                var hitInfo = _cache[i];
+                if (_selfTriggersAndColliders.Contains(hitInfo.collider))
+                    continue;
+                onHitOther.Invoke(hitInfo);
+            }
         }
         
         public void Dispose()

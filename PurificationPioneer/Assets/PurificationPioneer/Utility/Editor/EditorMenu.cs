@@ -8,13 +8,14 @@ namespace PurificationPioneer.Utility
 {
     public class EditorMenu
     {
+        private const string ExpectedScenePath = "Assets/Scenes/Welcome.unity";
 
         [InitializeOnLoadMethod]
         private static void Initialize()
         {
             EditorApplication.playModeStateChanged += change =>
             {
-                if (change == PlayModeStateChange.EnteredEditMode)
+                if (change == PlayModeStateChange.EnteredEditMode && EditorPrefs.GetBool(PrefUtil.ShouldRefreshSceneKey,false))
                 {
                     var currentScene = SceneManager.GetActiveScene();
                     var lastScenePath = EditorPrefs.GetString(PrefUtil.LastScenePathKey);
@@ -35,11 +36,11 @@ namespace PurificationPioneer.Utility
                 return;
             }
 
-            var expectedScenePath = $"Assets/Scenes/Welcome.unity";
             var currentScene = SceneManager.GetActiveScene();
 
-            if (currentScene.path == expectedScenePath)
+            if (currentScene.path == ExpectedScenePath)
             {
+                EditorPrefs.SetBool(PrefUtil.ShouldRefreshSceneKey, false);
                 EditorApplication.EnterPlaymode();
                 return;
             }
@@ -49,8 +50,9 @@ namespace PurificationPioneer.Utility
                 EditorSceneManager.SaveOpenScenes();
             }
             
+            EditorPrefs.SetBool(PrefUtil.ShouldRefreshSceneKey, true);
             EditorPrefs.SetString(PrefUtil.LastScenePathKey, currentScene.path);
-            var scene = EditorSceneManager.OpenScene(expectedScenePath, OpenSceneMode.Single);
+            EditorSceneManager.OpenScene(ExpectedScenePath, OpenSceneMode.Single);
             EditorApplication.EnterPlaymode();
         }
     }

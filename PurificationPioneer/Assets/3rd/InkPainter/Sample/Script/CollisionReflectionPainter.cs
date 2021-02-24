@@ -7,6 +7,7 @@ namespace Es.InkPainter.Sample
 	[RequireComponent(typeof(Collider))]
 	public class CollisionReflectionPainter : MonoBehaviour
 	{
+#pragma warning disable 649
 		[SerializeField]
 		private Brush brush = null;
 
@@ -15,7 +16,6 @@ namespace Es.InkPainter.Sample
 
 		[SerializeField]
 		private Vector3 offset;
-
 		[SerializeField]
 		private bool debugMode;
 

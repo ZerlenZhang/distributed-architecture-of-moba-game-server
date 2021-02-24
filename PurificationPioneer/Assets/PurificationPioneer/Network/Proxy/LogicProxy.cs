@@ -23,6 +23,14 @@ namespace PurificationPioneer.Network.Proxy
         {
             switch (package.cmdType)
             {
+                #region LogicCmd.StartStoryRes
+                
+                case LogicCmd.StartStoryRes:
+                    Debug.Log($"[StartStoryRes] 故事模式开始");
+                    break;
+
+                #endregion
+                
                 #region LogicCmd.LogicFramesToSync
                 case LogicCmd.LogicFramesToSync:
                     var logicFrameToSync = CmdPackageProtocol.ProtobufDeserialize<LogicFramesToSync>(package.body);
@@ -316,23 +324,71 @@ namespace PurificationPioneer.Network.Proxy
         }
 
         /// <summary>
-        /// 开始匹配
+        /// 开始单人模式
         /// </summary>
         /// <param name="uname"></param>
-        public void StartMatch(string uname)
+        public void StartMatchSingle(string uname)
         {
-            if(!logicServerConnected)
+            if (!logicServerConnected)
+            {
                 Debug.LogError($"尚未登陆逻辑服务器");
-            
+                return;
+            }
+
+            var roomType = LogicCmd.StartMatchReq;
             var startMatchReq = new StartMatchReq
             {
                 uname = uname
             };
 
-            GlobalVar.SetRoomType(LogicCmd.StartMatchReq);
+            GlobalVar.SetRoomType(roomType);
             NetworkMgr.Instance.TcpSendProtobuf(
                 ServiceType.Logic,
-                LogicCmd.StartMatchReq,
+                roomType,
+                startMatchReq);
+        }
+
+        /// <summary>
+        /// 开始故事模式
+        /// </summary>
+        /// <param name="uname"></param>
+        public void StartStoryMode(string uname)
+        {
+            var roomType = LogicCmd.StartStoryReq;
+            var startMatchReq = new StartStoryReq
+            {
+                uname = uname
+            };
+
+            GlobalVar.SetRoomType(roomType);
+            NetworkMgr.Instance.TcpSendProtobuf(
+                ServiceType.Logic,
+                roomType,
+                startMatchReq);
+        }
+
+        /// <summary>
+        /// 开始多人模式
+        /// </summary>
+        /// <param name="uname"></param>
+        public void StartMatchMulti(string uname)
+        {
+            if (!logicServerConnected)
+            {
+                Debug.LogError($"尚未登陆逻辑服务器");
+                return;
+            }
+
+            var roomType = LogicCmd.StartMultiReq;
+            var startMatchReq = new StartMultiReq
+            {
+                uname = uname
+            };
+
+            GlobalVar.SetRoomType(roomType);
+            NetworkMgr.Instance.TcpSendProtobuf(
+                ServiceType.Logic,
+                roomType,
                 startMatchReq);
         }
 

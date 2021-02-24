@@ -60,6 +60,7 @@ namespace PurificationPioneer.Script
 
         public Vector3 GetCameraDirection()
         {
+            
             if (lowPoint == null)
             {
                 return Vector3.forward;
@@ -67,10 +68,11 @@ namespace PurificationPioneer.Script
             var cameraForward = lowPoint.forward;
             return cameraForward;
         }
-        
-        
-        private void Update()
+
+
+        protected override void Update()
         {
+            base.Update();
             if (lowPoint == null)
             {
                 return;
@@ -105,15 +107,17 @@ namespace PurificationPioneer.Script
             {
                 if (Input.GetMouseButton(0))
                 {
+                    var xRange = GameSettings.Instance.CameraControlRectX;
+                    var yRange = GameSettings.Instance.CameraControlRectY;
                     var input = Input.mousePosition;
-                    if (input.x > Screen.width / 2f)
+                    if (input.x > Screen.width * xRange.x && input.x<Screen.width*xRange.y 
+                    && input.y>Screen.height*yRange.x && input.y<Screen.height*yRange.y)
                     {
                         inputVaild = true;
                         value.x = (input.x - lastInput.x)/Screen.width/Time.deltaTime;
                         value.y = (input.y - lastInput.y)/Screen.height/Time.deltaTime;
                         lastInput = input;                        
                     }
-
                 }
 
                 if (Input.GetMouseButtonUp(0) && inputVaild)

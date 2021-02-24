@@ -126,6 +126,40 @@ namespace PurificationPioneer.Network.ProtoGen
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StartMultiReq")]
+  public partial class StartMultiReq : global::ProtoBuf.IExtensible
+  {
+    public StartMultiReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StartStoryReq")]
+  public partial class StartStoryReq : global::ProtoBuf.IExtensible
+  {
+    public StartStoryReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StopMatchReq")]
   public partial class StopMatchReq : global::ProtoBuf.IExtensible
   {

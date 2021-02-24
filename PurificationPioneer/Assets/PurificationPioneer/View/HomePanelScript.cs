@@ -1,4 +1,5 @@
 ﻿using PurificationPioneer.Global;
+using PurificationPioneer.Network.Const;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Script;
 using PurificationPioneer.Utility;
@@ -20,12 +21,39 @@ namespace PurificationPioneer.View
         public Button noticeBtn;
         public Button chatBtn;
         public Button shopBtn;
+        public GameObject roomTypeUi;
 
-        public void TryMatch()
+        public void ShowRoomTypeUi()
         {
-            LogicProxy.Instance.StartMatch(
-                GlobalVar.Uname);
+            if (!roomTypeUi.activeSelf)
+                roomTypeUi.SetActive(true);
         }
+
+        public void HideRoomTypeUi()
+        {
+            if (roomTypeUi.activeSelf)
+                roomTypeUi.SetActive(false);
+        }
+
+        public void TryMatchSingleMode()
+        {
+            HideRoomTypeUi();
+            LogicProxy.Instance.StartMatchSingle(GlobalVar.Uname);
+        }
+
+        public void TryMatchMultiMode()
+        {
+            HideRoomTypeUi();
+            LogicProxy.Instance.StartMatchMulti(GlobalVar.Uname);
+        }
+
+        public void TryStoryMode()
+        {
+            HideRoomTypeUi();
+            LogicProxy.Instance.StartStoryMode(GlobalVar.Uname);
+        }
+        
+        
 
         public void UpdateUserInfo()
         {

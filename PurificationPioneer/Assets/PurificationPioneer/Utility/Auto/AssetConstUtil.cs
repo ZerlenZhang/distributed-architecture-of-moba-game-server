@@ -11,6 +11,7 @@ namespace PurificationPioneer.Utility
 					{ @"Character1" , @"ClassCharacter\Character1" },
 					{ @"Character2" , @"ClassCharacter\Character2" },
 					{ @"Character3" , @"ClassCharacter\Character3" },
+					{ @"Character4" , @"ClassCharacter\Character4" },
 					{ @"LocalCamera" , @"ClassLocalAsset\LocalCamera" },
 					{ @"AndroidBattlePanel" , @"ClassPanel\AndroidBattlePanel" },
 					{ @"BattlePanel" , @"ClassPanel\BattlePanel" },
