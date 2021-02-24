@@ -24,4 +24,7 @@ return {
     LogicFramesToSync = 22,
     InitUdpReq = 23,
     InitUdpRes = 24,
+    StartStoryReq = 25,
+    StartStoryRes = 26,
+    StartMultiReq = 27,
 };

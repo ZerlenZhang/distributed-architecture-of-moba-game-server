@@ -26,6 +26,14 @@ message StartMatchRes{
     required int32 max = 2;
 }
 
+message StartMultiReq{
+    required string uname = 1;
+}
+
+message StartStoryReq{
+    required string uname = 1;
+}
+
 message StopMatchReq{
     required string uname = 1;
 }
@@ -85,6 +93,9 @@ message PlayerInput{
     required bool heroSecondSkill = 9;
     required bool weaponFirstSkill = 10;
     required bool weaponSecondSkill = 11;
+    required int32 faceX = 12;
+    required int32 faceY = 13;
+    required int32 faceZ = 14;
 }
 
 message LogicFrame{

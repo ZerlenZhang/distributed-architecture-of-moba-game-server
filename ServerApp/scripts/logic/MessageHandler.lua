@@ -97,6 +97,20 @@ local function on_init_udp(s,req)
 	MatchMgr.SetUdpAddr(uname,ip,port);
 end
 
+local function on_start_multi_match(s,req)
+	local roomType = req[2];
+	local uname = req[4].uname;
+    if config.enable_proto_log then
+        Debug.Log(uname.." try match multi");
+	end
+
+	MatchMgr.OnPlayerTryMatch(uname,roomType);
+end
+
+local function on_start_story_mode(s, req)
+	Session.SendPackage(s,{req[1],CmdType.StartStoryRes,req[3]});
+end
+
 return {
 	OnUdpTest = udp_test,
     OnPlayerLoginLogic = login_logic_server,
@@ -108,5 +122,7 @@ return {
 	OnStartGameReq = on_start_game,
 	OnGetNextFrameInput = on_get_next_frame_input,
 	OnInitUdp = on_init_udp,
+	OnStartMultiMatch = on_start_multi_match,
+	OnStartStoryMode = on_start_story_mode,
 }
 

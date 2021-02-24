@@ -15,10 +15,10 @@ local utag_Player={};
 local function GetRoom(roomType)
     --create roomList if not this roomType
     if not roomType_RoomList[roomType] then
-        roomType_RoomList[CmdType.StartMatchReq]=List:New("[RoomType:"..roomType.."]RoomList");
+        roomType_RoomList[roomType]=List:New("[RoomType:"..roomType.."]RoomList");
     end
     --find an empty room, if not, create one
-    local roomList=roomType_RoomList[CmdType.StartMatchReq];
+    local roomList=roomType_RoomList[roomType];
     local room=roomList:FindFirst(function(room)return not room:IsFull();end);
     if not room then
         --create room
