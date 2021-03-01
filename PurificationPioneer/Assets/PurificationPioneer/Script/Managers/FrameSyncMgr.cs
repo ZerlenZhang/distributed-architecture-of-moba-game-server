@@ -282,20 +282,16 @@ namespace PurificationPioneer.Script
         /// </summary>
         private static void SendLocalCharacterInput(int localFrameId)
         {
-            var selfInput = InputMgr.GetInput();
-            
-            var inputs = new List<PlayerInput> 
-            {
-                selfInput,
-            };
-
             for(var i=0;i<GameSettings.Instance.NetMsgTimes;i++)
                 LogicProxy.Instance.SendLogicInput(
                     localFrameId + 1,
                     GlobalVar.RoomType,
                     GlobalVar.RoomId,
                     GlobalVar.LocalSeatId,
-                    inputs);
+                    new List<PlayerInput> 
+                    {
+                        InputMgr.GetInput()
+                    });
             
         }
         

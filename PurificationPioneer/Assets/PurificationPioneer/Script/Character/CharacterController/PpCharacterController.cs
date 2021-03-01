@@ -20,7 +20,7 @@ namespace PurificationPioneer.Script
     {
         #pragma warning disable 649
         #region Inspector properties
-
+        [Tooltip("摄像机看向的点")]
         [SerializeField]private Transform cameraLookPoint;
         [SerializeField] protected Transform centerPoint;
 
@@ -28,20 +28,20 @@ namespace PurificationPioneer.Script
         
         #region MoveSpeed
 
-        /// <summary>
-        /// 玩家移动速度
-        /// </summary>
+        [Tooltip("玩家移动速度")]        
         [SerializeField]private float moveSpeed = 1;
         public float MoveSpeed
         {
             get => moveSpeed;
             set => moveSpeed = value;
-        }        
-
+        }
         #endregion
         
+        [Tooltip("角色高度")]
+        [SerializeField] private float characterHeight=1.4f;
+        public float CharacterHeight => characterHeight;
         #region CharacterAnimator
-
+        [Tooltip("角色动画机")]
         [RequireInterface(typeof(IPpAnimator))]
         [SerializeField] 
         private Object characterAnimator;
@@ -52,6 +52,7 @@ namespace PurificationPioneer.Script
         
         #region CharacterRigidbody
 
+        [Tooltip("角色刚体组件")]
         [SerializeField] private PpRigidbody characterRigidbody;
 
         protected PpRigidbody CharacterRigidbody => characterRigidbody;
@@ -80,11 +81,8 @@ namespace PurificationPioneer.Script
             this.stick_y = 0;
             CharacterAnimator.LogicToIdle();
             
-            InitCharacter();
-            
-            if(GlobalVar.LocalSeatId==SeatId)
-                InitLocalCharacter();
-            
+            InitCharacter(GlobalVar.LocalSeatId==SeatId);
+
             //debug
             lastPosition = transform.position;
         }        
@@ -96,25 +94,27 @@ namespace PurificationPioneer.Script
         /// <summary>
         /// 所有角色都要进行的初始化操作
         /// </summary>
-        protected virtual void InitCharacter()
+        protected virtual void InitCharacter(bool isLocal)
         {
-            
-        }
-
-        /// <summary>
-        /// 初始化本地玩家
-        /// </summary>
-        protected virtual void InitLocalCharacter()
-        {
-            var localCameraHelper =
-                ResourceMgr.InstantiateGameObject(LocalAssetName.LocalCamera)
-                    .GetComponent<LocalCameraHelper>();
-            localCameraHelper.Init(transform,this.cameraLookPoint);
+            if (isLocal)
+            {
+                var localCameraHelper =
+                    ResourceMgr.InstantiateGameObject(LocalAssetName.LocalCamera)
+                        .GetComponent<LocalCameraHelper>();
+                localCameraHelper.Init(transform,this.cameraLookPoint);
 
 #if UNITY_EDITOR
-            UnityEditor.Selection.activeInstanceID = this.gameObject.GetInstanceID();
+                UnityEditor.Selection.activeInstanceID = this.gameObject.GetInstanceID();
 #endif
-        }        
+            }
+            else
+            {
+                var headCanvasUi = ResourceMgr.InstantiateGameObject(LocalAssetName.CharacterHeadCanvas,transform)
+                    .GetComponent<CharacterHeadCanvas>();
+                headCanvasUi.transform.localPosition = Vector3.up * CharacterHeight;
+                headCanvasUi.Init(Camera.main, GlobalVar.SeatId_MatcherInfo[SeatId].Unick);
+            }
+        }
 
         protected virtual void OnAttack(int faceX,int faceY, int faceZ)
         {
@@ -135,7 +135,7 @@ namespace PurificationPioneer.Script
 
         #region IFrameSyncWithSeatId
 
-        [SerializeField]private int seatId;
+        private int seatId;
         public int SeatId
         {
             get => seatId;

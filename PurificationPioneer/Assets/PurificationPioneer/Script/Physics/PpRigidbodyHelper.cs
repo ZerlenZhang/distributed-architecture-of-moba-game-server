@@ -299,17 +299,18 @@ namespace PurificationPioneer.Script
             return length;
         }
 
-        public void CastActionNoAlloc(Vector3 dir, float distance, Action<RaycastHit> onHitOther,Vector3? centerOffset=null)
+        public void CastActionNoAlloc(Vector3 dir, float distance, Action<RaycastHit> onHitOther, int? detectLayerOverride=null, Vector3? centerOffset=null)
         {
+            var layer = detectLayerOverride ?? DetectLayer;
             foreach (var selfCollider in _selfTriggersAndColliders)
             {
-                selfCollider.CastActionNoAlloc(dir,distance,DetectLayer,_cache,onHitOther,_selfTriggersAndColliders,centerOffset);
+                selfCollider.CastActionNoAlloc(dir,distance,layer,_cache,onHitOther,_selfTriggersAndColliders,centerOffset);
             }
         }
 
-        public void CastAroundNoAlloc(Action<RaycastHit> onHitOther)
+        public void CastAroundNoAlloc(Action<RaycastHit> onHitOther, int? detectLayerOverride=null, Vector3? centerOffset=null)
         {
-            CastActionNoAlloc(Vector3.down, GameSettings.Instance.MinDetectableDistance, onHitOther);
+            CastActionNoAlloc(Vector3.down, GameSettings.Instance.MinDetectableDistance, onHitOther, detectLayerOverride, centerOffset);
         }
 
         public void RaycastNoAlloc(Vector3 dir, float distance, Action<RaycastHit> onHitOther, Vector3? startPosOverride=null, LayerMask? detectLayerOverride=null)

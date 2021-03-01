@@ -21,20 +21,35 @@ namespace PurificationPioneer.Script
             if (rig)
             {
                 var hit = false;
-                rig.RigidbodyHelper.RaycastNoAlloc(
-                    currentBulletState.Direction,
-                    bulletConfig.Radius*1.5f,
+                
+                rig.RigidbodyHelper.CastAroundNoAlloc(
                     hitInfo =>
                     {
                         var canvas = hitInfo.collider.GetComponent<InkCanvas>();
                         if (canvas != null)
                         {
                             hit = true;
+                            // Debug.Log($"[BulletPos-{currentBulletState.LogicPosition}][HitPoint-{hitInfo.point}]");
                             canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
                             // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
                         }else
                             Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
-                    },currentBulletState.LogicPosition,attackLayer);
+                    },attackLayer,currentBulletState.LogicPosition-rig.Position);
+                
+                // rig.RigidbodyHelper.RaycastNoAlloc(
+                //     currentBulletState.Direction,
+                //     bulletConfig.Radius*1.5f,
+                //     hitInfo =>
+                //     {
+                //         var canvas = hitInfo.collider.GetComponent<InkCanvas>();
+                //         if (canvas != null)
+                //         {
+                //             hit = true;
+                //             canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
+                //             // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
+                //         }else
+                //             Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
+                //     },currentBulletState.LogicPosition,attackLayer);
                 if (hit)
                 {
                     DestroyBullet();

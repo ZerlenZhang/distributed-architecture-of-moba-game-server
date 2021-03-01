@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
@@ -48,7 +49,7 @@ namespace PurificationPioneer.Network.Proxy
                         {
                             inputCountList.Append($" [{frame.frameId}-{frame.inputs.Count}]");
                         }
-                        Debug.Log($"[LogicFramesToSync] 帧同步进行中-{FrameSyncMgr.NewestInputId}/{FrameSyncMgr.FrameId}/{logicFrameToSync.frameId}{inputCountList}");                        
+                        Debug.Log($"[LogicFramesToSync] 帧同步进行中[NewestInputId-{FrameSyncMgr.NewestInputId}][FrameId-{FrameSyncMgr.FrameId}][PackageFrameId-{logicFrameToSync.frameId}][Inputs-《{inputCountList}》]");                        
                     }
 #endif
                     FrameSyncMgr.OnFrameSyncTick(logicFrameToSync, GlobalVar.LogicFrameDeltaTime);
@@ -476,6 +477,12 @@ namespace PurificationPioneer.Network.Proxy
             {
                 nextFrameInput.inputs.Add(playerInput);
             }
+#if DebugMode
+            if (GameSettings.Instance.EnableInputLog)
+            {
+                Debug.Log($"[InputLog] SendInput [inputFrameId-{frameId}][InputCount-{inputs.Count()}]");
+            }
+#endif
             NetworkMgr.Instance.UdpSendProtobuf(
                 ServiceType.Logic,
                 LogicCmd.NextFrameInput,

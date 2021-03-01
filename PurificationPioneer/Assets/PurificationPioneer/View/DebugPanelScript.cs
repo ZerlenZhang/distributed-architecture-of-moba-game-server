@@ -16,12 +16,14 @@ namespace PurificationPioneer.View
         public Toggle enableInputLogToggle;
         public Toggle enableMoveLogToggle;
         public Toggle ifShowGizmosToggle;
+        public Toggle enableFrameSyncLogToggle;
         
         
         public Button startTestBtn;
 
         public void InitSettings()
         {
+            enableFrameSyncLogToggle.isOn = GameSettings.Instance.EnableFrameSyncLog;
             enableInputLogToggle.isOn = GameSettings.Instance.EnableInputLog;
             enableMoveLogToggle.isOn = GameSettings.Instance.EnableMoveLog;
             ifShowGizmosToggle.isOn = GameSettings.Instance.IfShowGizmos;

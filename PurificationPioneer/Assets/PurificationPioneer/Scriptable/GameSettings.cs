@@ -112,6 +112,8 @@ namespace PurificationPioneer.Scriptable
 
         public bool EnableFrameSyncLog => enableFrameSyncLog;
 
+        public void SetEnableFrameSyncLog(bool value) => enableFrameSyncLog = value;
+
         #endregion
 
         #region EnableInputLog

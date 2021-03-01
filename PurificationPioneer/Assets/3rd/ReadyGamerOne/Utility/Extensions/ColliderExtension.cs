@@ -18,7 +18,6 @@ namespace ReadyGamerOne.Utility
         /// <param name="cache"></param>
         /// <param name="onHitOther"></param>
         /// <param name="ignoreSet"></param>
-
         public static void CastActionNoAlloc(this Collider self, Vector3 dir, float distance, int layer,
             RaycastHit[] cache, Action<RaycastHit> onHitOther, HashSet<Collider> ignoreSet=null, Vector3? centerOffset=null)
         {
