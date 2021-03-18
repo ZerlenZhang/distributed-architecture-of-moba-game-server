@@ -48,5 +48,11 @@ namespace ReadyGamerOne.Script
         {
             onDrawGizomos?.Invoke();
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            onDrawGizomos = null;
+        }
     }
 }

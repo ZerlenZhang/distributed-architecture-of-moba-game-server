@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PurificationPioneer.Scriptable;
+using UnityEngine;
 
 namespace PurificationPioneer.Script
 {
@@ -18,6 +19,16 @@ namespace PurificationPioneer.Script
         public void SetRotation(Quaternion rotation) => Rotation = rotation;
         public void SaveValue(PpRigidbody rigidbody)
         {
+#if DebugMode
+            if (GameSettings.Instance.EnableAiLog)
+            {
+                if (rigidbody.name == "TestAi")
+                {
+                    Debug.Log($"[AI][Save TestAi][{PpPhysics.physicsFrameId}-{FrameSyncMgr.FrameId}][{rigidbody.name}][Velocity-{rigidbody.Velocity}]");
+                }                
+            }
+#endif
+
             Velocity = rigidbody.Velocity;
             Acceleration = rigidbody.Acceleration;
             Position = rigidbody.Position;

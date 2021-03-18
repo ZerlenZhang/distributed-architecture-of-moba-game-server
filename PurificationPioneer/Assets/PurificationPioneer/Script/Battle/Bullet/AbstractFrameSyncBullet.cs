@@ -78,7 +78,7 @@ namespace PurificationPioneer.Script
             _bulletConfig = bulletConfig;
             _bulletState = bulletState;
             
-            BulletStrategy.OnInitBulletState(this as TBullet,_bulletState,_bulletConfig);
+            BulletStrategy.OnInitBulletState(_bulletState,_bulletConfig);
             FrameSyncMgr.AddFrameSyncUnit(this);
 #if DebugMode
             if(GameSettings.Instance.EnableBulletLog)
@@ -210,8 +210,5 @@ namespace PurificationPioneer.Script
         }        
 
         #endregion
-        
-        
-
     }
 } 

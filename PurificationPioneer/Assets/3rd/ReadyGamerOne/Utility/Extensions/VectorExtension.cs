@@ -1,7 +1,14 @@
+using System;
 using UnityEngine;
 
 namespace ReadyGamerOne.Utility
 {
+    public enum AxisIgnore
+    {
+        X,
+        Y,
+        Z
+    }
     public static class VectorExtension
     {
         public static Vector3 ToVector3(this Vector4 self)
@@ -44,16 +51,30 @@ namespace ReadyGamerOne.Utility
         /// <param name="self"></param>
         /// <param name="degree"></param>
         /// <returns></returns>
-        public static Vector3 RotateDegree(this Vector3 self, float degree)
+        public static Vector3 RotateDegree(this Vector3 self, float degree, AxisIgnore axisIgnore)
         {
             var sin = Mathf.Sin(degree * Mathf.Deg2Rad);
             var cos = Mathf.Cos(degree * Mathf.Deg2Rad);
+
+            if (axisIgnore == AxisIgnore.X)
+                return new Vector3(
+                    self.x,
+                    self.z*cos -self.y*sin,
+                    self.z*sin+self.y*cos);
             
-            return new Vector3(
-                self.x*cos -self.y*sin,
-                self.x*sin+self.y*cos,
-                self.z
-                );
+            if (axisIgnore == AxisIgnore.Y)
+                return new Vector3(
+                    self.x*cos -self.z*sin,
+                    self.y,
+                    self.x*sin+self.z*cos);
+            
+            if(axisIgnore==AxisIgnore.Z)
+                return new Vector3(
+                    self.x*cos -self.y*sin,
+                    self.x*sin+self.y*cos,
+                    self.z);
+
+            throw new Exception($"Unexpected AxisIgnore:{axisIgnore}");
         }
 
         /// <summary>

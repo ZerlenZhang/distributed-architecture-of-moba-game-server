@@ -151,7 +151,8 @@ namespace PurificationPioneer.Global
 			LogicFrameDeltaTime = startGameRes.logicFrameDeltaTime;
 			GameTime = startGameRes.gameTime;
 			StartGameDelay = startGameRes.startGameDelay;
-			//RandSeed
+			//初始化随机数种子
+			Random.InitState(startGameRes.randSeed);
 		}
 
 		#endregion

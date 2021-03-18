@@ -162,7 +162,7 @@ namespace PurificationPioneer.Script
                                 {
                                     var angle =Vector3.Angle(force, dir);
                                     if ( Mathf.Abs(90-angle)< Mathf.Epsilon || !isDirValid)
-                                    {
+                                    {            
                                         flatRaycastHits.Add(hitInfo,(ppColliderHelper,force.normalized));
                                         return;
                                     }
@@ -180,9 +180,7 @@ namespace PurificationPioneer.Script
                                             {
                                                 if(!flatRaycastHits.Any(kv=>kv.Key.HasValue && kv.Key.Value.collider==tempOtherHit.collider))
                                                 {
-                                                    // Debug.LogWarning($"[{PpPhysics.physicsFrameId}][取消拦截-{tempOtherHit.collider.name}]");
-                                                    flatRaycastHits.Add(tempOtherHit,
-                                                        (ppColliderHelper, tempOtherHit.normal));
+                                                    flatRaycastHits.Add(tempOtherHit, (ppColliderHelper, tempOtherHit.normal));
                                                     breakAll = true;                                                    
                                                 }
                                             }

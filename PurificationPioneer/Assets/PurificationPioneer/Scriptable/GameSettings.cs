@@ -83,6 +83,15 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private int netMsgTimes = 2;
 
         public int NetMsgTimes => netMsgTimes;
+
+        #region AutoSelectLocalPlayer
+
+        [SerializeField] private bool _autoSelectLocalPlayer = true;
+
+        public bool AutoSelectLocalPlayer => _autoSelectLocalPlayer;
+
+        #endregion
+        
         
         #region CloseSocketOnAnyException
         [SerializeField] private bool closeSocketOnAnyException = true;
@@ -147,6 +156,15 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private bool enablePhysicsLog;
 
         public bool EnablePhysicsLog => enablePhysicsLog;
+
+        #endregion
+
+        #region EnableAILog
+
+
+        [SerializeField] private bool _enableAiLog;
+
+        public bool EnableAiLog => _enableAiLog;
 
         #endregion
         

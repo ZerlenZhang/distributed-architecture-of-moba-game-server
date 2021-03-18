@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+using BehaviorDesigner.Runtime;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Utility;
 using UnityEngine;
@@ -11,6 +11,7 @@ namespace PurificationPioneer.Script
 {
     public class DebugScript : MonoBehaviour
     {
+        public BehaviorTree ai;
         public Transform start;
         public Transform end;
         public LayerMask layerMask;
@@ -108,6 +109,12 @@ namespace PurificationPioneer.Script
         #endregion
         
         #endregion
+
+        [ContextMenu("DoBehavior")]
+        private void TickAi()
+        {
+            ai.EnableBehavior();
+        }
 
 
         [ContextMenu("测试HashSet")]
@@ -310,9 +317,5 @@ namespace PurificationPioneer.Script
                 Debug.Log(col.direction);
             }
         }
-        
-        
-        
-        
     }
 }

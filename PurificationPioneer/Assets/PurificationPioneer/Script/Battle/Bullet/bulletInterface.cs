@@ -22,12 +22,12 @@ namespace PurificationPioneer.Script
         bool IsBulletActivate(TBullet bullet);
 
         /// <summary>
-        /// 初始化字典状态
+        /// 根据Config初始化State
         /// </summary>
         /// <param name="bullet"></param>
         /// <param name="bulletState"></param>
         /// <param name="bulletConfig"></param>
-        void OnInitBulletState(TBullet bullet, TBulletState bulletState, TBulletConfig bulletConfig);
+        void OnInitBulletState(TBulletState bulletState, TBulletConfig bulletConfig);
 
         /// <summary>
         /// 每个渲染帧帧更新子弹状态

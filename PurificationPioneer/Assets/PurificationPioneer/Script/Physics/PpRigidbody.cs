@@ -14,7 +14,11 @@ namespace PurificationPioneer.Script
         public bool IsKinematic { get=>_isKinematic; set=>_isKinematic=value; }
         public bool UseGravity { get=>_useGravity; set=>_useGravity=value; }
         public float GravityScale { get=>_gravityScale; set=>_gravityScale=value; }
-        public Vector3 Velocity{ get=>_velocity; set => _velocity = value; }
+        public Vector3 Velocity
+        {
+            get=>_velocity;
+            set => _velocity = value;
+        }
 
         public Vector3 Acceleration { get=>_acceleration; }
         public Vector3 Position { get=>transform.position; set=>transform.position=value; }
@@ -284,9 +288,21 @@ namespace PurificationPioneer.Script
             }
         }
 
-        private void Move(Vector3 movement,PpPhysicsSimulateOptions options)
+        public float MaxMoveDistance(Vector3 movement, PpPhysicsSimulateOptions options)
         {
-            Position += movement.normalized * RigidbodyHelper.TryMoveDistance(movement,options,GameSettings.Instance.MinDetectableDistance);
+            return RigidbodyHelper.TryMoveDistance(movement, options, GameSettings.Instance.MinDetectableDistance);
+        }
+
+        public void Move(Vector3 movement,PpPhysicsSimulateOptions options)
+        {
+            var finalMove=movement.normalized * MaxMoveDistance(movement,options);
+
+            if (options == PpPhysicsSimulateOptions.BroadEvent)
+            {
+                // Debug.Log($"[Move][{PpPhysics.physicsFrameId}][{name}] move: {finalMove}, [src:{movement}][pos:{Position}]");
+                
+                Position += finalMove;
+            }
         }
 
         /// <summary>

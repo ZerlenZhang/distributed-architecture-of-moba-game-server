@@ -18,6 +18,7 @@ MonoBehaviour:
   maxUdpPackageSize: 65536
   maxWaitTime: 5000
   netMsgTimes: 1
+  _autoSelectLocalPlayer: 0
   closeSocketOnAnyException: 1
   enableSocketLog: 0
   enableProtoLog: 0
@@ -26,6 +27,7 @@ MonoBehaviour:
   enableBulletLog: 0
   _enableMoveLog: 0
   enablePhysicsLog: 0
+  _enableAiLog: 1
   matchPanelEaseType: 20
   matchPanelEaseTime: 1
   developerMode: 1

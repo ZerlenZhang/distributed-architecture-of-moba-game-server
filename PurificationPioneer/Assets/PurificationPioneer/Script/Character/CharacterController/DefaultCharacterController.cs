@@ -25,9 +25,8 @@ namespace PurificationPioneer.Script
                 AssetConstUtil.GetWeaponConfigKey(weaponId));
         }
 
-        protected override void OnAttack(int faceX,int faceY, int faceZ)
+        protected override void OnCommonAttack(int faceX,int faceY, int faceZ)
         {
-            base.OnAttack(faceX, faceY, faceZ);
             var currentTime = Time.realtimeSinceStartup;
             if (currentTime - lastAttackTime > attackMinDeltaTime)
             {

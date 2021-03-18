@@ -57,16 +57,15 @@ namespace PurificationPioneer.Scriptable
         public IPpController InstantiateAndInitialize(int seatId, Vector3 worldPosition, Transform parent=null)
         {
             Assert.IsTrue(prefab);
-            
-            var characterObj = Object.Instantiate(prefab, parent);
+
+            var characterObj = Object.Instantiate(prefab, worldPosition, prefab.transform.rotation, parent);
             Assert.IsTrue(characterObj);
             
             var ppController = characterObj.GetComponent<IPpController>();
             Assert.IsNotNull(ppController);
             
             //init settings
-            characterObj.transform.position = worldPosition;
-            ppController.InitCharacterController(seatId, worldPosition, this);
+            ppController.InitCharacterController(seatId, this);
             
             return ppController;
         }

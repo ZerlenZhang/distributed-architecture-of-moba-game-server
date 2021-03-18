@@ -105,6 +105,15 @@ namespace PurificationPioneer.Script
             }
             _rigidbodyHelpers.Clear();
         }
+
+        public static void ForeachPpRigidbody(Action<PpRigidbody> action)
+        {
+            foreach (var kv in _rigidbodyHelpers)
+            {
+                action(kv.Key);
+            }
+        }
+        
         #endregion
 
         #region 状态的保存和恢复

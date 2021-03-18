@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
@@ -8,12 +7,13 @@ using PurificationPioneer.Utility;
 using ReadyGamerOne.Attributes;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Utility;
-using UnityEngine;
 using UnityEngine.Assertions;
+using System.Text;
+using UnityEngine;
 
 namespace PurificationPioneer.Script
 {
-    public class PpCharacterController<T>:
+    public abstract class PpCharacterController<T>:
         MonoBehaviour,
         IPpController
         where T:class, IPpAnimator
@@ -67,10 +67,11 @@ namespace PurificationPioneer.Script
         /// </summary>
         /// <param name="seatId"></param>
         /// <param name="logicPos"></param>
-        public void InitCharacterController(int seatId, Vector3 logicPos, HeroConfigAsset config)
+        public void InitCharacterController(int seatId, HeroConfigAsset config)
         {
             Assert.IsTrue(cameraLookPoint && centerPoint);
             Assert.IsNotNull(config);
+            
             //帧同步回调初始化
             SeatId = seatId;
             HeroConfig = config;
@@ -104,7 +105,8 @@ namespace PurificationPioneer.Script
                 localCameraHelper.Init(transform,this.cameraLookPoint);
 
 #if UNITY_EDITOR
-                UnityEditor.Selection.activeInstanceID = this.gameObject.GetInstanceID();
+                if(GameSettings.Instance.AutoSelectLocalPlayer)
+                    UnityEditor.Selection.activeInstanceID = this.gameObject.GetInstanceID();
 #endif
             }
             else
@@ -116,10 +118,7 @@ namespace PurificationPioneer.Script
             }
         }
 
-        protected virtual void OnAttack(int faceX,int faceY, int faceZ)
-        {
-            
-        }
+        protected abstract void OnCommonAttack(int faceX, int faceY, int faceZ);
 
         protected virtual void OnJump()
         {
@@ -182,7 +181,7 @@ namespace PurificationPioneer.Script
 
                 if (playerInput.attack)
                 {
-                    OnAttack(this.face_x,this.face_y,this.face_z);
+                    OnCommonAttack(this.face_x,this.face_y,this.face_z);
                 }
 
                 if (playerInput.jump)

@@ -92,6 +92,7 @@ namespace PurificationPioneer.Script
     public class DirectionBulletState
     {
         private readonly PpRigidbodyState _rigidbodyState;
+        private readonly PpRigidbody _rigidbody;
         public DirectionBulletState(PpRigidbody rigidbody,Vector3 dir,Vector3 initPosition)
         {
             _rigidbody = rigidbody;
@@ -101,7 +102,6 @@ namespace PurificationPioneer.Script
             Direction = dir;
             Assert.IsNotNull(_rigidbodyState);
         }     
-        private readonly PpRigidbody _rigidbody;
 
         public Vector3 LogicPosition => _rigidbodyState.Position;
         private Vector3 RendererPosition
@@ -143,7 +143,7 @@ namespace PurificationPioneer.Script
             return frameSyncBullet.gameObject.activeSelf;
         }
 
-        public void OnInitBulletState(DirectionFrameSyncBullet bullet, DirectionBulletState bulletState,
+        public void OnInitBulletState(DirectionBulletState bulletState,
             DirectionBulletConfigAsset bulletConfig)
         {
             bulletState.Radius = bulletConfig.Radius;

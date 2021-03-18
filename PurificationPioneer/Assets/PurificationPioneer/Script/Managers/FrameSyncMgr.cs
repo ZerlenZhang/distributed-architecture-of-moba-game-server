@@ -72,6 +72,12 @@ namespace PurificationPioneer.Script
         }
 
         private static Vector3 _lastPosition;
+        
+        
+        private static bool isSimulating = false;
+
+        public static bool IsSimulating => isSimulating;
+
         #endregion
         private static float lastTickTime = 0;
         
@@ -116,7 +122,9 @@ namespace PurificationPioneer.Script
             //收集最近输入，发送到服务器
             SendLocalCharacterInput(msg.frameId);
 
+            isSimulating = true;
             PpPhysics.ApplyWorldState();
+            
             
             //同步上一帧处理结果
             if (null != _lastFrameEvent)
@@ -131,6 +139,7 @@ namespace PurificationPioneer.Script
                 SkipLogicFrame(logicFrame);
             }
             PpPhysics.SaveWorldState();
+            isSimulating = false;
             
             //更新客户端frameId
             _frameId = msg.frameId;
@@ -306,9 +315,6 @@ namespace PurificationPioneer.Script
                     inputs)
                     =>character.OnHandleCurrentCharacterInput(inputs));
             
-            ForeachFrameSyncUnits( 
-                unit => 
-                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));
         }
 
         /// <summary>
@@ -347,6 +353,9 @@ namespace PurificationPioneer.Script
                     character,
                     inputs)
                 =>character.SyncLastCharacterInput(inputs));
+            ForeachFrameSyncUnits( 
+                unit => 
+                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));
             PpPhysics.Simulate(GlobalVar.LogicFrameDeltaTime.ToFloat(),PpPhysicsSimulateOptions.BroadEvent);
 #if DebugMode
             if (GameSettings.Instance.EnableMoveLog)
