@@ -250,48 +250,6 @@ namespace PurificationPioneer.Script
                     Debug.Log(msg);                    
                 }
 #endif
-                //擦过的平面
-                foreach (var kv in flatRaycastHits)
-                {
-                    var otherHit = kv.Key;
-                    var selfColliderHelper = kv.Value.Item1;
-                    var normal = kv.Value.Item2;
-                    // Debug.LogWarning($"[{PpPhysics.physicsFrameId}] 正在擦过平面 [Other-{otherHit.Value.collider.name}][Length-{length}][Self-{_rigidbody.name}]");
-                    selfColliderHelper.AddCurrentCollision(new PpRaycastHit(otherHit));
-                    if (otherHit.Value.collider.TryGetPpColliderHelper(out var otherHelper))
-                    {
-                        otherHelper.AddCurrentCollision(new PpRaycastHit(closestOtherHit,selfColliderHelper.Collider,normal));
-                    }
-                }
-                // 记录碰撞信息
-                if (closestOtherHit.HasValue)
-                {
-                    closestSelfColliderHelper.AddCurrentCollision(new PpRaycastHit(closestOtherHit));
-                    if (closestOtherHit.Value.collider.TryGetPpColliderHelper(out var otherHelper))
-                    {
-                        otherHelper.AddCurrentCollision(new PpRaycastHit(closestOtherHit,closestSelfColliderHelper.Collider));
-                    }
-                }
-
-                
-                // 记录触发器信息
-                foreach (var collider in _selfTriggersAndColliders)
-                {
-                    var rigidbodyHelper = collider.GetHelper(this);
-                    collider.CastActionNoAlloc(dir,length,DetectLayer,_cache,
-                        hitInfo =>
-                        {
-                            if(!rigidbodyHelper.IsTrigger && !hitInfo.collider.isTrigger)
-                                return;
-
-                            rigidbodyHelper.AddCurrentTrigger(new PpRaycastHit(hitInfo));
-                            if (hitInfo.collider.TryGetPpColliderHelper(out var otherHelper))
-                            {
-                                otherHelper.AddCurrentTrigger(new PpRaycastHit(hitInfo,collider));
-                            }
-                            
-                        },_selfTriggersAndColliders);
-                }
             }
             
             return length;

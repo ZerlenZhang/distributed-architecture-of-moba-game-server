@@ -19,10 +19,8 @@ namespace PurificationPioneer.Scriptable
         public float Speed => _speed;
         [SerializeField] private float _radius;
         public float Radius => _radius;
-        [SerializeField] private BrushConfigAsset _brushConfig;   
-        public BrushConfigAsset BrushConfig => _brushConfig;        
 
-        
+
         public DirectionFrameSyncBullet InstantiateAndInitialize(Vector3 createPos, Vector3 direction)
         {
             var bulletObj = Object.Instantiate(prefab);

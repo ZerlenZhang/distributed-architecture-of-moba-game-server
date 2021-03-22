@@ -1,5 +1,4 @@
-﻿using Es.InkPainter;
-using PurificationPioneer.Global;
+﻿using PurificationPioneer.Global;
 using PurificationPioneer.Scriptable;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -25,15 +24,15 @@ namespace PurificationPioneer.Script
                 rig.RigidbodyHelper.CastAroundNoAlloc(
                     hitInfo =>
                     {
-                        var canvas = hitInfo.collider.GetComponent<InkCanvas>();
-                        if (canvas != null)
-                        {
-                            hit = true;
-                            // Debug.Log($"[BulletPos-{currentBulletState.LogicPosition}][HitPoint-{hitInfo.point}]");
-                            canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
-                            // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
-                        }else
-                            Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
+                        // var canvas = hitInfo.collider.GetComponent<InkCanvas>();
+                        // if (canvas != null)
+                        // {
+                        //     hit = true;
+                        //     // Debug.Log($"[BulletPos-{currentBulletState.LogicPosition}][HitPoint-{hitInfo.point}]");
+                        //     canvas.Paint(bulletConfig.BrushConfig.brush, hitInfo);
+                        //     // Debug.Log($"子弹碰到并涂色！：{hitInfo.collider.name}");
+                        // }else
+                        //     Debug.LogWarning($"子弹碰到但没有涂色：{hitInfo.collider.name}");
                     },attackLayer,currentBulletState.LogicPosition-rig.Position);
                 
                 // rig.RigidbodyHelper.RaycastNoAlloc(

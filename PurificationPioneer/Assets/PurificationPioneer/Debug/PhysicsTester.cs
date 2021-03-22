@@ -67,7 +67,7 @@ namespace PurificationPioneer
                 msg.Append($" [Collision]");
             if (showInteractType)
                 msg.Append($" [Enter]");
-            msg.Append($" {name} OnCollisionEnter: {other.collider.name}");
+            msg.Append($" {name} OnCollisionEnter: {other.collider.name}, Impulse:{other.impulse}");
             Debug.Log(msg);
         }
 
@@ -82,7 +82,7 @@ namespace PurificationPioneer
                 msg.Append($" [Collision]");
             if (showInteractType)
                 msg.Append($" [Stay]");
-            msg.Append($" {name} OnCollisionStay: {other.collider.name}");
+            msg.Append($" {name} OnCollisionStay: {other.collider.name}, impulse:{other.impulse}");
             Debug.Log(msg);
         }
 

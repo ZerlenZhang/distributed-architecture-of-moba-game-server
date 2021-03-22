@@ -125,10 +125,6 @@ namespace PurificationPioneer.Script
         
         #endregion
 
-        #region AddForce
-
-        #endregion
-
         #region Monobehaviors
         private void Start()
         {

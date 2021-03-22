@@ -6,6 +6,12 @@ using UnityEngine.Assertions;
 
 namespace PurificationPioneer.Script
 {
+
+    public interface IRigidbody
+    {
+        
+    }
+    
     public enum PpPhysicsSimulateOptions
     {
         BroadEvent,
