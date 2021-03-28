@@ -1,5 +1,6 @@
  using System;
  using PurificationPioneer.Scriptable;
+ using ReadyGamerOne.View;
  using UnityEngine;
 
  namespace PurificationPioneer.Script
@@ -43,6 +44,12 @@
 		private void FixedUpdate()
 		{
 			PpPhysics.Simulate(Time.fixedDeltaTime,PpPhysicsSimulateOptions.NoEvent);
+		}
+
+		protected override void OnAnySceneUnload()
+		{
+			base.OnAnySceneUnload();
+			PanelMgr.Clear();
 		}
 	}
 }

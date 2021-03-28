@@ -102,5 +102,21 @@ namespace PurificationPioneer.Script
                 Cursor.lockState = CursorLockMode.Locked;
 #endif
         }
+
+
+        private void OnDrawGizmos()
+        {
+            if (leftPoint)
+            {
+                Gizmos.color=Color.blue;
+                Gizmos.DrawWireSphere(leftPoint.position, generateRadius);
+            }
+
+            if (rightPoint)
+            {
+                Gizmos.color=Color.red;
+                Gizmos.DrawWireSphere(rightPoint.position, generateRadius);
+            }
+        }
     }
 }

@@ -29,5 +29,8 @@
         public const int StartStoryReq = 25;
         public const int StartStoryRes = 26;
         public const int StartMultiReq = 27;
+        public const int ExitGameReq = 28;
+        public const int ExitGameRes = 29;
+        public const int OnCharacterExitTick = 30;
     }
 }

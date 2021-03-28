@@ -14,6 +14,7 @@ namespace PurificationPioneer.View
         public MatchUi matchUi;
         public ItemBar coinBarInfo;
         public ItemBar diamondBarInfo;
+        public HomeOptionUi homeOptionUi;
         public Button playBtn;
         public Button settingBtn;
         public Button friendBtn;
@@ -22,6 +23,11 @@ namespace PurificationPioneer.View
         public Button chatBtn;
         public Button shopBtn;
         public GameObject roomTypeUi;
+
+        public void ShowOption()
+        {
+            homeOptionUi.SetVisible(true);
+        }
 
         public void ShowRoomTypeUi()
         {

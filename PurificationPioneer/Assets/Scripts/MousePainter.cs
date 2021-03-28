@@ -26,7 +26,7 @@ public class MousePainter : MonoBehaviour{
                 transform.position = hit.point;
                 Paintable p = hit.collider.GetComponent<Paintable>();
                 if(p != null){
-                    PaintManager.Instance.paint(p, hit.point, radius, hardness, strength, paintColor);
+                    PaintManager.Instance.Paint(p, hit.point, radius, hardness, strength, paintColor);
                 }
             }
         }

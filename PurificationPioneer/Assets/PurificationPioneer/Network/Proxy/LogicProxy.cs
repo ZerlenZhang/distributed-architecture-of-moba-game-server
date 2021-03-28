@@ -9,6 +9,7 @@ using PurificationPioneer.Script;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace PurificationPioneer.Network.Proxy
 {
@@ -24,6 +25,48 @@ namespace PurificationPioneer.Network.Proxy
         {
             switch (package.cmdType)
             {
+                #region LogicCmd.ExitGameRes
+                case LogicCmd.ExitGameRes:        
+                    var exitGameRes = CmdPackageProtocol.ProtobufDeserialize<ExitGameRes>(package.body);
+                    if (null == exitGameRes)
+                    {
+                        Debug.LogError($"ExitGameRes is null");
+                        return;
+                    }
+
+                    if (exitGameRes.status != Response.Ok)
+                        return;
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[ExitGameRes] 退出比赛");
+#endif
+
+                    SceneManager.LoadScene(SceneName.Welcome);
+                    Debug.Log($"[ExitGameRes] 退出比赛");
+                    
+                    break;
+                
+                #endregion
+
+                #region LogicCmd.OnCharacterExitTick
+
+                    
+                case LogicCmd.OnCharacterExitTick:   
+                    var onCharacterExit = CmdPackageProtocol.ProtobufDeserialize<OnCharacterExitTick>(package.body);
+                    if (null == onCharacterExit)
+                    {
+                        Debug.LogError($"OnCharacterExitTick is null");
+                        return;
+                    }
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[OnCharacterExitTick] 玩家{GlobalVar.SeatId_MatcherInfo[onCharacterExit.seatId].Unick}退出比赛");
+#endif
+                    Debug.Log($" 玩家{GlobalVar.SeatId_MatcherInfo[onCharacterExit.seatId].Unick}退出比赛");
+                    break;
+
+                #endregion
+
                 #region LogicCmd.StartStoryRes
                 
                 case LogicCmd.StartStoryRes:
@@ -487,6 +530,20 @@ namespace PurificationPioneer.Network.Proxy
                 ServiceType.Logic,
                 LogicCmd.NextFrameInput,
                 nextFrameInput);
+        }
+
+
+        /// <summary>
+        /// 尝试退出游戏
+        /// </summary>
+        /// <param name="uname"></param>
+        public void TryExitGame(string uname)
+        {
+            var exitGameReq = new ExitGameReq
+            {
+                uname = uname
+            };
+            NetworkMgr.Instance.TcpSendProtobuf(ServiceType.Logic, LogicCmd.ExitGameReq, exitGameReq);
         }
     }
 }

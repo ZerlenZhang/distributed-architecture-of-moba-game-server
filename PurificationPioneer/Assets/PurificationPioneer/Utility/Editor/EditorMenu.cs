@@ -19,6 +19,7 @@ namespace PurificationPioneer.Utility
                 {
                     var currentScene = SceneManager.GetActiveScene();
                     var lastScenePath = EditorPrefs.GetString(PrefUtil.LastScenePathKey);
+                    EditorPrefs.SetBool(PrefUtil.ShouldRefreshSceneKey, false);
                     if (!string.IsNullOrEmpty(lastScenePath) && lastScenePath != currentScene.path)
                     {
                         EditorSceneManager.OpenScene(lastScenePath, OpenSceneMode.Single);
@@ -27,7 +28,7 @@ namespace PurificationPioneer.Utility
             };
         }
         
-        [MenuItem("净化先锋/从Welcome场景启动 &P")]
+        [MenuItem("净化先锋/从Welcome场景启动 &#P")]
         private static void EnterPlayerMode()
         {
             if (Application.isPlaying)

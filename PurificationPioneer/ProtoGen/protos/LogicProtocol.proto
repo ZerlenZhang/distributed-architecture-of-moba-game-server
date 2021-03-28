@@ -130,3 +130,16 @@ message StartGameRes{
 message InitUdpReq{
     required string uname = 1;
 }
+
+message ExitGameReq{
+    required string uname = 1;
+}
+
+message ExitGameRes{
+    required int32 status = 1;
+}
+
+message OnCharacterExitTick
+{
+    required int32 seatId = 1;
+}

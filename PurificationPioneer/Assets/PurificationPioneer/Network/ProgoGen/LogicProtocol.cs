@@ -659,4 +659,55 @@ namespace PurificationPioneer.Network.ProtoGen
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ExitGameReq")]
+  public partial class ExitGameReq : global::ProtoBuf.IExtensible
+  {
+    public ExitGameReq() {}
+    
+    private string _uname;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"uname", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string uname
+    {
+      get { return _uname; }
+      set { _uname = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ExitGameRes")]
+  public partial class ExitGameRes : global::ProtoBuf.IExtensible
+  {
+    public ExitGameRes() {}
+    
+    private int _status;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"OnCharacterExitTick")]
+  public partial class OnCharacterExitTick : global::ProtoBuf.IExtensible
+  {
+    public OnCharacterExitTick() {}
+    
+    private int _seatId;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"seatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int seatId
+    {
+      get { return _seatId; }
+      set { _seatId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }

@@ -14,6 +14,8 @@ namespace PurificationPioneer.Global
 	{
 		#region UserInfo
 
+		public static bool IsUserLoginIn { get; private set; }
+
 		public static string Uname{ get; private set; }
 		public static string Unick{ get; private set; }
 		public static int Ucoin{ get; private set; }
@@ -26,6 +28,7 @@ namespace PurificationPioneer.Global
 		public static List<int> HeroIds{ get; private set; }
 		public static void SaveUserInfo(UserAccountInfo uinfo)
 		{
+			IsUserLoginIn = true;
 			Uname = uinfo.uname;
 			Unick = uinfo.unick;
 			Ucoin = uinfo.ucoin;

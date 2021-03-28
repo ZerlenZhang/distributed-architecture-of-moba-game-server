@@ -97,7 +97,7 @@ namespace ReadyGamerOne.View
             load_all_object(m_TransFrom.gameObject,"");
         }
 
-        public Dictionary<string, GameObject> view = new Dictionary<string, GameObject>();
+        private Dictionary<string, GameObject> view = new Dictionary<string, GameObject>();
 
         void load_all_object(GameObject root, string path) {
             foreach (Transform tf in root.transform) {

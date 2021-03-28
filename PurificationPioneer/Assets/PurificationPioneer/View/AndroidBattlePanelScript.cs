@@ -9,11 +9,18 @@ namespace PurificationPioneer.View
         public Joystick joystick;
         public AndroidBattleHeroStateUi heroStateUi;
         public AndroidBattleAttackBtnAreaUi heroAttackBtnUi;
+        public BattleOptionUi battleOptionUi;
 
         public void Init()
         {
             heroStateUi.Init();
             heroAttackBtnUi.Init();
+            battleOptionUi.SetVisible(false);
+        }
+        
+        public void ShowOptions()
+        {
+            battleOptionUi.SetVisible(true);
         }
     }
 }

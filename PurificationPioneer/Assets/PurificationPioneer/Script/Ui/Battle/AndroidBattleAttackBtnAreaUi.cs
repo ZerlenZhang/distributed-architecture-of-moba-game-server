@@ -30,7 +30,8 @@ namespace PurificationPioneer.Script
                 () => InputMgr.heroSecondSkill = true);
 
             weaponCommonAttackSlotUi.Init(localWeaponConfig.commonAttack,
-                () => InputMgr.attack = true);
+                () => InputMgr.attack = true,
+                continueTrigger:true);
             
             weaponFirstSkillSlotUi.Init(localWeaponConfig.firstSkill,
                 () => InputMgr.weaponFirstSkill = true);

@@ -1,4 +1,5 @@
 ﻿using PurificationPioneer.Const;
+using PurificationPioneer.Global;
 using ReadyGamerOne.View;
 
 namespace PurificationPioneer.Script
@@ -9,11 +10,18 @@ namespace PurificationPioneer.Script
         {
             base.Start();
 
+            if (!GlobalVar.IsUserLoginIn)
+            {
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
-            PanelMgr.PushPanel(PanelName.WelcomePanel);
+                PanelMgr.PushPanel(PanelName.WelcomePanel);
 #elif UNITY_ANDROID
-            PanelMgr.PushPanel(PanelName.DebugPanel);
+                PanelMgr.PushPanel(PanelName.DebugPanel);
 #endif
+            }
+            else
+            {
+                PanelMgr.PushPanel(PanelName.HomePanel);
+            }
         }
     }
 }

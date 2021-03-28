@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using PurificationPioneer.Scriptable;
+using ReadyGamerOne.Script;
+using ReadyGamerOne.Utility;
+using UnityEngine.EventSystems;
 
 namespace PurificationPioneer.Script
 {
@@ -21,18 +24,42 @@ namespace PurificationPioneer.Script
 
         private bool startWork = false;
 
-        public void Init(SkillConfigAsset skillConfig, Action skill,Func<bool> skillTrigger=null)
+        private bool m_TriggerSkillByContinue = false;
+
+        public void Init(SkillConfigAsset skillConfig, Action skill, Func<bool> ifUseSkill = null,
+            bool continueTrigger = false)
         {
             image.gameObject.SetActive(true);
             image.sprite = skillConfig.icon;
             count.text = "0";
-            this.skillTrigger = skillTrigger;
+            this.skillTrigger = ifUseSkill;
             this.cd = skillConfig.cd;
             this.maxCount = skillConfig.maxCount;
             if (this.maxCount == 1)
                 this.count.gameObject.SetActive(false);
             onUseSkill = skill;
             startWork = true;
+
+            if (continueTrigger)
+            {
+                var uiHelper = image.GetOrAddComponent<UIInputer>();
+                uiHelper.eventOnPointerDown -= OnTriggerSkill;
+                uiHelper.eventOnPointerDown += OnTriggerSkill;
+
+                uiHelper.eventOnPointerUp -= OnFinishSkill;
+                uiHelper.eventOnPointerUp += OnFinishSkill;
+            }
+
+
+            void OnTriggerSkill(PointerEventData evt)
+            {
+                m_TriggerSkillByContinue = true;
+            }
+
+            void OnFinishSkill(PointerEventData evt)
+            {
+                m_TriggerSkillByContinue = false;
+            }
         }
 
         public void UseSkill()
@@ -50,6 +77,11 @@ namespace PurificationPioneer.Script
 
             if (skillTrigger!=null && skillTrigger())
                 UseSkill();
+
+            if (m_TriggerSkillByContinue)
+            {
+                UseSkill();
+            }
             
             if (CurrentCount == maxCount)
                 return;

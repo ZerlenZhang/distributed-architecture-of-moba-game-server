@@ -215,11 +215,13 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private KeyCode _heroSecondSkillKey = KeyCode.E;
         [SerializeField] private KeyCode _weaponFirstSkillKey = KeyCode.Mouse1;
         [SerializeField] private KeyCode _weaponSecondSkillKey = KeyCode.R;
-        
+        [SerializeField] private KeyCode _battleOptionKey = KeyCode.Escape;
+
         [SerializeField] private KeyCode _gameStateKey = KeyCode.Tab;
         [SerializeField] private Vector2 _cameraControlRectX = new Vector2(0.3f, 0.8f);
         [SerializeField] private Vector2 _cameraControlRectY = new Vector2(0.3f, 1);
-
+        
+        
         public Vector2 CameraControlRectX => _cameraControlRectX;
         public Vector2 CameraControlRectY => _cameraControlRectY;
         public KeyCode AttackKey => _attackKey;
@@ -231,6 +233,8 @@ namespace PurificationPioneer.Scriptable
         public KeyCode WeaponFirstSkillKey => _weaponFirstSkillKey;
 
         public KeyCode WeaponSecondSkillKey => _weaponSecondSkillKey;
+
+        public KeyCode BattleOptionKey => _battleOptionKey;
         public KeyCode GameStateKey => _gameStateKey;
 
         public KeyCode JumpKey => _jumpKey;
@@ -263,14 +267,6 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private float _minDetectableDistance = 0.001f;
 
         public float MinDetectableDistance => _minDetectableDistance;
-
-        #endregion
-
-        #region Painting
-
-        [Header("Painting")] [SerializeField]private float _brushScaler = 10.0f;
-
-        public float BrushScaler => _brushScaler;
 
         #endregion
     }

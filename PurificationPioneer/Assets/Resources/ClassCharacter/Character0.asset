@@ -24,8 +24,10 @@ MonoBehaviour:
   increaseDefence: 0
   basePaintEfficiency: 100
   increasePaintEfficiency: 10
-  firstSkill: {fileID: 0}
-  secondSkill: {fileID: 0}
+  jumpSpeed: 10
+  firstSkill: {fileID: 11400000, guid: 5674498c2219234428040e7ecffcf5f7, type: 2}
+  secondSkill: {fileID: 11400000, guid: 770a4df8850f3484ebe0bc3d2f52bb80, type: 2}
+  heroName: 
   stroy0: 
   stroy1: 
   stroy2: 

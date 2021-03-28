@@ -19,6 +19,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using ReadyGamerOne.Common;
 #if UNITY_CHANGE3
 using UnityEngine.SceneManagement;
 #endif
@@ -71,7 +72,7 @@ public class Images
 //or your finger (touch and drag) on the screen to show all these logs
 //no coding is required 
 
-public class Reporter : MonoBehaviour
+public class Reporter : GlobalMonoSingleton<Reporter>
 {
 
 	public enum _LogType
@@ -298,15 +299,17 @@ public class Reporter : MonoBehaviour
 #endif
 	string systemMemorySize;
 
-	void Awake()
+	protected override void OnStateIsNull()
 	{
+		base.OnStateIsNull();
 		if (!Initialized)
 			Initialize();
 
 #if UNITY_CHANGE3
-        SceneManager.sceneLoaded += _OnLevelWasLoaded;
+		SceneManager.sceneLoaded += _OnLevelWasLoaded;
 #endif
-    }
+	}
+	
 
     private void OnDestroy()
     {
@@ -360,7 +363,6 @@ public class Reporter : MonoBehaviour
 			scenes = new string[Application.levelCount];
 			currentScene = Application.loadedLevelName;
 #endif
-			DontDestroyOnLoad(gameObject);
 #if UNITY_CHANGE1
 			Application.RegisterLogCallback (new Application.LogCallback (CaptureLog));
 			Application.RegisterLogCallbackThreaded (new Application.LogCallback (CaptureLogThread));
@@ -450,7 +452,6 @@ public class Reporter : MonoBehaviour
 		maxTextureSize = SystemInfo.maxTextureSize.ToString();
 #endif
 		systemMemorySize = SystemInfo.systemMemorySize.ToString();
-
 	}
 
 	void initializeStyle()

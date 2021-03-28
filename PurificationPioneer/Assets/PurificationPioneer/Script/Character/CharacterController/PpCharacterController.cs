@@ -60,6 +60,12 @@ namespace PurificationPioneer.Script
 
         #endregion
 
+#if DebugMode
+        private float timer = 0;
+        private float time = 1;
+        private Vector3 lastPosition;
+#endif
+
         #region public API
 
         /// <summary>
@@ -84,8 +90,11 @@ namespace PurificationPioneer.Script
             
             InitCharacter(GlobalVar.LocalSeatId==SeatId);
 
+#if DebugMode
             //debug
             lastPosition = transform.position;
+            
+#endif
         }        
 
         #endregion
@@ -305,9 +314,6 @@ namespace PurificationPioneer.Script
 #endif
         }
 
-        private Vector3 lastPosition;
-        private float timer = 0;
-        private float time = 1;
 
         /// <summary>
         /// 根据stick_x和stick_y，移动deltaTime这么长时间

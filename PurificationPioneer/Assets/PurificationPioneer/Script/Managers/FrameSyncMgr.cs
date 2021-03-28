@@ -136,6 +136,7 @@ namespace PurificationPioneer.Script
                 var logicFrame = msg.unsyncFrames[i];
                 if(logicFrame.frameId<=_frameId)
                     continue;
+                _frameId = msg.frameId;
                 SkipLogicFrame(logicFrame);
             }
             PpPhysics.SaveWorldState();

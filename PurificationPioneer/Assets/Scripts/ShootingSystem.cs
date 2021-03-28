@@ -1,45 +1,94 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
+using PurificationPioneer.Global;
+using PurificationPioneer.Script;
+using PurificationPioneer.Utility;
+using Unity.Collections;
+using UnityEngine.Assertions;
 
 public class ShootingSystem : MonoBehaviour
 {
-
-    MovementInput input;
-
+    [SerializeField] private int MaxParticleCount = 75;
+    [HideInInspector] public bool m_WorkAsLocal = true;
     [SerializeField] ParticleSystem inkParticle;
     [SerializeField] Transform parentController;
     [SerializeField] Transform splatGunNozzle;
-    [SerializeField] CinemachineFreeLook freeLookCamera;
+    [SerializeField] CinemachineFreeLook m_FreeLookCamera;
     CinemachineImpulseSource impulseSource;
 
-    void Start()
+    private bool m_Init = false;
+    private Func<bool> m_IfAttack;
+    private Action<Transform> m_RotateCamera;
+    private bool m_LastAttackState = false;
+    private int startFrameId;
+
+    public void Initialize(Func<bool> ifAttack,bool workAsLocal=false)
     {
-        input = GetComponent<MovementInput>();
-        impulseSource = freeLookCamera.GetComponent<CinemachineImpulseSource>();
+        m_Init = true;
+        m_IfAttack = ifAttack;
+        m_WorkAsLocal = workAsLocal;
+
+        foreach (var particlesController in GetComponentsInChildren<ParticlesController>())
+        {
+            particlesController.workAsLocal = workAsLocal;
+        }
+
+        Assert.IsNotNull(m_IfAttack);
+    }
+    
+    public void Initialize(Func<bool> ifAttack,bool workAsLocal,CinemachineFreeLook camera, Action<Transform> rotateCamera)
+    {
+        Initialize(ifAttack,workAsLocal);
+        m_FreeLookCamera = camera;
+        m_RotateCamera = rotateCamera;
+        impulseSource = m_FreeLookCamera.GetComponent<CinemachineImpulseSource>();
+        Assert.IsTrue(m_FreeLookCamera && impulseSource);
     }
 
     void Update()
     {
+        if (!m_Init)
+            return;
+        
         Vector3 angle = parentController.localEulerAngles;
-        input.blockRotationPlayer = Input.GetMouseButton(0);
-        bool pressing = Input.GetMouseButton(0);
 
-        if (Input.GetMouseButton(0))
+        var currentAttackState = m_IfAttack();
+        if (currentAttackState)
         {
             VisualPolish();
-            input.RotateToCamera(transform);
+
+            m_RotateCamera?.Invoke(transform);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (!m_LastAttackState && currentAttackState)
+        {
+            startFrameId = FrameSyncMgr.FrameId;
             inkParticle.Play();
-        else if (Input.GetMouseButtonUp(0))
+        }
+        else if (m_LastAttackState && !currentAttackState)
+        {
             inkParticle.Stop();
+        }
 
-        parentController.localEulerAngles
-            = new Vector3(Mathf.LerpAngle(parentController.localEulerAngles.x, pressing ? RemapCamera(freeLookCamera.m_YAxis.Value, 0, 1, -25, 25) : 0, .3f), angle.y, angle.z);
+        m_LastAttackState = currentAttackState;
+
+
+        if (m_FreeLookCamera)
+        {
+            parentController.localEulerAngles
+                = new Vector3(
+                    Mathf.LerpAngle(
+                        parentController.localEulerAngles.x, 
+                        currentAttackState 
+                            ? RemapCamera(m_FreeLookCamera.m_YAxis.Value, 0, 1, -25, 25) 
+                            : 0, 
+                        .3f), 
+                    angle.y,
+                    angle.z);            
+        }
+
     }
 
     void VisualPolish()
@@ -52,7 +101,7 @@ public class ShootingSystem : MonoBehaviour
             parentController.DOLocalMove(localPos - new Vector3(0, 0, .2f), .03f)
                 .OnComplete(() => parentController.DOLocalMove(localPos, .1f).SetEase(Ease.OutSine));
 
-           impulseSource.GenerateImpulse();
+           impulseSource?.GenerateImpulse();
         }
 
         if (!DOTween.IsTweening(splatGunNozzle))
@@ -65,5 +114,56 @@ public class ShootingSystem : MonoBehaviour
     float RemapCamera(float value, float from1, float to1, float from2, float to2)
     {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+    }
+
+    private bool saved = false;
+    private ParticleSystem.PlaybackState m_PlaybackState;
+    private ParticleSystem.Trails m_Trails;
+    private ParticleSystem.Particle[] m_Particles;
+
+    private ParticleSystem.Particle[] particles
+    {
+        get
+        {
+            if (null == m_Particles)
+            {
+                m_Particles = new ParticleSystem.Particle[MaxParticleCount];
+            }
+
+            return m_Particles;
+        }
+    }
+
+    private int m_ValidParticleCount;
+    public void SaveState()
+    {
+        saved = true;
+        if (!m_LastAttackState)
+            return;
+        m_PlaybackState = inkParticle.GetPlaybackState();
+        m_Trails = inkParticle.GetTrails();
+        m_ValidParticleCount = inkParticle.GetParticles(particles, MaxParticleCount);
+    }
+
+    public void ApplyAndSimulate()
+    {
+        if (!saved)
+            return;
+        saved = false;
+        if (!m_LastAttackState)
+            return;
+        try
+        {
+            inkParticle.SetTrails(m_Trails);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        inkParticle.SetPlaybackState(m_PlaybackState);
+        inkParticle.SetParticles(particles,m_ValidParticleCount);
+        inkParticle.Simulate((FrameSyncMgr.FrameId-startFrameId)*GlobalVar.LogicFrameDeltaTime.ToFloat());
+        inkParticle.Play(true);
     }
 }

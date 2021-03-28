@@ -45,7 +45,8 @@ public class MovementInput : MonoBehaviour {
 		controller = this.GetComponent<CharacterController> ();
 	}
 	
-	void Update () {
+	void Update () 
+	{
 
 		InputMagnitude ();
 
@@ -57,37 +58,63 @@ public class MovementInput : MonoBehaviour {
 
         moveVector = new Vector3(0, verticalVel * .2f * Time.deltaTime, 0);
         controller.Move(moveVector);
+        
+        
+		void InputMagnitude() {
+			//Calculate Input Vectors
+			InputX = Input.GetAxis ("Horizontal");
+			InputZ = Input.GetAxis ("Vertical");
+
+			//Calculate the Input Magnitude
+			Speed = new Vector2(InputX, InputZ).sqrMagnitude;
+
+			//Change animation mode if rotation is blocked
+			anim.SetBool("shooting", blockRotationPlayer);
+
+			//Physically move player
+			if (Speed > allowPlayerRotation) {
+				anim.SetFloat ("Blend", Speed, StartAnimTime, Time.deltaTime);
+				anim.SetFloat("X", InputX, StartAnimTime/3, Time.deltaTime);
+				anim.SetFloat("Y", InputZ, StartAnimTime/3, Time.deltaTime);
+				PlayerMoveAndRotation ();
+			} else if (Speed < allowPlayerRotation) {
+				anim.SetFloat ("Blend", Speed, StopAnimTime, Time.deltaTime);
+				anim.SetFloat("X", InputX, StopAnimTime/ 3, Time.deltaTime);
+				anim.SetFloat("Y", InputZ, StopAnimTime/ 3, Time.deltaTime);
+			}
+			
+			
+			void PlayerMoveAndRotation() 
+			{
+				InputX = Input.GetAxis("Horizontal");
+				InputZ = Input.GetAxis("Vertical");
+
+				var forward = cam.transform.forward;
+				var right = cam.transform.right;
+
+				forward.y = 0f;
+				right.y = 0f;
+
+				forward.Normalize();
+				right.Normalize();
+
+				desiredMoveDirection = forward * InputZ + right * InputX;
+
+				if (blockRotationPlayer == false) {
+					//Camera
+					transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), desiredRotationSpeed);
+					controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
+				}
+				else
+				{
+					//Strafe
+					controller.Move((transform.forward * InputZ + transform.right  * InputX) * Time.deltaTime * Velocity);
+				}
+			}
+		}
     }
 
-	void PlayerMoveAndRotation() {
-		InputX = Input.GetAxis("Horizontal");
-		InputZ = Input.GetAxis("Vertical");
-
-		var camera = Camera.main;
-		var forward = cam.transform.forward;
-		var right = cam.transform.right;
-
-		forward.y = 0f;
-		right.y = 0f;
-
-		forward.Normalize();
-		right.Normalize();
-
-		desiredMoveDirection = forward * InputZ + right * InputX;
-
-		if (blockRotationPlayer == false) {
-			//Camera
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), desiredRotationSpeed);
-			controller.Move(desiredMoveDirection * Time.deltaTime * Velocity);
-		}
-		else
-		{
-			//Strafe
-			controller.Move((transform.forward * InputZ + transform.right  * InputX) * Time.deltaTime * Velocity);
-		}
-	}
-
-    public void LookAt(Vector3 pos)
+	public void LookAt(Vector3 pos)
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(pos), desiredRotationSpeed);
     }
@@ -103,27 +130,4 @@ public class MovementInput : MonoBehaviour {
 		t.rotation = Quaternion.Slerp(transform.rotation, lookAtRotationOnly_Y, desiredRotationSpeed);
 	}
 
-	void InputMagnitude() {
-		//Calculate Input Vectors
-		InputX = Input.GetAxis ("Horizontal");
-		InputZ = Input.GetAxis ("Vertical");
-
-		//Calculate the Input Magnitude
-		Speed = new Vector2(InputX, InputZ).sqrMagnitude;
-
-		//Change animation mode if rotation is blocked
-		anim.SetBool("shooting", blockRotationPlayer);
-
-		//Physically move player
-		if (Speed > allowPlayerRotation) {
-			anim.SetFloat ("Blend", Speed, StartAnimTime, Time.deltaTime);
-			anim.SetFloat("X", InputX, StartAnimTime/3, Time.deltaTime);
-			anim.SetFloat("Y", InputZ, StartAnimTime/3, Time.deltaTime);
-			PlayerMoveAndRotation ();
-		} else if (Speed < allowPlayerRotation) {
-			anim.SetFloat ("Blend", Speed, StopAnimTime, Time.deltaTime);
-			anim.SetFloat("X", InputX, StopAnimTime/ 3, Time.deltaTime);
-			anim.SetFloat("Y", InputZ, StopAnimTime/ 3, Time.deltaTime);
-		}
-	}
 }
