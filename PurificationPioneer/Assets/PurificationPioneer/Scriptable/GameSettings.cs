@@ -269,5 +269,16 @@ namespace PurificationPioneer.Scriptable
         public float MinDetectableDistance => _minDetectableDistance;
 
         #endregion
+
+        #region GamePlay
+
+        [Header("GamePlay")]
+        [SerializeField] private Material m_LeftMaterial;
+        [SerializeField] private Material m_RightMaterial;
+
+        public Material LeftMaterial => m_LeftMaterial;
+        public Material RightMaterial => m_RightMaterial;
+        #endregion
+
     }
 }

@@ -94,7 +94,8 @@ namespace PurificationPioneer.Script
                     () => Input.GetMouseButton(0),
                     true,
                     localCameraHelper.vcam,
-                    RotateToCamera);
+                    RotateToCamera,
+                    GameSettings.Instance.LeftMaterial);
             }
         }
 
@@ -426,7 +427,10 @@ namespace PurificationPioneer.Script
                     () => m_Attack,
                     false,
                     localCameraHelper.vcam,
-                    RotateToCamera);
+                    RotateToCamera,
+                    GlobalVar.LocalSeatId % 2==0
+                    ? GameSettings.Instance.LeftMaterial
+                    : GameSettings.Instance.RightMaterial);
 
 #if UNITY_EDITOR
                 if(GameSettings.Instance.AutoSelectLocalPlayer)

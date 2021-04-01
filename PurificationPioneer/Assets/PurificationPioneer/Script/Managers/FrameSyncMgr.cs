@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
+using ReadyGamerOne.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Object = UnityEngine.Object;
@@ -79,6 +81,8 @@ namespace PurificationPioneer.Script
         public static bool IsSimulating => isSimulating;
 
         #endregion
+        
+        
         private static float lastTickTime = 0;
         
         /// <summary>
@@ -144,6 +148,7 @@ namespace PurificationPioneer.Script
             
             //更新客户端frameId
             _frameId = msg.frameId;
+            CEventCenter.BroadMessage(Message.OnTimeLosing, LeftSecond);
             
             //根据最后一帧，控制接下来的显示逻辑
             _lastFrameEvent = msg.unsyncFrames.Last();
@@ -237,6 +242,11 @@ namespace PurificationPioneer.Script
                                      (int)((Time.timeSinceLevelLoad - lastTickTime)*1000);
 
         #endregion
+
+        public static int TickCountPerSecond => 1000 / GlobalVar.LogicFrameDeltaTime;
+        public static int AllTick => GlobalVar.GameTime * TickCountPerSecond;
+        public static int LeftTick => AllTick - FrameId;
+        public static int LeftSecond => GlobalVar.GameTime - FrameId / TickCountPerSecond;
         
         #region Private
 

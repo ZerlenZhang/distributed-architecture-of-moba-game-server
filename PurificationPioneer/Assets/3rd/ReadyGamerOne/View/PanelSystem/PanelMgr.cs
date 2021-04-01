@@ -77,13 +77,13 @@ namespace ReadyGamerOne.View
         /// <param name="abstractScreenEffect"></param>
         public static void PushPanel(string panelName, AbstractTransition transition,
             AbstractScreenEffect abstractScreenEffect)
+        
         {
             var panel = AbstractPanel.GetPanel(panelName);
             transition.onBegin += abstractScreenEffect.OnBegin;
             transition.PushPanel(panel);
             panelStack.Push(panel);
         }
-        
 
         #region 加载Panel，同时广播一条消息
         public static void PushPanelWithMessage(string panelName, string message)

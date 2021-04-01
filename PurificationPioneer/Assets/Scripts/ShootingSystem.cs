@@ -16,6 +16,9 @@ public class ShootingSystem : MonoBehaviour
     [SerializeField] Transform parentController;
     [SerializeField] Transform splatGunNozzle;
     [SerializeField] CinemachineFreeLook m_FreeLookCamera;
+
+    [SerializeField] private ParticleSystem[] particleSystems;
+    
     CinemachineImpulseSource impulseSource;
 
     private bool m_Init = false;
@@ -24,7 +27,7 @@ public class ShootingSystem : MonoBehaviour
     private bool m_LastAttackState = false;
     private int startFrameId;
 
-    public void Initialize(Func<bool> ifAttack,bool workAsLocal=false)
+    public void Initialize(Func<bool> ifAttack,bool workAsLocal=false, Material paintMaterial=null)
     {
         m_Init = true;
         m_IfAttack = ifAttack;
@@ -33,18 +36,34 @@ public class ShootingSystem : MonoBehaviour
         foreach (var particlesController in GetComponentsInChildren<ParticlesController>())
         {
             particlesController.workAsLocal = workAsLocal;
+            if (paintMaterial)
+            {
+                particlesController.paintColor = paintMaterial.color;
+            }
         }
 
         Assert.IsNotNull(m_IfAttack);
     }
     
-    public void Initialize(Func<bool> ifAttack,bool workAsLocal,CinemachineFreeLook camera, Action<Transform> rotateCamera)
+    public void Initialize(Func<bool> ifAttack,bool workAsLocal,CinemachineFreeLook camera, Action<Transform> rotateCamera, Material paintMaterial)
     {
-        Initialize(ifAttack,workAsLocal);
+        Initialize(ifAttack,workAsLocal,paintMaterial);
         m_FreeLookCamera = camera;
         m_RotateCamera = rotateCamera;
         impulseSource = m_FreeLookCamera.GetComponent<CinemachineImpulseSource>();
-        Assert.IsTrue(m_FreeLookCamera && impulseSource);
+        Assert.IsTrue(m_FreeLookCamera && impulseSource && paintMaterial);
+        if (particleSystems != null)
+        {
+            foreach (var system in particleSystems)
+            {
+                var psr = system.GetComponent<ParticleSystemRenderer>();
+                if (psr.enabled)
+                {
+                    psr.material = paintMaterial;
+                    psr.trailMaterial = paintMaterial;
+                }
+            }
+        }
     }
 
     void Update()

@@ -1,6 +1,9 @@
-﻿using PurificationPioneer.Script;
+﻿using PurificationPioneer.Const;
+using PurificationPioneer.Script;
+using ReadyGamerOne.Common;
 using ReadyGamerOne.Script;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PurificationPioneer.View
 {
@@ -10,6 +13,7 @@ namespace PurificationPioneer.View
         public AndroidBattleHeroStateUi heroStateUi;
         public AndroidBattleAttackBtnAreaUi heroAttackBtnUi;
         public BattleOptionUi battleOptionUi;
+        public Text timeText;
 
         public void Init()
         {
@@ -17,6 +21,25 @@ namespace PurificationPioneer.View
             heroAttackBtnUi.Init();
             battleOptionUi.SetVisible(false);
         }
+        
+        
+        private void OnEnable()
+        {
+            CEventCenter.AddListener<int>(Message.OnTimeLosing, OnTimeLosing);
+        }
+
+        private void OnDisable()
+        {
+            CEventCenter.RemoveListener<int>(Message.OnTimeLosing, OnTimeLosing);
+        }
+
+
+        private void OnTimeLosing(int leftSeconds)
+        {
+            timeText.text = $"{leftSeconds / 60}:{leftSeconds % 60}";
+        }
+
+        
         
         public void ShowOptions()
         {
