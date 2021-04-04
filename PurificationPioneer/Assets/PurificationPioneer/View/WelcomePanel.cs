@@ -3,6 +3,7 @@ using PurificationPioneer.Global;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.View;
+using UnityEngine.SceneManagement;
 
 namespace PurificationPioneer.View
 {
@@ -20,6 +21,11 @@ namespace PurificationPioneer.View
 			{
 				script.account.text = GameSettings.Instance.DebugAccount;
 				script.password.text = GameSettings.Instance.DebugPassword;
+			}
+			else
+			{
+				script.account.text = GlobalPref.Account;
+				script.password.text = GlobalPref.Pwd;
 			}
 #else
 			script.account.text = GlobalPref.Account;
@@ -43,7 +49,7 @@ namespace PurificationPioneer.View
 		
 		private void OnUserLogin()
 		{
-			PanelMgr.PushPanel(PanelName.HomePanel);
+			SceneManager.LoadScene(SceneName.Home);
 		}
 	}
 }

@@ -77,8 +77,7 @@ namespace PurificationPioneer.Script
         {
             if (m_WorkAsLocal)
             {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                UnityAPI.LockMouse();
                 
                 m_Animator = this.GetComponent<Animator> ();
                 m_CharacterController = this.GetComponent<CharacterController> ();

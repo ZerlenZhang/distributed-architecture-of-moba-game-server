@@ -5,6 +5,7 @@ namespace PurificationPioneer.Const
 		public static readonly string AndroidBattlePanel = @"AndroidBattlePanel";
 		public static readonly string BattlePanel = @"BattlePanel";
 		public static readonly string DebugPanel = @"DebugPanel";
+		public static readonly string GameEndPanel = @"GameEndPanel";
 		public static readonly string HomePanel = @"HomePanel";
 		public static readonly string LoadingPanel = @"LoadingPanel";
 		public static readonly string MatchPanel = @"MatchPanel";

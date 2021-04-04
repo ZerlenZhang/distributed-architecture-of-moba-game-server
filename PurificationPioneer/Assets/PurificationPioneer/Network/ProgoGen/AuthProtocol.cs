@@ -178,6 +178,13 @@ namespace PurificationPioneer.Network.ProtoGen
       get { return _heros; }
       set { _heros = value; }
     }
+    private int _urankExp;
+    [global::ProtoBuf.ProtoMember(15, IsRequired = true, Name=@"urankExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int urankExp
+    {
+      get { return _urankExp; }
+      set { _urankExp = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

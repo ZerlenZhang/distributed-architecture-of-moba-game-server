@@ -1,6 +1,8 @@
 ﻿using System;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
+using PurificationPioneer.Scriptable;
+using ReadyGamerOne.Utility;
 using UnityEngine;
 
 namespace PurificationPioneer.Script
@@ -16,8 +18,28 @@ namespace PurificationPioneer.Script
         {
             gameObject.SetActive(state);
 
-            Cursor.visible = state;
-            Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
+#if UNITY_EDITOR
+            if(!GameSettings.Instance.WorkAsAndroid)
+            {
+                if (state)
+                {
+                    UnityAPI.FreeMouse();
+                }
+                else
+                {
+                    UnityAPI.LockMouse();
+                }
+            }
+#elif UNITY_STANDALONE_WIN
+                if (state)
+                {
+                    UnityAPI.FreeMouse();
+                }
+                else
+                {
+                    UnityAPI.LockMouse();
+                }
+#endif
         }
 
         public void ExitGame()

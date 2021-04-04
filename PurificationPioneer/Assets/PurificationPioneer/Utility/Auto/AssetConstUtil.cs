@@ -14,9 +14,11 @@ namespace PurificationPioneer.Utility
 					{ @"Character4" , @"ClassCharacter\Character4" },
 					{ @"CharacterHeadCanvas" , @"ClassLocalAsset\CharacterHeadCanvas" },
 					{ @"LocalCamera" , @"ClassLocalAsset\LocalCamera" },
+					{ @"ThirdPersonCamera Variant" , @"ClassLocalAsset\ThirdPersonCamera Variant" },
 					{ @"AndroidBattlePanel" , @"ClassPanel\AndroidBattlePanel" },
 					{ @"BattlePanel" , @"ClassPanel\BattlePanel" },
 					{ @"DebugPanel" , @"ClassPanel\DebugPanel" },
+					{ @"GameEndPanel" , @"ClassPanel\GameEndPanel" },
 					{ @"HomePanel" , @"ClassPanel\HomePanel" },
 					{ @"LoadingPanel" , @"ClassPanel\LoadingPanel" },
 					{ @"MatchPanel" , @"ClassPanel\MatchPanel" },
@@ -33,6 +35,7 @@ namespace PurificationPioneer.Utility
 					{ @"LoadMatcherUi" , @"ClassUi\LoadMatcherUi" },
 					{ @"MatcherRect" , @"ClassUi\MatcherRect" },
 					{ @"Weapon0" , @"ClassWeapon\Weapon0" },
+					{ @"DOTweenSettings" , @"DOTweenSettings" },
 				};
 		public override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;
 	}

@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Welcome.unity
+    path: Assets/Scenes/PurificationPioneer/Welcome.unity
     guid: 7fe7966cf6bf2fa45967b9521eafe125
   - enabled: 1
-    path: Assets/Scenes/Battle.unity
+    path: Assets/Scenes/PurificationPioneer/Battle.unity
     guid: 6ad8025e230c8e345aee826901298846
+  - enabled: 1
+    path: Assets/Scenes/PurificationPioneer/GameEnd.unity
+    guid: 018728b22154aa74c9fcb9f07eb835ea
+  - enabled: 1
+    path: Assets/Scenes/PurificationPioneer/Home.unity
+    guid: 89d24c288531fd842a87fbe25e604047
   m_configObjects: {}

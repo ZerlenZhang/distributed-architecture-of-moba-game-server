@@ -4,5 +4,7 @@ namespace PurificationPioneer.Const
 	{
 		public const string Welcome = @"Welcome";
 		public const string Battle = @"Battle";
+		public const string GameEnd = @"GameEnd";
+		public const string Home = @"Home";
 	}
 }

@@ -7,6 +7,7 @@ using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
+using ReadyGamerOne.Utility;
 using ReadyGamerOne.View;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -26,26 +27,48 @@ namespace PurificationPioneer.Script
             LogicProxy.Instance.StartGameReq(GlobalVar.Uname);
             
             CEventCenter.AddListener<int>(Message.OnGameStart,OnStartGameSoon);
-            
+
 #if UNITY_EDITOR
             if (GameSettings.Instance.WorkAsAndroid)
             {
                 PanelMgr.PushPanel(PanelName.AndroidBattlePanel);
             }
             else
-            {
+            {                
+                if (lookMouse)
+                {
+                    UnityAPI.LockMouse();
+                }
                 PanelMgr.PushPanel(PanelName.BattlePanel);
             }
 #elif UNITY_ANDROID
             PanelMgr.PushPanel(PanelName.AndroidBattlePanel);
 #elif UNITY_STANDALONE_WIN
             PanelMgr.PushPanel(PanelName.BattlePanel);
+            if(lookMouse)
+                    UnityAPI.LockMouse();
 #endif
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            
+            PpPhysics.Clear();
+            FrameSyncMgr.Clear();
+#if UNITY_EDITOR
+            if (!GameSettings.Instance.WorkAsAndroid)
+            {
+                if (lookMouse)
+                {
+                    UnityAPI.FreeMouse();
+                }
+            }
+
+#elif UNITY_STANDALONE_WIN
+            if(lookMouse)
+                    UnityAPI.FreeMouse();
+#endif
             CEventCenter.RemoveListener<int>(Message.OnGameStart,OnStartGameSoon);
         }
 
@@ -90,17 +113,6 @@ namespace PurificationPioneer.Script
                 if(genPoint==rightPoint)
                     yield return new WaitForSeconds(deltaTime);
             }
-
-#if UNITY_EDITOR
-            if (!GameSettings.Instance.WorkAsAndroid)
-            {
-                if(lookMouse)
-                    Cursor.lockState = CursorLockMode.Locked;
-            }
-#elif UNITY_STANDALONE_WIN
-            if(lookMouse)
-                Cursor.lockState = CursorLockMode.Locked;
-#endif
         }
 
 

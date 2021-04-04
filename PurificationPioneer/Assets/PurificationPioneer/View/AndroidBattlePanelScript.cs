@@ -1,5 +1,7 @@
-﻿using PurificationPioneer.Const;
+﻿using System;
+using PurificationPioneer.Const;
 using PurificationPioneer.Script;
+using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.Script;
 using UnityEngine;
@@ -39,6 +41,18 @@ namespace PurificationPioneer.View
             timeText.text = $"{leftSeconds / 60}:{leftSeconds % 60}";
         }
 
+#if DebugMode
+        private void Update()
+        {
+            if (GameSettings.Instance.WorkAsAndroid)
+            {
+                if (Input.GetKeyDown(GameSettings.Instance.BattleOptionKey))
+                {
+                    ShowOptions();
+                }
+            }
+        }
+#endif
         
         
         public void ShowOptions()

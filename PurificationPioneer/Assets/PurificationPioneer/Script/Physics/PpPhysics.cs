@@ -28,6 +28,14 @@ namespace PurificationPioneer.Script
         internal const string OnTriggerExitMsg = "PpOnTriggerExit";
 
 
+        public static void Clear()
+        {
+            ClearCollider();
+            ClearRigidbody();
+            ClearRigidbodyState();
+        }
+
+
         #region ColliderHelper
 
         private static Dictionary<Collider, PpColliderHelper> _colliderStateDic;
@@ -166,6 +174,11 @@ namespace PurificationPioneer.Script
                     throw new Exception($"[PpPhysics] ApplyWorldState: 没有这个刚体的状态：{rigidbody.name}");
                 }
             }
+        }
+
+        public static void ClearRigidbodyState()
+        {
+            _rigidbodyStates.Clear();
         }
 
         #endregion

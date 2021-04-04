@@ -25,6 +25,31 @@ namespace PurificationPioneer.Network.Proxy
         {
             switch (package.cmdType)
             {
+                #region LogicCmd.OnGameEndTick
+
+                case LogicCmd.OnGameEndTick:
+                    var gameEndTick = CmdPackageProtocol.ProtobufDeserialize<OnGameEndTick>(package.body);
+                    if (null == gameEndTick)
+                    {
+                        Debug.LogError($"OnGameEndTick is null");
+                        return;  
+                    }
+
+                    if (gameEndTick.status != Response.Ok)
+                    {
+                        Debug.LogError($"[OnGameEndTick] status: {gameEndTick.status}");
+                        return;
+                    }
+#if DebugMode
+                    if(GameSettings.Instance.EnableProtoLog)
+                        Debug.Log($"[OnGameEndTick] 比赛结束");
+#endif
+                    GlobalVar.SetGameEndInfo(gameEndTick);
+                    SceneManager.LoadScene(SceneName.GameEnd);
+                    break;
+
+                #endregion
+                
                 #region LogicCmd.ExitGameRes
                 case LogicCmd.ExitGameRes:        
                     var exitGameRes = CmdPackageProtocol.ProtobufDeserialize<ExitGameRes>(package.body);
@@ -35,13 +60,16 @@ namespace PurificationPioneer.Network.Proxy
                     }
 
                     if (exitGameRes.status != Response.Ok)
+                    {
+                        Debug.LogError($"[ExitGameRes] status: {exitGameRes.status}");
                         return;
+                    }
 #if DebugMode
                     if(GameSettings.Instance.EnableProtoLog)
                         Debug.Log($"[ExitGameRes] 退出比赛");
 #endif
 
-                    SceneManager.LoadScene(SceneName.Welcome);
+                    SceneManager.LoadScene(SceneName.Home);
                     Debug.Log($"[ExitGameRes] 退出比赛");
                     
                     break;

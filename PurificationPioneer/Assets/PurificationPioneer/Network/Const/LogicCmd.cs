@@ -32,5 +32,6 @@
         public const int ExitGameReq = 28;
         public const int ExitGameRes = 29;
         public const int OnCharacterExitTick = 30;
+        public const int OnGameEndTick = 31;
     }
 }

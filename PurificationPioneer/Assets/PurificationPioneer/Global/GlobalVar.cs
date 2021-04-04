@@ -22,6 +22,7 @@ namespace PurificationPioneer.Global
 		public static int Uface{ get; private set; }
 		public static int Ulevel{ get; private set; }
 		public static int Urank{ get; private set; }
+		public static int UrankExp { get; private set; }
 		public static int Udiamond{ get; private set; }
 		public static string Usignature{ get; private set; }
 		public static int Uexp{ get; private set; }
@@ -38,6 +39,7 @@ namespace PurificationPioneer.Global
 			Udiamond = uinfo.udiamond;
 			Usignature = uinfo.usignature;
 			Uexp = uinfo.uexp;
+			UrankExp = uinfo.urankExp;
 			if (null == uinfo.heros)
 			{
 				Debug.LogError($"uinfo.heros is null");
@@ -156,6 +158,26 @@ namespace PurificationPioneer.Global
 			StartGameDelay = startGameRes.startGameDelay;
 			//初始化随机数种子
 			Random.InitState(startGameRes.randSeed);
+		}
+		
+		public static OnGameEndTick GameEndTick { get; private set; }
+
+		public static void SetGameEndInfo(OnGameEndTick gameEndTick)
+		{
+			GameEndTick = gameEndTick;
+		}
+
+		public static void UpdateUserInfoByGameEndInfo()
+		{
+			if (GameEndTick == null)
+				return;
+			Ucoin = GameEndTick.packageInfo.ucoin;
+			Udiamond = GameEndTick.packageInfo.udiamond;
+			Uexp = GameEndTick.packageInfo.uexp;
+			Ulevel = GameEndTick.packageInfo.ulevel;
+			Urank = GameEndTick.packageInfo.urank;
+			UrankExp = GameEndTick.packageInfo.urankExp;
+			GameEndTick = null;
 		}
 
 		#endregion

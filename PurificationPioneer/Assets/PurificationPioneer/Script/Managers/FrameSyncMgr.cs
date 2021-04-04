@@ -55,6 +55,7 @@ namespace PurificationPioneer.Script
     {
         #region Debug
 
+#if DebugMode
         private static DefaultCharacterController _cc;
 
         private static DefaultCharacterController DefaultCharacterController
@@ -73,15 +74,15 @@ namespace PurificationPioneer.Script
             }
         }
 
-        private static Vector3 _lastPosition;
+        private static Vector3 _lastPosition;        
+#endif
+
         
+        #endregion
         
         private static bool isSimulating = false;
 
         public static bool IsSimulating => isSimulating;
-
-        #endregion
-        
         
         private static float lastTickTime = 0;
         
@@ -210,7 +211,6 @@ namespace PurificationPioneer.Script
 
         #endregion
         
-
         #region IFrameSyncUnit_监听
 
         public static void AddFrameSyncUnit(IFrameSyncUnit frameSyncUnit)
@@ -245,8 +245,22 @@ namespace PurificationPioneer.Script
 
         public static int TickCountPerSecond => 1000 / GlobalVar.LogicFrameDeltaTime;
         public static int AllTick => GlobalVar.GameTime * TickCountPerSecond;
-        public static int LeftTick => AllTick - FrameId;
-        public static int LeftSecond => GlobalVar.GameTime - FrameId / TickCountPerSecond;
+        public static int LeftTick => Mathf.Max(0, AllTick - FrameId);
+        public static int LeftSecond => Mathf.Max(0,GlobalVar.GameTime - FrameId / TickCountPerSecond);
+
+
+        public static void Clear()
+        {
+#if DebugMode
+            _cc = null;
+            _lastPosition=Vector3.zero;
+#endif
+            isSimulating = false;
+            lastTickTime = 0;
+            ClearFrameSyncCharacters();
+            ClearFrameSyncUpdaters();
+        }
+        
         
         #region Private
 

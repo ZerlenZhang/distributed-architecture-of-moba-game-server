@@ -1,4 +1,5 @@
-﻿using PurificationPioneer.Network.Proxy;
+﻿using PurificationPioneer.Global;
+using PurificationPioneer.Network.Proxy;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,6 +44,9 @@ namespace PurificationPioneer.Script
                 TipMgr.Instance.Tip("两次输入密码不一致");
                 return;
             }
+
+            GlobalPref.Account = m_Account.text;
+            GlobalPref.Pwd = m_Pwd.text;
 
             AuthProxy.Instance.Register(
                 m_Account.text,
