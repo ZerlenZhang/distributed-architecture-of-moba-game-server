@@ -111,6 +111,16 @@ local function on_start_story_mode(s, req)
 	Session.SendPackage(s,{req[1],CmdType.StartStoryRes,req[3]});
 end
 
+local function on_player_exit_game(s, req)
+	local uname=req[4].uname;
+
+	if config.enable_proto_log then
+		Debug.Log(uname.." try exit game");
+	end
+
+	MatchMgr.OnPlayerExitGame(uname);
+end
+
 return {
 	OnUdpTest = udp_test,
     OnPlayerLoginLogic = login_logic_server,
@@ -124,5 +134,6 @@ return {
 	OnInitUdp = on_init_udp,
 	OnStartMultiMatch = on_start_multi_match,
 	OnStartStoryMode = on_start_story_mode,
+	OnPlayerExitGame = on_player_exit_game,
 }
 

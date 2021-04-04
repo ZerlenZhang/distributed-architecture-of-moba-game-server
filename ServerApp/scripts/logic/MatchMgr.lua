@@ -194,6 +194,27 @@ local function on_user_lost_conn(utag)
     player:OnOffLine();
 end
 
+local function on_player_exit_game(uname)
+    if not uname_Player[uname] then
+        Debug.LogError("unexpected uname: "..uname);
+        return;
+    end
+
+    local player=uname_Player[uname];
+    local room=player.Room;
+    if not room then
+        Debug.LogError("player "..uname.." is not in any room");
+        return;
+    end
+    if config.enable_match_log then
+        Debug.Log(uname.." exit game");
+    end
+
+    room:OnPlayerExitGame(player);
+
+
+end
+
 return {
     OnPlayerTryMatch=on_player_try_match,
     OnPlayerTryStopMatch=on_player_stop_match,
@@ -204,4 +225,5 @@ return {
     InitPlayer=on_new_player_come,
     SetUdpAddr=set_player_udp_addr,
     OnUserLostConn=on_user_lost_conn,
+    OnPlayerExitGame=on_player_exit_game,
 }

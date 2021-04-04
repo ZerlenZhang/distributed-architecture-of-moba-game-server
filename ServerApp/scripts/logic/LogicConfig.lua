@@ -3,11 +3,11 @@ local CmdType=require("logic/const/CmdType");
 roomInfos={};
 roomInfos[CmdType.StartMatchReq]={
     Max=1,
-    GameTime=500,
-}
+    GameTime=600,
+};
 roomInfos[CmdType.StartMultiReq]={
     Max=2,
-    GameTime=500,
+    GameTime=600,
 };
 
 

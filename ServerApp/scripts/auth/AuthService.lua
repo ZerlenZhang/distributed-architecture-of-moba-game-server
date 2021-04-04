@@ -8,6 +8,7 @@ cTypeToCallback[cType.UserLostConn]=authMessageHandler.UserLostConn;
 cTypeToCallback[cType.EditProfileReq]=authMessageHandler.EditProfile;
 cTypeToCallback[cType.UserLoginReq]=authMessageHandler.UserLogin;
 cTypeToCallback[cType.UserUnregisterReq]=authMessageHandler.UserUnregister;
+cTypeToCallback[cType.UserRegisteReq]=authMessageHandler.OnUserRegiste;
 
 
 

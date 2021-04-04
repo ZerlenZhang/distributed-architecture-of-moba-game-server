@@ -27,4 +27,7 @@ return {
     StartStoryReq = 25,
     StartStoryRes = 26,
     StartMultiReq = 27,
+    ExitGameReq = 28,
+    ExitGameRes = 29,
+    OnCharacterExitTick = 30,
 };

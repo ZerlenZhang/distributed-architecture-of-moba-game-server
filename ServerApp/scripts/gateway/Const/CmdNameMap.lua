@@ -18,6 +18,8 @@ cmdNameMap[ServiceType.Auth]={
 	UserLoginReq = 2,
 	UserLoginRes = 3,
 	UserUnregisterRes = 4,
+	UserRegisteReq = 8,
+	UserRegisteRes = 9,
 }
 
 return cmdNameMap;

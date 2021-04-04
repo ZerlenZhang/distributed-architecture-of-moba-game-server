@@ -57,7 +57,7 @@ local function _IsLoginAuthRes(stype, ctype )
 		return false;
 	end
 
-    if CmdType.UserLoginRes == ctype then
+    if CmdType.UserLoginRes == ctype or CmdType.UserRegisteRes == ctype then
         return true;
     end
     return false;
@@ -68,7 +68,7 @@ local function _IsLoginAuthReq(stype, ctype )
 	if stype ~= ServiceType.Auth then
 		return false;
 	end
-    if CmdType.UserLoginReq == ctype then
+    if CmdType.UserLoginReq == ctype or CmdType.UserRegisteReq == ctype then
         return true;
     end
     return false;

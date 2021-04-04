@@ -24,3 +24,12 @@ message UserLoginRes{
 	required int32 status = 1;
 	optional UserAccountInfo uinfo = 2;
 }
+message UserRegisteReq{
+	required string uname = 1;
+	required string pwd = 2;
+	required string unick = 3;
+}
+message UserRegisteRes{
+	required int32 status = 1;
+	optional UserAccountInfo uinfo = 2;
+}

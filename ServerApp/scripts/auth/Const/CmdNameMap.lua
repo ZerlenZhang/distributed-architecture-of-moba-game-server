@@ -12,6 +12,8 @@ cmdNameMap[ServiceType.Auth]={
 	UserUnregisterReq = 5,
 	EditProfileReq = 6,
 	EditProfileRes = 7,
+	UserRegisteReq = 8,
+	UserRegisteRes = 9,
 };
 
 return cmdNameMap;

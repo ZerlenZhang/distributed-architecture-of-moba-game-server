@@ -28,7 +28,7 @@ end
 
 --根据guest_key获取uinfo
 --handler:err,uinfo
-function get_uinfo_by_key( key,handler )
+local function get_uinfo_by_key( key,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -72,7 +72,7 @@ function get_uinfo_by_key( key,handler )
 end
 
 --根据uid获取用户信息
-function get_uinfo_by_uid( uid,handler )
+local function get_uinfo_by_uid( uid,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -117,7 +117,7 @@ end
 
 --插入guest_key
 --handler: err
-function insert_guest_user( key,handler )
+local function insert_guest_user( key,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -146,7 +146,7 @@ end
 
 --修改用户信息
 --handler: err
-function edit_profile(uid,unick,uface,usex,handler)
+local function edit_profile(uid,unick,uface,usex,handler)
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -169,7 +169,7 @@ end
 
 --判断用户名是否存在
 --handler: err,foundUid
-function check_uname_exist(	uname,handler )
+local function check_uname_exist(	uname,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -177,7 +177,7 @@ function check_uname_exist(	uname,handler )
 		end
 		return;
 	end
-	local sql = 'select uid from uinfo where uname="%s"';
+	local sql = 'select uid from usertable where uname="%s"';
 	sql=string.format(sql,uname);
 	Mysql.Query(mysqlConn,sql,
 		function( err,ret )
@@ -203,7 +203,7 @@ end
 
 --根据用户名密码查找用户信息
 --handler:err,uinfo
-function get_uinfo_by_uname_pwd( uname,upwd,handler )
+local function get_uinfo_by_uname_pwd( uname,upwd,handler )
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -257,7 +257,7 @@ end
 
 --根据用户名获取匹配信息
 --handler:err,matcherinfo
-function get_matcherinfo_by_uname(uname,handler)
+local function get_matcherinfo_by_uname(uname,handler)
 
 	if mysqlConn==nil then
 		--数据库还没有联好
@@ -301,7 +301,7 @@ function get_matcherinfo_by_uname(uname,handler)
 end
 
 --根据用户名获取默认英雄
-function get_default_heroId_by_uname(uname,handler)
+local function get_default_heroId_by_uname(uname,handler)
 	if mysqlConn==nil then
 		--数据库还没有联好
 		if handler then
@@ -337,6 +337,31 @@ function get_default_heroId_by_uname(uname,handler)
 	end);
 end
 
+--根据用户名，密码，昵称注册
+local function registe(uname,pwd,unick,handler)
+	if mysqlConn==nil then
+		--数据库还没有联好
+		if handler then
+			handler("mysql is not connected");
+		end
+		return;
+	end
+	local sql="insert into usertable(uname,pwd,unick)values(\"%s\",\"%s\",\"%s\")";
+	sql=string.format(sql,uname,pwd,unick);
+	Mysql.Query(mysqlConn,sql,function( err,ret )
+		--出现错误
+		if err then
+			if handler then
+				handler(err);
+			end
+			return;
+		end
+		if handler then
+			handler(nil);
+		end
+	end);
+end
+
 return {
 	Connect=mysql_connect_to_auth_center,
 	GetUinfoByKey=get_uinfo_by_key,
@@ -346,5 +371,6 @@ return {
 	GetDefaultHeroIdByUname=get_default_heroId_by_uname,
 	EditProfile=edit_profile,
 	CheckUnameExist=check_uname_exist,
-	IsConnect=function() return mysqlConn~=nil end
+	IsConnect=function() return mysqlConn~=nil end,
+	Registe=registe,
 };

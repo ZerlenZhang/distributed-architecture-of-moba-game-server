@@ -4,6 +4,7 @@ local CmdType=require("logic/const/CmdType");
 local LogicConfig=require("logic/LogicConfig");
 local PlayerState=require("logic/const/PlayerState");
 local RoomState=require("logic/const/RoomState");
+local Respones=require("Respones");
 
 local Room=Object:New("[Class] Room");
 
@@ -265,7 +266,7 @@ function Room:TakeFrameInput(frameId, seatId,inputs)
 	end
 	--是否不对应玩家
     if seatId<1 or seatId>self:PlayerCount() then
-        Debug.LogError("unexpected seatId: "..seatId);
+        --Debug.LogError("unexpected seatId: "..seatId);
         return;
     end
 
@@ -299,14 +300,22 @@ end
 function Room:OnPlayerOffLine(player)
 
     --提醒其他玩家有人掉线
-    Debug.Log("Room["..self.RoomId.."] player["..player.SeatId.."] lost conn");
-
+    self:BroadMessage(CmdType.OnCharacterExitTick,{seatId=player.SeatId},player);
     player:OnRemoveFromRoom(self);
 
     --全部掉线关闭房间
     if self.PlayerList:All(function(player)return player.State~=PlayerState.Gaming;end) then
         self:Clear();
     end
+end
+
+--玩家主动离开游戏
+function Room:OnPlayerExitGame(player)
+
+    player:TcpSend(CmdType.ExitGameRes,{status=Respones.Ok});
+
+    self:OnPlayerOffLine(player);
+
 end
 
 --全部内部变量初始化

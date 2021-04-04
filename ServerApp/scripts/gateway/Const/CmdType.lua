@@ -12,6 +12,8 @@ return {
 	UserLoginReq = 2,
 	UserLoginRes = 3,
 	UserUnregisterRes = 4,
+	UserRegisteReq = 8,
+	UserRegisteRes = 9,
 
 	LoginLogicReq = 1,
     SelectHeroReq = 12,
