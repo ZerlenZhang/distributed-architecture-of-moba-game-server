@@ -13,6 +13,7 @@ namespace PurificationPioneer.View
 		{
 			//do any thing you want
 			script = m_TransFrom.GetComponent<WelcomePanelScript>();
+			script.Init();
 
 #if UNITY_EDITOR
 			if (GameSettings.Instance.DeveloperMode)

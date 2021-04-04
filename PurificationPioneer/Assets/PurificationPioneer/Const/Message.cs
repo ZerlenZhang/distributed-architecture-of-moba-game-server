@@ -5,6 +5,8 @@ namespace PurificationPioneer.Const
 	/// </summary>
 	public static class Message
 	{
+		public const string OnResponseError = "OnResponseError";// int
+		
 		public const string OnUserLogin = "OnUserLogin";
 		public const string OnStartMatch = "OnStartMatch";
 		public const string OnAddPlayer = "OnAddPlayer";

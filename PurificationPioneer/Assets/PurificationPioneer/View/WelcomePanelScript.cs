@@ -1,5 +1,6 @@
 ﻿using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
+using PurificationPioneer.Script;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +10,15 @@ namespace PurificationPioneer.View
     {
         public InputField account;
         public InputField password;
+        public RegisterUi registerUi;
         public Button loginBtn;
         public Button registerBtn;
         public Button exitBtn;
+
+        public void Init()
+        {
+            registerUi.SetVisible(false);
+        }
 
         public void TryLogin()
         {

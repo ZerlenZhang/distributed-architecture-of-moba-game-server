@@ -10,5 +10,7 @@
         public const int UserUnregisterReq = 5;
         public const int EditProfileReq = 6;
         public const int EditProfileRes = 7;
+        public const int UserRegisteReq = 8;
+        public const int UserRegisteRes = 9;
     }
 }

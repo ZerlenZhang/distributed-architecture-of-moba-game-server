@@ -82,6 +82,7 @@ namespace PurificationPioneer.Network
         /// <param name="onFinishSetup"></param>
         public void SetupUdp(Action<bool> onFinishSetup=null)
         {
+            
             GameSettings.Instance.SetUdpLocalPort(NetUtil.GetUdpPort());
 
             udp = new UdpHelper(
