@@ -4,6 +4,7 @@ local ServiceType=require("ServiceType");
 local config=require("GameConfig");
 local Mysql=require("database/mysql_center");
 local PlayerState=require("logic/const/PlayerState");
+local Util=require("logic/Util");
 Mysql.Connect();
 
 function Player:New(tcpSession,uname,utag)
@@ -15,8 +16,6 @@ function Player:New(tcpSession,uname,utag)
     instance.__udpPort=0;
     --userinfo
     instance.Uname=uname;
-    instance.Uface=0;
-    instance.Unick="";
     instance.State=PlayerState.OnLine;
     --roomInfo
     instance.IsSubmit=false;
@@ -50,7 +49,7 @@ end
 
 function Player:OnRemoveFromRoom(room)
     if config.enable_match_log then
-        Debug.Log("Player["..self.Uname.."] leave Room["..self.Room.RoomId.."]");
+        Debug.Log("Player["..self.Uname.."] leave Room["..room.RoomId.."]");
     end
     self.Room=nil;
     self.SeatId=-1;
@@ -64,12 +63,10 @@ end
 function Player:UdpSend(cmdType,body)
 	--玩家已经断线
 	if not self.__tcpSession then
-        Debug.LogWarning(self.Unick.." is offline")
 		return;
 	end
 
     if not self.__udpIp or self.__udpPort==0 then
-        Debug.LogWarning(self.Unick.." Udp address is wrong")
 		return;
 	end
 
@@ -139,6 +136,36 @@ function Player:OnOffLine()
     if self:IsInRoom() then
         self.Room:OnPlayerOffLine(self);
     end
+end
+
+--获取用户仓库信息
+--handler(err,{ulevel,uexp,urank,urankExp,ucoin,udiamond})
+function Player:GetUserPackageInfo(handler)
+    Mysql.GetPackageInfoByUname(self.Uname,handler);
+end
+
+--更新用户仓库信息
+--handler(err,packageInfo)
+function Player:UpdatePackageInfo(exp,rankExp,coin,diamond,handler)
+    self:GetUserPackageInfo(function(err,packageInfo)
+        if err then
+            if handler then
+                handler(err,nil);
+            end
+            return;
+        end
+        packageInfo.ulevel,packageInfo.uexp=Util.GetUlevelAndUexp(packageInfo.ulevel,packageInfo.uexp,exp);
+        packageInfo.urank,packageInfo.urankExp=Util.GetUrankAndUrankExp(packageInfo.urank,packageInfo.urankExp,rankExp);
+        packageInfo.ucoin=packageInfo.ucoin+coin;
+        packageInfo.udiamond=packageInfo.udiamond+diamond;
+
+        Mysql.UpdatePackageInfoByUname(self.Uname,packageInfo,function(internalError)
+            if internalError then
+                handler(internalError,nil);
+            end
+            handler(nil,packageInfo);
+        end);
+    end);
 end
 
 return Player;

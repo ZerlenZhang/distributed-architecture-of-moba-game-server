@@ -5,6 +5,7 @@ local LogicConfig=require("logic/LogicConfig");
 local PlayerState=require("logic/const/PlayerState");
 local RoomState=require("logic/const/RoomState");
 local Respones=require("Respones");
+local Util=require("logic/Util");
 
 local Room=Object:New("[Class] Room");
 
@@ -28,11 +29,12 @@ function Room:New(roomType, max)
 
     --game
     instance.__gameLoopTimer=nil;
-	self.__frameId=1;--当前帧id
-	self.__allFrames={};--所有帧操作
-    self.__nextFrame=--当前帧操作
+    instance.__gameEndCallbackTimer=nil;
+	instance.__frameId=1;--当前帧id
+	instance.__allFrames={};--所有帧操作
+    instance.__nextFrame=--当前帧操作
     {
-		frameId = self.__frameId,
+		frameId = instance.__frameId,
 		inputs = {},
 	};
 
@@ -201,18 +203,63 @@ end
 
 --开始帧同步
 function Room:StartGame()
+
     Debug.Log("Room["..self.RoomId.."] game start");
-   local startGameRes={
-       gameTime = LogicConfig.room_infos[CmdType.StartMatchReq].GameTime,
+
+    --notice all players
+    local roomConfig=LogicConfig.room_infos[CmdType.StartMatchReq];
+    local startGameRes={
+       gameTime = roomConfig.GameTime,
        randSeed = math.floor(math.random()*1000+10),
        logicFrameDeltaTime = LogicConfig.logicFrameDeltaTime,
        startGameDelay = LogicConfig.startGameDelay,
-   };
-   self:BroadMessage(CmdType.StartGameRes,startGameRes);
-   self.__gameLoopTimer=Timer.Repeat(
-	function()
-		self:FrameSyncLoop();
-	end,LogicConfig.startGameDelay,-1,LogicConfig.logicFrameDeltaTime);
+    };
+    self:BroadMessage(CmdType.StartGameRes,startGameRes);
+
+    self.__gameLoopTimer=Timer.Repeat(
+        function()self:FrameSyncLoop();end,
+        LogicConfig.startGameDelay,-1,LogicConfig.logicFrameDeltaTime);
+    self.__gameEndCallbackTimer=Timer.Once(
+        function()self:OnGameEnd();end,
+        (LogicConfig.startGameDelay+roomConfig.GameTime)*1000);
+end
+
+--游戏结束回调
+function Room:OnGameEnd()
+    if self.__gameLoopTimer then
+        Timer.Cancel(self.__gameLoopTimer);
+        self.__gameLoopTimer=nil;
+    end
+    if self.__gameEndCallbackTimer then
+        self.__gameEndCallbackTimer=nil;
+    end
+
+    local count=0;
+    self.PlayerList:Foreach(function(_,player)
+        player:UpdatePackageInfo(
+            Util.Range(20,50),
+            Util.Range(10,60),
+            Util.Range(200,500),
+            Util.Range(1,10),
+            function(err,packageInfo)
+                if err then
+                    Debug.LogError("UpdatePackageInfo error: "..err);
+                    player:TcpSend(CmdType.OnGameEndTick,{status=Respones.SystemError});
+                else
+                    player:TcpSend(CmdType.OnGameEndTick,{
+                        status=Respones.Ok,
+                        score=Util.Range(1,5),
+                        packageInfo=packageInfo,
+                    });
+                end
+
+                count=count+1;
+                if count==self.PlayerList:Count() then
+                    Debug.Log("Room["..self.RoomId.."] OnGameEnd");
+                    self:Clear();
+                end
+            end);--player:UpdatePackageInfo
+    end);--self.PlayerList:Foreach
 end
 
 --帧同步主循环
@@ -318,11 +365,11 @@ function Room:OnPlayerExitGame(player)
 
 end
 
---全部内部变量初始化
+--清理出所有玩家，全部内部变量初始化
 function Room:Clear()
 
     Debug.Log("Room["..self.RoomId.."] Clear");
-
+    self.PlayerList:Foreach(function(_,player)player:OnRemoveFromRoom(self);end);
     self.PlayerList:Clear();
     self.__leftTime=0;
     self.__selectTimer=nil;
@@ -330,17 +377,20 @@ function Room:Clear()
 
     --game
     if self.__gameLoopTimer then
-        Debug.Log("Timer.Cancel");
         Timer.Cancel(self.__gameLoopTimer);
+        self.__gameLoopTimer=nil;
     end
-    self.__gameLoopTimer=nil;
+    if self.__gameEndCallbackTimer then
+        Timer.Cancel(self.__gameEndCallbackTimer);
+        self.__gameEndCallbackTimer=nil;
+    end
 	self.__frameId=1;--当前帧id
 	self.__allFrames={};--所有帧操作
     self.__nextFrame=--当前帧操作
     {
 		frameId = self.__frameId,
 		inputs = {},
-	};
+    };
 end
 
 return Room;

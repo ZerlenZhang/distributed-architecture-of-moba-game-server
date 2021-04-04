@@ -33,5 +33,6 @@ cmdNameMap[ServiceType.Logic]={
     ExitGameReq = 28,
     ExitGameRes = 29,
     OnCharacterExitTick = 30,
+    OnGameEndTick = 31,
 };
 return cmdNameMap;

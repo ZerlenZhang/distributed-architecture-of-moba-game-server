@@ -212,7 +212,7 @@ local function get_uinfo_by_uname_pwd( uname,upwd,handler )
 		return;
 	end
 
-	local sql="select uid,uname,pwd,unick,ulevel,uexp,urank,ucoin,udiamond,usignature,uintegrity,status,uface,heros from usertable where uname=\"%s\" and pwd=\"%s\" limit 1";
+	local sql="select uid,uname,pwd,unick,ulevel,uexp,urank,ucoin,udiamond,usignature,uintegrity,status,uface,heros,urankExp from usertable where uname=\"%s\" and pwd=\"%s\" limit 1";
 	sql=string.format(sql,uname,upwd);
 	--print(sql);
 	Mysql.Query(mysqlConn,sql,function( err,ret )
@@ -248,6 +248,7 @@ local function get_uinfo_by_uname_pwd( uname,upwd,handler )
 			status=tonumber(result[12]),
 			uface=tonumber(result[13]),
 			heros=result[14],
+			urankExp=tonumber(result[15]),
 		};
 		if handler then
 			handler(nil,uinfo);
@@ -362,6 +363,76 @@ local function registe(uname,pwd,unick,handler)
 	end);
 end
 
+--根据用户名获取仓库信息
+--handler(err,{ulevel,uexp,urank,urankExp,ucoin,udiamond})
+local function get_package_info_by_uname(uname,handler)
+	if mysqlConn==nil then
+		--数据库还没有联好
+		if handler then
+			handler("mysql is not connected",nil);
+		end
+		return;
+	end
+
+	local sql="select ulevel,uexp,urank,urankExp,ucoin,udiamond from usertable where uname=\"%s\" limit 1";
+	sql=string.format(sql,uname);
+	--print(sql);
+	Mysql.Query(mysqlConn,sql,function( err,ret )
+		--出现错误
+		if err then
+			if handler then
+				handler(err,nil);
+			end
+			return;
+		end
+		--没有查到数据
+		if ret==nil or #ret <=0 then
+			if handler then
+				handler(nil,nil);
+			end
+			return;
+		end
+		--查到数据
+		local result = ret[1];
+		local packageInfo =
+		{
+			ulevel=tonumber(result[1]),
+			uexp=tonumber(result[2]),
+			urank=tonumber(result[3]),
+			urankExp=tonumber(result[4]),
+			ucoin=tonumber(result[5]),
+			udiamond=tonumber(result[6]),
+		};
+		if handler then
+			handler(nil,packageInfo);
+		end
+	end);
+end
+
+--根据uname更新仓库信息
+--handler(err,{ulevel,uexp,urank,urankExp,ucoin,udiamond})
+local function update_package_info_by_uname(uname,packageInfo,handler)
+	if mysqlConn==nil then
+		--数据库还没有联好
+		if handler then
+			handler("mysql is not connected");
+		end
+		return;
+	end
+
+	local sql = 'update usertable set ulevel=%d,uexp=%d,urank=%d,urankExp=%d,ucoin=%d,udiamond=%d where uname=\"%s\"';
+	sql=string.format(sql,packageInfo.ulevel,packageInfo.uexp,packageInfo.urank,packageInfo.urankExp,packageInfo.ucoin,
+		packageInfo.udiamond,uname);
+	Mysql.Query(mysqlConn,sql,
+		function( err,ret )
+			if err then
+				handler(err);
+			else
+				handler(nil);
+			end
+		end);
+end
+
 return {
 	Connect=mysql_connect_to_auth_center,
 	GetUinfoByKey=get_uinfo_by_key,
@@ -373,4 +444,6 @@ return {
 	CheckUnameExist=check_uname_exist,
 	IsConnect=function() return mysqlConn~=nil end,
 	Registe=registe,
+	GetPackageInfoByUname=get_package_info_by_uname,
+	UpdatePackageInfoByUname=update_package_info_by_uname,
 };
