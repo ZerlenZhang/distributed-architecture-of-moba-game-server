@@ -40,6 +40,11 @@ namespace PurificationPioneer.Script
                 faceZ = cameraDir.z.ToInt()
             };
 
+            if (GameSettings.Instance.EnableInputPredict)
+            {
+                CEventCenter.BroadMessage(Message.OnInputPredict, input);
+            }
+
 #if UNITY_EDITOR
             if (GameSettings.Instance.WorkAsAndroid)
             {           

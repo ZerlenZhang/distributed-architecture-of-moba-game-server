@@ -5,7 +5,12 @@ namespace PurificationPioneer.Const
 	/// </summary>
 	public static class Message
 	{
+		public const string ShowTip = "ShowTip"; // string
+		
+		
 		public const string OnResponseError = "OnResponseError";// int
+
+		public const string OnInputPredict = "OnInputPredict";// PlayerInput
 		
 		public const string OnUserLogin = "OnUserLogin";
 		public const string OnStartMatch = "OnStartMatch";

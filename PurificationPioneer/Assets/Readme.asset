@@ -12,37 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcf7219bab7fe46a1ad266029b2fee19, type: 3}
   m_Name: Readme
   m_EditorClassIdentifier: 
-  icon: {fileID: 2800000, guid: eca255137b743164eb5b00ab4c67ab4b, type: 3}
-  title: Splatoon Ink System | Mix and Jam
+  icon: {fileID: 2800000, guid: f3b461aa3ce4e164e80610d900c9b22d, type: 3}
+  iconMaxWidth: 192
+  title: SNAPS Prototype Pack
+  titlesub: 
   sections:
-  - heading: Description
-    text: 
+  - heading: About SNAPS Packs
+    text: 'SNAPS provides Unity developers an exhaustive library of modular content designed to make prototyping and building first playables quick and easy. '
     linkText: 
     url: 
   - heading: 
-    text: This project is a take on the Splatoon Ink System, including implementations
-      for the shooting third person controller, fluid particle rendering and surface
-      painting!
+    text: "SNAPS prefabs are built to real-world scale but are designed to \u201Csnap\u201D
+      together when used with ProGrids. \nGrid snap measurements start at 1m and are
+      halved ( eg. 0.5, 0.25, 0.125 etc ) according to refinement needed to place
+      or position smaller objects."
     linkText: 
     url: 
   - heading: 
-    text: 
-    linkText: Watch the full overview video here
-    url: https://youtu.be/FR618z5xEiM
-  - heading: Credits
-    text: 
+    text: SNAP pack models were "modelled" entirely with ProBuilder, and can be further customized or modified with ProBuilder.
     linkText: 
     url: 
   - heading: 
-    text: 
-    linkText: "Andr\xE9 Cardoso (Mix and Jam)"
-    url: https://twitter.com/andre_mc
-  - heading: 
-    text: 
-    linkText: Erik & Matteo (TNTC)
-    url: https://twitter.com/tntcproject
-  - heading: 
-    text: 
-    linkText: Bronson Zgeb
-    url: https://twitter.com/bzgeb
+    text: Each SNAPS Pack caters for a particular theme and while they can be used
+      together in a project, they are not designed to be "snap-able" between packs.
+      Different themes require different size and scale settings.
+    linkText: 
+    url: 
+  - heading: Requirements
+    text: SNAPS packs are meant to be used in unison with ProBuilder and ProGrids,
+      both available via the Package Manager. While the packs can be used without
+      using ProGrids, ProBuilder will need to be installed.
+    linkText: 
+    url: 
   loadedLayout: 1

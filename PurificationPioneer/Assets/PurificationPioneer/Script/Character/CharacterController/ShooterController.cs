@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BehaviorDesigner.Runtime.Tasks.Unity.Timeline;
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
+using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Utility;
 using UnityEngine;
@@ -16,16 +18,14 @@ namespace PurificationPioneer.Script
     [RequireComponent(typeof(CharacterController))]
     public class ShooterController : MonoBehaviour,IPpController
     {
+
+        #region SerializeFields
+
         [Tooltip("以本地模式运行")]   
         [SerializeField] private bool m_WorkAsLocal = false;
         
         [Tooltip("玩家移动速度")]        
         [SerializeField]private float m_MoveSpeed = 1;
-        public float MoveSpeed
-        {
-            get => m_MoveSpeed;
-            set => m_MoveSpeed = value;
-        }
         
         
         [Tooltip("玩家旋转速度")]  
@@ -36,28 +36,29 @@ namespace PurificationPioneer.Script
         [SerializeField]private Transform m_CameraLookPoint;
         
         [Header("Animation Smoothing")]
-        [Range(0, 1f)]
-        public float m_HorizontalAnimSmoothTime = 0.2f;
-        [Range(0, 1f)]
-        public float m_VerticalAnimTime = 0.2f;
         [Range(0,1f)]
-        public float m_StartAnimTime = 0.3f;
+        [SerializeField]private float m_StartAnimTime = 0.3f;
         [Range(0, 1f)]
-        public float m_StopAnimTime = 0.15f;
+        [SerializeField]private float m_StopAnimTime = 0.15f;
 
-        private bool m_IsGrounded;
-        public float m_VerticalVel = -0.5f;
-        private bool m_BlockRotationPlayer;
-        public float m_AllowPlayerRotation = 0.1f;
+        [SerializeField]private float m_VerticalVel = -0.5f;
+        [SerializeField]private float m_AllowPlayerRotation = 0.1f;        
+        [SerializeField] private ShootingSystem m_ShootSystem;
+
+        #endregion
+
+        #region No SerializeFields
 
         private bool m_Initialized = false;
+        private bool m_IsGrounded;
+        private bool m_BlockRotationPlayer;
         
         // component refs
         private Animator m_Animator;
         private Camera m_Camera;
         private CharacterController m_CharacterController;
-        [SerializeField] private ShootingSystem m_ShootSystem;
         
+
         // sync
         private CharacterState m_LogicState = CharacterState.Idle;
         private CharacterState m_AniState = CharacterState.Idle;
@@ -70,8 +71,17 @@ namespace PurificationPioneer.Script
         private float time = 1;
         private Vector3 lastPosition;
         
-#endif
+#endif        
+
+        #endregion
+
+        public float MoveSpeed
+        {
+            get => m_MoveSpeed;
+            set => m_MoveSpeed = value;
+        }
         
+        #region Events
 
         private void Start()
         {
@@ -95,6 +105,10 @@ namespace PurificationPioneer.Script
                     localCameraHelper.vcam,
                     RotateToCamera,
                     GameSettings.Instance.LeftMaterial);
+            }
+            else
+            {
+                CEventCenter.AddListener<PlayerInput>(Message.OnInputPredict, OnInputPredict);
             }
         }
 
@@ -258,6 +272,16 @@ namespace PurificationPioneer.Script
             #endregion
 
         }
+
+        private void OnDestroy()
+        {
+            if(!m_WorkAsLocal)
+                CEventCenter.RemoveListener<PlayerInput>(Message.OnInputPredict, OnInputPredict);
+        }
+
+        #endregion
+
+
         
         
 
@@ -457,6 +481,19 @@ namespace PurificationPioneer.Script
         private void OnJump()
         {
             
+        }
+
+
+        private void OnInputPredict(PlayerInput input)
+        {
+            if (SeatId != GlobalVar.LocalSeatId)
+                return;
+            m_StickX = input.moveX;
+            m_StickY = input.moveY;
+            m_FaceX = input.faceX;
+            m_FaceY = input.faceY;
+            m_FaceZ = input.faceZ;
+            m_Attack = input.attack;
         }
 
         

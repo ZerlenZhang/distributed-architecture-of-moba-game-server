@@ -97,6 +97,11 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private bool closeSocketOnAnyException = true;
         public bool CloseSocketOnAnyException => closeSocketOnAnyException;
         public void SetCloseSocketOnAnyException(bool value) => closeSocketOnAnyException = value;
+
+        [SerializeField] private bool enableSocketClosingException = false;
+
+        public bool EnableSocketClosingException => enableSocketClosingException;
+        
         #endregion
 
         #region EnableSocketLog
@@ -220,7 +225,11 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private KeyCode _gameStateKey = KeyCode.Tab;
         [SerializeField] private Vector2 _cameraControlRectX = new Vector2(0.3f, 0.8f);
         [SerializeField] private Vector2 _cameraControlRectY = new Vector2(0.3f, 1);
-        
+        [SerializeField] private KeyCode _dialogContinueKey = KeyCode.Mouse0;
+        [SerializeField] private KeyCode _interactKey = KeyCode.E;
+
+        public KeyCode DialogContinueKey => _dialogContinueKey;
+        public KeyCode InteractKey => _interactKey;
         
         public Vector2 CameraControlRectX => _cameraControlRectX;
         public Vector2 CameraControlRectY => _cameraControlRectY;
@@ -272,7 +281,9 @@ namespace PurificationPioneer.Scriptable
 
         #region GamePlay
 
-        [Header("GamePlay")]
+        [Header("GamePlay")] [SerializeField] private bool m_EnableInputPredict = false;
+        public bool EnableInputPredict => m_EnableInputPredict;
+        
         [SerializeField] private Material m_LeftMaterial;
         [SerializeField] private Material m_RightMaterial;
 

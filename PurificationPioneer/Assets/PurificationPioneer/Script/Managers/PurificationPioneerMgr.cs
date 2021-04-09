@@ -1,5 +1,8 @@
  using System;
+ using DialogSystem.Scripts;
+ using PurificationPioneer.Dialog;
  using PurificationPioneer.Scriptable;
+ using ReadyGamerOne.Utility;
  using ReadyGamerOne.View;
  using UnityEngine;
 
@@ -31,6 +34,9 @@
 			//do any thing you want
 			eventOnGameState += FrameSyncMgr.OnGui;
 			eventOnGameState += PpPhysics.OnGui;
+
+			DialogSystem.Scripts.DialogSystem.onStartDialog += OnStartDialog;
+			DialogSystem.Scripts.DialogSystem.onEndDialog += OnEndDialog;
 			
 			PpPhysics.SetupPhysicsWorld();
 		}
@@ -50,6 +56,16 @@
 		{
 			base.OnAnySceneUnload();
 			PanelMgr.Clear();
+		}
+
+		private void OnStartDialog()
+		{
+			UnityAPI.FreeMouse();
+		}
+
+		private void OnEndDialog()
+		{
+			UnityAPI.LockMouse();
 		}
 	}
 }

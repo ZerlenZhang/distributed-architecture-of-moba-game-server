@@ -191,7 +191,7 @@ namespace PurificationPioneer.Network
 
             SetupTcp();
             
-            Application.quitting += CloseSocket;
+            Application.quitting += Disconnect;
         }
         
         protected override void OnDestroy()
@@ -201,14 +201,14 @@ namespace PurificationPioneer.Network
             {
                 Debug.Log("OnDestroy_关闭链接");
             }
-            this.CloseSocket();
+            this.Disconnect();
         }
 
         
         /// <summary>
         /// 断开链接
         /// </summary>
-        private void CloseSocket()
+        public void Disconnect()
         {
             tcp?.CloseReceiver();
             tcp = null;
@@ -230,7 +230,7 @@ namespace PurificationPioneer.Network
             }
             if (GameSettings.Instance.CloseSocketOnAnyException)
             {
-                CloseSocket();
+                Disconnect();
             }
         }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
-using System.Reflection;
+using System.Reflection; 
 
 [CustomEditor(typeof(Readme))]
 [InitializeOnLoad]
@@ -39,10 +39,10 @@ public class ReadmeEditor : Editor {
 		var assembly = typeof(EditorApplication).Assembly; 
 		var windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
 		var method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
-		method.Invoke(null, new object[]{Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt"), false});
+		method.Invoke(null, new object[]{Path.Combine(Application.dataPath, "About/Layout.wlt"), false});
 	}
 	
-	[MenuItem("Tutorial/Show Tutorial Instructions")]
+	[MenuItem("Help/Asset Store Originals/SNAPS/About")]
 	static Readme SelectReadme() 
 	{
 		var ids = AssetDatabase.FindAssets("Readme t:Readme");
@@ -66,13 +66,14 @@ public class ReadmeEditor : Editor {
 		var readme = (Readme)target;
 		Init();
 		
-		var iconWidth = Mathf.Min(EditorGUIUtility.currentViewWidth/3f - 20f, 128f);
+		var iconWidth = Mathf.Min(EditorGUIUtility.currentViewWidth/3f - 20f, readme.iconMaxWidth);
 		
 		GUILayout.BeginHorizontal("In BigTitle");
 		{
 			GUILayout.Label(readme.icon, GUILayout.Width(iconWidth), GUILayout.Height(iconWidth));
 			GUILayout.Label(readme.title, TitleStyle);
-		}
+            GUILayout.Label(readme.titlesub, TitleStyle);
+        }
 		GUILayout.EndHorizontal();
 	}
 	
@@ -93,6 +94,7 @@ public class ReadmeEditor : Editor {
 			}
 			if (!string.IsNullOrEmpty(section.linkText))
 			{
+				GUILayout.Space(kSpace / 2);
 				if (LinkLabel(new GUIContent(section.linkText)))
 				{
 					Application.OpenURL(section.url);
@@ -126,13 +128,13 @@ public class ReadmeEditor : Editor {
 		m_BodyStyle.fontSize = 14;
 		
 		m_TitleStyle = new GUIStyle(m_BodyStyle);
-		m_TitleStyle.fontSize = 26;
-		
-		m_HeadingStyle = new GUIStyle(m_BodyStyle);
-		m_HeadingStyle.fontSize = 18 ;
+		m_TitleStyle.fontSize = 24;
+
+        m_HeadingStyle = new GUIStyle(m_BodyStyle);
+		m_HeadingStyle.fontSize = 18;
+		m_HeadingStyle.fontStyle = FontStyle.Bold; 
 		
 		m_LinkStyle = new GUIStyle(m_BodyStyle);
-		m_LinkStyle.wordWrap = false;
 		// Match selection color which works nicely for both light and dark skins
 		m_LinkStyle.normal.textColor = new Color (0x00/255f, 0x78/255f, 0xDA/255f, 1f);
 		m_LinkStyle.stretchWidth = false;

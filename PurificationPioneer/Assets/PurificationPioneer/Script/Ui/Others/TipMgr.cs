@@ -19,14 +19,20 @@ namespace PurificationPioneer.Script
         {
             base.OnStateIsNull();
             CEventCenter.AddListener<int>(Message.OnResponseError,OnResponseError);
+            CEventCenter.AddListener<string>(Message.ShowTip, OnTip);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
             CEventCenter.RemoveListener<int>(Message.OnResponseError, OnResponseError);
+            CEventCenter.RemoveListener<string>(Message.ShowTip, OnTip);
         }
 
+        private void OnTip(string tip)
+        {
+            Tip(tip);
+        }
         private void OnResponseError(int errorCode)
         {
             switch (errorCode)

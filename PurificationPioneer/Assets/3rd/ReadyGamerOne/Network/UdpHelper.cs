@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -27,6 +28,8 @@ namespace ReadyGamerOne.Network
         private Action<byte[], int, int> onRecvCmd;
         private Action<Exception> onException;
         private Func<bool> ifEnableSocketLog = () => true;
+
+        private bool shouldKill = false;
                 
 
         #endregion
@@ -87,24 +90,43 @@ namespace ReadyGamerOne.Network
         /// </summary>
         public void CloseReceiver()
         {
+            shouldKill = true;
             udpRecvBuff = null;
             
             if (null != recvThread)
             {
-                recvThread.Interrupt();
                 try
                 {
+                    recvThread.Interrupt();
                     recvThread.Abort();
                 }
-                catch (ThreadAbortException)
+                catch (Exception e)
                 {
-                } 
+#if DebugMode
+                    if (GameSettings.Instance.EnableSocketClosingException)
+                    {
+                        Debug.Log($"[Udp.recvThread.Abort]{e}");
+                    }
+#endif
+                }
             }
             recvThread = null;
             
             if (this.clientSocket != null && this.clientSocket.Connected)
             {
-                this.clientSocket.Close();
+                try
+                {
+                    this.clientSocket.Close();
+                }
+                catch (Exception e)
+                {
+#if DebugMode
+                    if (GameSettings.Instance.EnableSocketClosingException)
+                    {
+                        Debug.Log($"[Udp.clientSocket.Close]{e}");
+                    }
+#endif
+                }
             }
             this.clientSocket = null;
             
@@ -153,6 +175,24 @@ namespace ReadyGamerOne.Network
         {
             while (true)
             {
+                if (shouldKill)
+                {
+
+                    try
+                    {
+                        Thread.CurrentThread.Abort();
+                    }
+                    catch (Exception e)
+                    {
+#if DebugMode
+                        if (GameSettings.Instance.EnableSocketClosingException)
+                        {
+                            Debug.Log($"[Udp.shouldKill.Abort]{e}");
+                        }
+#endif
+                    }
+                    break;
+                }
                 EndPoint remote = new IPEndPoint(IPAddress.Any, 0);
                 try
                 {
@@ -169,8 +209,6 @@ namespace ReadyGamerOne.Network
                 {  
                     if(this.onException!=null) 
                         this.onException(e);
-                    else
-                        throw e;
                     break;
                 }
             }

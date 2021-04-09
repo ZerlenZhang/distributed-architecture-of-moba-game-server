@@ -125,7 +125,7 @@ namespace PurificationPioneer.Script
             }
             
             //收集最近输入，发送到服务器
-            SendLocalCharacterInput(msg.frameId);
+            SendLocalCharacterInput(msg.frameId,out var playerInput);
 
             isSimulating = true;
             PpPhysics.ApplyWorldState();
@@ -154,6 +154,11 @@ namespace PurificationPioneer.Script
             //根据最后一帧，控制接下来的显示逻辑
             _lastFrameEvent = msg.unsyncFrames.Last();
             HandleCurrentLogicFrame(_lastFrameEvent);
+
+            if (GameSettings.Instance.EnableInputPredict)
+            {
+                CEventCenter.BroadMessage(Message.OnInputPredict, playerInput);
+            }
             
             if (_lastFrameEvent.inputs.Count > 0)
             {
@@ -314,8 +319,9 @@ namespace PurificationPioneer.Script
         /// <summary>
         /// 发送本地玩家输入
         /// </summary>
-        private static void SendLocalCharacterInput(int localFrameId)
+        private static void SendLocalCharacterInput(int localFrameId,out PlayerInput input)
         {
+            input = InputMgr.GetInput();
             for(var i=0;i<GameSettings.Instance.NetMsgTimes;i++)
                 LogicProxy.Instance.SendLogicInput(
                     localFrameId + 1,
@@ -324,7 +330,7 @@ namespace PurificationPioneer.Script
                     GlobalVar.LocalSeatId,
                     new List<PlayerInput> 
                     {
-                        InputMgr.GetInput()
+                        input
                     });
             
         }

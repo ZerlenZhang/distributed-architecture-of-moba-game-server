@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PurificationPioneer.Network;
+using UnityEngine;
 
 namespace PurificationPioneer.Script
 {
@@ -6,6 +7,8 @@ namespace PurificationPioneer.Script
     {
         public void SetVisible(bool state)
         {
+            if (state == gameObject.activeSelf)
+                return;
             gameObject.SetActive(state);
         }
 
@@ -16,6 +19,7 @@ namespace PurificationPioneer.Script
 
         public void ExitGame()
         {
+            NetworkMgr.Instance.Disconnect();
             Application.Quit();
         }
     }

@@ -20,6 +20,7 @@ MonoBehaviour:
   netMsgTimes: 1
   _autoSelectLocalPlayer: 0
   closeSocketOnAnyException: 1
+  enableSocketClosingException: 1
   enableSocketLog: 0
   enableProtoLog: 0
   enableFrameSyncLog: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
   matchPanelEaseType: 20
   matchPanelEaseTime: 1
   developerMode: 1
-  workAsAndroid: 1
+  workAsAndroid: 0
   debugAccount: developer
   debugPassword: developer_password
   _attackKey: 323
@@ -52,5 +53,6 @@ MonoBehaviour:
   defaultDynamicFriction: 0.1
   defaultBounciness: 0
   _minDetectableDistance: 0.001
+  m_EnableInputPredict: 1
   m_LeftMaterial: {fileID: 2100000, guid: 4bdfd49a249c4834c9d6a7a591023bb2, type: 2}
   m_RightMaterial: {fileID: 2100000, guid: 7716098d9349c824bb5d79f41aca95d8, type: 2}

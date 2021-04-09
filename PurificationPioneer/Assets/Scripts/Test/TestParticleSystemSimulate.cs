@@ -15,12 +15,6 @@ namespace UnityTemplateProjects.Test
             Debug.Log("After");
         }
 
-
-        private void Update()
-        {
-            Debug.Log("Update");
-        }
-
         [ContextMenu("go on")]
         private void GoOn()
         {

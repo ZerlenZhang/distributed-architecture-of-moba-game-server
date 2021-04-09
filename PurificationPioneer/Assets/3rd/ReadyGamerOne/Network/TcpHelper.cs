@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using PurificationPioneer.Scriptable;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -26,6 +27,8 @@ namespace ReadyGamerOne.Network
             private Action<byte[], int, int> onRecvCmd;
             private Action<Exception> onException;
             private Func<bool> ifEnableSocketLog = () => true;
+
+            private bool shouldKill = false;
 
             #endregion
             
@@ -76,25 +79,43 @@ namespace ReadyGamerOne.Network
             /// </summary>
             public void CloseReceiver()
             {
+                shouldKill = true;
                 longPkg = null;
                 receiveBuffer = null;
                 if (null != recvThread)
                 {
-                    recvThread.Interrupt();
                     try
                     {
+                        recvThread.Interrupt();
                         recvThread.Abort();
                     }
-                    catch (ThreadAbortException)
+                    catch (Exception e)
                     {
-                        
+#if DebugMode
+                        if (GameSettings.Instance.EnableSocketClosingException)
+                        {
+                            Debug.Log($"[Tcp.recvThread.Abort]{e}");
+                        }
+#endif
                     }
                 }
                 recvThread = null;
                 
                 if (this.clientSocket != null && this.clientSocket.Connected)
                 {
-                    this.clientSocket.Close();
+                    try
+                    {
+                        this.clientSocket.Close();
+                    }
+                    catch (Exception e)
+                    {
+#if DebugMode
+                        if (GameSettings.Instance.EnableSocketClosingException)
+                        {
+                            Debug.Log($"[Tcp.clientSocket.Close]{e}");
+                        }
+#endif
+                    }
                 }
                 this.clientSocket = null;
 #if DebugMode
@@ -227,6 +248,23 @@ namespace ReadyGamerOne.Network
             {
                 while (true)
                 {
+                    if (shouldKill)
+                    {
+                        try
+                        {
+                            Thread.CurrentThread.Abort();
+                        }
+                        catch (Exception e)
+                        {
+#if DebugMode
+                            if (GameSettings.Instance.EnableSocketClosingException)
+                            {
+                                Debug.Log($"[Tcp.shouldKill.Abort]{e}");
+                            }
+#endif
+                        }
+                        break;
+                    }
                     if (!this.clientSocket.Connected)
                     {
 #if DebugMode
@@ -268,13 +306,9 @@ namespace ReadyGamerOne.Network
                     {
                         if(this.onException!=null) 
                             this.onException(e);
-                        else
-                            throw e;
                         break;
                     }
                 }
-
-                Debug.LogWarning("退出接收线程");
             }
         
             #endregion
