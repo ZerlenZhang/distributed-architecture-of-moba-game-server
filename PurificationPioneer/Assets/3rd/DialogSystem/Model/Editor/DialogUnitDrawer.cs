@@ -20,7 +20,9 @@ namespace DialogSystem.Model.Editor
             {
                // case 11://Choos
                //     return 6*EditorGUIUtility.singleLineHeight;
-                default:
+               case 12:// Narrator
+                   return 11 * EditorGUIUtility.singleLineHeight;
+               default:
                     return 10 * EditorGUIUtility.singleLineHeight;
             }
         }
@@ -84,7 +86,8 @@ namespace DialogSystem.Model.Editor
                 case 12: //Model.UnitType.Narrator
                     #region Narrator
 
-                    text = property.FindPropertyRelative("wordToNarrator").stringValue;
+                    text = $"【{((NarratorType) property.FindPropertyRelative("m_NarratorType").enumValueIndex).ToString()}】";
+                    text += property.FindPropertyRelative("wordToNarrator").stringValue;
                     
                     break;
 

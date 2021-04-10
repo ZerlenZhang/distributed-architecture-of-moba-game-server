@@ -99,7 +99,7 @@ namespace ReadyGamerOne.View
 
             if (obj == null)
             {
-                Debug.LogError("Window Create Error LoadRes WindowName = " + m_sResName);
+                Debug.LogError("ResourceMgr.InstantiateGameObject 返回 null 资源名：" + m_sResName);
                 return;
             }
 

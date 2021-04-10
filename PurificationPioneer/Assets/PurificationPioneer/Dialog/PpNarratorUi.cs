@@ -10,5 +10,6 @@ namespace PurificationPioneer.Dialog
         }
 
         protected override string TextPath => "bg/Text";
+        protected override string ImagePath => "bg";
     }
 }

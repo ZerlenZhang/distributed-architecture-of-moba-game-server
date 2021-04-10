@@ -7,6 +7,7 @@ using DialogSystem.ScriptObject;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Model.SceneSystem;
+using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using ReadyGamerOne.View;
 using ReadyGamerOne.View.Effects;
@@ -40,6 +41,7 @@ namespace DialogSystem.Model
         Wait=31,
         FadeIn=32,
         FadeOut=33,
+        Audio=34,
         
         
         Panel=40,//切换Panel
@@ -66,6 +68,20 @@ namespace DialogSystem.Model
     {
         Dialog,
         Caption
+    }
+
+    public enum NarratorType
+    {
+        Color,
+        Image,
+        Object
+    }
+
+    public enum AudioType
+    {
+        BGM,
+        Effect,
+        StopBGM,
     }
 
     [Serializable]
@@ -170,19 +186,24 @@ namespace DialogSystem.Model
             var msgProp=property.FindPropertyRelative("workMessageTrigger");
             var sceneNameChooserProp = property.FindPropertyRelative("sceneNameChooser");
             var panelNameChooserProp = property.FindPropertyRelative("panelChooser");
+            var audioNameChooserProp = property.FindPropertyRelative("m_AudioName");
 
-//            if (abstractAbstractDialogInfoAsset.refreshStringChooser)
-//            {
+            if (abstractAbstractDialogInfoAsset.refreshStringChooser)
+            {
                 if(abstractAbstractDialogInfoAsset.MessageType!=null)
-                    EditorUtil.InitSerializedStringArray(msgProp.FindPropertyRelative("messageToTick").FindPropertyRelative("values"),
+                    EditorUtil.InitSerializedStringArray(msgProp.FindPropertyRelative("messageToTick.values"),
                         abstractAbstractDialogInfoAsset.MessageType);
-//                //if(abstractAbstractDialogInfoAsset.SceneType!=null)
-//                    InitSerializedStringArray(sceneNameChooserProp.FindPropertyRelative("values"), 
-//                        abstractAbstractDialogInfoAsset.SceneType);
-//                //if(abstractAbstractDialogInfoAsset.PanelType!=null)
-//                    InitSerializedStringArray(panelNameChooserProp.FindPropertyRelative("values"),
-//                        abstractAbstractDialogInfoAsset.PanelType);
-//            }            
+                if(abstractAbstractDialogInfoAsset.SceneType!=null)
+                    EditorUtil.InitSerializedStringArray(sceneNameChooserProp.FindPropertyRelative("values"), 
+                        abstractAbstractDialogInfoAsset.SceneType);
+                if(abstractAbstractDialogInfoAsset.PanelType!=null)
+                    EditorUtil.InitSerializedStringArray(panelNameChooserProp.FindPropertyRelative("values"),
+                        abstractAbstractDialogInfoAsset.PanelType);
+                if(abstractAbstractDialogInfoAsset.AudioType!=null)
+                    EditorUtil.InitSerializedStringArray(audioNameChooserProp.FindPropertyRelative("values"),
+                        abstractAbstractDialogInfoAsset.AudioType);
+                    
+            }            
 
             #endregion
 
@@ -289,6 +310,42 @@ namespace DialogSystem.Model
                         property.FindPropertyRelative("wordToNarrator"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),
                         property.FindPropertyRelative("narratorSpeed"));
+
+                    var narratorTypeProp = property.FindPropertyRelative("m_NarratorType");
+                    var narratorColorProp = property.FindPropertyRelative("m_NarratorColor");
+                    EditorGUI.BeginChangeCheck();
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++),narratorTypeProp);
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        if (narratorTypeProp.enumValueIndex == 0)
+                        {
+                            narratorColorProp.colorValue=Color.black;
+                        }
+                        else
+                        {
+                            narratorColorProp.colorValue=Color.white;
+                        }
+                    }
+                    
+                    switch (narratorTypeProp.enumValueIndex)
+                    {
+                        case 0:// Color
+                            EditorGUI.PropertyField(position.GetRectAtIndex(index++), narratorColorProp);
+                            break;
+                        case 1:// Image
+                            EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                                property.FindPropertyRelative("m_NarratorImage"));
+                            EditorGUI.PropertyField(position.GetRectAtIndex(index++), narratorColorProp);
+                            break;
+                        case 2:// Object
+                            EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                                property.FindPropertyRelative("m_NarratorObject"));
+                            EditorGUI.PropertyField(position.GetRectAtIndex(index++),
+                                property.FindPropertyRelative("m_NarratorImage"));
+                            EditorGUI.PropertyField(position.GetRectAtIndex(index++), narratorColorProp);
+                            break;
+                    }
+                    
                     var enableFadeOutPorp = property.FindPropertyRelative("enableFadeOut");
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),enableFadeOutPorp);
                     if (enableFadeOutPorp.boolValue)
@@ -423,8 +480,21 @@ namespace DialogSystem.Model
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++),property.FindPropertyRelative("fadeOutTime"));
                     EditorGUI.PropertyField(position.GetRectAtIndex(index++), property.FindPropertyRelative("finalColor"));
                     break;
+                
 
                     #endregion
+                
+                case 34: //Model.UnitType.Audio
+
+                    var audioTypeProp = property.FindPropertyRelative("m_AudioType");
+                    EditorGUI.PropertyField(position.GetRectAtIndex(index++), audioTypeProp);
+                    if (audioTypeProp.enumValueIndex != (int) AudioType.StopBGM)
+                    {
+                        EditorGUI.PropertyField(position.GetRectAtIndex(index++), audioNameChooserProp);
+                    }
+                    
+                    break;
+                
                 case 40:
                     #region Panel
                     
@@ -632,11 +702,19 @@ namespace DialogSystem.Model
         #endregion
 
         #region Narrator
+        
+        
 
         public string wordToNarrator;
         public float narratorSpeed;
         public bool enableFadeOut = true;
         public float narratorTextFadeOutTime = 1.0f;
+
+        public NarratorType m_NarratorType;
+        public Color m_NarratorColor=Color.black;
+        public Sprite m_NarratorImage;
+        public GameObject m_NarratorObject;
+        
         
         public IEnumerator RunNarratorUnit()
         {
@@ -823,6 +901,28 @@ namespace DialogSystem.Model
         }
         
         
+        #endregion
+
+        #region Audio
+
+        public AudioType m_AudioType;
+        public StringChooser m_AudioName;
+
+        public void RunAudio()
+        {
+            switch (m_AudioType)
+            {
+                case AudioType.Effect:
+                    AudioMgr.Instance.PlayEffect(m_AudioName.StringValue);
+                    break;
+                case AudioType.BGM:
+                    AudioMgr.Instance.PlayBgm(m_AudioName.StringValue);
+                    break;
+                default:
+                    throw new NotImplementedException($"还没做:{m_AudioType}");
+            }
+        }
+
         #endregion
 
         #region FadeIn

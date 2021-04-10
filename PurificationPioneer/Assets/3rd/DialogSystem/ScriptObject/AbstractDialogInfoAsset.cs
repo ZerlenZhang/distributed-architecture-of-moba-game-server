@@ -85,6 +85,12 @@ namespace DialogSystem.ScriptObject
         /// Scene类型，重写此属性，DialogSystem中就会有Scene操作功能
         /// </summary>
         public virtual Type SceneType => null;
+
+
+        /// <summary>
+        /// AudioKey的类型，重写此属性，DialogSystem中就会有Scene操作功能
+        /// </summary>
+        public virtual Type AudioType => null;
         
         /// <summary>
         /// 控制主角说话时是否可以行动

@@ -304,6 +304,9 @@ namespace DialogSystem.Scripts
                     case UnitType.FadeOut:
                         yield return dialogUnitInfo.FadeOut();
                         break;
+                    case UnitType.Audio:
+                        dialogUnitInfo.RunAudio();
+                        break;
                     case UnitType.Panel:
 //                        Debug.Log("DialogSystem_RunDialog_Switch_UnitType_Panel");
                         dialogUnitInfo.RunPanelUnit();

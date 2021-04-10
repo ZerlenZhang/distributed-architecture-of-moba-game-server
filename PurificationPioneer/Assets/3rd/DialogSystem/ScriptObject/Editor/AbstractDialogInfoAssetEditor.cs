@@ -92,6 +92,8 @@ namespace DialogSystem.ScriptObject.Editor
                         continue;
                     if ((UnitType) value == UnitType.Message && _abstractDialogInfoAsset.MessageType == null)
                         continue;
+                    if((UnitType) value ==UnitType.Audio && _abstractDialogInfoAsset.AudioType==null)
+                        continue;
                     
                     var itemName = "";
                     if (value >=10  && value < 20)
@@ -167,10 +169,9 @@ namespace DialogSystem.ScriptObject.Editor
                     break;
             }
             GUILayout.EndScrollView();
-
+            
             if (selectIndex != -1 && selectIndex <dialogUnitListProp.arraySize)
             {
-
                 var prop = dialogUnitListProp.GetArrayElementAtIndex(selectIndex);
                 this.detailPos = GUILayout.BeginScrollView(this.detailPos ,GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
                 var rect = GUILayoutUtility.GetRect(100, EditorGUI.GetPropertyHeight(prop),
