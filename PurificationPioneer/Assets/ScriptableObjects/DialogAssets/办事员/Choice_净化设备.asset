@@ -1,0 +1,3045 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b74f7f018a54c2fafe8ba8dcae23823, type: 3}
+  m_Name: "Choice_\u51C0\u5316\u8BBE\u5907"
+  m_EditorClassIdentifier: 
+  DialogUnits:
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 60
+    id: 0
+    showType: 0
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: 
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 1
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u51C0\u5316\u8BBE\u5907\u662F\u4F7F\u7528\u989C\u6599\u6765\u8FBE\u6210\u67D0\u79CD\u6548\u679C\u7684\u8BBE\u5907\uFF0C\u5927\u6982\u5206\u4E24\u79CD"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 2
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u51C0\u5316\u5148\u950B\u4F7F\u7528\u7684\u51C0\u5316\u8BBE\u5907\u662F\u4EE5\u73CD\u8D35\u7684\u4E0A\u5E1D\u989C\u6599\u4E3A\u539F\u6599\u7684\uFF0C\u5177\u6709\u51C0\u5316\u4F5C\u7528\uFF0C\u53EF\u4EE5\u6CBB\u6108\u73AF\u5883"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 3
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u800C\u6211\u4EEC\u9009\u62D4\u8D5B\u4F7F\u7528\u7684\u662F\u666E\u901A\u989C\u6599\uFF0C\u53EA\u5177\u6709\u6D82\u8272\u4F5C\u7528\uFF0C\u7528\u4E8E\u6807\u8BC6\u6D82\u8272\uFF0C\u533A\u522B\u80DC\u8D1F"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 4
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "\u54E6\uFF0C\u8FD9\u6837\u554A\uFF0C\u90A3\u4E0D\u540C\u7684\u51C0\u5316\u8BBE\u5907\u9664\u4E86\u539F\u6599\u5E26\u6765\u7684\u55B7\u6D82\u6548\u679C\u533A\u522B\uFF0C\u8FD8\u6709\u522B\u7684\u533A\u522B\u5417\uFF1F"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 5
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u5F53\u7136\u6709"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 6
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u9996\u5148\u662F\uFF0C\u7528\u6CD5\u4E0A\u7684\u533A\u522B\uFF0C\u6709\u7684\u8BBE\u5907\u8BBE\u8BA1\u5E08\uFF0C\u5C06\u989C\u6599\u505A\u6210\u7C89\u672B\u72B6\uFF0C\u55B7\u5C04\u7C89\u672B\u72B6\u9897\u7C92\u7269"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 7
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u6709\u7684\u8BBE\u8BA1\u5E08\uFF0C\u5C06\u989C\u6599\u505A\u6210\u6DB2\u4F53\uFF0C\u53EF\u4EE5\u50CF\u6C34\u67AA\u4E00\u6837\u4F7F\u7528"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 8
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u6709\u7684\u8BBE\u8BA1\u5E08\uFF0C\u5C06\u989C\u6599\u9644\u7740\u5728\u4E00\u4E9B\u673A\u68B0\u4E0A\uFF0C\u901A\u8FC7\u5F00\u52A8\u673A\u68B0\u6765\u4F7F\u7528\u989C\u6599"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 23
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u8FD8\u6709\u529F\u80FD\u4E0A\u7684\u533A\u522B\uFF0C\u51C0\u5316\u8BBE\u5907\u5F80\u5F80\u90FD\u662F\u5728\u6218\u6597\u548C\u55B7\u6D82\u4E24\u5927\u9700\u6C42\u4E2D\u627E\u4E00\u4E2A\u9002\u5408\u81EA\u5DF1\u7684\u5E73\u8861\u70B9"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 9
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u8FD8\u6709\u5F88\u591A\u5F88\u591A\uFF0C\u603B\u4E4B\u5C31\u662F\uFF0C\u8BBE\u8BA1\u5E08\u4F1A\u8BBE\u8BA1\u548C\u5236\u4F5C\u51FA\u591A\u6837\u7684\u51C0\u5316\u8BBE\u5907\u6765\u9002\u5E94\u5730\u9762\u4E0A\u53EF\u80FD\u7684\u590D\u6742\u73AF\u5883"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 10
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "\u542C\u8D77\u6765\uFF0C\u8FD8\u86EE\u8BB2\u7A76\u7684\u5462"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 11
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u662F\u7684\uFF0C\u8BBE\u5907\u4E5F\u7B97\u662F\u672F\u4E1A\u6709\u4E13\u653B\u5427"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 12
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u4E0D\u540C\u8BBE\u5907\u5728\u53C2\u6570\u548C\u5BF9\u4E0D\u540C\u73AF\u5883\u9002\u5E94\u6027\u4E0A\u90FD\u6709\u81EA\u5DF1\u7684\u7279\u8272"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 13
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "\u55EF\uFF0C\u6211\u73B0\u5728\u5B8C\u5168\u61C2\u4E86\uFF0C\u53EF\u662F\uFF0C\u6211\u73B0\u5728\u597D\u50CF\u4E00\u4E2A\u8BBE\u5907\u90FD\u6CA1\u6709\uFF0C\u6211\u8FD8\u80FD\u53C2\u9009\u5417\uFF1F"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 14
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u6B63\u5E38\uFF0C\u4F60\u662F\u65B0\u4EBA\u561B\uFF0C\u4E0D\u8FC7\u4E0D\u8981\u7D27\uFF0C\u4E3B\u529E\u65B9\u4E13\u95E8\u4E3A\u65B0\u4EBA\u51C6\u5907\u4E86\u8FD9\u6B3E\u4FBF\u643A\u5F0F\u901A\u7528\u578B\u6DB2\u6001\u6D82\u8272\u67AA"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 15
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u8FD9\u4E2A\u5C31\u514D\u8D39\u9001\u7ED9\u4F60\u4E86\uFF0C\u7B97\u662F\u6211\u4EEC\u7684\u652F\u6301"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 16
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "\u597D\u7684\u597D\u7684\uFF0C\u4E07\u5206\u611F\u8C22\uFF01\u6211\u8FD8\u4EE5\u4E3A\u6211\u4E0D\u80FD\u53C2\u52A0\u4E86\u5462"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 17
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "\u987A\u4FBF\uFF0C\u90A3\u6211\u600E\u4E48\u83B7\u5F97\u65B0\u7684\u51C0\u5316\u8BBE\u5907\u5462\uFF1F"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 18
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u6709\u5F88\u591A\u79CD\u83B7\u53D6\u51C0\u5316\u8BBE\u5907\u7684\u529E\u6CD5"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 19
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u6BD4\u5982\uFF0C\u4F60\u53EF\u4EE5\u901A\u8FC7\u53C2\u52A0\u9009\u62D4\u8D5B\u6216\u8005\u4E2A\u4EBA\u6A21\u62DF\u8D5B\u83B7\u53D6\u79EF\u5206\uFF0C\u7136\u540E\u5230\u4E0D\u8FDC\u5904\u7684\u79EF\u5206\u5546\u5E97\u5C31\u53EF\u4EE5\u5151\u6362\u5927\u90E8\u5206\u8BBE\u5907"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 20
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "\u8FD8\u6709\u5C11\u91CF\u7A00\u6709\u8BBE\u5907\u9700\u8981\u8FBE\u6210\u4E00\u5B9A\u7684\u6311\u6218\u624D\u80FD\u83B7\u5F97"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 21
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "// \u90A3\u6211\u53EF\u4EE5\u6C2A\u91D1\u561B\uFF1F"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 22
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 0
+    words: "// \u5F53\u7136\uFF0C\u4F60\u53EF\u4EE5\u8054\u7CFB\u5F00\u53D1\u8005\uFF0C\u8BA9\u4ED6\u5E2E\u4F60\u6539\u4E0B\u6570\u636E\u5E93\uFF08\u624B\u52A8\u72D7\u5934\uFF09"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values: []
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 2
+    varToSet:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  varAsset: {fileID: 11400000, guid: 9c119b49bdc07f94288c7a44a0862d15, type: 2}
+  characterAsset: {fileID: 0}
+  canMoveOnTalking: 0
+  wordFinishTime: 0.3
+  affectedByTimeScale: 1
+  refreshStringChooser: 0

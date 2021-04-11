@@ -137,7 +137,7 @@ namespace DialogSystem.Scripts
             #region 对话开始事件
             
             
-            if(!IsRunningAll)
+            if(!IsRunningAll && stackSize==0)
                 onStartDialog?.Invoke();
             if (DialogSettings.Instance.ShowDialogStackInfo)
             {
@@ -344,7 +344,8 @@ namespace DialogSystem.Scripts
         public static IEnumerator RunAllDialog(DialogSystem dialogSystem,bool await=false)
         {
             IsRunningAll = true;
-            onStartDialog?.Invoke();
+            if(stackSize==0)
+                onStartDialog?.Invoke();
             
             foreach (var asset in dialogSystem.DialogInfoAssets)
             {
@@ -427,10 +428,10 @@ namespace DialogSystem.Scripts
         /// <param name="assetName"></param>
         private static void EndRunningDialog(string endStatement, string assetName)
         {
-            if(!IsRunningAll)
-                onEndDialog?.Invoke();
             
             stackSize--;
+            if(!IsRunningAll && stackSize==0)
+                onEndDialog?.Invoke();
 
             if (DialogSettings.Instance.ShowDialogStackInfo)
             {

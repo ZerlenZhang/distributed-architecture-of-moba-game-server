@@ -12,6 +12,8 @@ namespace PurificationPioneer.Global
 	/// </summary>
 	public class GlobalVar : ReadyGamerOne.Global.GlobalVar
 	{
+		public static bool IsPlayerInControl { get; set; } = true;
+		
 		#region UserInfo
 
 		public static bool IsUserLoginIn { get; private set; }

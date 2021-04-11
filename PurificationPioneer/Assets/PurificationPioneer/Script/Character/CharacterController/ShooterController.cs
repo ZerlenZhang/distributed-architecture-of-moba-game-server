@@ -100,7 +100,7 @@ namespace PurificationPioneer.Script
 
                 
                 m_ShootSystem.Initialize(
-                    () => Input.GetMouseButton(0),
+                    () => GlobalVar.IsPlayerInControl && Input.GetMouseButton(0),
                     true,
                     localCameraHelper.vcam,
                     RotateToCamera,
@@ -131,8 +131,8 @@ namespace PurificationPioneer.Script
         
                 void InputMagnitude() {
                     //Calculate Input Vectors
-                    var InputX = Input.GetAxis ("Horizontal");
-                    var InputZ = Input.GetAxis ("Vertical");
+                    var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal"):0;
+                    var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical"):0;
 
                     //Calculate the Input Magnitude
                     var Speed = new Vector2(InputX, InputZ).sqrMagnitude;
@@ -155,8 +155,8 @@ namespace PurificationPioneer.Script
 			
                     void PlayerMoveAndRotation() 
                     {
-                        var InputX = Input.GetAxis("Horizontal");
-                        var InputZ = Input.GetAxis("Vertical");
+                        var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal"):0;
+                        var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical"):0;
 
                         var forward = m_Camera.transform.forward;
                         var right = m_Camera.transform.right;

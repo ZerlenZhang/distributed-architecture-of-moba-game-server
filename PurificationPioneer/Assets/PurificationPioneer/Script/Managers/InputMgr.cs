@@ -27,18 +27,22 @@ namespace PurificationPioneer.Script
             var input = new PlayerInput
             {
                 seatId = GlobalVar.LocalSeatId,
-                attack = attack,
-                jump = jump,
-                mouseX = mouseX,
-                mouseY = mouseY,
-                heroFirstSkill = heroFirstSkill,
-                heroSecondSkill = heroSecondSkill,
-                weaponFirstSkill = weaponFirstSkill,
-                weaponSecondSkill = weaponSecondSkill,
                 faceX = cameraDir.x.ToInt(),
                 faceY = cameraDir.y.ToInt(),
-                faceZ = cameraDir.z.ToInt()
+                faceZ = cameraDir.z.ToInt(),
             };
+
+            if (GlobalVar.IsPlayerInControl)
+            {
+                input.attack = attack;
+                input.jump = jump;
+                input.mouseX = mouseX;
+                input.mouseY = mouseY;
+                input.heroFirstSkill = heroFirstSkill;
+                input.heroSecondSkill = heroSecondSkill;
+                input.weaponFirstSkill = weaponFirstSkill;
+                input.weaponSecondSkill = weaponSecondSkill;
+            }
 
             if (GameSettings.Instance.EnableInputPredict)
             {
@@ -51,26 +55,36 @@ namespace PurificationPioneer.Script
                 CEventCenter.BroadMessage<Action<Vector2>>(Message.AndroidMoveInput,
                 (moveInput) =>
                 {
+                    if (!GlobalVar.IsPlayerInControl)
+                        return;
                     input.moveX = moveInput.x.ToInt();
                     input.moveY = moveInput.y.ToInt();
                 });
             }
             else
             {
-                input.moveX = Input.GetAxis("Horizontal").ToInt();
-                input.moveY = Input.GetAxis("Vertical").ToInt();
+                if (GlobalVar.IsPlayerInControl)
+                {
+                    input.moveX = Input.GetAxis("Horizontal").ToInt();
+                    input.moveY = Input.GetAxis("Vertical").ToInt();                    
+                }
+
             }
 #elif UNITY_ANDROID
             CEventCenter.BroadMessage<Action<Vector2>>(Message.AndroidMoveInput,
                 (moveInput) =>
-                {
+                {                    
+                    if (!GlobalVar.IsPlayerInControl)
+                        return;
                     input.moveX = moveInput.x.ToInt();
                     input.moveY = moveInput.y.ToInt();
                 });
-#elif UNITY_STANDALONE_WIN
-            input.moveX = Input.GetAxis("Horizontal").ToInt();
-            input.moveY = Input.GetAxis("Vertical").ToInt();
-            
+#elif UNITY_STANDALONE_WIN                
+            if (GlobalVar.IsPlayerInControl)
+            {
+                input.moveX = Input.GetAxis("Horizontal").ToInt();
+                input.moveY = Input.GetAxis("Vertical").ToInt();
+            }
 #endif
             ClearInput();
             return input;
@@ -78,6 +92,8 @@ namespace PurificationPioneer.Script
 
         private static void ClearInput()
         {
+            mouseX = 0;
+            mouseY = 0;
             jump = false;
             attack = false;
             heroFirstSkill = false;
