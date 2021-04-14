@@ -21432,6 +21432,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4926591831143164, guid: dad5ac76e863a834aa3d74b266e53f15, type: 3}
   m_PrefabInstance: {fileID: 1014389935}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1023350126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1023350128}
+  - component: {fileID: 1023350127}
+  m_Layer: 0
+  m_Name: MainCityMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1023350127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023350126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec568bc9d8c4b0492c0cd2c2eb969f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Bgm:
+    values:
+    - Advanture
+    - Dialog
+    - SadStory
+    - WakeUp
+    - War
+    selectedIndex: 1
+--- !u!4 &1023350128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023350126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 996.6974, y: 499.45932, z: -94.27234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1025062847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43662,6 +43713,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3828597366496608463, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
+      propertyPath: workType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828597366496608463, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
+      propertyPath: allowProgressRange.max.valueType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3828597367957281448, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
       propertyPath: m_Name
       value: "NPC_\u5411\u5BFC"
@@ -43712,3 +43771,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
+--- !u!1 &3828597367051136328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3828597367957281448, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
+  m_PrefabInstance: {fileID: 3828597367051136327}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3828597367051136329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3828597367051136328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29916c46746ef134dab97ab9bdeaed6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableConditions: []
+  ProgressPointRange:
+    min:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    max:
+      valueType: 1
+      selectedIndex: 0
+      value: 0

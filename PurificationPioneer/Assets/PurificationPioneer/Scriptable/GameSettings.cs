@@ -212,7 +212,9 @@ namespace PurificationPioneer.Scriptable
 
         #region 输入配置
 
-        [Header("PC端攻击键")] [SerializeField] private KeyCode _attackKey = KeyCode.Mouse0;
+        [Header("PC端攻击键")] 
+        [SerializeField] private KeyCode _mouseMode = KeyCode.LeftAlt;
+        [SerializeField] private KeyCode _attackKey = KeyCode.Mouse0;
 
         [SerializeField] private KeyCode _jumpKey = KeyCode.Space;
 
@@ -228,6 +230,7 @@ namespace PurificationPioneer.Scriptable
         [SerializeField] private KeyCode _dialogContinueKey = KeyCode.Mouse0;
         [SerializeField] private KeyCode _interactKey = KeyCode.E;
 
+        public KeyCode MouseMode => _mouseMode;
         public KeyCode DialogContinueKey => _dialogContinueKey;
         public KeyCode InteractKey => _interactKey;
         

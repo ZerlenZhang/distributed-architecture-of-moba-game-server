@@ -7,6 +7,11 @@ namespace PurificationPioneer.Utility
 	{
 		private System.Collections.Generic.Dictionary<string,string> nameToPath 
 			= new System.Collections.Generic.Dictionary<string,string>{
+					{ @"Advanture" , @"ClassAudio\bgm\Advanture" },
+					{ @"Dialog" , @"ClassAudio\bgm\Dialog" },
+					{ @"SadStory" , @"ClassAudio\bgm\SadStory" },
+					{ @"WakeUp" , @"ClassAudio\bgm\WakeUp" },
+					{ @"War" , @"ClassAudio\bgm\War" },
 					{ @"Character0" , @"ClassCharacter\Character0" },
 					{ @"Character1" , @"ClassCharacter\Character1" },
 					{ @"Character2" , @"ClassCharacter\Character2" },
@@ -25,7 +30,9 @@ namespace PurificationPioneer.Utility
 					{ @"GameEndPanel" , @"ClassPanel\GameEndPanel" },
 					{ @"HomePanel" , @"ClassPanel\HomePanel" },
 					{ @"LoadingPanel" , @"ClassPanel\LoadingPanel" },
+					{ @"MainCityPanel" , @"ClassPanel\MainCityPanel" },
 					{ @"MatchPanel" , @"ClassPanel\MatchPanel" },
+					{ @"WakeUpPanel" , @"ClassPanel\WakeUpPanel" },
 					{ @"WelcomePanel" , @"ClassPanel\WelcomePanel" },
 					{ @"Avatar0" , @"ClassSprite\UserIcons\Avatar0" },
 					{ @"Avatar1" , @"ClassSprite\UserIcons\Avatar1" },

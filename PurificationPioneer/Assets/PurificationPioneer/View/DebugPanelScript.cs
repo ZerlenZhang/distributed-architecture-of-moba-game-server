@@ -32,7 +32,7 @@ namespace PurificationPioneer.View
             closeSocketOnAnyException.isOn = GameSettings.Instance.CloseSocketOnAnyException;
             enableProtoLogToggle.isOn = GameSettings.Instance.EnableProtoLog;
             startTestBtn.onClick.AddListener(
-                () => PanelMgr.PushPanel(PanelName.WelcomePanel));
+                () => PanelMgr.PushPanel(PanelName.WakeUpPanel));
         }
     }
 }

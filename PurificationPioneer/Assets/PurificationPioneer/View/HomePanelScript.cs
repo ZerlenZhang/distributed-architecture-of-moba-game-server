@@ -1,9 +1,10 @@
-﻿using PurificationPioneer.Global;
-using PurificationPioneer.Network.Const;
+﻿using PurificationPioneer.Const;
+using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Script;
 using PurificationPioneer.Utility;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace PurificationPioneer.View
@@ -56,10 +57,9 @@ namespace PurificationPioneer.View
         public void TryStoryMode()
         {
             HideRoomTypeUi();
-            LogicProxy.Instance.StartStoryMode(GlobalVar.Uname);
+            // LogicProxy.Instance.StartStoryMode(GlobalVar.Uname);
+            SceneManager.LoadScene(SceneName.MainCity);
         }
-        
-        
 
         public void UpdateUserInfo()
         {

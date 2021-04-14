@@ -6,5 +6,6 @@ namespace PurificationPioneer.Const
 		public const string Battle = @"Battle";
 		public const string GameEnd = @"GameEnd";
 		public const string Home = @"Home";
+		public const string MainCity = @"MainCity";
 	}
 }

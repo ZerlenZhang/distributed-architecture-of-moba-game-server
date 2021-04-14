@@ -1,6 +1,4 @@
  using System;
- using DialogSystem.Scripts;
- using PurificationPioneer.Dialog;
  using PurificationPioneer.Scriptable;
  using ReadyGamerOne.Utility;
  using ReadyGamerOne.View;
@@ -47,6 +45,21 @@
 				eventOnGameState?.Invoke(DefaultGuiStyle);
 		}
 
+		internal bool m_NeedResetMouseMode = false;
+		protected override void Update()
+		{
+			base.Update();
+			if (UnityAPI.IsLocked && Input.GetKeyDown(GameSettings.Instance.MouseMode))
+			{
+				m_NeedResetMouseMode = true;
+				UnityAPI.FreeMouse();
+			}else if (m_NeedResetMouseMode && Input.GetKeyUp(GameSettings.Instance.MouseMode))
+			{
+				m_NeedResetMouseMode = false;
+				UnityAPI.LockMouse();
+			}
+		}
+		
 		private void FixedUpdate()
 		{
 			PpPhysics.Simulate(Time.fixedDeltaTime,PpPhysicsSimulateOptions.NoEvent);
