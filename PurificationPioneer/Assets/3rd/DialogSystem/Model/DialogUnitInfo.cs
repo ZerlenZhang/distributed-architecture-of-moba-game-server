@@ -2,11 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DialogSystem.ScriptObject;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.EditorExtension;
-using ReadyGamerOne.Model.SceneSystem;
 using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using ReadyGamerOne.View;
@@ -1011,17 +1009,17 @@ namespace DialogSystem.Model
         public IEnumerator RunSceneUnit()
         {
 //            Debug.Log("DialogUnitInfo_RunSceneUnit_Before");
-            if (useSceneMgr)
-            {
-                if(loadBack)
-                    yield return SceneMgr.LoadBack();
-                else
-                    yield return SceneMgr.LoadSceneCoroutine(sceneNameChooser.StringValue);
-            }
-            
+            // if (useSceneMgr)
+            // {
+            //     if(loadBack)
+            //         yield return SceneMgr.LoadBack();
+            //     else
+            //         yield return SceneMgr.LoadSceneCoroutine(sceneNameChooser.StringValue);
+            // }
+            //
 //            Debug.Log("DialogUnitInfo_RunSceneUnit_End");
 
-            throw new Exception("you must useSceneMgr");
+            throw new NotImplementedException("you must useSceneMgr");
         }
         
 

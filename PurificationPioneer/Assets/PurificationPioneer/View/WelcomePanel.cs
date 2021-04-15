@@ -1,5 +1,6 @@
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
+using PurificationPioneer.Script;
 using PurificationPioneer.Scriptable;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.View;
@@ -49,7 +50,7 @@ namespace PurificationPioneer.View
 		
 		private void OnUserLogin()
 		{
-			SceneManager.LoadScene(SceneName.Home);
+			SceneMgr.LoadSceneWithSimpleLoadingPanel(SceneName.Home);
 		}
 	}
 }

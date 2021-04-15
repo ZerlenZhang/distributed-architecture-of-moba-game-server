@@ -58,7 +58,7 @@ namespace PurificationPioneer.View
         {
             HideRoomTypeUi();
             // LogicProxy.Instance.StartStoryMode(GlobalVar.Uname);
-            SceneManager.LoadScene(SceneName.MainCity);
+            SceneMgr.LoadSceneWithSimpleLoadingPanel(SceneName.MainCity);
         }
 
         public void UpdateUserInfo()

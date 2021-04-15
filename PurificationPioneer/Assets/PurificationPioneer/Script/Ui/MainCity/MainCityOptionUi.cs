@@ -44,7 +44,7 @@ namespace PurificationPioneer.Script
 
         public void ExitStoryMode()
         {
-            SceneManager.LoadScene(SceneName.Home);
+            SceneMgr.LoadSceneWithSimpleLoadingPanel(SceneName.Home);
         }
 
         public void ExitGame()

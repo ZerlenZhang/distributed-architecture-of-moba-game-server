@@ -5,6 +5,7 @@ using ReadyGamerOne.Common;
 using UnityEngine;
 using ReadyGamerOne.EditorExtension;
 using ReadyGamerOne.Script;
+using UnityEngine.Events;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -111,9 +112,11 @@ namespace DialogSystem.Scripts
         [Header("在这样的进度区间内触发器是工作的")]
         public ProgressPointRange allowProgressRange;
 
+        [SerializeField] public UnityEvent<bool> onInteractableChanged;
+        
         #region Private
         
-        private bool enableTrigger = false;
+        private bool enableTrigger_WorkAfterMsg = false;
         
         private bool _triggered = false;
 
@@ -131,23 +134,24 @@ namespace DialogSystem.Scripts
         #region CEventCenter消息响应
 
         
-        private void OnEnableTrigger() => enableTrigger = true;
+        private void OnEnableTrigger() => enableTrigger_WorkAfterMsg = true;
 
         #endregion
+
 
         #region MonoBehavior
         
         // Use this for initialization
         private void Start()
-        {            
+        {
 //            Debug.Log(gameObject.name+ " Start:"+gameObject.activeSelf);
             if(workType==WorkType.WorkAfterMessage)
                 CEventCenter.AddListener(messageToEnableThis.StringValue,OnEnableTrigger);
+            
             if (startType == StartType.MessageStart)
                 CEventCenter.AddListener(messageToStart.StringValue,TriggerDialog);
             else if (startType == StartType.ClickStart)
             {
-         
                 if (this.gameObject.layer == LayerMask.NameToLayer("UI"))
                 {
                     this.gameObject.AddComponent<UIInputer>().eventOnPointerClick += (obj) =>
@@ -158,7 +162,7 @@ namespace DialogSystem.Scripts
                                 TriggerDialog();
                                 break;
                             case WorkType.WorkAfterMessage:
-                                if (enableTrigger)
+                                if (enableTrigger_WorkAfterMsg)
                                     TriggerDialog();
                                 break;
                             case WorkType.WorkBetweenProgress:
@@ -181,7 +185,7 @@ namespace DialogSystem.Scripts
                                 TriggerDialog();
                                 break;
                             case WorkType.WorkAfterMessage:
-                                if (enableTrigger)
+                                if (enableTrigger_WorkAfterMsg)
                                     TriggerDialog();
                                 break;
                             case WorkType.WorkBetweenProgress:
@@ -195,13 +199,14 @@ namespace DialogSystem.Scripts
          
             }
             else if(startType==StartType.StartOnAwake)
+            {
                 switch (workType)
                 {
                     case WorkType.WorkAlways:
                         TriggerDialog();
                         break;
                     case WorkType.WorkAfterMessage:
-                        if(enableTrigger)
+                        if(enableTrigger_WorkAfterMsg)
                             TriggerDialog();
                         break;
                     case WorkType.WorkBetweenProgress:
@@ -210,6 +215,30 @@ namespace DialogSystem.Scripts
                             TriggerDialog();
                         break;
                 }
+            }
+            else if (startType == StartType.InteractStart)
+            {
+                switch (workType)
+                {
+                    case WorkType.WorkAlways:
+                        onInteractableChanged?.Invoke(true);
+                        break;
+                    case WorkType.WorkAfterMessage:
+                        onInteractableChanged?.Invoke(true);
+                        break;
+                    case WorkType.WorkBetweenProgress:
+                        if(DialogProgressAsset.Instance.CurrentProgress>allowProgressRange.Min
+                           && DialogProgressAsset.Instance.CurrentProgress<allowProgressRange.Max)
+                        {
+                            onInteractableChanged?.Invoke(true);
+                        }
+                        else
+                        {
+                            onInteractableChanged?.Invoke(false);
+                        }
+                        break;
+                }
+            }
         }
 
 
@@ -224,7 +253,7 @@ namespace DialogSystem.Scripts
                         TriggerDialog();
                         break;
                     case WorkType.WorkAfterMessage:
-                        if(enableTrigger)
+                        if(enableTrigger_WorkAfterMsg)
                             TriggerDialog();
                         break;
                     case WorkType.WorkBetweenProgress:
@@ -280,7 +309,6 @@ namespace DialogSystem.Scripts
         {
             if (!Application.isPlaying)
                 return;
-//            Camera.main.
             if (!enabled)
                 return;
             if(startType==StartType.AppearStart)
@@ -290,7 +318,7 @@ namespace DialogSystem.Scripts
                         TriggerDialog();
                         break;
                     case WorkType.WorkAfterMessage:
-                        if(enableTrigger)
+                        if(enableTrigger_WorkAfterMsg)
                             TriggerDialog();
                         break;
                     case WorkType.WorkBetweenProgress:
@@ -315,7 +343,7 @@ namespace DialogSystem.Scripts
                         TriggerDialog();
                         break;
                     case WorkType.WorkAfterMessage:
-                        if(enableTrigger)
+                        if(enableTrigger_WorkAfterMsg)
                             TriggerDialog();
                         break;
                     case WorkType.WorkBetweenProgress:
@@ -353,7 +381,7 @@ namespace DialogSystem.Scripts
                         TriggerDialog();
                         break;
                     case WorkType.WorkAfterMessage:
-                        if(enableTrigger)
+                        if(enableTrigger_WorkAfterMsg)
                             TriggerDialog();
                         break;
                     case WorkType.WorkBetweenProgress:
@@ -372,6 +400,9 @@ namespace DialogSystem.Scripts
         {
             if(triggerOnlyOnce && _triggered)
                 return;
+            
+            //每次开始对话时就不再需要显示flag
+            onInteractableChanged?.Invoke(false);
             StartDialog(this.triggerType);
         }
 
@@ -389,6 +420,7 @@ namespace DialogSystem.Scripts
                     
                     var c = UsedDialogSystem.StartDialog(sequenceRange.x + currentDialogIndex++, () =>
                     {
+                        // 所有对话全都结束
                         if (currentDialogIndex > sequenceRange.y)
                         {
                             _triggered = true;
@@ -398,6 +430,11 @@ namespace DialogSystem.Scripts
                             {
                                 Destroy(this);
                             }
+                        }
+                        else
+                        {
+                            //没有完全结束
+                            onInteractableChanged?.Invoke(true);
                         }
                     },startType==StartType.MessageStart);
                     return c;
@@ -409,7 +446,6 @@ namespace DialogSystem.Scripts
 
 
         #endregion
-
     }
 }
 

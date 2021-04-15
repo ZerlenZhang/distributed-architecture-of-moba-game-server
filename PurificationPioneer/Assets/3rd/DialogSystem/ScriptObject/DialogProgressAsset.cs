@@ -14,6 +14,12 @@ namespace DialogSystem.ScriptObject
         public List<DialogProgressPoint> DialogProgressPoints=new List<DialogProgressPoint>();
         [SerializeField] private float currentProgress = 0f;
 
+        public void SetProgress(float value, bool broadEvent = false)
+        {
+            currentProgress = value;
+            if (broadEvent)
+                onProgressChanged?.Invoke(currentProgress);
+        }
         public float CurrentProgress
         {
             get { return currentProgress; }

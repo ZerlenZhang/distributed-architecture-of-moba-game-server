@@ -1,4 +1,5 @@
-﻿using PurificationPioneer.Const;
+﻿using DialogSystem.ScriptObject;
+using PurificationPioneer.Const;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -24,6 +25,11 @@ namespace PurificationPioneer.Utility
                     {
                         EditorSceneManager.OpenScene(lastScenePath, OpenSceneMode.Single);
                     }
+                }
+
+                if (change == PlayModeStateChange.ExitingEditMode)
+                {
+                    ResetDialogVars();
                 }
             };
         }
@@ -55,6 +61,15 @@ namespace PurificationPioneer.Utility
             EditorPrefs.SetString(PrefUtil.LastScenePathKey, currentScene.path);
             EditorSceneManager.OpenScene(ExpectedScenePath, OpenSceneMode.Single);
             EditorApplication.EnterPlaymode();
+        }
+
+        [MenuItem("净化先锋/重置Dialog变量")]
+        private static void ResetDialogVars()
+        {
+            DialogVarAsset.Instance.varInfos[0].SetValue(false);
+            DialogVarAsset.Instance.varInfos[1].SetValue(true);
+            DialogVarAsset.Instance.varInfos[2].SetValue(true);
+            DialogProgressAsset.Instance.SetProgress(1);
         }
     }
 }

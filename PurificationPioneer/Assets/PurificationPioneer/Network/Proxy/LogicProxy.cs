@@ -45,7 +45,7 @@ namespace PurificationPioneer.Network.Proxy
                         Debug.Log($"[OnGameEndTick] 比赛结束");
 #endif
                     GlobalVar.SetGameEndInfo(gameEndTick);
-                    SceneManager.LoadScene(SceneName.GameEnd);
+                    SceneMgr.LoadSceneWithSimpleLoadingPanel(SceneName.GameEnd);
                     break;
 
                 #endregion
@@ -69,8 +69,8 @@ namespace PurificationPioneer.Network.Proxy
                         Debug.Log($"[ExitGameRes] 退出比赛");
 #endif
 
-                    SceneManager.LoadScene(SceneName.Home);
                     Debug.Log($"[ExitGameRes] 退出比赛");
+                    SceneMgr.LoadSceneWithSimpleLoadingPanel(SceneName.Home);
                     
                     break;
                 

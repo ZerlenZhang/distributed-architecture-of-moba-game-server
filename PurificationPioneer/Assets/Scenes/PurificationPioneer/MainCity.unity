@@ -5327,6 +5327,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8301ea8c6c341e44c9cd35fb6f2e1428, type: 3}
+--- !u!1 &303934280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8110066731832288049, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
+  m_PrefabInstance: {fileID: 3828597367051136327}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &303934283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303934280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29916c46746ef134dab97ab9bdeaed6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableConditions: []
+  ProgressPointRange:
+    min:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    max:
+      valueType: 1
+      selectedIndex: 0
+      value: 0
 --- !u!1001 &304359525
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16903,7 +16930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.18
+      value: 1.1988169
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16911,23 +16938,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.86
+      value: 12.777161
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9579739
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.28685555
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -16935,7 +16962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -33.34
       objectReference: {fileID: 0}
     - target: {fileID: 720678864114334999, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -22816,6 +22843,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4051732551247078, guid: fc62ef998eb59b346b34d565f38deb3b, type: 3}
   m_PrefabInstance: {fileID: 1081559140}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1082455762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3828597366496608449, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
+  m_PrefabInstance: {fileID: 3828597367051136327}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1082455766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082455762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29916c46746ef134dab97ab9bdeaed6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableConditions: []
+  ProgressPointRange:
+    min:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    max:
+      valueType: 1
+      selectedIndex: 0
+      value: 0
 --- !u!4 &1083981738 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4879002237812562, guid: 48747a2f9069f384597b1a434690ae2d, type: 3}
@@ -43771,30 +43825,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
---- !u!1 &3828597367051136328 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3828597367957281448, guid: 065c0bf41958e45468200ecd03d0b9fa, type: 3}
-  m_PrefabInstance: {fileID: 3828597367051136327}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3828597367051136329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3828597367051136328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29916c46746ef134dab97ab9bdeaed6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableConditions: []
-  ProgressPointRange:
-    min:
-      valueType: 0
-      selectedIndex: 0
-      value: 0
-    max:
-      valueType: 1
-      selectedIndex: 0
-      value: 0

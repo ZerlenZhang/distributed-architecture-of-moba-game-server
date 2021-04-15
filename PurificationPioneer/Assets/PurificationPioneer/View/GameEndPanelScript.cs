@@ -2,6 +2,7 @@
 using System.Text;
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
+using PurificationPioneer.Script;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -56,7 +57,7 @@ namespace PurificationPioneer.View
 
         public void BackToHome()
         {
-            SceneManager.LoadScene(SceneName.Home);
+            SceneMgr.LoadSceneWithSimpleLoadingPanel(SceneName.Home);
         }
     }
 }

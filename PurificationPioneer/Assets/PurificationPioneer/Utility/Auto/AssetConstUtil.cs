@@ -32,6 +32,7 @@ namespace PurificationPioneer.Utility
 					{ @"LoadingPanel" , @"ClassPanel\LoadingPanel" },
 					{ @"MainCityPanel" , @"ClassPanel\MainCityPanel" },
 					{ @"MatchPanel" , @"ClassPanel\MatchPanel" },
+					{ @"SimpleLoadingPanel" , @"ClassPanel\SimpleLoadingPanel" },
 					{ @"WakeUpPanel" , @"ClassPanel\WakeUpPanel" },
 					{ @"WelcomePanel" , @"ClassPanel\WelcomePanel" },
 					{ @"Avatar0" , @"ClassSprite\UserIcons\Avatar0" },

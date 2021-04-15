@@ -30,7 +30,6 @@ namespace PurificationPioneer.Dialog
 
         public override Type MessageType => typeof(Message);
         public override Type PanelType => typeof(PanelName);
-        public override Type SceneType => typeof(SceneName);
 
 
         #region Resources Cofigs

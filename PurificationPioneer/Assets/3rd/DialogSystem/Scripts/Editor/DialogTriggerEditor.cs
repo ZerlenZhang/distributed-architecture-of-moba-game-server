@@ -23,6 +23,7 @@ namespace DialogSystem.Scripts.Editor
         private SerializedProperty messageToStartProp;
 
         private SerializedProperty allowProgressRangeProp;
+        private SerializedProperty onInteractableChangedProp;
         
         
         
@@ -42,7 +43,7 @@ namespace DialogSystem.Scripts.Editor
             this.messageToEnableThisProp=serializedObject.FindProperty("messageToEnableThis");
             this.workTypeProp = serializedObject.FindProperty("workType");
             this.allowProgressRangeProp = serializedObject.FindProperty("allowProgressRange");
-
+            this.onInteractableChangedProp = serializedObject.FindProperty("onInteractableChanged");
 
         }
         public override void OnInspectorGUI()
@@ -142,6 +143,9 @@ namespace DialogSystem.Scripts.Editor
             {
                 EditorGUILayout.PropertyField(disableObjProp);
             }
+
+            EditorGUILayout.PropertyField(onInteractableChangedProp);
+            
             serializedObject.ApplyModifiedProperties();
         }
     }
