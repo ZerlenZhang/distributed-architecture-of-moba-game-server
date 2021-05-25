@@ -16,6 +16,7 @@ namespace PurificationPioneer.Scriptable
         [Header("常规")]
         public int characterId;
         public GameObject prefab;
+        public GameObject previewPrefab;
         public Sprite icon;
         
         [Header("基础数值")]
@@ -52,6 +53,9 @@ namespace PurificationPioneer.Scriptable
                       $"PE:{basePaintEfficiency}");
             return sb.ToString();
         }
+
+
+        public GameObject PreviewPrefab => previewPrefab ? previewPrefab : prefab;
 
 
         public IPpController InstantiateAndInitialize(int seatId, Vector3 worldPosition, Transform parent=null)

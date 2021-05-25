@@ -237,14 +237,17 @@ namespace PurificationPioneer.Script
         #region public properties
 
         private static int _frameId = 0;
+        
         public static int FrameId => _frameId;
 
         private static int newestInputId = 0;
 
-        public static int NewestInputId => newestInputId;        
+        public static int NewestInputId => newestInputId;
         
-        public static int DelayMillionSecond=>(FrameId - NewestInputId) * GlobalVar.LogicFrameDeltaTime +
+        public static int DelayMillionSecond => (FrameId - NewestInputId) * GlobalVar.LogicFrameDeltaTime +
                                      (int)((Time.timeSinceLevelLoad - lastTickTime)*1000);
+        
+        public static float DelayTime => Time.timeSinceLevelLoad - lastTickTime;
 
         #endregion
 

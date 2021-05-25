@@ -9,7 +9,7 @@ namespace PurificationPioneer.Utility
 {
     public class EditorMenu
     {
-        private const string ExpectedScenePath = "Assets/Scenes/Welcome.unity";
+        private const string ExpectedScenePath = "Assets/Scenes/PurificationPioneer/Welcome.unity";
 
         [InitializeOnLoadMethod]
         private static void Initialize()

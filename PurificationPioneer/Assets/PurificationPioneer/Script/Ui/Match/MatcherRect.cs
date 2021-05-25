@@ -36,10 +36,10 @@ namespace PurificationPioneer.Script
             }
         }
 
-        public void SelectHeroRes(SelectHeroRes res)
+        public void SelectHeroRes(HeroConfigAsset res)
         {
-            HeroId = res.hero_id;
-            heroIcon.sprite = ResourceMgr.GetAsset<HeroConfigAsset>(AssetConstUtil.GetHeroConfigKey(res.hero_id)).icon;
+            HeroId = res.characterId;
+            heroIcon.sprite = res.icon;
         }
 
         public void SubmitHeroRes()

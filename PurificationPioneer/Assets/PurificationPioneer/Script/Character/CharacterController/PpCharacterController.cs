@@ -4,256 +4,148 @@ using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
-using ReadyGamerOne.Attributes;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.Utility;
 using UnityEngine.Assertions;
 using System.Text;
+using ReadyGamerOne.Common;
 using UnityEngine;
 
 namespace PurificationPioneer.Script
 {
-    public abstract class PpCharacterController<T>:
+    public class PpCharacterController:
         MonoBehaviour,
         IPpController
-        where T:class, IPpAnimator
     {
-        #pragma warning disable 649
-        #region Inspector properties
+        #region const
+
+        private const string AniSpeedScale = "AniSpeed";
+
+        #endregion
+        
+        #region SerializeFields
+
+        [Tooltip("以本地模式运行")]   
+        [SerializeField]
+        protected bool m_WorkAsLocal = false;
+        
+        
         [Tooltip("摄像机看向的点")]
-        [SerializeField]private Transform cameraLookPoint;
-        [SerializeField] protected Transform centerPoint;
-
-        public HeroConfigAsset HeroConfig { get; private set; }
+        [SerializeField]private Transform m_CameraLookPoint;
         
-        #region MoveSpeed
-
         [Tooltip("玩家移动速度")]        
-        [SerializeField]private float moveSpeed = 1;
-        public float MoveSpeed
-        {
-            get => moveSpeed;
-            set => moveSpeed = value;
-        }
-        #endregion
+        [SerializeField]private float m_MoveSpeed = 1;
         
-        [Tooltip("角色高度")]
-        [SerializeField] private float characterHeight=1.4f;
-        public float CharacterHeight => characterHeight;
-        #region CharacterAnimator
-        [Tooltip("角色动画机")]
-        [RequireInterface(typeof(IPpAnimator))]
-        [SerializeField] 
-        private Object characterAnimator;
-
-        protected T CharacterAnimator => characterAnimator as T;        
-
-        #endregion
         
-        #region CharacterRigidbody
+        [Tooltip("玩家旋转速度")]  
+        [SerializeField]
+        protected float m_DesiredRotationSpeed = 0.3f;
 
-        [Tooltip("角色刚体组件")]
-        [SerializeField] private PpRigidbody characterRigidbody;
 
-        protected PpRigidbody CharacterRigidbody => characterRigidbody;
-        #endregion        
+        [Header("Animation Smoothing")] [SerializeField]
+        private float m_AnimationSpeedScale = 1.0f;
+        
+        [Range(0,1f)]
+        [SerializeField]private float m_StartAnimTime = 0.3f;
+        [Range(0, 1f)]
+        [SerializeField]private float m_StopAnimTime = 0.15f;
 
+        [SerializeField]private float m_AllowPlayerRotation = 0.1f;     
+        
+        [SerializeField]private float m_VerticalVel = -0.5f;
+        
         #endregion
+
+        #region No SerializeFields
+
+        private bool m_Initialized = false;
+        private bool m_IsGrounded;
+        private bool m_BlockRotationPlayer;
+        
+        // component refs
+        private Animator m_Animator;
+        protected Camera m_Camera;
+        private CharacterController m_CharacterController;
+        
+
+        // sync
+        private CharacterState m_LogicState = CharacterState.Idle;
+        private CharacterState m_AniState = CharacterState.Idle;
+        private int m_StickX, m_StickY, m_FaceX, m_FaceY, m_FaceZ;
+        protected bool m_Attack;
+
+
+        protected LocalCameraHelper m_LocalCameraHelper;
 
 #if DebugMode
+
         private float timer = 0;
         private float time = 1;
         private Vector3 lastPosition;
-#endif
-
-        #region public API
-
-        /// <summary>
-        /// 初始化角色控制器
-        /// </summary>
-        /// <param name="seatId"></param>
-        /// <param name="logicPos"></param>
-        public void InitCharacterController(int seatId, HeroConfigAsset config)
-        {
-            Assert.IsTrue(cameraLookPoint && centerPoint);
-            Assert.IsNotNull(config);
-            
-            //帧同步回调初始化
-            SeatId = seatId;
-            HeroConfig = config;
-            FrameSyncMgr.AddFrameSyncCharacter(this);
-            
-            //初始化内部参数
-            this.stick_x = 0;
-            this.stick_y = 0;
-            CharacterAnimator.LogicToIdle();
-            
-            InitCharacter(GlobalVar.LocalSeatId==SeatId);
-
-#if DebugMode
-            //debug
-            lastPosition = transform.position;
-            
-#endif
-        }        
+        
+#endif        
 
         #endregion
-        
-        #region protected methods
 
-        /// <summary>
-        /// 所有角色都要进行的初始化操作
-        /// </summary>
-        protected virtual void InitCharacter(bool isLocal)
+        public float MoveSpeed
         {
-            if (isLocal)
+            get => m_MoveSpeed;
+            set => m_MoveSpeed = value;
+        }
+        
+        #region Events
+
+        protected virtual void Start()
+        {
+            if (m_WorkAsLocal)
             {
-                var localCameraHelper =
+                UnityAPI.LockMouse();
+                
+                m_Animator = this.GetComponent<Animator> ();
+                m_Animator.SetFloat(AniSpeedScale, m_AnimationSpeedScale);
+                m_CharacterController = this.GetComponent<CharacterController> ();
+                
+                m_LocalCameraHelper =
                     ResourceMgr.InstantiateGameObject(LocalAssetName.LocalCamera)
                         .GetComponent<LocalCameraHelper>();
-                localCameraHelper.Init(transform,this.cameraLookPoint);
-
-#if UNITY_EDITOR
-                if(GameSettings.Instance.AutoSelectLocalPlayer)
-                    UnityEditor.Selection.activeInstanceID = this.gameObject.GetInstanceID();
-#endif
+                m_LocalCameraHelper.Init(transform,this.m_CameraLookPoint);
+                m_Camera = m_LocalCameraHelper.ActivateCamera;
             }
             else
             {
-                var headCanvasUi = ResourceMgr.InstantiateGameObject(LocalAssetName.CharacterHeadCanvas,transform)
-                    .GetComponent<CharacterHeadCanvas>();
-                headCanvasUi.transform.localPosition = Vector3.up * CharacterHeight;
-                headCanvasUi.Init(Camera.main, GlobalVar.SeatId_MatcherInfo[SeatId].Unick);
+                CEventCenter.AddListener<PlayerInput>(Message.OnInputPredict, OnInputPredict);
             }
         }
 
-        protected abstract void OnCommonAttack(int faceX, int faceY, int faceZ);
-
-        protected virtual void OnJump()
+        protected virtual void Update()
         {
-            if (CharacterRigidbody.IfOnGround())
+            if (m_Attack)
             {
-                // Debug.Log("Jump");
-                var speed = CharacterRigidbody.Velocity;
-                CharacterRigidbody.Velocity = new Vector3(speed.x, HeroConfig.jumpSpeed, speed.z);
+                RotateToCamera(transform);
             }
-        }
-        
-        #endregion
-
-        #region IFrameSyncWithSeatId
-
-        private int seatId;
-        public int SeatId
-        {
-            get => seatId;
-            private set => seatId = value;
-        }
-
-        public void SkipCharacterInput(IEnumerable<PlayerInput> inputs)
-        {               
-            SyncLastCharacterInput(inputs);
-        }
-
-        public void SyncLastCharacterInput(IEnumerable<PlayerInput> inputs)
-        {            
-            foreach (var playerInput in inputs)
+            
+            if (m_WorkAsLocal)
             {
-#if DebugMode
-                if (GameSettings.Instance.EnableInputLog)
-                {
-                    var msg = new StringBuilder();
-                    msg.Append($"[InputMsg][FrameId-{FrameSyncMgr.FrameId}]");
-                    msg.Append($"[Move-({playerInput.moveX},{playerInput.moveY}]");
-                    msg.Append($"[Attack-{playerInput.attack}][Jump-{playerInput.jump}]");
-                    msg.Append($"[Face-({playerInput.faceX},{playerInput.faceY})]");
-                    msg.Append($"[Mouse-({playerInput.mouseX},{playerInput.mouseY})]");
-                    Debug.Log(msg);
-                }
-#endif
+                UpdateAnimation();
+
+                m_IsGrounded = m_CharacterController.isGrounded;
                 
-                this.stick_x = playerInput.moveX;
-                this.stick_y = playerInput.moveY;
-                this.face_x = playerInput.faceX;
-                this.face_y = playerInput.faceY;
-                this.face_z = playerInput.faceZ;
-                this.attack = playerInput.attack;
-
-                var time = GlobalVar.LogicFrameDeltaTime.ToFloat();
-                var beforePos = characterRigidbody.Position;
-                
-                // _characterBodyState.ApplyAndSimulate(time);
-                 DoJoystick(time);
-                // _characterBodyState.SaveState();
-
-                var newPos = characterRigidbody.Position;
-
-                if (playerInput.attack)
-                {
-                    OnCommonAttack(this.face_x,this.face_y,this.face_z);
-                }
-
-                if (playerInput.jump)
-                {
-                    OnJump();
-                }
-#if DebugMode
-                if(GameSettings.Instance.EnableMoveLog)
-                    Debug.Log($"[GetInput-SyncLast] [Time {time}] ({this.stick_x},{this.stick_y}), 前进：{(newPos - beforePos).magnitude}");                
-#endif
-
-            }
-        }
-
-        public void OnHandleCurrentCharacterInput(IEnumerable<PlayerInput> inputs)
-        {
-            foreach (var playerInput in inputs)
-            {
-                this.stick_x = playerInput.moveX;
-                this.stick_y = playerInput.moveY;
-                this.face_x = playerInput.faceX;
-                this.face_y = playerInput.faceY;
-                this.face_z = playerInput.faceZ;
-                this.attack = playerInput.attack;
-#if DebugMode
-                if(GameSettings.Instance.EnableMoveLog)
-                    Debug.Log($"[GetInput-Current-{FrameSyncMgr.FrameId}] ({this.stick_x},{this.stick_y})");
-#endif
-                if (this.stick_x == 0 && this.stick_y == 0)
-                {
-                    CharacterAnimator.LogicToIdle();
-                }
+                if (m_IsGrounded)
+                    m_VerticalVel -= 0;
                 else
-                {
-                    CharacterAnimator.LogicToWalk();
-                }
+                    m_VerticalVel -= 1;
+
+                var moveVector = new Vector3(0, m_VerticalVel * .2f * Time.deltaTime, 0);
+                m_CharacterController.Move(moveVector);
+        
+                return;
             }
-        }        
-        
-        #endregion
-        
-        #region Private_Logic
 
-        /// <summary>
-        /// 遥感操作
-        /// </summary>
-        private int stick_x, stick_y, face_x,face_y,face_z;
+            if (!m_Initialized)
+                return;
+            
+            #region Network
 
-        private bool attack;
-
-        /// <summary>
-        /// 逻辑位置
-        /// </summary>
-        // private Vector3 logicPosition;
-        // private FrameSyncRigidbodyState _characterBodyState;
-        protected virtual void Start()
-        {
-            Assert.IsNotNull(CharacterAnimator);
-            Assert.IsNotNull(CharacterRigidbody);
-        }
-        
-        private void Update()
-        {
 #if UNITY_EDITOR
             if (Input.GetKeyDown(GameSettings.Instance.JumpKey))
             {
@@ -274,32 +166,54 @@ namespace PurificationPioneer.Script
             if (Input.GetKey(GameSettings.Instance.AttackKey))
                 InputMgr.attack = true;
 #endif
-            
+
             //如果逻辑状态是击飞，眩晕，死亡的状态的话，表现层不变
-            if (CharacterAnimator.LogicState != CharacterState.Idle
-                && CharacterAnimator.LogicState != CharacterState.Move)
+            if (m_LogicState != CharacterState.Idle
+                && m_LogicState != CharacterState.Move)
                 return;
             
+            
+            //Calculate the Input Magnitude
+            var inputX = m_StickX.ToFloat();
+            var inputZ = m_StickY.ToFloat();
+            var inputMagnitude = new Vector2(inputX, inputZ).sqrMagnitude;
+
+            //Change animation mode if rotation is blocked
+            m_Animator.SetBool("shooting", m_BlockRotationPlayer);
+
+            //Physically move player
+            if (inputMagnitude > m_AllowPlayerRotation) {
+                m_Animator.SetFloat ("Blend", inputMagnitude, m_StartAnimTime, Time.deltaTime);
+                m_Animator.SetFloat("X", inputX, m_StartAnimTime/3, Time.deltaTime);
+                m_Animator.SetFloat("Y", inputZ, m_StartAnimTime/3, Time.deltaTime);
+            } else if (inputMagnitude < m_AllowPlayerRotation) {
+                m_Animator.SetFloat ("Blend", inputMagnitude, m_StopAnimTime, Time.deltaTime);
+                m_Animator.SetFloat("X", inputX, m_StopAnimTime/ 3, Time.deltaTime);
+                m_Animator.SetFloat("Y", inputZ, m_StopAnimTime/ 3, Time.deltaTime);
+            }
+            
+            
+            
             //没有移动的话，直接Idle不用管别的
-            if (this.stick_x==0 && this.stick_y==0)
+            if (this.m_StickX==0 && this.m_StickY==0)
             {
-                if (CharacterAnimator.AniState == CharacterState.Move)
+                if (m_AniState == CharacterState.Move)
                 {
-                    CharacterAnimator.ToIdle();
+                    m_AniState=CharacterState.Idle;
                 }
                 return;
             }
-
+            
             //有移动的话，切换状态，执行手柄逻辑
-            if (CharacterAnimator.AniState == CharacterState.Idle)
+            if (m_AniState == CharacterState.Idle)
             {
-                CharacterAnimator.ToMove();
+                m_AniState = CharacterState.Move;
             }
             
             DoJoystick(Time.deltaTime);
 
-            //debug
 #if DebugMode
+            //debug
             if(GameSettings.Instance.EnableMoveLog)
             {
                 timer += Time.deltaTime;
@@ -309,61 +223,295 @@ namespace PurificationPioneer.Script
                     var move = transform.position - lastPosition;
                     Debug.Log($"[PpCharacterController] Move: {move.magnitude} {move}");
                     lastPosition = transform.position;
-                }                
+                }
             }
-#endif
+#endif            
+
+            #endregion
+
         }
 
+        protected virtual void OnDestroy()
+        {
+            if(!m_WorkAsLocal)
+                CEventCenter.RemoveListener<PlayerInput>(Message.OnInputPredict, OnInputPredict);
+        }
 
-        /// <summary>
-        /// 根据stick_x和stick_y，移动deltaTime这么长时间
-        /// </summary>
-        /// <param name="deltaTime"></param>
+        #endregion
+
+
+        
+        
+
         private void DoJoystick(float deltaTime)
         {
             //没有移动，将逻辑状态置为Idle
-            if (this.stick_x == 0 && this.stick_y == 0) 
+            if (this.m_StickX == 0 && this.m_StickY == 0)
             {
-                CharacterAnimator.LogicToIdle();
-                var velocity = CharacterRigidbody.Velocity;
-                CharacterRigidbody.Velocity = new Vector3(
-                    0,
-                    velocity.y,
-                    0);
+                m_LogicState = CharacterState.Idle;
                 return;
             }
-
             //有移动，将逻辑状态置为Walk
-            CharacterAnimator.LogicToWalk();
-
-            var expectedForward = new Vector2(this.face_x, this.face_z).normalized;
-            var inputDir = new Vector2(
-                this.stick_x.ToFloat(),
-                this.stick_y.ToFloat()); 
-
-
+            m_LogicState = CharacterState.Move;
+            
+            var expectedForward = new Vector2(this.m_FaceX, this.m_FaceZ).normalized;
+            var inputDir = new Vector2(this.m_StickX.ToFloat(), this.m_StickY.ToFloat());
             var angle =  -Mathf.Sign(inputDir.x) * Vector2.Angle(inputDir, Vector2.up);
             var moveDir = expectedForward.RotateDegree(angle);
 
-            transform.forward = new Vector3(moveDir.x, 0, moveDir.y);
+            var desiredMoveDirection = new Vector3(moveDir.x, 0, moveDir.y);
             
-            // Debug.Log($"[Move] expectedForward:{expectedForward}, inputDir:{inputDir}, moveDir:{moveDir}, angle:{angle}");
+            if (m_BlockRotationPlayer == false) {
+                //Camera
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), m_DesiredRotationSpeed);
+                m_CharacterController.Move(desiredMoveDirection * (Time.deltaTime * MoveSpeed));
+            }
+            else
+            {
+                //Strafe
+                var inputX = m_StickX.ToFloat();
+                var inputZ = m_StickY.ToFloat();
+                m_CharacterController.Move((transform.forward * inputZ + transform.right  * inputX) * (Time.deltaTime * MoveSpeed));
+            }
+        }
 
 
-            var vel = CharacterRigidbody.Velocity;
-            CharacterRigidbody.Velocity = new Vector3(
-                this.moveSpeed * moveDir.x,
-                vel.y,
-                moveSpeed * moveDir.y);
-            //
-            // var s = this.moveSpeed * deltaTime;
-            //
-            // CharacterRigidbody.Move(new Vector3(
-            //     s * moveDir.x,
-            //     0, 
-            //     s * moveDir.y));
-        }            
+        #region IFrameSyncCharacter
+
+        public int SeatId { get; private set; }
+        public void SkipCharacterInput(IEnumerable<PlayerInput> inputs)
+        {
+            SyncLastCharacterInput(inputs);
+        }
+
+        public virtual void SyncLastCharacterInput(IEnumerable<PlayerInput> inputs)
+        {
+            foreach (var playerInput in inputs)
+            {
+#if DebugMode
+                if (GameSettings.Instance.EnableInputLog)
+                {
+                    var msg = new StringBuilder();
+                    msg.Append($"[InputMsg][FrameId-{FrameSyncMgr.FrameId}]");
+                    msg.Append($"[Move-({playerInput.moveX},{playerInput.moveY}]");
+                    msg.Append($"[Attack-{playerInput.attack}][Jump-{playerInput.jump}]");
+                    msg.Append($"[Face-({playerInput.faceX},{playerInput.faceY})]");
+                    msg.Append($"[Mouse-({playerInput.mouseX},{playerInput.mouseY})]");
+                    Debug.Log(msg);
+                }
+#endif
+                
+                this.m_StickX = playerInput.moveX;
+                this.m_StickY = playerInput.moveY;
+                this.m_FaceX = playerInput.faceX;
+                this.m_FaceY = playerInput.faceY;
+                this.m_FaceZ = playerInput.faceZ;
+                this.m_Attack = playerInput.attack;
+
+                var time = GlobalVar.LogicFrameDeltaTime.ToFloat();
+                var beforePos = transform.position;
+                
+                DoJoystick(time);
+
+                var newPos = transform.position;
+
+                if (playerInput.attack)
+                {
+                    OnCommonAttack(this.m_FaceX,this.m_FaceY,this.m_FaceZ);
+                }
+
+                if (playerInput.jump)
+                {
+                    OnJump();
+                }
+#if DebugMode
+                if(GameSettings.Instance.EnableMoveLog)
+                    Debug.Log($"[GetInput-SyncLast] [Time {time}] ({this.m_StickX},{this.m_StickY}), 前进：{(newPos - beforePos).magnitude}");                
+#endif
+
+            }
+        }
+
+        public void OnHandleCurrentCharacterInput(IEnumerable<PlayerInput> inputs)
+        {
+            foreach (var playerInput in inputs)
+            {
+                this.m_StickX = playerInput.moveX;
+                this.m_StickY = playerInput.moveY;
+                this.m_FaceX = playerInput.faceX;
+                this.m_FaceY = playerInput.faceY;
+                this.m_FaceZ = playerInput.faceZ;
+                this.m_Attack = playerInput.attack;
+#if DebugMode
+                if(GameSettings.Instance.EnableMoveLog)
+                    Debug.Log($"[GetInput-Current-{FrameSyncMgr.FrameId}] ({this.m_StickX},{this.m_StickY})");
+#endif
+                if (this.m_StickX == 0 && this.m_StickY == 0)
+                {
+                    m_LogicState = CharacterState.Idle;
+                }
+                else
+                {
+                    m_LogicState = CharacterState.Move;
+                }
+            }
+        }
 
         #endregion
+
+        #region IPpController
+        public HeroConfigAsset HeroConfig { get; private set; }
+        public void InitCharacterController(int seatId, HeroConfigAsset config)
+        {
+            m_Initialized = true;
+            
+            SeatId = seatId;
+            HeroConfig = config;
+            FrameSyncMgr.AddFrameSyncCharacter(this);
+            
+            //初始化内部参数
+            this.m_StickX = 0;
+            this.m_StickY = 0;
+            m_LogicState = CharacterState.Idle;
+            
+            m_Animator = this.GetComponent<Animator> ();
+            m_CharacterController = this.GetComponent<CharacterController> ();
+
+            Assert.IsTrue(m_Animator &&  m_CharacterController);
+            
+            
+            m_Animator.SetFloat(AniSpeedScale, m_AnimationSpeedScale);
+            InitCharacter(GlobalVar.LocalSeatId==SeatId);
+            
+            
+#if DebugMode
+            //debug
+            lastPosition = transform.position;
+            
+#endif
+        }        
+
+        #endregion
+
+        #region protected
+
+        protected virtual void InitCharacter(bool isLocal)
+        {
+            if (isLocal)
+            {
+                m_LocalCameraHelper =
+                    ResourceMgr.InstantiateGameObject(LocalAssetName.LocalCamera)
+                        .GetComponent<LocalCameraHelper>();
+                m_LocalCameraHelper.Init(transform,this.m_CameraLookPoint);
+                m_Camera = m_LocalCameraHelper.ActivateCamera;
+
+#if UNITY_EDITOR
+                if(GameSettings.Instance.AutoSelectLocalPlayer)
+                    UnityEditor.Selection.activeInstanceID = this.gameObject.GetInstanceID();
+#endif
+            }
+            else
+            {
+                var headCanvasUi = ResourceMgr.InstantiateGameObject(LocalAssetName.CharacterHeadCanvas,transform)
+                    .GetComponent<CharacterHeadCanvas>();
+                headCanvasUi.transform.localPosition = Vector3.up * m_CharacterController.height;
+                headCanvasUi.Init(Camera.main, GlobalVar.SeatId_MatcherInfo[SeatId].Unick);
+            }
+        }
+
+
+        protected virtual void OnCommonAttack(int faceX, int faceY, int faceZ)
+        {
+            
+        }
+
+
+        protected virtual  void OnJump()
+        {
+            
+        }        
+
+        #endregion
+        
+        #region private
+
+        private void OnInputPredict(PlayerInput input)
+        {
+            if (SeatId != GlobalVar.LocalSeatId)
+                return;
+            m_StickX = input.moveX;
+            m_StickY = input.moveY;
+            m_FaceX = input.faceX;
+            m_FaceY = input.faceY;
+            m_FaceZ = input.faceZ;
+            m_Attack = input.attack;
+        }
+        
+        
+        private void UpdateAnimation() 
+        {
+            //Calculate Input Vectors
+            var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal") : 0;
+            var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical") : 0;
+
+            //Calculate the Input Magnitude
+            var Speed = new Vector2(InputX, InputZ).sqrMagnitude;
+
+            //Change animation mode if rotation is blocked
+            m_Animator.SetBool("shooting", m_BlockRotationPlayer);
+
+            //Physically move player
+            if (Speed > m_AllowPlayerRotation) {
+                m_Animator.SetFloat ("Blend", Speed, m_StartAnimTime, Time.deltaTime);
+                m_Animator.SetFloat("X", InputX, m_StartAnimTime/3, Time.deltaTime);
+                m_Animator.SetFloat("Y", InputZ, m_StartAnimTime/3, Time.deltaTime);
+                PlayerMoveAndRotation ();
+            } else if (Speed < m_AllowPlayerRotation) {
+                m_Animator.SetFloat ("Blend", Speed, m_StopAnimTime, Time.deltaTime);
+                m_Animator.SetFloat("X", InputX, m_StopAnimTime/ 3, Time.deltaTime);
+                m_Animator.SetFloat("Y", InputZ, m_StopAnimTime/ 3, Time.deltaTime);
+            }
+	
+	
+            void PlayerMoveAndRotation() 
+            {
+                var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal"):0;
+                var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical"):0;
+
+                var forward = m_Camera.transform.forward;
+                var right = m_Camera.transform.right;
+
+                forward.y = 0f;
+                right.y = 0f;
+
+                forward.Normalize();
+                right.Normalize();
+
+                var desiredMoveDirection = forward * InputZ + right * InputX;
+
+                if (m_BlockRotationPlayer == false) {
+                    //Camera
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), m_DesiredRotationSpeed);
+                    m_CharacterController.Move(desiredMoveDirection * Time.deltaTime * MoveSpeed);
+                }
+                else
+                {
+                    //Strafe
+                    m_CharacterController.Move((transform.forward * InputZ + transform.right  * InputX) * Time.deltaTime * MoveSpeed);
+                }
+            }
+        }
+        
+        private void RotateToCamera(Transform t)
+        {
+            var forward = m_Camera.transform.forward;
+            Quaternion lookAtRotation = Quaternion.LookRotation(forward);
+            Quaternion lookAtRotationOnly_Y = Quaternion.Euler(transform.rotation.eulerAngles.x, lookAtRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+
+            t.rotation = Quaternion.Slerp(transform.rotation, lookAtRotationOnly_Y, m_DesiredRotationSpeed);
+        }
+        #endregion
+
+
     }
 }

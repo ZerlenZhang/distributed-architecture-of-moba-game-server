@@ -4,6 +4,8 @@ using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Script;
+using PurificationPioneer.Scriptable;
+using PurificationPioneer.Utility;
 using ReadyGamerOne.Common;
 using ReadyGamerOne.MemorySystem;
 using ReadyGamerOne.View;
@@ -95,8 +97,6 @@ namespace PurificationPioneer.View
 
 		#region MessageHandler
 		
-		
-
 		private void OnStartLoadGame()
 		{
 			PanelMgr.PushPanel(PanelName.LoadingPanel);
@@ -130,11 +130,16 @@ namespace PurificationPioneer.View
 				return;
 			}
 
-			seatId_MatcherRect[obj.seatId].SelectHeroRes(obj);
+			var config = ResourceMgr.GetAsset<HeroConfigAsset>(AssetConstUtil.GetHeroConfigKey(obj.hero_id));
+
+			seatId_MatcherRect[obj.seatId].SelectHeroRes(config);
+
+			if (obj.seatId == GlobalVar.LocalSeatId)
+			{
+				script.heroInfoRectUi.SetInfo(config);
+			}
 		}		
 
 		#endregion
-
-
 	}
 }

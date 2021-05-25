@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PurificationPioneer.Scriptable;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace PurificationPioneer.Script
@@ -10,5 +11,13 @@ namespace PurificationPioneer.Script
     {
         public RawImage rawImage;
         public Text heroName;
+
+
+        public void SetInfo(HeroConfigAsset heroConfig)
+        {
+            var rt = HomeSceneMgr.Instance.UpdateHeroPreview(heroConfig);
+            rawImage.texture = rt;
+            heroName.text = heroConfig.heroName;
+        }
     }
 }

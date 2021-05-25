@@ -21,7 +21,6 @@ namespace PurificationPioneer.View
             heroChooseTimerUi.OnSubmit(time, ease);
             heroOptionRectUi.gameObject.SetActive(false);
             heroInfoRectUi.transform.DOMove(heroChooseTimerUi.transform.position, time).SetEase(ease);
-
         }
     }
 }

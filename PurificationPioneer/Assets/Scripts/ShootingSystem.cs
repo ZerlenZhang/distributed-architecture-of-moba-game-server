@@ -5,7 +5,6 @@ using Cinemachine;
 using PurificationPioneer.Global;
 using PurificationPioneer.Script;
 using PurificationPioneer.Utility;
-using Unity.Collections;
 using UnityEngine.Assertions;
 
 public class ShootingSystem : MonoBehaviour
@@ -23,7 +22,6 @@ public class ShootingSystem : MonoBehaviour
 
     private bool m_Init = false;
     private Func<bool> m_IfAttack;
-    private Action<Transform> m_RotateCamera;
     private bool m_LastAttackState = false;
     private int startFrameId;
 
@@ -45,11 +43,10 @@ public class ShootingSystem : MonoBehaviour
         Assert.IsNotNull(m_IfAttack);
     }
     
-    public void Initialize(Func<bool> ifAttack,bool workAsLocal,CinemachineFreeLook camera, Action<Transform> rotateCamera, Material paintMaterial)
+    public void Initialize(Func<bool> ifAttack,bool workAsLocal,CinemachineFreeLook camera, Material paintMaterial)
     {
         Initialize(ifAttack,workAsLocal,paintMaterial);
         m_FreeLookCamera = camera;
-        m_RotateCamera = rotateCamera;
         impulseSource = m_FreeLookCamera.GetComponent<CinemachineImpulseSource>();
         Assert.IsTrue(m_FreeLookCamera && impulseSource && paintMaterial);
         if (particleSystems != null)
@@ -77,8 +74,6 @@ public class ShootingSystem : MonoBehaviour
         if (currentAttackState)
         {
             VisualPolish();
-
-            m_RotateCamera?.Invoke(transform);
         }
 
         if (!m_LastAttackState && currentAttackState)
