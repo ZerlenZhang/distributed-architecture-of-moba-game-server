@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using PurificationPioneer.Const;
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.ProtoGen;
@@ -36,12 +37,18 @@ namespace PurificationPioneer.Script
         [Tooltip("玩家移动速度")]        
         [SerializeField]private float m_MoveSpeed = 1;
         
-        
         [Tooltip("玩家旋转速度")]  
         [SerializeField]
         protected float m_DesiredRotationSpeed = 0.3f;
 
+        [Tooltip("跳跃初始速度")]
+        [SerializeField]
+        protected float m_JumpSpeed = 10f;
 
+        [Tooltip("重力比率")]
+        [SerializeField]
+        protected float m_GravatyScale = 1.0f;
+        
         [Header("Animation Smoothing")] [SerializeField]
         private float m_AnimationSpeedScale = 1.0f;
         
@@ -61,21 +68,23 @@ namespace PurificationPioneer.Script
         private bool m_Initialized = false;
         private bool m_IsGrounded;
         private bool m_BlockRotationPlayer;
+        private bool m_LastAttack;
         
         // component refs
         private Animator m_Animator;
-        protected Camera m_Camera;
+        private Camera m_Camera;
         private CharacterController m_CharacterController;
+        protected LocalCameraHelper m_LocalCameraHelper;
         
 
         // sync
         private CharacterState m_LogicState = CharacterState.Idle;
         private CharacterState m_AniState = CharacterState.Idle;
         private int m_StickX, m_StickY, m_FaceX, m_FaceY, m_FaceZ;
-        protected bool m_Attack;
+        protected bool m_Attack, m_Jumping;
+        private float m_LogicYVelocity;
 
 
-        protected LocalCameraHelper m_LocalCameraHelper;
 
 #if DebugMode
 
@@ -83,8 +92,7 @@ namespace PurificationPioneer.Script
         private float time = 1;
         private Vector3 lastPosition;
         
-#endif        
-
+#endif
         #endregion
 
         public float MoveSpeed
@@ -119,13 +127,24 @@ namespace PurificationPioneer.Script
 
         protected virtual void Update()
         {
-            if (m_Attack)
-            {
-                RotateToCamera(transform);
-            }
-            
             if (m_WorkAsLocal)
             {
+                m_Attack = Input.GetKey(GameSettings.Instance.AttackKey);
+                
+                if (!m_LastAttack && m_Attack)
+                {
+                    m_BlockRotationPlayer = true;
+                }else if (m_LastAttack && !m_Attack)
+                {
+                    m_BlockRotationPlayer = false;
+                }
+                if (m_Attack)
+                {
+                    RotateToCamera(transform);
+                    var face = m_Camera.transform.forward;
+                    OnCommonAttack(face.x.ToInt(), face.y.ToInt(), face.z.ToInt());
+                }
+                
                 UpdateAnimation();
 
                 m_IsGrounded = m_CharacterController.isGrounded;
@@ -137,7 +156,10 @@ namespace PurificationPioneer.Script
 
                 var moveVector = new Vector3(0, m_VerticalVel * .2f * Time.deltaTime, 0);
                 m_CharacterController.Move(moveVector);
-        
+
+
+
+                m_LastAttack = m_Attack;
                 return;
             }
 
@@ -145,6 +167,8 @@ namespace PurificationPioneer.Script
                 return;
             
             #region Network
+
+            #region Network Input
 
 #if UNITY_EDITOR
             if (Input.GetKeyDown(GameSettings.Instance.JumpKey))
@@ -165,14 +189,23 @@ namespace PurificationPioneer.Script
             }
             if (Input.GetKey(GameSettings.Instance.AttackKey))
                 InputMgr.attack = true;
-#endif
+#endif            
+
+            #endregion
 
             //如果逻辑状态是击飞，眩晕，死亡的状态的话，表现层不变
             if (m_LogicState != CharacterState.Idle
                 && m_LogicState != CharacterState.Move)
                 return;
-            
-            
+
+            // Camera
+            if (m_Attack)
+            {
+                RotateToCamera(transform);
+            }
+
+            #region Animation
+
             //Calculate the Input Magnitude
             var inputX = m_StickX.ToFloat();
             var inputZ = m_StickY.ToFloat();
@@ -190,12 +223,14 @@ namespace PurificationPioneer.Script
                 m_Animator.SetFloat ("Blend", inputMagnitude, m_StopAnimTime, Time.deltaTime);
                 m_Animator.SetFloat("X", inputX, m_StopAnimTime/ 3, Time.deltaTime);
                 m_Animator.SetFloat("Y", inputZ, m_StopAnimTime/ 3, Time.deltaTime);
-            }
+            }            
+
+            #endregion
             
             
             
             //没有移动的话，直接Idle不用管别的
-            if (this.m_StickX==0 && this.m_StickY==0)
+            if (this.m_StickX==0 && this.m_StickY==0 && !m_Jumping)
             {
                 if (m_AniState == CharacterState.Move)
                 {
@@ -209,7 +244,8 @@ namespace PurificationPioneer.Script
             {
                 m_AniState = CharacterState.Move;
             }
-            
+
+            DoSimulateY(Time.deltaTime);
             DoJoystick(Time.deltaTime);
 
 #if DebugMode
@@ -225,7 +261,7 @@ namespace PurificationPioneer.Script
                     lastPosition = transform.position;
                 }
             }
-#endif            
+#endif
 
             #endregion
 
@@ -239,40 +275,82 @@ namespace PurificationPioneer.Script
 
         #endregion
 
-
-        
-        
-
         private void DoJoystick(float deltaTime)
         {
             //没有移动，将逻辑状态置为Idle
-            if (this.m_StickX == 0 && this.m_StickY == 0)
+            if (this.m_StickX == 0 && this.m_StickY == 0 && !m_Jumping)
             {
                 m_LogicState = CharacterState.Idle;
                 return;
             }
             //有移动，将逻辑状态置为Walk
             m_LogicState = CharacterState.Move;
-            
-            var expectedForward = new Vector2(this.m_FaceX, this.m_FaceZ).normalized;
-            var inputDir = new Vector2(this.m_StickX.ToFloat(), this.m_StickY.ToFloat());
-            var angle =  -Mathf.Sign(inputDir.x) * Vector2.Angle(inputDir, Vector2.up);
-            var moveDir = expectedForward.RotateDegree(angle);
 
-            var desiredMoveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+
+            var desiredMotion = GetDesiredMotion(deltaTime);
+
+            //Camera
+            if (!m_BlockRotationPlayer) {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMotion.normalized), m_DesiredRotationSpeed);
+            }
+
+            m_CharacterController.Move(desiredMotion);
+        }
+        
+        private bool DoSimulateY(float deltaTime)
+        {
+            var hit = false;
+            var currentPos = transform.position;
+            var distance = 10;
+            var dir = Mathf.Sign(m_LogicYVelocity) * Vector3.up;
+            var start = currentPos + dir * -0.001f;
+            var end = start + dir * distance;
             
-            if (m_BlockRotationPlayer == false) {
-                //Camera
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), m_DesiredRotationSpeed);
-                m_CharacterController.Move(desiredMoveDirection * (Time.deltaTime * MoveSpeed));
-            }
-            else
+            if (Mathf.Abs(m_LogicYVelocity) <= Mathf.Epsilon)
             {
-                //Strafe
-                var inputX = m_StickX.ToFloat();
-                var inputZ = m_StickY.ToFloat();
-                m_CharacterController.Move((transform.forward * inputZ + transform.right  * inputX) * (Time.deltaTime * MoveSpeed));
+                Debug.Log("Direct return");
+                var tempAns = Physics.RaycastAll( currentPos + 0.001f * Vector3.up, Vector3.down , GameSettings.Instance.MinDetectableDistance,
+                    gameObject.GetUnityDetectLayer());
+                if (!tempAns.Any())
+                {
+                    return false;
+                }
+
+                
+                return tempAns.Any(raycastHit => raycastHit.collider.gameObject != gameObject);
             }
+            
+            
+            var desiredMotion = GetDesiredMotion(deltaTime);
+
+            desiredMotion.y = m_LogicYVelocity * deltaTime;
+
+            Debug.DrawLine(start, end, Color.red);
+
+            var ans = Physics.RaycastAll(start, dir , distance,
+                gameObject.GetUnityDetectLayer());
+            if (ans.Any())
+            {
+                var desiredDistance = desiredMotion.magnitude;
+                foreach (var raycastHit in ans)
+                {
+                    if (raycastHit.collider.gameObject != gameObject 
+                        && raycastHit.distance < desiredDistance)
+                    {
+                        desiredMotion.y = raycastHit.point.y-currentPos.y;
+                        Debug.Log($"撞到: {raycastHit.collider.name}");
+                        hit = true;      
+                        break;
+                    }
+                }
+            }
+
+            var perfectLogicPos = currentPos + Vector3.up * desiredMotion.y;
+            Debug.Log($"Move: {desiredMotion.y}");
+            transform.position = perfectLogicPos; //Vector3.Lerp(currentPos, perfectLogicPos, 0.5f);
+
+
+            return hit;
         }
 
 
@@ -307,11 +385,49 @@ namespace PurificationPioneer.Script
                 this.m_FaceY = playerInput.faceY;
                 this.m_FaceZ = playerInput.faceZ;
                 this.m_Attack = playerInput.attack;
+                
+                // Attack
+                if (!m_LastAttack && m_Attack)
+                {
+                    m_BlockRotationPlayer = true;
+                }
+                else if (m_LastAttack && !m_Attack)
+                {
+                    m_BlockRotationPlayer = false;
+                }
+                m_LastAttack = m_Attack;
+                
 
-                var time = GlobalVar.LogicFrameDeltaTime.ToFloat();
+                var deltaTime = GlobalVar.LogicFrameDeltaTime.ToFloat();
+                
+                // Jump
+                // if (m_CharacterController.isGrounded)
+                {
+                    // print(1);
+                    if (!m_Jumping && playerInput.jump)
+                    {
+                        m_Jumping = true;
+                        m_LogicYVelocity = m_JumpSpeed;
+                    }
+                }
+
+                if (DoSimulateY(deltaTime))// 撞到东西
+                {
+                    m_Jumping = false;
+                    m_LogicYVelocity = 0;
+                    Debug.Log("Reset");
+                }
+                else// 更新速度
+                {
+                    var acceleration = Physics.gravity.y * m_GravatyScale;
+                    var newVel = m_LogicYVelocity + acceleration * deltaTime;
+                    m_LogicYVelocity = newVel;
+                    Debug.Log($"Update: {m_LogicYVelocity}");
+                }
+
                 var beforePos = transform.position;
                 
-                DoJoystick(time);
+                DoJoystick(deltaTime);
 
                 var newPos = transform.position;
 
@@ -320,17 +436,13 @@ namespace PurificationPioneer.Script
                     OnCommonAttack(this.m_FaceX,this.m_FaceY,this.m_FaceZ);
                 }
 
-                if (playerInput.jump)
-                {
-                    OnJump();
-                }
 #if DebugMode
                 if(GameSettings.Instance.EnableMoveLog)
-                    Debug.Log($"[GetInput-SyncLast] [Time {time}] ({this.m_StickX},{this.m_StickY}), 前进：{(newPos - beforePos).magnitude}");                
+                    Debug.Log($"[GetInput-SyncLast] [Time {deltaTime}] ({this.m_StickX},{this.m_StickY}), 前进：{(newPos - beforePos).magnitude}");                
 #endif
-
             }
         }
+
 
         public void OnHandleCurrentCharacterInput(IEnumerable<PlayerInput> inputs)
         {
@@ -342,11 +454,12 @@ namespace PurificationPioneer.Script
                 this.m_FaceY = playerInput.faceY;
                 this.m_FaceZ = playerInput.faceZ;
                 this.m_Attack = playerInput.attack;
+                
 #if DebugMode
                 if(GameSettings.Instance.EnableMoveLog)
                     Debug.Log($"[GetInput-Current-{FrameSyncMgr.FrameId}] ({this.m_StickX},{this.m_StickY})");
 #endif
-                if (this.m_StickX == 0 && this.m_StickY == 0)
+                if (this.m_StickX == 0 && this.m_StickY == 0 && !m_Jumping)
                 {
                     m_LogicState = CharacterState.Idle;
                 }
@@ -424,13 +537,7 @@ namespace PurificationPioneer.Script
         {
             
         }
-
-
-        protected virtual  void OnJump()
-        {
-            
-        }        
-
+        
         #endregion
         
         #region private
@@ -510,8 +617,34 @@ namespace PurificationPioneer.Script
 
             t.rotation = Quaternion.Slerp(transform.rotation, lookAtRotationOnly_Y, m_DesiredRotationSpeed);
         }
+
+        private Vector3 GetDesiredMotion(float deltaTime)
+        {
+            if (m_StickX == 0 && m_StickY == 0)
+            {
+                return Vector3.zero;
+            }
+            var inputX = m_StickX.ToFloat();
+            var inputZ = m_StickY.ToFloat();
+            var expectedForward = new Vector2(this.m_FaceX, this.m_FaceZ).normalized;
+            var inputDir = new Vector2( inputX, inputZ);
+            var angle =  -Mathf.Sign(inputDir.x) * Vector2.Angle(inputDir, Vector2.up);
+            var moveDir = expectedForward.RotateDegree(angle);
+
+            var desiredMoveDirection = new Vector3(moveDir.x, 0, moveDir.y);
+            var desiredMotion = Vector3.zero;
+            if (m_BlockRotationPlayer == false) {
+                desiredMotion = desiredMoveDirection * (deltaTime * MoveSpeed);
+            }
+            else
+            {
+                //Strafe
+                desiredMotion = (transform.forward * inputZ + transform.right  * inputX) * (deltaTime * MoveSpeed);
+            }
+
+            return desiredMotion;
+        }
+        
         #endregion
-
-
     }
 }

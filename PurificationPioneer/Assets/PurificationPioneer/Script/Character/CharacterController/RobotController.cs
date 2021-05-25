@@ -1,4 +1,6 @@
-﻿using PurificationPioneer.Utility;
+﻿using PurificationPioneer.Global;
+using PurificationPioneer.Scriptable;
+using PurificationPioneer.Utility;
 using UnityEngine;
 
 namespace PurificationPioneer.Script
@@ -33,8 +35,20 @@ namespace PurificationPioneer.Script
 
                 var forward = m_BulletGenPos.forward;
                 var dir = new Vector3(forward.x, faceY.ToFloat(), forward.z);
-                
-                robotBullet.Init(m_BulletGenPos.position, dir, m_AttackLayer, m_Attack);
+
+                if (m_WorkAsLocal)
+                {
+                    robotBullet.Init(true, m_BulletGenPos.position, dir, m_AttackLayer, m_Attack, 
+                        Color.red);
+                }
+                else
+                {
+                    robotBullet.Init(false, m_BulletGenPos.position, dir, m_AttackLayer, m_Attack, 
+                        GlobalVar.LocalSeatId % 2==0
+                            ? GameSettings.Instance.LeftMaterial
+                            : GameSettings.Instance.RightMaterial);                    
+                }
+
                 m_LastTime = current;
             }
         }

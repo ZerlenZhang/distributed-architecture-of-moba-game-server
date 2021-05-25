@@ -43,15 +43,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_WorkAsLocal: 0
-  m_MoveSpeed: 5
-  m_DesiredRotationSpeed: 0.3
   m_CameraLookPoint: {fileID: 4980263100657519460}
-  m_HorizontalAnimSmoothTime: 0.2
-  m_VerticalAnimTime: 0.2
+  m_MoveSpeed: 4
+  m_DesiredRotationSpeed: 0.3
+  m_JumpSpeed: 10
+  m_GravatyScale: 1
+  m_AnimationSpeedScale: 1
   m_StartAnimTime: 0.3
   m_StopAnimTime: 0.15
-  m_VerticalVel: -0.5
   m_AllowPlayerRotation: 0.1
+  m_VerticalVel: -0.5
   m_ShootSystem: {fileID: 4349074551556820737}
 --- !u!1001 &7537627469728968288
 PrefabInstance:
@@ -102,7 +103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6106894822593241444, guid: 4e2f87df2f0c4e94299b25cdc4a505ea, type: 3}
       propertyPath: m_Name
-      value: ShootPlayer Variant
+      value: Shooter
       objectReference: {fileID: 0}
     - target: {fileID: 7105367002834883447, guid: 4e2f87df2f0c4e94299b25cdc4a505ea, type: 3}
       propertyPath: m_RootOrder

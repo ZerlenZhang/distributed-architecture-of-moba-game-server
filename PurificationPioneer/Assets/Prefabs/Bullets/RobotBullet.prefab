@@ -201,7 +201,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3339585474045721695}
   - component: {fileID: 1495616440615551884}
-  - component: {fileID: 7585084751052693567}
   - component: {fileID: 7795926823541016900}
   m_Layer: 0
   m_Name: RobotBullet
@@ -241,22 +240,10 @@ MonoBehaviour:
   m_GravityScale: 0.7
   m_ShootSpeed: 20
   m_Life: 5
---- !u!114 &7585084751052693567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3339585474045721694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2be8a48416f841d4fac024c4f1994147, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paintColor: {r: 0, g: 0.7837882, b: 1, a: 1}
-  radius: 1
-  strength: 1
-  hardness: 1
+  m_Hardness: 1
+  m_Radius: 1
+  m_Stength: 1
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!54 &7795926823541016900
 Rigidbody:
   m_ObjectHideFlags: 0
