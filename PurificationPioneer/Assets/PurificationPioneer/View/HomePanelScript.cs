@@ -3,8 +3,8 @@ using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Script;
 using PurificationPioneer.Utility;
+using ReadyGamerOne.View;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace PurificationPioneer.View
@@ -24,6 +24,16 @@ namespace PurificationPioneer.View
         public Button chatBtn;
         public Button shopBtn;
         public GameObject roomTypeUi;
+
+        public void Init()
+        {
+            homeOptionUi.Init();
+        }
+        
+        public void ShowCharacterPanel()
+        {
+            PanelMgr.PushPanel(PanelName.BoxPanel);
+        }
 
         public void ShowOption()
         {

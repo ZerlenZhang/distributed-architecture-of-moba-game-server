@@ -12,6 +12,7 @@ namespace ReadyGamerOne.Script
     {
         #region Private
 
+        private float effectVolume = 1;
         private List<AudioSource> effectSources = new List<AudioSource>();
         private AudioSource bgmAudioSource;
 
@@ -29,7 +30,7 @@ namespace ReadyGamerOne.Script
             }
 
             var newSource = gameObject.AddComponent<AudioSource>();
-            newSource.volume = 1;
+            newSource.volume = effectVolume;
             newSource.loop = false;
 
             effectSources.Add(newSource);
@@ -71,8 +72,8 @@ namespace ReadyGamerOne.Script
         /// </summary>
         public float BgmVolume
         {
-            set { BgmAudioSource.volume = value; }
-            get { return BgmAudioSource.volume; }
+            set => BgmAudioSource.volume = value;
+            get => BgmAudioSource.volume;
         }
 
         /// <summary>
@@ -80,11 +81,13 @@ namespace ReadyGamerOne.Script
         /// </summary>
         public float EffectVolume
         {
+            get => effectVolume;
             set
             {
-                foreach (var VARIABLE in effectSources)
+                effectVolume = value;
+                foreach (var audioSource in effectSources)
                 {
-                    VARIABLE.volume = value;
+                    audioSource.volume = value;
                 }
             }
         }

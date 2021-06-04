@@ -237,10 +237,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dcfedc355e643f690d49b461f1e0676, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_WorkAsLocal: 0
   m_GravityScale: 0.7
   m_ShootSpeed: 20
   m_Life: 5
-  m_Hardness: 1
+  m_Hardness: 0.8
   m_Radius: 1
   m_Stength: 1
   m_Color: {r: 1, g: 0, b: 0, a: 1}

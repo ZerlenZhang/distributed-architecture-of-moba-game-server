@@ -1,11 +1,16 @@
 using System.Collections.Generic;
+using PurificationPioneer.Const;
 using PurificationPioneer.Script;
+using PurificationPioneer.Scriptable;
+using ReadyGamerOne.Common;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 public class ParticlesController: MonoBehaviour
 {
     [HideInInspector] public bool workAsLocal=true;
+    [HideInInspector] public int m_SeatId;
+    [HideInInspector] public float m_PaintScore;
     public Color paintColor;
     
     public float minRadius = 0.05f;
@@ -46,6 +51,9 @@ public class ParticlesController: MonoBehaviour
                 Vector3 pos = collisionEvents[i].intersection;
                 float radius = Random.Range(minRadius, maxRadius);
                 PaintManager.Instance.Paint(p, pos, radius, hardness, strength, paintColor);
+
+
+                GameSettings.Instance.BroadScore(m_SeatId, m_PaintScore);
             }
         }
     }

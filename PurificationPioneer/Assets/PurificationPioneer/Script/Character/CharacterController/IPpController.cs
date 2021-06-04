@@ -7,5 +7,7 @@ namespace PurificationPioneer.Script
     {
         HeroConfigAsset HeroConfig { get; }
         void InitCharacterController(int seatId, HeroConfigAsset config);
+        
+        Transform transform { get; }
     }
 }

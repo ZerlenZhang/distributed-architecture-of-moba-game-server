@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using PurificationPioneer.Const;
 using ReadyGamerOne.Common;
 using UnityEngine;
 
@@ -292,6 +293,23 @@ namespace PurificationPioneer.Scriptable
 
         public Material LeftMaterial => m_LeftMaterial;
         public Material RightMaterial => m_RightMaterial;
+
+        public bool IsSeatIdLeft(int seatId)
+        {
+            return seatId % 2 == 1;
+        }
+        public Material GetMaterialBySeatId(int seatId)
+        {
+            return IsSeatIdLeft(seatId)
+                ? GameSettings.Instance.LeftMaterial
+                : GameSettings.Instance.RightMaterial;
+        }
+
+        public void BroadScore(int seatId, float score)
+        {
+            CEventCenter.BroadMessage<int, float>(Message.ChangeScore, seatId, score);
+        }
+        
         #endregion
 
     }

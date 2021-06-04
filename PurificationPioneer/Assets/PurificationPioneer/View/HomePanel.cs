@@ -13,7 +13,7 @@ namespace PurificationPioneer.View
 		{
 			//do any thing you want
 			script = m_TransFrom.GetComponent<HomePanelScript>();
-			
+			script.Init();
 			script.UpdateUserInfo();
 			
 			//登陆逻辑服务器

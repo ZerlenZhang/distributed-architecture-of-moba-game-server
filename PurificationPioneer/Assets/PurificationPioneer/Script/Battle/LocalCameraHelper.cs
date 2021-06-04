@@ -63,9 +63,11 @@ namespace PurificationPioneer.Script
             
             if (lowPoint == null)
             {
+                Debug.LogWarning("lowPoint is null");
                 return Vector3.forward;
             }
             var cameraForward = lowPoint.forward;
+            
             return cameraForward;
         }
 
@@ -75,6 +77,7 @@ namespace PurificationPioneer.Script
             base.Update();
             if (lowPoint == null)
             {
+                Debug.LogWarning("lowPoint is null");
                 return;
             }
             androidInputAxis?.Update();

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9af4606bb554f60b4e38da76090ec12, type: 3}
   m_Name: Character2
   m_EditorClassIdentifier: 
-  "\u5907\u6CE8": "\u8C03\u8BD5\u4F7F\u7528\u7684\u89D2\u82722"
+  "\u5907\u6CE8": "\u7C92\u5B50\u67AA"
   characterId: 2
   prefab: {fileID: 4349074551556820740, guid: 201cbdce23879e146aa150ad3be423a7, type: 3}
   previewPrefab: {fileID: 6344530443264138963, guid: b800253ee2bc6f94cabb5ba6511f7cf7, type: 3}
@@ -23,14 +23,18 @@ MonoBehaviour:
   increaseAttack: 2
   baseDefence: 0
   increaseDefence: 0
-  basePaintEfficiency: 100
+  basePaintEfficiency: 1
   increasePaintEfficiency: 10
+  moveSpeed: 3
+  attackSpeed: 1
+  trustValue: 99
   jumpSpeed: 10
   firstSkill: {fileID: 11400000, guid: 5674498c2219234428040e7ecffcf5f7, type: 2}
   secondSkill: {fileID: 11400000, guid: 770a4df8850f3484ebe0bc3d2f52bb80, type: 2}
-  heroName: 
-  stroy0: 
-  stroy1: 
-  stroy2: 
-  stroy3: 
-  stroy4: 
+  heroName: Ash
+  stroies:
+  - asdASFASFAsfASFDasfq
+  - asdASFASFAsfASFDasfq
+  - asdASFASFAsfASFDasfq
+  - asdASFASFAsfASFDasfq
+  - asdASFASFAsfASFDasfq

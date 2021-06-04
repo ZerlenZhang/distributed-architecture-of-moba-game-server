@@ -37,7 +37,6 @@ namespace PurificationPioneer.View
 						Debug.LogError("已经锁定，无法选择");
 						return;
 					}
-					Debug.Log($"Choose Hero[{id}]");
 					LogicProxy.Instance.SelectHero(
 						GlobalVar.Uname,
 						id);

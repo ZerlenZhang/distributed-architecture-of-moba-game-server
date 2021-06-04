@@ -31,7 +31,7 @@ namespace PurificationPioneer.Script
                 faceY = cameraDir.y.ToInt(),
                 faceZ = cameraDir.z.ToInt(),
             };
-
+            
             if (GlobalVar.IsPlayerInControl)
             {
                 input.attack = attack;

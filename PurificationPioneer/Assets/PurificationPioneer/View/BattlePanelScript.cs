@@ -12,7 +12,7 @@ namespace PurificationPioneer.View
     {
         public BattlePanelBottomAreaUi bottomAreaUi;
         public BattleOptionUi battleOptionUi;
-        public Text timeText;
+        public WarInfoAreaUi m_WarInfoAreaUi;
         
         public void Init()
         {
@@ -20,22 +20,7 @@ namespace PurificationPioneer.View
             battleOptionUi.SetVisible(false);
         }
 
-
-        private void OnEnable()
-        {
-            CEventCenter.AddListener<int>(Message.OnTimeLosing, OnTimeLosing);
-        }
-
-        private void OnDisable()
-        {
-            CEventCenter.RemoveListener<int>(Message.OnTimeLosing, OnTimeLosing);
-        }
-
-
-        private void OnTimeLosing(int leftSeconds)
-        {
-            timeText.text = $"{leftSeconds / 60}:{leftSeconds % 60}";
-        }
+        
 
 
         private void Update()

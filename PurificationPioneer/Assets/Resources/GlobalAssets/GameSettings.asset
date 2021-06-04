@@ -35,6 +35,7 @@ MonoBehaviour:
   workAsAndroid: 0
   debugAccount: developer
   debugPassword: developer_password
+  _mouseMode: 308
   _attackKey: 323
   _jumpKey: 32
   _heroFirstSkillKey: 113
@@ -45,6 +46,8 @@ MonoBehaviour:
   _gameStateKey: 9
   _cameraControlRectX: {x: 0.3, y: 0.8}
   _cameraControlRectY: {x: 0, y: 1}
+  _dialogContinueKey: 323
+  _interactKey: 101
   defaultStateFontSize: 50
   ifShowGizmos: 0
   _physicsDeltaTime: 0.02

@@ -25,7 +25,6 @@ namespace PurificationPioneer.Script
                 return;
             }
 
-            Debug.Log("Try Submit");
             LogicProxy.Instance.SubmitHero(GlobalVar.Uname);
         }
 

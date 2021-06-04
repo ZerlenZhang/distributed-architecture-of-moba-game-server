@@ -94,6 +94,10 @@ namespace PurificationPioneer.Script
                 var genPoint = kv.Key % 2 == 1
                     ? leftPoint
                     : rightPoint;
+                
+                var lookAtPoint = kv.Key % 2 == 0
+                    ? leftPoint
+                    : rightPoint;
 
                 //get config
                 var characterConfig=ResourceMgr.GetAsset<HeroConfigAsset>(
@@ -107,7 +111,8 @@ namespace PurificationPioneer.Script
                     this.generateRadius * Mathf.Sin(kv.Key * deltaDegree));
 
                 //实例化，初始化
-                characterConfig.InstantiateAndInitialize(kv.Key, generatePos);
+                var player = characterConfig.InstantiateAndInitialize(kv.Key, generatePos);
+                player.transform.LookAt(lookAtPoint);
                 
                 //delay
                 if(genPoint==rightPoint)

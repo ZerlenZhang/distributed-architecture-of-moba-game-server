@@ -25,8 +25,9 @@ namespace PurificationPioneer.Script
             if (m_WorkAsLocal)
             {
                 m_ShootSystem.Initialize(
+                    1,
+                    1,
                     () => GlobalVar.IsPlayerInControl && Input.GetMouseButton(0),
-                    true,
                     m_LocalCameraHelper.vcam,
                     GameSettings.Instance.LeftMaterial);
             }
@@ -52,17 +53,11 @@ namespace PurificationPioneer.Script
             base.InitCharacter(isLocal);
             if (isLocal)
             {
-                m_ShootSystem.Initialize(
-                    () => m_Attack,
-                    false,
-                    m_LocalCameraHelper.vcam,
-                    GlobalVar.LocalSeatId % 2==0
-                        ? GameSettings.Instance.LeftMaterial
-                        : GameSettings.Instance.RightMaterial);
+                m_ShootSystem.Initialize(SeatId, PaintEfficiencyScale, () => m_Attacking, m_LocalCameraHelper.vcam);
             }
             else
             {
-                m_ShootSystem.Initialize(() => m_Attack);
+                m_ShootSystem.Initialize(SeatId, PaintEfficiencyScale, () => m_Attacking);
             }
         }
     }

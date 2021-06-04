@@ -90,8 +90,8 @@ namespace ReadyGamerOne.Utility
 
         public static Vector2 RotateDegree(this Vector2 self, float degree)
         {
-            var sin = Mathf.Sin(degree * Mathf.Deg2Rad);
-            var cos = Mathf.Cos(degree * Mathf.Deg2Rad);
+            var sin = Mathf.Sin(-degree * Mathf.Deg2Rad);
+            var cos = Mathf.Cos(-degree * Mathf.Deg2Rad);
             
             return new Vector2(
                 self.x*cos -self.y*sin,

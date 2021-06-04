@@ -6,6 +6,8 @@ namespace PurificationPioneer.Const
 	public static class Message
 	{
 		public const string ShowTip = "ShowTip"; // string
+		public const string ChangeScore = "ChangeScore"; // float leftChange, float rightChange
+		public const string ShowHeroInfo = "ShowHeroInfo"; // HeroConfigAsset
 		
 		
 		public const string OnResponseError = "OnResponseError";// int

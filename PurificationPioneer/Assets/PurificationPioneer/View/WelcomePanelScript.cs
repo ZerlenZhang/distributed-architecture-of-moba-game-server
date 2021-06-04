@@ -1,6 +1,7 @@
 ﻿using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Script;
+using ReadyGamerOne.Script;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ namespace PurificationPioneer.View
         public Button loginBtn;
         public Button registerBtn;
         public Button exitBtn;
+
+        public Image onImage;
+        public Image offImage;
 
         public void Init()
         {
@@ -32,6 +36,14 @@ namespace PurificationPioneer.View
         public void TryExit()
         {
             Application.Quit();
+        }
+
+        public void OnEnableAudio(bool value)
+        {
+            offImage.gameObject.SetActive(!value);
+            
+            AudioMgr.Instance.BgmVolume = value ? 1 : 0;
+            AudioMgr.Instance.EffectVolume = value ? 1 : 0;
         }
     }
 }

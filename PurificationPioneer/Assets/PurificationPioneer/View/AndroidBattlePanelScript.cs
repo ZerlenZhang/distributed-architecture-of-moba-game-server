@@ -15,30 +15,13 @@ namespace PurificationPioneer.View
         public AndroidBattleHeroStateUi heroStateUi;
         public AndroidBattleAttackBtnAreaUi heroAttackBtnUi;
         public BattleOptionUi battleOptionUi;
-        public Text timeText;
+        public WarInfoAreaUi m_WarInfoAreaUi;
 
         public void Init()
         {
             heroStateUi.Init();
             heroAttackBtnUi.Init();
             battleOptionUi.SetVisible(false);
-        }
-        
-        
-        private void OnEnable()
-        {
-            CEventCenter.AddListener<int>(Message.OnTimeLosing, OnTimeLosing);
-        }
-
-        private void OnDisable()
-        {
-            CEventCenter.RemoveListener<int>(Message.OnTimeLosing, OnTimeLosing);
-        }
-
-
-        private void OnTimeLosing(int leftSeconds)
-        {
-            timeText.text = $"{leftSeconds / 60}:{leftSeconds % 60}";
         }
 
 #if DebugMode

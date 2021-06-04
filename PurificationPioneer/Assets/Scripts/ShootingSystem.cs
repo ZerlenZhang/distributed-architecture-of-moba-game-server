@@ -4,6 +4,7 @@ using DG.Tweening;
 using Cinemachine;
 using PurificationPioneer.Global;
 using PurificationPioneer.Script;
+using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using UnityEngine.Assertions;
 
@@ -25,8 +26,10 @@ public class ShootingSystem : MonoBehaviour
     private bool m_LastAttackState = false;
     private int startFrameId;
 
-    public void Initialize(Func<bool> ifAttack,bool workAsLocal=false, Material paintMaterial=null)
+    public void Initialize(int shooterSeatId, float paintEfficiencyScale, Func<bool> ifAttack,bool workAsLocal=false, Material paintMaterial = null)
     {
+        paintMaterial = paintMaterial ? paintMaterial : GameSettings.Instance.GetMaterialBySeatId(shooterSeatId);
+        
         m_Init = true;
         m_IfAttack = ifAttack;
         m_WorkAsLocal = workAsLocal;
@@ -34,6 +37,8 @@ public class ShootingSystem : MonoBehaviour
         foreach (var particlesController in GetComponentsInChildren<ParticlesController>())
         {
             particlesController.workAsLocal = workAsLocal;
+            particlesController.m_SeatId = shooterSeatId;
+            particlesController.m_PaintScore = paintEfficiencyScale;
             if (paintMaterial)
             {
                 particlesController.paintColor = paintMaterial.color;
@@ -43,9 +48,11 @@ public class ShootingSystem : MonoBehaviour
         Assert.IsNotNull(m_IfAttack);
     }
     
-    public void Initialize(Func<bool> ifAttack,bool workAsLocal,CinemachineFreeLook camera, Material paintMaterial)
+    public void Initialize(int shooterSeatId, float paintEfficiencyScale, Func<bool> ifAttack,CinemachineFreeLook camera, Material paintMaterial = null)
     {
-        Initialize(ifAttack,workAsLocal,paintMaterial);
+        paintMaterial = paintMaterial ? paintMaterial : GameSettings.Instance.GetMaterialBySeatId(shooterSeatId);
+        
+        Initialize(shooterSeatId, paintEfficiencyScale, ifAttack, true, paintMaterial);
         m_FreeLookCamera = camera;
         impulseSource = m_FreeLookCamera.GetComponent<CinemachineImpulseSource>();
         Assert.IsTrue(m_FreeLookCamera && impulseSource && paintMaterial);

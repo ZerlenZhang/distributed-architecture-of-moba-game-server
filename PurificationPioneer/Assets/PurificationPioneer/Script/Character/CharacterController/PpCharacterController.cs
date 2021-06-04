@@ -30,12 +30,12 @@ namespace PurificationPioneer.Script
         [SerializeField]
         protected bool m_WorkAsLocal = false;
         
-        
         [Tooltip("摄像机看向的点")]
         [SerializeField]private Transform m_CameraLookPoint;
         
         [Tooltip("玩家移动速度")]        
-        [SerializeField]private float m_MoveSpeed = 1;
+        [HideInInspector]
+        [SerializeField]private float m_MoveSpeed = 3;
         
         [Tooltip("玩家旋转速度")]  
         [SerializeField]
@@ -81,7 +81,7 @@ namespace PurificationPioneer.Script
         private CharacterState m_LogicState = CharacterState.Idle;
         private CharacterState m_AniState = CharacterState.Idle;
         private int m_StickX, m_StickY, m_FaceX, m_FaceY, m_FaceZ;
-        protected bool m_Attack, m_Jumping;
+        protected bool m_Attacking, m_Jumping;
         private float m_LogicYVelocity;
 
 
@@ -100,6 +100,11 @@ namespace PurificationPioneer.Script
             get => m_MoveSpeed;
             set => m_MoveSpeed = value;
         }
+
+        public float PaintEfficiencyScale
+        {
+            get => HeroConfig.basePaintEfficiency/100f;
+        }
         
         #region Events
 
@@ -110,7 +115,10 @@ namespace PurificationPioneer.Script
                 UnityAPI.LockMouse();
                 
                 m_Animator = this.GetComponent<Animator> ();
-                m_Animator.SetFloat(AniSpeedScale, m_AnimationSpeedScale);
+                if (m_Animator)
+                {
+                    m_Animator.SetFloat(AniSpeedScale, m_AnimationSpeedScale);
+                }
                 m_CharacterController = this.GetComponent<CharacterController> ();
                 
                 m_LocalCameraHelper =
@@ -129,16 +137,16 @@ namespace PurificationPioneer.Script
         {
             if (m_WorkAsLocal)
             {
-                m_Attack = Input.GetKey(GameSettings.Instance.AttackKey);
+                m_Attacking = Input.GetKey(GameSettings.Instance.AttackKey);
                 
-                if (!m_LastAttack && m_Attack)
+                if (!m_LastAttack && m_Attacking)
                 {
                     m_BlockRotationPlayer = true;
-                }else if (m_LastAttack && !m_Attack)
+                }else if (m_LastAttack && !m_Attacking)
                 {
                     m_BlockRotationPlayer = false;
                 }
-                if (m_Attack)
+                if (m_Attacking)
                 {
                     RotateToCamera(transform);
                     var face = m_Camera.transform.forward;
@@ -159,8 +167,74 @@ namespace PurificationPioneer.Script
 
 
 
-                m_LastAttack = m_Attack;
+                m_LastAttack = m_Attacking;
                 return;
+                
+                
+                
+                void UpdateAnimation()
+                {
+                    //Calculate Input Vectors
+                    var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal") : 0;
+                    var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical") : 0;
+
+                    //Calculate the Input Magnitude
+                    var Speed = new Vector2(InputX, InputZ).sqrMagnitude;
+
+                    if (m_Animator)
+                    {
+                        //Change animation mode if rotation is blocked
+                        m_Animator.SetBool("shooting", m_BlockRotationPlayer);
+
+                        //Physically move player
+                        if (Speed > m_AllowPlayerRotation) {
+                            m_Animator.SetFloat ("Blend", Speed, m_StartAnimTime, Time.deltaTime);
+                            m_Animator.SetFloat("X", InputX, m_StartAnimTime/3, Time.deltaTime);
+                            m_Animator.SetFloat("Y", InputZ, m_StartAnimTime/3, Time.deltaTime);
+                            PlayerMoveAndRotation ();
+                        } else if (Speed < m_AllowPlayerRotation) {
+                            m_Animator.SetFloat ("Blend", Speed, m_StopAnimTime, Time.deltaTime);
+                            m_Animator.SetFloat("X", InputX, m_StopAnimTime/ 3, Time.deltaTime);
+                            m_Animator.SetFloat("Y", InputZ, m_StopAnimTime/ 3, Time.deltaTime);
+                        }
+	                            
+                    }
+                    else if (Speed > m_AllowPlayerRotation)
+                    {
+                        PlayerMoveAndRotation ();
+                    }
+
+	        
+                    void PlayerMoveAndRotation() 
+                    {
+                        var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal"):0;
+                        var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical"):0;
+
+                        var forward = m_Camera.transform.forward;
+                        var right = m_Camera.transform.right;
+
+                        forward.y = 0f;
+                        right.y = 0f;
+
+                        forward.Normalize();
+                        right.Normalize();
+
+                        var desiredMoveDirection = forward * InputZ + right * InputX;
+
+                        if (m_BlockRotationPlayer == false) {
+                            //Camera
+                            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), m_DesiredRotationSpeed);
+                            var motion = desiredMoveDirection * Time.deltaTime * MoveSpeed;
+                            m_CharacterController.Move(motion);
+                        }
+                        else
+                        {
+                            //Strafe
+                            var motion = (transform.forward * InputZ + transform.right * InputX) * Time.deltaTime * MoveSpeed;
+                            m_CharacterController.Move(motion);
+                        }
+                    }
+                }
             }
 
             if (!m_Initialized)
@@ -199,36 +273,39 @@ namespace PurificationPioneer.Script
                 return;
 
             // Camera
-            if (m_Attack)
+            if (m_Attacking)
             {
                 RotateToCamera(transform);
             }
 
             #region Animation
+            
+            if (m_Animator)
+            {
+                //Calculate the Input Magnitude
+                var inputX = m_StickX.ToFloat();
+                var inputZ = m_StickY.ToFloat();
+                var inputMagnitude = new Vector2(inputX, inputZ).sqrMagnitude;
 
-            //Calculate the Input Magnitude
-            var inputX = m_StickX.ToFloat();
-            var inputZ = m_StickY.ToFloat();
-            var inputMagnitude = new Vector2(inputX, inputZ).sqrMagnitude;
+                //Change animation mode if rotation is blocked
+                m_Animator.SetBool("shooting", m_BlockRotationPlayer);
 
-            //Change animation mode if rotation is blocked
-            m_Animator.SetBool("shooting", m_BlockRotationPlayer);
+                //Physically move player
+                if (inputMagnitude > m_AllowPlayerRotation) {
+                    m_Animator.SetFloat ("Blend", inputMagnitude, m_StartAnimTime, Time.deltaTime);
+                    m_Animator.SetFloat("X", inputX, m_StartAnimTime/3, Time.deltaTime);
+                    m_Animator.SetFloat("Y", inputZ, m_StartAnimTime/3, Time.deltaTime);
+                } else if (inputMagnitude < m_AllowPlayerRotation) {
+                    m_Animator.SetFloat ("Blend", inputMagnitude, m_StopAnimTime, Time.deltaTime);
+                    m_Animator.SetFloat("X", inputX, m_StopAnimTime/ 3, Time.deltaTime);
+                    m_Animator.SetFloat("Y", inputZ, m_StopAnimTime/ 3, Time.deltaTime);
+                }                      
+            }
 
-            //Physically move player
-            if (inputMagnitude > m_AllowPlayerRotation) {
-                m_Animator.SetFloat ("Blend", inputMagnitude, m_StartAnimTime, Time.deltaTime);
-                m_Animator.SetFloat("X", inputX, m_StartAnimTime/3, Time.deltaTime);
-                m_Animator.SetFloat("Y", inputZ, m_StartAnimTime/3, Time.deltaTime);
-            } else if (inputMagnitude < m_AllowPlayerRotation) {
-                m_Animator.SetFloat ("Blend", inputMagnitude, m_StopAnimTime, Time.deltaTime);
-                m_Animator.SetFloat("X", inputX, m_StopAnimTime/ 3, Time.deltaTime);
-                m_Animator.SetFloat("Y", inputZ, m_StopAnimTime/ 3, Time.deltaTime);
-            }            
+      
 
             #endregion
-            
-            
-            
+
             //没有移动的话，直接Idle不用管别的
             if (this.m_StickX==0 && this.m_StickY==0 && !m_Jumping)
             {
@@ -257,7 +334,7 @@ namespace PurificationPioneer.Script
                 {
                     timer = 0;
                     var move = transform.position - lastPosition;
-                    Debug.Log($"[PpCharacterController] Move: {move.magnitude} {move}");
+                    // Debug.Log($"[PpCharacterController] Move: {move.magnitude} {move}");
                     lastPosition = transform.position;
                 }
             }
@@ -308,7 +385,7 @@ namespace PurificationPioneer.Script
             
             if (Mathf.Abs(m_LogicYVelocity) <= Mathf.Epsilon)
             {
-                Debug.Log("Direct return");
+                // Debug.Log("Direct return");
                 var tempAns = Physics.RaycastAll( currentPos + 0.001f * Vector3.up, Vector3.down , GameSettings.Instance.MinDetectableDistance,
                     gameObject.GetUnityDetectLayer());
                 if (!tempAns.Any())
@@ -338,7 +415,7 @@ namespace PurificationPioneer.Script
                         && raycastHit.distance < desiredDistance)
                     {
                         desiredMotion.y = raycastHit.point.y-currentPos.y;
-                        Debug.Log($"撞到: {raycastHit.collider.name}");
+                        // Debug.Log($"撞到: {raycastHit.collider.name}");
                         hit = true;      
                         break;
                     }
@@ -346,7 +423,7 @@ namespace PurificationPioneer.Script
             }
 
             var perfectLogicPos = currentPos + Vector3.up * desiredMotion.y;
-            Debug.Log($"Move: {desiredMotion.y}");
+            // Debug.Log($"Move: {desiredMotion.y}");
             transform.position = perfectLogicPos; //Vector3.Lerp(currentPos, perfectLogicPos, 0.5f);
 
 
@@ -384,18 +461,18 @@ namespace PurificationPioneer.Script
                 this.m_FaceX = playerInput.faceX;
                 this.m_FaceY = playerInput.faceY;
                 this.m_FaceZ = playerInput.faceZ;
-                this.m_Attack = playerInput.attack;
+                this.m_Attacking = playerInput.attack;
                 
                 // Attack
-                if (!m_LastAttack && m_Attack)
+                if (!m_LastAttack && m_Attacking)
                 {
                     m_BlockRotationPlayer = true;
                 }
-                else if (m_LastAttack && !m_Attack)
+                else if (m_LastAttack && !m_Attacking)
                 {
                     m_BlockRotationPlayer = false;
                 }
-                m_LastAttack = m_Attack;
+                m_LastAttack = m_Attacking;
                 
 
                 var deltaTime = GlobalVar.LogicFrameDeltaTime.ToFloat();
@@ -415,14 +492,14 @@ namespace PurificationPioneer.Script
                 {
                     m_Jumping = false;
                     m_LogicYVelocity = 0;
-                    Debug.Log("Reset");
+                    // Debug.Log("Reset");
                 }
                 else// 更新速度
                 {
                     var acceleration = Physics.gravity.y * m_GravatyScale;
                     var newVel = m_LogicYVelocity + acceleration * deltaTime;
                     m_LogicYVelocity = newVel;
-                    Debug.Log($"Update: {m_LogicYVelocity}");
+                    // Debug.Log($"Update: {m_LogicYVelocity}");
                 }
 
                 var beforePos = transform.position;
@@ -453,7 +530,7 @@ namespace PurificationPioneer.Script
                 this.m_FaceX = playerInput.faceX;
                 this.m_FaceY = playerInput.faceY;
                 this.m_FaceZ = playerInput.faceZ;
-                this.m_Attack = playerInput.attack;
+                this.m_Attacking = playerInput.attack;
                 
 #if DebugMode
                 if(GameSettings.Instance.EnableMoveLog)
@@ -490,10 +567,13 @@ namespace PurificationPioneer.Script
             m_Animator = this.GetComponent<Animator> ();
             m_CharacterController = this.GetComponent<CharacterController> ();
 
-            Assert.IsTrue(m_Animator &&  m_CharacterController);
+            Assert.IsTrue(m_CharacterController);
+
+            if (m_Animator)
+            {
+                m_Animator.SetFloat(AniSpeedScale, m_AnimationSpeedScale);
+            }
             
-            
-            m_Animator.SetFloat(AniSpeedScale, m_AnimationSpeedScale);
             InitCharacter(GlobalVar.LocalSeatId==SeatId);
             
             
@@ -510,6 +590,7 @@ namespace PurificationPioneer.Script
 
         protected virtual void InitCharacter(bool isLocal)
         {
+            m_MoveSpeed = HeroConfig.moveSpeed;
             if (isLocal)
             {
                 m_LocalCameraHelper =
@@ -551,64 +632,9 @@ namespace PurificationPioneer.Script
             m_FaceX = input.faceX;
             m_FaceY = input.faceY;
             m_FaceZ = input.faceZ;
-            m_Attack = input.attack;
+            m_Attacking = input.attack;
         }
-        
-        
-        private void UpdateAnimation() 
-        {
-            //Calculate Input Vectors
-            var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal") : 0;
-            var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical") : 0;
 
-            //Calculate the Input Magnitude
-            var Speed = new Vector2(InputX, InputZ).sqrMagnitude;
-
-            //Change animation mode if rotation is blocked
-            m_Animator.SetBool("shooting", m_BlockRotationPlayer);
-
-            //Physically move player
-            if (Speed > m_AllowPlayerRotation) {
-                m_Animator.SetFloat ("Blend", Speed, m_StartAnimTime, Time.deltaTime);
-                m_Animator.SetFloat("X", InputX, m_StartAnimTime/3, Time.deltaTime);
-                m_Animator.SetFloat("Y", InputZ, m_StartAnimTime/3, Time.deltaTime);
-                PlayerMoveAndRotation ();
-            } else if (Speed < m_AllowPlayerRotation) {
-                m_Animator.SetFloat ("Blend", Speed, m_StopAnimTime, Time.deltaTime);
-                m_Animator.SetFloat("X", InputX, m_StopAnimTime/ 3, Time.deltaTime);
-                m_Animator.SetFloat("Y", InputZ, m_StopAnimTime/ 3, Time.deltaTime);
-            }
-	
-	
-            void PlayerMoveAndRotation() 
-            {
-                var InputX = GlobalVar.IsPlayerInControl ? Input.GetAxis ("Horizontal"):0;
-                var InputZ = GlobalVar.IsPlayerInControl ?Input.GetAxis ("Vertical"):0;
-
-                var forward = m_Camera.transform.forward;
-                var right = m_Camera.transform.right;
-
-                forward.y = 0f;
-                right.y = 0f;
-
-                forward.Normalize();
-                right.Normalize();
-
-                var desiredMoveDirection = forward * InputZ + right * InputX;
-
-                if (m_BlockRotationPlayer == false) {
-                    //Camera
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), m_DesiredRotationSpeed);
-                    m_CharacterController.Move(desiredMoveDirection * Time.deltaTime * MoveSpeed);
-                }
-                else
-                {
-                    //Strafe
-                    m_CharacterController.Move((transform.forward * InputZ + transform.right  * InputX) * Time.deltaTime * MoveSpeed);
-                }
-            }
-        }
-        
         private void RotateToCamera(Transform t)
         {
             var forward = m_Camera.transform.forward;
@@ -624,22 +650,27 @@ namespace PurificationPioneer.Script
             {
                 return Vector3.zero;
             }
+            
             var inputX = m_StickX.ToFloat();
             var inputZ = m_StickY.ToFloat();
             var expectedForward = new Vector2(this.m_FaceX, this.m_FaceZ).normalized;
             var inputDir = new Vector2( inputX, inputZ);
-            var angle =  -Mathf.Sign(inputDir.x) * Vector2.Angle(inputDir, Vector2.up);
+            var angle =  Mathf.Sign(inputDir.x) * Vector2.Angle(Vector2.up, inputDir);
             var moveDir = expectedForward.RotateDegree(angle);
 
             var desiredMoveDirection = new Vector3(moveDir.x, 0, moveDir.y);
             var desiredMotion = Vector3.zero;
             if (m_BlockRotationPlayer == false) {
                 desiredMotion = desiredMoveDirection * (deltaTime * MoveSpeed);
+                // Debug.Log($"Face:{expectedForward}, Input:{inputDir}, Angle:{angle}, Final: {desiredMoveDirection}");
+
             }
             else
             {
                 //Strafe
                 desiredMotion = (transform.forward * inputZ + transform.right  * inputX) * (deltaTime * MoveSpeed);
+                // Debug.Log($"DesireDir: {(transform.forward * inputZ + transform.right  * inputX)}");
+
             }
 
             return desiredMotion;

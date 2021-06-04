@@ -2,16 +2,32 @@
 using PurificationPioneer.Global;
 using PurificationPioneer.Network.Proxy;
 using PurificationPioneer.Scriptable;
+using ReadyGamerOne.Script;
 using ReadyGamerOne.Utility;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PurificationPioneer.Script
 {
     public class BattleOptionUi : MonoBehaviour
     {
+        public Slider bgm;
+        public Slider effect;
         private void Start()
         {
             SetVisible(false);
+            bgm.value = AudioMgr.Instance.BgmVolume;
+            effect.value = AudioMgr.Instance.EffectVolume;
+        }
+
+        public void SetBgmVolume(float value)
+        {
+            AudioMgr.Instance.BgmVolume = bgm.value;
+        }
+
+        public void SetEffectVolume(float value)
+        {
+            AudioMgr.Instance.EffectVolume = effect.value;
         }
 
         public void SetVisible(bool state)

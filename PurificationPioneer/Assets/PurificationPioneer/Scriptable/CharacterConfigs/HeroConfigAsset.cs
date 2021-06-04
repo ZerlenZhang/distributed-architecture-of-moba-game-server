@@ -28,6 +28,11 @@ namespace PurificationPioneer.Scriptable
         public int increaseDefence;
         public int basePaintEfficiency;
         public int increasePaintEfficiency;
+        public float moveSpeed;
+        public float attackSpeed;
+
+        public int trustValue;
+        
 
         public float jumpSpeed = 10;
 
@@ -36,12 +41,7 @@ namespace PurificationPioneer.Scriptable
         public SkillConfigAsset secondSkill;
 
         [Header("世界观故事")] public string heroName;
-        public string stroy0;
-        public string stroy1;
-        public string stroy2;
-        public string stroy3;
-        public string stroy4;
-
+        public string[] stroies;
         public override string ToString()
         {
             var sb = new StringBuilder();

@@ -1,5 +1,5 @@
-﻿using System;
-using PurificationPioneer.Global;
+﻿using PurificationPioneer.Global;
+using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using UnityEngine;
 
@@ -27,9 +27,13 @@ namespace PurificationPioneer.Script
         private float m_StartFrameId;
 
         private float m_CreateTime;
+        private int m_SeatId;
+        private float m_PaintEfficiencyScale = 1;
         
-        public void Init(bool workAsLocal, Vector3 initPos, Vector3 initVel, LayerMask attackLayer, int damage, Color paintColor)
+        public void Init(bool workAsLocal, int seatId, float paintEfficiencyScale,  Vector3 initPos, Vector3 initVel, LayerMask attackLayer, int damage, Color paintColor)
         {
+            m_PaintEfficiencyScale = paintEfficiencyScale;
+            m_SeatId = seatId;
             m_WorkAsLocal = workAsLocal;
             m_Initialize = true;
             m_LogicPos = initPos;
@@ -44,9 +48,9 @@ namespace PurificationPioneer.Script
 
             FrameSyncMgr.AddFrameSyncUnit(this);
         }
-        public void Init(bool workAsLocal, Vector3 initPos, Vector3 initVel, LayerMask attackLayer, int damage, Material paintMaterial)
+        public void Init(bool workAsLocal, int seatId, float paintEfficiencyScale, Vector3 initPos, Vector3 initVel, LayerMask attackLayer, int damage, Material paintMaterial)
         {
-            Init(workAsLocal, initPos, initVel, attackLayer, damage, paintMaterial.color);
+            Init(workAsLocal, seatId, paintEfficiencyScale, initPos, initVel, attackLayer, damage, paintMaterial.color);
         }
         
         private void Update()
@@ -92,7 +96,10 @@ namespace PurificationPioneer.Script
             var p = other.collider.GetComponent<Paintable>();
             if(p != null){
                 Vector3 pos = other.contacts[0].point;
-                PaintManager.Instance.Paint(p, pos, m_Radius, m_Hardness, m_Stength, m_Color);
+                PaintManager.Instance.Paint(p, pos, m_Radius * m_PaintEfficiencyScale, m_Hardness, m_Stength, m_Color);
+                
+                GameSettings.Instance.BroadScore(m_SeatId, m_PaintEfficiencyScale);
+                
                 Destroy(gameObject);
             }
         }

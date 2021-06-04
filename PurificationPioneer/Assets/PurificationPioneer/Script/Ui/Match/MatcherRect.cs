@@ -44,7 +44,12 @@ namespace PurificationPioneer.Script
 
         public void SubmitHeroRes()
         {
-            Debug.Log($"[MatcherRect] {Unick} 锁定英雄 HeroId[{HeroId}]");
+#if DebugMode
+            if (GameSettings.Instance.EnableProtoLog)
+            {
+                Debug.Log($"[MatcherRect] {Unick} 锁定英雄 HeroId[{HeroId}]");
+            }
+#endif
             if (Unick == GlobalVar.Unick && null!=shineCoroutine)
             {
                 MainLoop.Instance.StopCoroutine(shineCoroutine);
