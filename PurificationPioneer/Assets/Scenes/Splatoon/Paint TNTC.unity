@@ -597,8 +597,8 @@ GameObject:
   - component: {fileID: 1065522500}
   - component: {fileID: 1065522499}
   - component: {fileID: 1065522498}
-  - component: {fileID: 1065522497}
   - component: {fileID: 1065522496}
+  - component: {fileID: 1065522497}
   m_Layer: 0
   m_Name: TestBall
   m_TagString: Untagged
@@ -631,10 +631,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065522495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e55b007273e469e90246d36f0d2faeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2be8a48416f841d4fac024c4f1994147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BrushConfig: {fileID: 11400000, guid: f1458badd5cb0dd40a241788edb4587c, type: 2}
+  paintColor: {r: 1, g: 0, b: 0, a: 1}
+  radius: 1
+  strength: 1
+  hardness: 1
 --- !u!135 &1065522498
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -742,6 +745,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5c75c78d6364ea8c1a6f121e3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  workAsLocal: 1
+  m_SeatId: 0
+  m_PaintScore: 0
   paintColor: {r: 1, g: 0.16862746, b: 0.7411765, a: 1}
   minRadius: 0.02
   maxRadius: 0.2
@@ -5914,6 +5920,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5c75c78d6364ea8c1a6f121e3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  workAsLocal: 1
+  m_SeatId: 0
+  m_PaintScore: 0
   paintColor: {r: 0.16470589, g: 0.94117653, b: 0.1137255, a: 1}
   minRadius: 0.02
   maxRadius: 0.2

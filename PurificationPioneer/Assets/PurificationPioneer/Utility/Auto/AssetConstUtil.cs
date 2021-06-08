@@ -50,7 +50,6 @@ namespace PurificationPioneer.Utility
 					{ @"LoadMatcherUi" , @"ClassUi\LoadMatcherUi" },
 					{ @"MatcherRect" , @"ClassUi\MatcherRect" },
 					{ @"StoryUnitUi" , @"ClassUi\StoryUnitUi" },
-					{ @"Weapon0" , @"ClassWeapon\Weapon0" },
 					{ @"DOTweenSettings" , @"DOTweenSettings" },
 				};
 		public override System.Collections.Generic.Dictionary<string,string> NameToPath => nameToPath;

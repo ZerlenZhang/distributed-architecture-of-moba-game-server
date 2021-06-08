@@ -3672,10 +3672,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb06fe47b1efa9418445b7194ad6456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxParticleCount: 75
+  m_WorkAsLocal: 1
   inkParticle: {fileID: 7342795951538594006}
   parentController: {fileID: 7342795951315192618}
   splatGunNozzle: {fileID: 7661512370927059225}
-  freeLookCamera: {fileID: 0}
+  m_FreeLookCamera: {fileID: 0}
+  particleSystems: []
 --- !u!1 &6123130483070899457
 GameObject:
   m_ObjectHideFlags: 0
@@ -19740,6 +19743,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5c75c78d6364ea8c1a6f121e3a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  workAsLocal: 1
+  m_SeatId: 0
+  m_PaintScore: 0
   paintColor: {r: 0.9433962, g: 0.27945885, b: 0.47586557, a: 1}
   minRadius: 0.2
   maxRadius: 1.5
@@ -30275,7 +30281,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7342795952886169275}
-  - component: {fileID: 7342795952886169274}
   m_Layer: 3
   m_Name: Splattershot
   m_TagString: Untagged
@@ -30299,18 +30304,6 @@ Transform:
   m_Father: {fileID: 8407869845703463956}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 37.99, y: 90, z: 90}
---- !u!114 &7342795952886169274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7342795952886169276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f8cadbd2b3aeb1409a01ef193da371a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7380789431485526230
 GameObject:
   m_ObjectHideFlags: 0

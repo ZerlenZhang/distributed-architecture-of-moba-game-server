@@ -31,12 +31,10 @@
 		{
 			//do any thing you want
 			eventOnGameState += FrameSyncMgr.OnGui;
-			eventOnGameState += PpPhysics.OnGui;
 
 			DialogSystem.Scripts.DialogSystem.onStartDialog += OnStartDialog;
 			DialogSystem.Scripts.DialogSystem.onEndDialog += OnEndDialog;
 			
-			PpPhysics.SetupPhysicsWorld();
 		}
 		
 		private void OnGUI()
@@ -58,11 +56,6 @@
 				m_NeedResetMouseMode = false;
 				UnityAPI.LockMouse();
 			}
-		}
-		
-		private void FixedUpdate()
-		{
-			PpPhysics.Simulate(Time.fixedDeltaTime,PpPhysicsSimulateOptions.NoEvent);
 		}
 
 		protected override void OnAnySceneUnload()

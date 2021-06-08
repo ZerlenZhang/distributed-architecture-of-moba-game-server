@@ -54,7 +54,6 @@ namespace PurificationPioneer.Script
         {
             base.OnDestroy();
             
-            PpPhysics.Clear();
             FrameSyncMgr.Clear();
 #if UNITY_EDITOR
             if (!GameSettings.Instance.WorkAsAndroid)

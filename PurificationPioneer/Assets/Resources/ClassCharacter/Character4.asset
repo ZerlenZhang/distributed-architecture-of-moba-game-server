@@ -17,6 +17,7 @@ MonoBehaviour:
   prefab: {fileID: 51922025878053220, guid: f34f8a84a50059c468e2228be94efbe8, type: 3}
   previewPrefab: {fileID: 3543239625598509286, guid: 62532325e2139d546b5377b81c62e66e, type: 3}
   icon: {fileID: 21300000, guid: 855f51be763ee8843913f1f6cad61686, type: 3}
+  attackIcon: {fileID: 21300000, guid: 730924160008b44faa735ce0327848cd, type: 3}
   baseHp: 100
   increaseHp: 10
   baseAttack: 10
@@ -29,8 +30,6 @@ MonoBehaviour:
   attackSpeed: 10
   trustValue: 70
   jumpSpeed: 10
-  firstSkill: {fileID: 11400000, guid: 5674498c2219234428040e7ecffcf5f7, type: 2}
-  secondSkill: {fileID: 11400000, guid: 770a4df8850f3484ebe0bc3d2f52bb80, type: 2}
   heroName: "\u6EDA\u7B52\u6D17\u8863\u673A"
   stroies:
   - "\u7C73\u5BB6\u5168\u81EA\u52A8\u62D6\u626B\u4E00\u4F53\u53EA\u80FD\u673A\u5668\u4EBA\u7684\u6539\u826F\u7248"

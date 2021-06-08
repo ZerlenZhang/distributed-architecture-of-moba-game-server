@@ -1,4 +1,5 @@
 ﻿using PurificationPioneer.Global;
+using PurificationPioneer.Paint;
 using PurificationPioneer.Scriptable;
 using PurificationPioneer.Utility;
 using UnityEngine;

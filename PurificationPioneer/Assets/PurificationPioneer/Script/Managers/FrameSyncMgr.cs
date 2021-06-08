@@ -53,33 +53,7 @@ namespace PurificationPioneer.Script
     
     public static class FrameSyncMgr
     {
-        #region Debug
 
-#if DebugMode
-        private static DefaultCharacterController _cc;
-
-        private static DefaultCharacterController DefaultCharacterController
-        {
-            get
-            {
-                if (!_cc)
-                {
-                    _cc = Object.FindObjectOfType<DefaultCharacterController>();
-                    Assert.IsTrue(_cc);
-                    Debug.Log($"监视：{_cc.name}");
-                    _lastPosition = _cc.transform.position;
-                }
-
-                return _cc;
-            }
-        }
-
-        private static Vector3 _lastPosition;        
-#endif
-
-        
-        #endregion
-        
         private static bool isSimulating = false;
 
         public static bool IsSimulating => isSimulating;
@@ -109,10 +83,6 @@ namespace PurificationPioneer.Script
         /// <param name="logicFrameDeltaTime"></param>
         public static void OnFrameSyncTick(LogicFramesToSync msg, int logicFrameDeltaTime)
         {
-            if (_frameId == 0)
-            {// 初次调用，保存世界状态
-                PpPhysics.SaveWorldState();
-            }
             //包过时
             if (msg.frameId <= _frameId)
                 return;
@@ -128,7 +98,6 @@ namespace PurificationPioneer.Script
             SendLocalCharacterInput(msg.frameId,out var playerInput);
 
             isSimulating = true;
-            PpPhysics.ApplyWorldState();
             
             
             //同步上一帧处理结果
@@ -144,7 +113,6 @@ namespace PurificationPioneer.Script
                 _frameId = msg.frameId;
                 SkipLogicFrame(logicFrame);
             }
-            PpPhysics.SaveWorldState();
             isSimulating = false;
             
             //更新客户端frameId
@@ -259,10 +227,6 @@ namespace PurificationPioneer.Script
 
         public static void Clear()
         {
-#if DebugMode
-            _cc = null;
-            _lastPosition=Vector3.zero;
-#endif
             isSimulating = false;
             lastTickTime = 0;
             ClearFrameSyncCharacters();
@@ -363,18 +327,7 @@ namespace PurificationPioneer.Script
                 =>character.SkipCharacterInput(inputs));
             ForeachFrameSyncUnits( 
                 unit => 
-                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));    
-#if DebugMode
-            if (GameSettings.Instance.EnableMoveLog)
-            {
-                PpPhysics.Simulate(GlobalVar.LogicFrameDeltaTime.ToFloat(),PpPhysicsSimulateOptions.BroadEvent);
-                var newPos = DefaultCharacterController.transform.position;
-                var move=newPos-_lastPosition;
-                _lastPosition = newPos;
-                Debug.Log($"[Frame-{logicFrame.frameId}][Skip] move:{move.magnitude}");             
-            }
-#endif
-
+                    unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));
         }
         
         /// <summary>
@@ -390,17 +343,6 @@ namespace PurificationPioneer.Script
             ForeachFrameSyncUnits( 
                 unit => 
                     unit.OnLogicFrameUpdate(GlobalVar.LogicFrameDeltaTime.ToFloat()));
-            PpPhysics.Simulate(GlobalVar.LogicFrameDeltaTime.ToFloat(),PpPhysicsSimulateOptions.BroadEvent);
-#if DebugMode
-            if (GameSettings.Instance.EnableMoveLog)
-            {
-                var newPos = DefaultCharacterController.transform.position;
-                var move=newPos-_lastPosition;
-                _lastPosition = newPos;
-                Debug.Log($"[Frame-{logicFrame.frameId}][Last] move:{move.magnitude}, input:[{logicFrame.GetMoveInputString()}]");                
-            }
-#endif
-
         }
 
         /// <summary>

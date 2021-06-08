@@ -18,6 +18,7 @@ namespace PurificationPioneer.Scriptable
         public GameObject prefab;
         public GameObject previewPrefab;
         public Sprite icon;
+        public Sprite attackIcon;
         
         [Header("基础数值")]
         public int baseHp;
@@ -35,10 +36,10 @@ namespace PurificationPioneer.Scriptable
         
 
         public float jumpSpeed = 10;
-
-        [Header("技能配置")]
-        public SkillConfigAsset firstSkill;
-        public SkillConfigAsset secondSkill;
+        //
+        // [Header("技能配置")]
+        // public SkillConfigAsset firstSkill;
+        // public SkillConfigAsset secondSkill;
 
         [Header("世界观故事")] public string heroName;
         public string[] stroies;
