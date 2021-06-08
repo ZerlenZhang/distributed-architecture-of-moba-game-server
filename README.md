@@ -36,7 +36,7 @@
 ## 服务器业务逻辑
 服务器业务逻辑代码位于`ServerApp`目录
 
-### 服务器部署图
+### 服务器启动示意图
 ![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/raw/master/Images/bushu.png)
 
 ### 已实现的功能
