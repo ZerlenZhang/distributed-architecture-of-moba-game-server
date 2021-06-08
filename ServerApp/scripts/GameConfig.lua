@@ -45,31 +45,31 @@ return {
     auth_mysql={
         host="127.0.0.1",
         port=3306,
-        dbName="PurificationPioneer",
-        uname="root",
-        upwd="Zzl5201314...",
+        dbName="xxxxx",
+        uname="xxxxx",
+        upwd="xxxxx",
 	},
 
     game_mysql={
         host="127.0.0.1",
         port=3306,
-        dbName="moba_game",
-        uname="root",
-        upwd="Zzl5201314...",
+        dbName="xxxxx",
+        uname="xxxxx",
+        upwd="xxxxx",
     },
 
     center_redis={
         host="127.0.0.1",
         port=6379,
         db_index=1,
-        auth="Zzl5201314...",
+        auth="xxxxx",
     },
 
     game_redis={
         host="127.0.0.1",
         port=6379,
         db_index=2,
-        auth="Zzl5201314...",
+        auth="xxxxx",
     },
     logic_udp={
         host="127.0.0.1",
