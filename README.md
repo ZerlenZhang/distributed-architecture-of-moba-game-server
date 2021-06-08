@@ -1,8 +1,10 @@
 # 探索高并发，高CPU利用率的分布式服务器架构
 
+[WARNING] 本仓库主要是初学者的学习/实践，请勿用于正式用途。
+
 采用C，C++开发底层逻辑，从底层支持Mysql，Redis数据库，支持分布式设计，
 
-大量采用异步操作提高CPU利用率，未来会加入Linux系统支持，实现跨平台
+大量采用异步操作提高CPU利用率
 
 
 ## 核心原理
@@ -24,7 +26,22 @@
 
 ## 优化
 1、大量使用对象池，避免内存碎片化
+## 示例项目1：[分布式帧同步的纯Lua游戏服务器](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Server/apps/lua_test/scripts)
+![Image text](https://github.com/ZerlenZhang/Moba/blob/master/Images/architest.png)
+目前实现的功能：
 
+1、基础：登陆、编辑用户信息、游客登陆、游客账号升级、每日签到
+
+2、Moba：玩家匹配、房间的各种功能、机器人玩家快速组队
+
+3、帧同步：帧同步下的角色移动控制，塔的攻击，子弹的飞行和伤害
+## 示例项目2：[帧同步的模仿喷射战士玩法的游戏]，客户端代码在PurficationPioneer分支，服务端代码在ServerApp分支，开发正在进行中……
+1、比示例项目1具有更少的bug
+
+2、租了一台云服务器进行部署，更具有实战意义
+
+3、客户端代码更规范，模块化更清晰
+4、打算做成PC，安卓互通，方便调试和联机
 ## 快速启动
 1、在MobaServer.exe 同目录下
 2、创建Server.lua,添加如下代码

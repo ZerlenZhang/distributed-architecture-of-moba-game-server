@@ -1,14 +1,14 @@
 local sType=require("ServiceType");
-local cType=require("auth/Const/CmdType");
+local cType=require("auth/const/CmdType");
 
-local guestLogic = require("auth/Guest");
+local authMessageHandler = require("auth/MessageHandler");
 
 local cTypeToCallback = {};
-cTypeToCallback[cType.eGuestLoginReq]=guestLogic.GuestLogin;
-cTypeToCallback[cType.eEditProfileReq]=guestLogic.EditProfile;
-cTypeToCallback[cType.eAccountUpgradeReq]=guestLogic.AccountUpgrade;
-cTypeToCallback[cType.eUserLoginReq]=guestLogic.UserLogin;
-cTypeToCallback[cType.eUserUnregisterReq]=guestLogic.UserUnregister;
+cTypeToCallback[cType.UserLostConn]=authMessageHandler.UserLostConn;
+cTypeToCallback[cType.EditProfileReq]=authMessageHandler.EditProfile;
+cTypeToCallback[cType.UserLoginReq]=authMessageHandler.UserLogin;
+cTypeToCallback[cType.UserUnregisterReq]=authMessageHandler.UserUnregister;
+cTypeToCallback[cType.UserRegisteReq]=authMessageHandler.OnUserRegiste;
 
 
 
