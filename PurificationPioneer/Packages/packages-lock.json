@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.autodesk.fbx": {
-      "version": "4.0.1",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.cn"
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -33,7 +26,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.cinemachine": {
-      "version": "2.6.3",
+      "version": "2.6.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -53,16 +46,6 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
-    "com.unity.formats.fbx": {
-      "version": "4.0.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.timeline": "1.0.0",
-        "com.autodesk.fbx": "4.0.1"
-      },
-      "url": "https://packages.unity.cn"
-    },
     "com.unity.ide.rider": {
       "version": "2.0.7",
       "depth": 0,
@@ -73,7 +56,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.7",
+      "version": "2.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -96,10 +79,12 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.postprocessing": {
-      "version": "2.3.0",
+      "version": "3.1.1",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      },
       "url": "https://packages.unity.cn"
     },
     "com.unity.probuilder": {
@@ -108,15 +93,6 @@
       "source": "registry",
       "dependencies": {
         "com.unity.settings-manager": "1.0.3"
-      },
-      "url": "https://packages.unity.cn"
-    },
-    "com.unity.progrids": {
-      "version": "3.0.3-preview.6",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.settings-manager": "1.0.2"
       },
       "url": "https://packages.unity.cn"
     },
@@ -174,7 +150,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.test-framework": {
-      "version": "1.1.24",
+      "version": "1.1.26",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -185,7 +161,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.1",
+      "version": "3.0.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -194,7 +170,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.timeline": {
-      "version": "1.4.6",
+      "version": "1.4.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
