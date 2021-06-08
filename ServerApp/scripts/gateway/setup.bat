@@ -1,0 +1,1 @@
+..\..\bin\MobaServer.exe ../ gateway/gateway_main.lua

@@ -1,0 +1,162 @@
+syntax = "proto2";
+
+message LoginLogicReq{
+    required string uname = 1;
+}
+
+message LoginLogicRes{
+    required string udp_ip = 1;
+    required int32 udp_port = 2;
+}
+
+message UdpTestReq{
+    required string content = 1;
+}
+
+message UdpTestRes{
+    required string content = 1;
+}
+
+message StartMatchReq{
+    required string uname = 1;
+}
+
+message StartMatchRes{
+    required int32 current = 1;
+    required int32 max = 2;
+}
+
+message StartMultiReq{
+    required string uname = 1;
+}
+
+message StartStoryReq{
+    required string uname = 1;
+}
+
+message StopMatchReq{
+    required string uname = 1;
+}
+
+message StopMatchRes{
+    required int32 status = 1;
+}
+
+message MatchInfo{
+    required string unick = 1;
+    required int32 urank = 2;
+    required int32 seatId = 3;
+    required int32 uface = 4;
+    required int32 ulevel = 5;
+}
+
+message FinishMatchTick{
+    repeated MatchInfo matchers = 1;
+    required int32 heroSelectTime = 2;
+    required int32 roomId = 3;
+}
+
+message SelectHeroReq{
+    required string uname = 1;
+    required int32 hero_id = 2;
+}
+
+message SelectHeroRes{
+    required int32 seatId = 1;
+    required int32 hero_id = 2;
+}
+
+message SubmitHeroReq{
+    required string uname = 1;
+}
+message SubmitHeroRes{
+    required int32 seatId = 1;
+}
+
+message UpdateSelectTimer{
+    required int32 current = 1;
+}
+
+message ForceSelect{
+    repeated SelectHeroRes selectResults = 1;
+}
+
+message PlayerInput{
+    required int32 seatId = 1;
+    required int32 moveX = 2;
+    required int32 moveY = 3;
+    required bool jump = 4;
+    required int32 mouseX = 5;
+    required int32 mouseY = 6;
+    required bool attack = 7;
+    required bool heroFirstSkill = 8;
+    required bool heroSecondSkill = 9;
+    required bool weaponFirstSkill = 10;
+    required bool weaponSecondSkill = 11;
+    required int32 faceX = 12;
+    required int32 faceY = 13;
+    required int32 faceZ = 14;
+}
+
+message LogicFrame{
+    required int32 frameId = 1;
+    repeated PlayerInput inputs = 2;
+}
+
+message NextFrameInput{
+    required int32 frameId = 1;
+    required int32 roomId = 2;
+    required int32 roomType = 3;
+    required int32 seatId = 4;
+    repeated PlayerInput inputs = 5;
+}
+
+message LogicFramesToSync{
+    required int32 frameId = 1;
+    repeated LogicFrame unsyncFrames = 2;
+}
+
+message StartGameReq{
+    required string uname = 1;
+}
+
+message StartGameRes{
+    required int32 gameTime = 1;
+    required int32 randSeed = 2;
+    required int32 logicFrameDeltaTime = 3;
+    required int32 startGameDelay = 4;
+}
+
+message InitUdpReq{
+    required string uname = 1;
+}
+
+message ExitGameReq{
+    required string uname = 1;
+}
+
+message ExitGameRes{
+    required int32 status = 1;
+}
+
+message OnCharacterExitTick
+{
+    required int32 seatId = 1;
+}
+
+message UserPackageInfo
+{
+    required int32 ulevel = 1;
+    required int32 uexp = 2;
+    required int32 urank = 3;
+    required int32 urankExp = 4;
+    required int32 ucoin = 6;
+    required int32 udiamond = 7;
+}
+
+message OnGameEndTick
+{
+    required int32 status = 1;
+    optional int32 score = 2;
+    optional UserPackageInfo  packageInfo = 3;
+}

@@ -1,0 +1,36 @@
+syntax = "proto2";
+message UserAccountInfo{
+	 required int32 uid = 1;
+	 required string uname = 2;
+	 required string pwd = 3;
+	 required string unick = 4;
+	 required int32 ulevel = 5;
+	 required int32 uexp = 6;
+	 required int32 urank = 7;
+	 required int32 ucoin = 8;
+	 required int32 udiamond = 9;
+	 required string usignature = 10;
+	 required int32 uintegrity = 11;
+	 required int32 status = 12;
+	 required int32 uface = 13;
+	 required string heros = 14;
+	 required int32 urankExp = 15;
+}
+message UserLoginReq{
+	required string uname = 1;
+	required string pwd = 2;
+}
+
+message UserLoginRes{
+	required int32 status = 1;
+	optional UserAccountInfo uinfo = 2;
+}
+message UserRegisteReq{
+	required string uname = 1;
+	required string pwd = 2;
+	required string unick = 3;
+}
+message UserRegisteRes{
+	required int32 status = 1;
+	optional UserAccountInfo uinfo = 2;
+}

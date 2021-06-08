@@ -1,0 +1,1 @@
+..\..\bin\MobaServer.exe ../ debug/debug_main.lua
