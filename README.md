@@ -23,7 +23,7 @@
 6. 其他工具：日志、时间戳、计时器等
 
 ### 核心类关系图
-![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Images/UML_1.png)
+![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/raw/master/Images/UML_1.png)
 
 `CmdPackage` 在网络层之上的一层自定义协议，本项目所有网络消息都是这个类型的。serviceType标识此消息是属于哪一类服务，cmdType标识此消息具体含义
 
@@ -37,7 +37,7 @@
 服务器业务逻辑代码位于`ServerApp`目录
 
 ### 服务器部署图
-![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Images/bushu.png)
+![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/raw/master/Images/bushu.png)
 
 ### 已实现的功能
 1. 支持用户的注册、登录、匹配和退出匹配、英雄选择、帧同步的服务器逻辑
@@ -47,7 +47,7 @@
 对话系统代码主要位于`PurificationPioneer\Assets\3rd\DialogSystem`目录
 
 ### 对话系统示意图
-![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Images/DialogStructure.png)
+![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/raw/master/Images/DialogStructure.png)
 
 `DialogAsset` 是一种ScriptableObject类型的资产，支持可视化的编辑对话内容. 对话内容支持：对话、旁白、选择、音乐音乐、简单屏幕效果、逻辑分支、变量控制、自定义消息等等
 
@@ -60,7 +60,7 @@
 ## 3v3团队对抗游戏客户端
 
 游戏客户端参考喷射战士的玩法，多人比拼在一定时间内涂色面积大的一方胜出
-![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/tree/master/Images/Client.png)
+![Image text](https://github.com/ZerlenZhang/distributed-architecture-of-moba-game-server/raw/master/Images/Client.png)
 
 ### 客户端目前实现的内容
 1. 用户注册、登录、匹配、英雄选择、帧同步战斗、战斗结束的结算与返回
