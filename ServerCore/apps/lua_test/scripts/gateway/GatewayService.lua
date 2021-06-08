@@ -205,9 +205,6 @@ local function _client_send_to_server(s,raw)
 	Session.SendRawPackage(targetServerSession,raw);
 end
 
-
-
-
 GatewayServiceInit();
 
 return   {

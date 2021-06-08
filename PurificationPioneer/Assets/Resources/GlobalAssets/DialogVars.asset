@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db5110ce4db54341ae829a325c9992e, type: 3}
+  m_Name: DialogVars
+  m_EditorClassIdentifier: 
+  varInfos:
+  - VarName: "\u662F\u5426\u62E5\u6709\u5165\u573A\u51ED\u8BC1"
+    ArgChooser:
+      argType: 3
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+  - VarName: "\u51C0\u5316\u9009\u62D4\u8D5B_\u672A\u8BFB"
+    ArgChooser:
+      argType: 3
+      BoolArg: 1
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+  - VarName: "\u51C0\u5316\u8BBE\u5907_\u672A\u8BFB"
+    ArgChooser:
+      argType: 3
+      BoolArg: 1
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}

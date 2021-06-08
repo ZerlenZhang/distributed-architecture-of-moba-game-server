@@ -1,0 +1,1015 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b74f7f018a54c2fafe8ba8dcae23823, type: 3}
+  m_Name: "\u5730\u9762\u60C5\u51B5_\u79D1\u5B66\u5BB6"
+  m_EditorClassIdentifier: 
+  DialogUnits:
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 0
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 4
+    words: "\u73B0\u5728\u5730\u9762\u53EF\u5B8C\u5168\u65E0\u6CD5\u751F\u5B58\u554A"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values:
+        - ShowTip
+        - OnResponseError
+        - OnInputPredict
+        - OnUserLogin
+        - OnStartMatch
+        - OnAddPlayer
+        - OnRemovePlayer
+        - OnStopMatch
+        - OnFinishMatch
+        - OnSelectHero
+        - OnSubmitHero
+        - OnUpdateSelectTimer
+        - OnStartLoadGame
+        - OnGameStart
+        - OnTimeLosing
+        - AndroidMoveInput
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 0
+    varToSet:
+      argType: 0
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 1
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "\u554A\uFF1F\u8FD9\u5F97\u6709\u591A\u60E8\uFF1F"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values:
+        - ShowTip
+        - OnResponseError
+        - OnInputPredict
+        - OnUserLogin
+        - OnStartMatch
+        - OnAddPlayer
+        - OnRemovePlayer
+        - OnStopMatch
+        - OnFinishMatch
+        - OnSelectHero
+        - OnSubmitHero
+        - OnUpdateSelectTimer
+        - OnStartLoadGame
+        - OnGameStart
+        - OnTimeLosing
+        - AndroidMoveInput
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 0
+    varToSet:
+      argType: 0
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 2
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 4
+    words: "\u7A7A\u6C14\u3001\u6C34\u6E90\u3001\u571F\u58E4\u90FD\u906D\u5230\u4E86\u4E25\u91CD\u7834\u574F"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values:
+        - ShowTip
+        - OnResponseError
+        - OnInputPredict
+        - OnUserLogin
+        - OnStartMatch
+        - OnAddPlayer
+        - OnRemovePlayer
+        - OnStopMatch
+        - OnFinishMatch
+        - OnSelectHero
+        - OnSubmitHero
+        - OnUpdateSelectTimer
+        - OnStartLoadGame
+        - OnGameStart
+        - OnTimeLosing
+        - AndroidMoveInput
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 0
+    varToSet:
+      argType: 0
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 3
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 4
+    words: "\u78B3\u6C27\u5E73\u8861\u88AB\u7834\u574F\uFF0C\u7A7A\u6C14\u4E2D\u6C27\u6C14\u7A00\u8584\uFF0C\u65E0\u6CD5\u547C\u5438"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values:
+        - ShowTip
+        - OnResponseError
+        - OnInputPredict
+        - OnUserLogin
+        - OnStartMatch
+        - OnAddPlayer
+        - OnRemovePlayer
+        - OnStopMatch
+        - OnFinishMatch
+        - OnSelectHero
+        - OnSubmitHero
+        - OnUpdateSelectTimer
+        - OnStartLoadGame
+        - OnGameStart
+        - OnTimeLosing
+        - AndroidMoveInput
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 0
+    varToSet:
+      argType: 0
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 4
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 4
+    words: "\u6D77\u6D0B\u9178\u5316\u4E25\u91CD\uFF0C\u800C\u4E14\u5145\u65A5\u7740\u5927\u91CF\u653E\u5C04\u6027\u5143\u7D20"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values:
+        - ShowTip
+        - OnResponseError
+        - OnInputPredict
+        - OnUserLogin
+        - OnStartMatch
+        - OnAddPlayer
+        - OnRemovePlayer
+        - OnStopMatch
+        - OnFinishMatch
+        - OnSelectHero
+        - OnSubmitHero
+        - OnUpdateSelectTimer
+        - OnStartLoadGame
+        - OnGameStart
+        - OnTimeLosing
+        - AndroidMoveInput
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 0
+    varToSet:
+      argType: 0
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 5
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 4
+    words: "\u571F\u58E4\u5565\u8BDD\u9000\u5316\u4E25\u91CD\uFF0C\u6C99\u5C18\u66B4\u6BCF\u5929\u90FD\u5728\u4E16\u754C\u5404\u5904\u8086\u8650\u2026\u2026"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values:
+        - ShowTip
+        - OnResponseError
+        - OnInputPredict
+        - OnUserLogin
+        - OnStartMatch
+        - OnAddPlayer
+        - OnRemovePlayer
+        - OnStopMatch
+        - OnFinishMatch
+        - OnSelectHero
+        - OnSubmitHero
+        - OnUpdateSelectTimer
+        - OnStartLoadGame
+        - OnGameStart
+        - OnTimeLosing
+        - AndroidMoveInput
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 0
+    varToSet:
+      argType: 0
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  - abstractAbstractDialogInfoAsset: {fileID: 11400000}
+    UnitType: 10
+    id: 6
+    showType: 1
+    wordPrefabIndex: 0
+    fromNull: 0
+    character:
+      selectedIndex: 3
+    words: "\u8FD9\u2026\u2026\u7B80\u76F4\u6839\u672C\u6CA1\u6709\u4EBA\u7C7B\u7684\u7ACB\u8DB3\u4E4B\u5730\u2026\u2026"
+    needInput: 0
+    title: 
+    Choices: []
+    timeLimit: 0
+    limitTime: 0
+    defaultIndex: 0
+    sendToExWord: 0
+    wordToNarrator: 
+    narratorSpeed: 0
+    enableFadeOut: 0
+    narratorTextFadeOutTime: 0
+    m_NarratorType: 0
+    m_NarratorColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NarratorImage: {fileID: 0}
+    m_NarratorObject: {fileID: 0}
+    targetAsset: {fileID: 0}
+    willBack: 0
+    workMessageTrigger:
+      argCount: 0
+      arg1:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      arg2:
+        valueType: 0
+        abstractAbstractDialogInfoAsset: {fileID: 0}
+        ArgChooser:
+          argType: 0
+          BoolArg: 0
+          IntArg: 0
+          FloatArg: 0
+          StringArg: 
+          Vector3Arg: {x: 0, y: 0, z: 0}
+        selectedIndex: 0
+        argType: 0
+      messageToTick:
+        values:
+        - ShowTip
+        - OnResponseError
+        - OnInputPredict
+        - OnUserLogin
+        - OnStartMatch
+        - OnAddPlayer
+        - OnRemovePlayer
+        - OnStopMatch
+        - OnFinishMatch
+        - OnSelectHero
+        - OnSubmitHero
+        - OnUpdateSelectTimer
+        - OnStartLoadGame
+        - OnGameStart
+        - OnTimeLosing
+        - AndroidMoveInput
+        selectedIndex: 0
+    varInfoHelpText: 
+    varIndex: 0
+    varToSet:
+      argType: 0
+      BoolArg: 0
+      IntArg: 0
+      FloatArg: 0
+      StringArg: 
+      Vector3Arg: {x: 0, y: 0, z: 0}
+    vc1:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    vc2:
+      valueType: 0
+      abstractAbstractDialogInfoAsset: {fileID: 0}
+      ArgChooser:
+        argType: 0
+        BoolArg: 0
+        IntArg: 0
+        FloatArg: 0
+        StringArg: 
+        Vector3Arg: {x: 0, y: 0, z: 0}
+      selectedIndex: 0
+      argType: 0
+    compareType: 0
+    skipNum: 0
+    myEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    wordToPrint: 
+    shiningObject: {fileID: 0}
+    times: 0
+    shiningDeltaTime: 0
+    lightTime: 0
+    m_AudioType: 0
+    m_AudioName:
+      values: []
+      selectedIndex: 0
+    fadeInTime: 0
+    fadeOutTime: 0
+    finalColor: {r: 0, g: 0, b: 0, a: 0}
+    waitTime: 0
+    panelType: 0
+    fade: 0
+    floatValue: 0
+    panelChooser:
+      values: []
+      selectedIndex: 0
+    useSceneMgr: 0
+    loadBack: 0
+    sceneNameChooser:
+      values: []
+      selectedIndex: 0
+    progressValueToSet:
+      valueType: 0
+      selectedIndex: 0
+      value: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+    targetOrigSize: 0
+    cameraMoveTime: 0
+    cameraMachinePath: 
+    cameraWaitTime: 0
+  varAsset: {fileID: 0}
+  characterAsset: {fileID: 0}
+  canMoveOnTalking: 0
+  wordFinishTime: 0.3
+  affectedByTimeScale: 1
+  refreshStringChooser: 0

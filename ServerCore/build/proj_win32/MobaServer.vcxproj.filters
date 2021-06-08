@@ -73,6 +73,9 @@
     <Filter Include="utils\win32">
       <UniqueIdentifier>{6f2cf272-8ff5-4d9f-8e79-cfae3e670b67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils\debug">
+      <UniqueIdentifier>{f5003ca1-4aff-489e-a499-76fe584c328c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\3rd\libuv\src\fs-poll.c">
@@ -390,6 +393,9 @@
     <ClCompile Include="..\..\lua_wrapper\utils_export_to_lua.cpp">
       <Filter>lua_wrapper</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\utils\debug\DebugUtil.cpp">
+      <Filter>utils\debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\3rd\libuv\include\android-ifaddrs.h">
@@ -655,6 +661,9 @@
     </ClInclude>
     <ClInclude Include="..\..\lua_wrapper\utils_export_to_lua.h">
       <Filter>lua_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\debug\DebugUtil.h">
+      <Filter>utils\debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
