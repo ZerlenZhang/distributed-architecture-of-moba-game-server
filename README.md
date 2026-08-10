@@ -1,3 +1,5 @@
+
+
 # 分布式服务器架构下的3v3团队对抗游戏
 
 【Warning】 本仓库作为本人的毕设课题，主要是初学者的学习/实践，谨慎用于正式用途。
@@ -86,7 +88,7 @@ print("Server tcp listen at 8900");
 ~~~
 3、创建ServerBat.bat,记事本打开并添加如下内容
 ~~~
-【添加Lua搜索路径，Lua启动脚本相对路径（相对搜索路径）】
+rem 添加Lua搜索路径，Lua启动脚本相对路径（相对搜索路径）
 MobaServer.exe ./ Server.lua
 ~~~
 4、创建Client.lua,添加如下代码
@@ -108,4 +110,3 @@ Netbus.TcpConnect("127.0.0.1",8900,
 MobaServer.exe ./ Client.lua
 ~~~
 6、先运行ServerBat，在运行ClientBat
-
